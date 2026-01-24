@@ -18,6 +18,8 @@
                              <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.dashboard') }}">Admin Dashboard</a></li>
                         {% else %}
                              <li class="nav-item"><a class="nav-link" href="{{ url_for('entry.user_dashboard') }}">My Prayers</a></li>
+                             <li class="nav-item"><a class="nav-link" href="{{ url_for('community.index') }}">Community</a></li>
+                             <li class="nav-item"><a class="nav-link" href="{{ url_for('settings.index') }}">Settings</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% else %}

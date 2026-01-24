@@ -7,7 +7,25 @@ from routes.auth_routes import auth_bp
 from routes.admin_auth_routes import admin_auth_bp
 from routes.entry_routes import entry_bp
 from routes.admin_routes import admin_bp
+from routes.settings_routes import settings_bp
+from routes.analytics_routes import analytics_bp
+from routes.community_routes import community_bp
+from apscheduler.schedulers.background import BackgroundScheduler
 import os
+
+def send_reminders(app):
+    """
+    Background job to send reminders.
+    In a real app, this would send emails via SMTP/SendGrid.
+    Here, we log to the console.
+    """
+    with app.app_context():
+        # Find continuous petitions
+        continuous_entries = PrayerEntry.query.filter_by(is_continuous=True).all()
+        for entry in continuous_entries:
+            user = User.query.get(entry.user_id)
+            if user and user.email:
+                print(f"[EMAIL MOCK] Sending reminder to {user.email} for continuous prayer: {entry.content[:30]}...")
 
 def create_app():
     app = Flask(__name__)
@@ -22,6 +40,19 @@ def create_app():
     app.register_blueprint(admin_auth_bp)
     app.register_blueprint(entry_bp)
     app.register_blueprint(admin_bp)
+    app.register_blueprint(settings_bp)
+    app.register_blueprint(analytics_bp)
+    app.register_blueprint(community_bp)
+
+    # Scheduler
+    # Only run scheduler if not in debug/reloader mode to avoid duplicates
+    # OR use a lock. For simple testing, we just start it.
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        scheduler = BackgroundScheduler()
+        # Run every minute for testing demonstration
+        scheduler.add_job(func=lambda: send_reminders(app), trigger="interval", minutes=1)
+        scheduler.start()
+        print("Scheduler started.")
 
     @app.route('/')
     def index():

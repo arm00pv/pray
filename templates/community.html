@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Community Prayer Wall</h2>
+        <p>Join others in prayer. These requests have been shared anonymously.</p>
+
+        {% for entry in entries %}
+        <div class="card mb-3">
+            <div class="card-header text-muted">
+                {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ entry.content }}</p>
+                <div class="mb-2">
+                    {% for tag in entry.tags %}
+                        <span class="badge bg-secondary">#{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <p>No public prayer requests yet. Be the first to share one!</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

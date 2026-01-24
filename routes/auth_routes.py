@@ -17,6 +17,7 @@ def load_user(user_id):
 def register():
     if request.method == 'POST':
         username = request.form.get('username')
+        email = request.form.get('email')
         password = request.form.get('password')
 
         if not username or not password:
@@ -27,12 +28,16 @@ def register():
             flash('Username already exists.')
             return redirect(url_for('auth.register'))
 
+        if email and User.query.filter_by(email=email).first():
+            flash('Email already exists.')
+            return redirect(url_for('auth.register'))
+
         hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
-        user = User(username=username, password_hash=hashed_pw)
+        user = User(username=username, email=email, password_hash=hashed_pw)
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        # Redirect to dashboard (will be created later)
+        # Redirect to dashboard
         return redirect(url_for('entry.user_dashboard'))
     return render_template('register.html')
 
