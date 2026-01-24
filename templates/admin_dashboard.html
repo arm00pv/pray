@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Admin Dashboard</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Admin Management</h5>
+                <form action="{{ url_for('admin.create_invite') }}" method="POST">
+                    <button type="submit" class="btn btn-warning">Generate New Admin Invite Code</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Top Petitions (Tags)</div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for tag in top_tags %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ tag.name }}
+                                    <span class="badge bg-primary rounded-pill">{{ tag.count }}</span>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item">No tags data yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Prayer Locations</div>
+                    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Country</th>
+                                    <th>City</th>
+                                    <th>IP</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for loc in locations %}
+                                <tr>
+                                    <td>{{ loc.country }}</td>
+                                    <td>{{ loc.city }}</td>
+                                    <td>{{ loc.ip }}</td>
+                                </tr>
+                                {% else %}
+                                <tr><td colspan="3">No location data yet.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
