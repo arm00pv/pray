@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import Tag, PrayerEntry, AdminInvite
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User
 from extensions import db
 import json
 import uuid
@@ -36,6 +36,30 @@ def dashboard():
             pass
 
     return render_template('admin_dashboard.html', top_tags=top_tags, locations=locations)
+
+@admin_bp.route('/dashboard/flagged')
+def flagged_entries():
+    entries = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).all()
+    return render_template('admin_flagged.html', entries=entries)
+
+@admin_bp.route('/block_user/<int:user_id>', methods=['POST'])
+def block_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if user.email:
+        if not BlockedUser.query.filter_by(email=user.email).first():
+            blocked = BlockedUser(email=user.email, reason="Blocked by admin")
+            db.session.add(blocked)
+            db.session.commit()
+            flash(f'User {user.email} blocked.')
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/delete_entry/<int:entry_id>', methods=['POST'])
+def delete_entry(entry_id):
+    entry = PrayerEntry.query.get_or_404(entry_id)
+    db.session.delete(entry)
+    db.session.commit()
+    flash('Entry deleted.')
+    return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/invite', methods=['POST'])
 def create_invite():

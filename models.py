@@ -14,10 +14,18 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(150), unique=True, nullable=True) # Added email
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    is_verified = db.Column(db.Boolean, default=False)
+    verification_token = db.Column(db.String(100), nullable=True)
     entries = db.relationship('PrayerEntry', backref='author', lazy=True)
 
     def get_id(self):
         return f"user_{self.id}"
+
+class BlockedUser(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    reason = db.Column(db.String(255), nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
 class Admin(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -45,6 +53,8 @@ class PrayerEntry(db.Model):
     status = db.Column(db.String(20), default='active') # active, fulfilled, dropped
     is_continuous = db.Column(db.Boolean, default=False)
     is_public = db.Column(db.Boolean, default=False) # Added is_public
+    is_anonymous = db.Column(db.Boolean, default=False)
+    flag_count = db.Column(db.Integer, default=0)
     stickers = db.Column(db.String(200)) # Comma separated list
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))

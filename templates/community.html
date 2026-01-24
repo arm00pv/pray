@@ -8,8 +8,20 @@
 
         {% for entry in entries %}
         <div class="card mb-3">
-            <div class="card-header text-muted">
-                {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+            <div class="card-header text-muted d-flex justify-content-between align-items-center">
+                <div>
+                    {% if entry.is_anonymous %}
+                        <strong>Anonymous</strong>
+                    {% else %}
+                        <strong>{{ entry.author.username }}</strong>
+                    {% endif %}
+                    - {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </div>
+                <div>
+                    <form action="{{ url_for('community.flag_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Flag this post as inappropriate?')">Flag</button>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <p class="card-text">{{ entry.content }}</p>

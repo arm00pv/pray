@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Flagged Entries</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+    {% if entries %}
+        <div class="list-group">
+        {% for entry in entries %}
+            <div class="list-group-item">
+                <p>{{ entry.content }}</p>
+                <small>Flag Count: {{ entry.flag_count }} | Author ID: {{ entry.user_id }}</small>
+                <div class="mt-2">
+                    <form action="{{ url_for('admin.delete_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete Entry</button>
+                    </form>
+                    <form action="{{ url_for('admin.block_user', user_id=entry.user_id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-warning btn-sm">Block User</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No flagged entries.</p>
+    {% endif %}
+</div>
+{% endblock %}

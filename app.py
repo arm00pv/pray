@@ -1,5 +1,6 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, session, request
 from flask_migrate import Migrate
+from flask_babel import Babel
 from config import Config
 from extensions import db, login_manager, bcrypt
 from models import User, Admin, AdminInvite, PrayerEntry, Tag
@@ -10,6 +11,7 @@ from routes.admin_routes import admin_bp
 from routes.settings_routes import settings_bp
 from routes.analytics_routes import analytics_bp
 from routes.community_routes import community_bp
+from routes.language_routes import language_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 
@@ -36,6 +38,11 @@ def create_app():
     bcrypt.init_app(app)
     migrate = Migrate(app, db)
 
+    def get_locale():
+        return session.get('language', request.accept_languages.best_match(['en', 'es']))
+
+    babel = Babel(app, locale_selector=get_locale)
+
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_auth_bp)
     app.register_blueprint(entry_bp)
@@ -43,6 +50,7 @@ def create_app():
     app.register_blueprint(settings_bp)
     app.register_blueprint(analytics_bp)
     app.register_blueprint(community_bp)
+    app.register_blueprint(language_bp)
 
     # Scheduler
     # Only run scheduler if not in debug/reloader mode to avoid duplicates

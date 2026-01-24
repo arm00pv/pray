@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response
+from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response, session
 from flask_login import login_required, current_user
 from models import PrayerEntry, Tag, entry_tags
 from extensions import db
-from utils import extract_tags, get_geolocation
+from utils import extract_tags, get_geolocation, ProfanityFilter
 import json
 from datetime import datetime
 import csv
@@ -54,9 +54,15 @@ def user_dashboard():
 def add_entry():
     content = request.form.get('content')
     is_public = 'is_public' in request.form
+    is_anonymous = 'is_anonymous' in request.form
 
     if not content:
         flash('Prayer content cannot be empty.')
+        return redirect(url_for('entry.user_dashboard'))
+
+    pf = ProfanityFilter()
+    if pf.is_profane(content):
+        flash('Content contains profanity and cannot be posted.')
         return redirect(url_for('entry.user_dashboard'))
 
     # IP and Geo
@@ -72,11 +78,13 @@ def add_entry():
         content=content,
         ip_address=ip,
         geolocation_data=json.dumps(geo_data) if geo_data else None,
-        is_public=is_public
+        is_public=is_public,
+        is_anonymous=is_anonymous
     )
 
     # Tags
-    tag_names = extract_tags(content)
+    locale = session.get('language', request.accept_languages.best_match(['en', 'es']))
+    tag_names = extract_tags(content, locale=locale)
     for name in tag_names:
         tag = Tag.query.filter_by(name=name).first()
         if not tag:
