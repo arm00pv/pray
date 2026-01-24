@@ -23,4 +23,13 @@ def index():
     labels = [item[0] for item in sorted_tags[:10]] # Top 10
     data = [item[1] for item in sorted_tags[:10]]
 
-    return render_template('analytics.html', labels=labels, data=data)
+    # Calculate category distribution
+    category_counts = {}
+    for entry in entries:
+        cat = entry.category or "Uncategorized"
+        category_counts[cat] = category_counts.get(cat, 0) + 1
+
+    cat_labels = list(category_counts.keys())
+    cat_data = list(category_counts.values())
+
+    return render_template('analytics.html', labels=labels, data=data, cat_labels=cat_labels, cat_data=cat_data)

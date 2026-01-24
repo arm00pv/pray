@@ -3,15 +3,24 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2>My Prayer Analytics</h2>
-        <div class="card">
-            <div class="card-header">Top Prayer Topics</div>
+        <h2>{{ _('My Prayer Analytics') }}</h2>
+
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Top Prayer Topics') }}</div>
             <div class="card-body">
                 <canvas id="tagsChart"></canvas>
             </div>
         </div>
+
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Prayer Categories') }}</div>
+            <div class="card-body">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
         <div class="mt-3">
-            <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-secondary">{{ _('Back to Dashboard') }}</a>
         </div>
     </div>
 </div>
@@ -24,7 +33,7 @@
         data: {
             labels: {{ labels | tojson }},
             datasets: [{
-                label: 'Prayer Count',
+                label: "{{ _('Prayer Count') }}",
                 data: {{ data | tojson }},
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
@@ -40,6 +49,34 @@
                     }
                 }
             }
+        }
+    });
+
+    const ctxCat = document.getElementById('categoryChart').getContext('2d');
+    const categoryChart = new Chart(ctxCat, {
+        type: 'pie',
+        data: {
+            labels: {{ cat_labels | tojson }},
+            datasets: [{
+                data: {{ cat_data | tojson }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
         }
     });
 </script>

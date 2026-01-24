@@ -12,6 +12,7 @@ from routes.settings_routes import settings_bp
 from routes.analytics_routes import analytics_bp
 from routes.community_routes import community_bp
 from routes.language_routes import language_bp
+from routes.notification_routes import notification_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 
@@ -51,6 +52,7 @@ def create_app():
     app.register_blueprint(analytics_bp)
     app.register_blueprint(community_bp)
     app.register_blueprint(language_bp)
+    app.register_blueprint(notification_bp)
 
     # Scheduler
     # Only run scheduler if not in debug/reloader mode to avoid duplicates

@@ -1,0 +1,274 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-01-24 23:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: templates/analytics.html:6
+msgid "My Prayer Analytics"
+msgstr ""
+
+#: templates/analytics.html:9
+msgid "Top Prayer Topics"
+msgstr ""
+
+#: templates/analytics.html:16
+msgid "Prayer Categories"
+msgstr ""
+
+#: templates/analytics.html:23
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/analytics.html:36
+msgid "Prayer Count"
+msgstr ""
+
+#: templates/base.html:12
+msgid "Praying Diary"
+msgstr ""
+
+#: templates/base.html:17
+msgid "Language"
+msgstr ""
+
+#: templates/base.html:29
+msgid "Notifications"
+msgstr ""
+
+#: templates/base.html:42
+msgid "No new notifications"
+msgstr ""
+
+#: templates/base.html:45
+msgid "Mark all as read"
+msgstr ""
+
+#: templates/base.html:49
+msgid "Hello"
+msgstr ""
+
+#: templates/base.html:51
+msgid "Admin Dashboard"
+msgstr ""
+
+#: templates/base.html:53
+msgid "My Prayers"
+msgstr ""
+
+#: templates/base.html:54
+msgid "Community"
+msgstr ""
+
+#: templates/base.html:55
+msgid "Settings"
+msgstr ""
+
+#: templates/base.html:57
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:59 templates/login.html:18
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:60 templates/register.html:22
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:61
+msgid "Admin"
+msgstr ""
+
+#: templates/community.html:6
+msgid "Community Prayer Wall"
+msgstr ""
+
+#: templates/community.html:7
+msgid "Join others in prayer. These requests have been shared anonymously."
+msgstr ""
+
+#: templates/community.html:14
+msgid "Anonymous"
+msgstr ""
+
+#: templates/community.html:22
+msgid "Flag this post as inappropriate?"
+msgstr ""
+
+#: templates/community.html:22
+msgid "Flag"
+msgstr ""
+
+#: templates/community.html:52
+msgid "Amen"
+msgstr ""
+
+#: templates/community.html:60
+msgid "No public prayer requests yet. Be the first to share one!"
+msgstr ""
+
+#: templates/login.html:7
+msgid "User Login"
+msgstr ""
+
+#: templates/login.html:11 templates/register.html:11
+msgid "Username"
+msgstr ""
+
+#: templates/login.html:15 templates/register.html:19
+msgid "Password"
+msgstr ""
+
+#: templates/register.html:7
+msgid "User Registration"
+msgstr ""
+
+#: templates/register.html:15
+msgid "Email Address (Optional)"
+msgstr ""
+
+#: templates/user_dashboard.html:8
+msgid "My Prayer Diary"
+msgstr ""
+
+#: templates/user_dashboard.html:9
+msgid "Prayer Streak"
+msgstr ""
+
+#: templates/user_dashboard.html:9
+msgid "Days"
+msgstr ""
+
+#: templates/user_dashboard.html:12
+msgid "Analytics"
+msgstr ""
+
+#: templates/user_dashboard.html:19
+msgid "New Entry"
+msgstr ""
+
+#: templates/user_dashboard.html:22
+msgid "Write your prayer here..."
+msgstr ""
+
+#: templates/user_dashboard.html:25
+msgid "Category"
+msgstr ""
+
+#: templates/user_dashboard.html:27
+msgid "No Category"
+msgstr ""
+
+#: templates/user_dashboard.html:28
+msgid "Personal"
+msgstr ""
+
+#: templates/user_dashboard.html:29
+msgid "Family"
+msgstr ""
+
+#: templates/user_dashboard.html:30
+msgid "Work"
+msgstr ""
+
+#: templates/user_dashboard.html:31
+msgid "Health"
+msgstr ""
+
+#: templates/user_dashboard.html:32
+msgid "Church"
+msgstr ""
+
+#: templates/user_dashboard.html:33
+msgid "World"
+msgstr ""
+
+#: templates/user_dashboard.html:34
+msgid "Other"
+msgstr ""
+
+#: templates/user_dashboard.html:42
+msgid "Share to Community Wall"
+msgstr ""
+
+#: templates/user_dashboard.html:50
+msgid "Post Anonymously"
+msgstr ""
+
+#: templates/user_dashboard.html:55
+msgid "Add Entry"
+msgstr ""
+
+#: templates/user_dashboard.html:78
+msgid "Search keywords..."
+msgstr ""
+
+#: templates/user_dashboard.html:87
+msgid "Filter"
+msgstr ""
+
+#: templates/user_dashboard.html:92
+msgid "Clear Filters"
+msgstr ""
+
+#: templates/user_dashboard.html:100
+msgid "Export CSV"
+msgstr ""
+
+#: templates/user_dashboard.html:101
+msgid "Export PDF"
+msgstr ""
+
+#: templates/user_dashboard.html:105
+msgid "Past Entries"
+msgstr ""
+
+#: templates/user_dashboard.html:112
+msgid "Continuous"
+msgstr ""
+
+#: templates/user_dashboard.html:115
+msgid "Public"
+msgstr ""
+
+#: templates/user_dashboard.html:139
+msgid "Fulfilled"
+msgstr ""
+
+#: templates/user_dashboard.html:143
+msgid "No longer petition"
+msgstr ""
+
+#: templates/user_dashboard.html:147
+msgid "Unmark Continuous"
+msgstr ""
+
+#: templates/user_dashboard.html:147
+msgid "Mark Continuous"
+msgstr ""
+
+#: templates/user_dashboard.html:151
+msgid "Add Sticker"
+msgstr ""
+
+#: templates/user_dashboard.html:152
+msgid "Add"
+msgstr ""
+
+#: templates/user_dashboard.html:159
+msgid "No entries found."
+msgstr ""

@@ -5,33 +5,33 @@
     <div class="col-md-12">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <h2>My Prayer Diary</h2>
-                <span class="badge bg-success">Prayer Streak: {{ current_user.calculate_streak() }} Days</span>
+                <h2>{{ _('My Prayer Diary') }}</h2>
+                <span class="badge bg-success">{{ _('Prayer Streak') }}: {{ current_user.calculate_streak() }} {{ _('Days') }}</span>
             </div>
             <div>
-                 <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">Analytics</a>
+                 <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">{{ _('Analytics') }}</a>
             </div>
         </div>
 
         <!-- New Entry Form -->
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">New Entry</h5>
+                <h5 class="card-title">{{ _('New Entry') }}</h5>
                 <form action="{{ url_for('entry.add_entry') }}" method="POST">
                     <div class="mb-3">
-                        <textarea class="form-control" name="content" rows="3" placeholder="Write your prayer here..." required></textarea>
+                        <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
+                        <label for="category" class="form-label">{{ _('Category') }}</label>
                         <select class="form-select" name="category" id="category">
-                            <option value="">No Category</option>
-                            <option value="Personal">Personal</option>
-                            <option value="Family">Family</option>
-                            <option value="Work">Work</option>
-                            <option value="Health">Health</option>
-                            <option value="Church">Church</option>
-                            <option value="World">World</option>
-                            <option value="Other">Other</option>
+                            <option value="">{{ _('No Category') }}</option>
+                            <option value="Personal">{{ _('Personal') }}</option>
+                            <option value="Family">{{ _('Family') }}</option>
+                            <option value="Work">{{ _('Work') }}</option>
+                            <option value="Health">{{ _('Health') }}</option>
+                            <option value="Church">{{ _('Church') }}</option>
+                            <option value="World">{{ _('World') }}</option>
+                            <option value="Other">{{ _('Other') }}</option>
                         </select>
                     </div>
                     <div class="row mb-3">
@@ -39,7 +39,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="is_public" id="is_public" onchange="toggleAnonymous()">
                                 <label class="form-check-label" for="is_public">
-                                    Share to Community Wall
+                                    {{ _('Share to Community Wall') }}
                                 </label>
                             </div>
                         </div>
@@ -47,12 +47,12 @@
                             <div class="form-check" id="anonymous_container" style="display:none;">
                                 <input class="form-check-input" type="checkbox" name="is_anonymous" id="is_anonymous">
                                 <label class="form-check-label" for="is_anonymous">
-                                    Post Anonymously
+                                    {{ _('Post Anonymously') }}
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Add Entry</button>
+                    <button type="submit" class="btn btn-primary">{{ _('Add Entry') }}</button>
                 </form>
             </div>
         </div>
@@ -75,7 +75,7 @@
             <div class="card-body">
                 <form action="{{ url_for('entry.user_dashboard') }}" method="GET" class="row g-3">
                     <div class="col-md-4">
-                        <input type="text" class="form-control" name="q" placeholder="Search keywords..." value="{{ request.args.get('q', '') }}">
+                        <input type="text" class="form-control" name="q" placeholder="{{ _('Search keywords...') }}" value="{{ request.args.get('q', '') }}">
                     </div>
                     <div class="col-md-3">
                         <input type="date" class="form-control" name="start_date" value="{{ request.args.get('start_date', '') }}">
@@ -84,12 +84,12 @@
                         <input type="date" class="form-control" name="end_date" value="{{ request.args.get('end_date', '') }}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-secondary w-100">Filter</button>
+                        <button type="submit" class="btn btn-secondary w-100">{{ _('Filter') }}</button>
                     </div>
                 </form>
                 {% if request.args %}
                     <div class="mt-2">
-                         <a href="{{ url_for('entry.user_dashboard') }}" class="text-muted">Clear Filters</a>
+                         <a href="{{ url_for('entry.user_dashboard') }}" class="text-muted">{{ _('Clear Filters') }}</a>
                     </div>
                 {% endif %}
             </div>
@@ -97,22 +97,22 @@
 
         <!-- Export Actions -->
         <div class="mb-3 text-end">
-            <a href="{{ url_for('entry.export_csv') }}" class="btn btn-sm btn-outline-dark">Export CSV</a>
-            <a href="{{ url_for('entry.export_pdf') }}" class="btn btn-sm btn-outline-danger">Export PDF</a>
+            <a href="{{ url_for('entry.export_csv') }}" class="btn btn-sm btn-outline-dark">{{ _('Export CSV') }}</a>
+            <a href="{{ url_for('entry.export_pdf') }}" class="btn btn-sm btn-outline-danger">{{ _('Export PDF') }}</a>
         </div>
 
         <!-- Entries List -->
-        <h3>Past Entries</h3>
+        <h3>{{ _('Past Entries') }}</h3>
         {% for entry in entries %}
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
                 <div>
                     {% if entry.is_continuous %}
-                    <span class="badge bg-warning text-dark">Continuous</span>
+                    <span class="badge bg-warning text-dark">{{ _('Continuous') }}</span>
                     {% endif %}
                     {% if entry.is_public %}
-                    <span class="badge bg-info text-dark">Public</span>
+                    <span class="badge bg-info text-dark">{{ _('Public') }}</span>
                     {% endif %}
                     <span class="badge bg-secondary">{{ entry.status }}</span>
                 </div>
@@ -136,27 +136,27 @@
                     <div class="btn-group" role="group">
                         <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
                             <input type="hidden" name="status" value="fulfilled">
-                            <button type="submit" class="btn btn-sm btn-outline-success">Fulfilled</button>
+                            <button type="submit" class="btn btn-sm btn-outline-success">{{ _('Fulfilled') }}</button>
                         </form>
                         <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
                             <input type="hidden" name="status" value="dropped">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">No longer petition</button>
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('No longer petition') }}</button>
                         </form>
                         <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
                             <button type="submit" class="btn btn-sm btn-outline-warning">
-                                {% if entry.is_continuous %}Unmark Continuous{% else %}Mark Continuous{% endif %}
+                                {% if entry.is_continuous %}{{ _('Unmark Continuous') }}{% else %}{{ _('Mark Continuous') }}{% endif %}
                             </button>
                         </form>
                          <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
-                             <input type="text" name="sticker" placeholder="Add Sticker" class="form-control form-control-sm d-inline w-auto">
-                            <button type="submit" class="btn btn-sm btn-outline-info">Add</button>
+                             <input type="text" name="sticker" placeholder="{{ _('Add Sticker') }}" class="form-control form-control-sm d-inline w-auto">
+                            <button type="submit" class="btn btn-sm btn-outline-info">{{ _('Add') }}</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
         {% else %}
-            <p>No entries found.</p>
+            <p>{{ _('No entries found.') }}</p>
         {% endfor %}
     </div>
 </div>

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerEntry, Amen
+from models import PrayerEntry, Amen, Notification
 from extensions import db
 
 
@@ -36,6 +36,11 @@ def toggle_amen(entry_id):
         amen = Amen(user_id=current_user.id, entry_id=entry_id)
         db.session.add(amen)
         message = 'Amen added.'
+
+        # Notify author if not self
+        if entry.user_id != current_user.id:
+            notif = Notification(user_id=entry.user_id, message=f"{current_user.username} said Amen to your prayer.")
+            db.session.add(notif)
 
     db.session.commit()
     # Return to referrer or index
