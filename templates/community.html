@@ -25,10 +25,34 @@
             </div>
             <div class="card-body">
                 <p class="card-text">{{ entry.content }}</p>
+
+                {% if entry.category %}
+                    <span class="badge bg-primary mb-2">{{ entry.category }}</span>
+                {% endif %}
+
                 <div class="mb-2">
                     {% for tag in entry.tags %}
                         <span class="badge bg-secondary">#{{ tag.name }}</span>
                     {% endfor %}
+                </div>
+
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                         <!-- Check if current user has amened -->
+                        {% set amened = false %}
+                        {% for amen in entry.amens %}
+                            {% if amen.user_id == current_user.id %}
+                                {% set amened = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <form action="{{ url_for('community.toggle_amen', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm {% if amened %}btn-success{% else %}btn-outline-success{% endif %}">
+                                🙏 Amen ({{ entry.amens|length }})
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

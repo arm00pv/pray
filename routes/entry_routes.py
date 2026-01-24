@@ -55,6 +55,7 @@ def add_entry():
     content = request.form.get('content')
     is_public = 'is_public' in request.form
     is_anonymous = 'is_anonymous' in request.form
+    category = request.form.get('category')
 
     if not content:
         flash('Prayer content cannot be empty.')
@@ -79,7 +80,8 @@ def add_entry():
         ip_address=ip,
         geolocation_data=json.dumps(geo_data) if geo_data else None,
         is_public=is_public,
-        is_anonymous=is_anonymous
+        is_anonymous=is_anonymous,
+        category=category
     )
 
     # Tags

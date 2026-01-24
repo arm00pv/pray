@@ -4,7 +4,10 @@
 <div class="row">
     <div class="col-md-12">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>My Prayer Diary</h2>
+            <div>
+                <h2>My Prayer Diary</h2>
+                <span class="badge bg-success">Prayer Streak: {{ current_user.calculate_streak() }} Days</span>
+            </div>
             <div>
                  <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">Analytics</a>
             </div>
@@ -18,16 +21,54 @@
                     <div class="mb-3">
                         <textarea class="form-control" name="content" rows="3" placeholder="Write your prayer here..." required></textarea>
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="is_public" id="is_public">
-                        <label class="form-check-label" for="is_public">
-                            Share anonymously to Community Wall
-                        </label>
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" name="category" id="category">
+                            <option value="">No Category</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Family">Family</option>
+                            <option value="Work">Work</option>
+                            <option value="Health">Health</option>
+                            <option value="Church">Church</option>
+                            <option value="World">World</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_public" id="is_public" onchange="toggleAnonymous()">
+                                <label class="form-check-label" for="is_public">
+                                    Share to Community Wall
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check" id="anonymous_container" style="display:none;">
+                                <input class="form-check-input" type="checkbox" name="is_anonymous" id="is_anonymous">
+                                <label class="form-check-label" for="is_anonymous">
+                                    Post Anonymously
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Add Entry</button>
                 </form>
             </div>
         </div>
+
+        <script>
+        function toggleAnonymous() {
+            var isPublic = document.getElementById('is_public');
+            var anonContainer = document.getElementById('anonymous_container');
+            if (isPublic.checked) {
+                anonContainer.style.display = 'block';
+            } else {
+                anonContainer.style.display = 'none';
+                document.getElementById('is_anonymous').checked = false;
+            }
+        }
+        </script>
 
         <!-- Search & Filter -->
         <div class="card mb-4">

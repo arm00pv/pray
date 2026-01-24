@@ -21,6 +21,35 @@ class User(UserMixin, db.Model):
     def get_id(self):
         return f"user_{self.id}"
 
+    def calculate_streak(self):
+        """Calculates consecutive days with at least one prayer entry."""
+        if not self.entries:
+            return 0
+
+        # Get unique dates of entries, sorted descending
+        dates = sorted(list(set(e.created_at.date() for e in self.entries)), reverse=True)
+
+        if not dates:
+            return 0
+
+        today = datetime.now(timezone.utc).date()
+
+        # Check if the most recent entry is today or yesterday
+        # If the last entry was before yesterday, streak is broken (0), unless we count the streak up to that point?
+        # Typically "current streak" means active. If I didn't pray today (yet) but prayed yesterday, is my streak 1 or 0?
+        # Usually, if I prayed yesterday, my streak is alive. If I miss yesterday, it resets.
+
+        if (today - dates[0]).days > 1:
+            return 0
+
+        streak = 1
+        for i in range(len(dates) - 1):
+            if (dates[i] - dates[i+1]).days == 1:
+                streak += 1
+            else:
+                break
+        return streak
+
 class BlockedUser(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
@@ -55,11 +84,19 @@ class PrayerEntry(db.Model):
     is_public = db.Column(db.Boolean, default=False) # Added is_public
     is_anonymous = db.Column(db.Boolean, default=False)
     flag_count = db.Column(db.Integer, default=0)
+    category = db.Column(db.String(50), nullable=True)
     stickers = db.Column(db.String(200)) # Comma separated list
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
+    amens = db.relationship('Amen', backref='entry', lazy=True)
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), unique=True, nullable=False)
     count = db.Column(db.Integer, default=0)
+
+class Amen(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    entry_id = db.Column(db.Integer, db.ForeignKey('prayer_entry.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
