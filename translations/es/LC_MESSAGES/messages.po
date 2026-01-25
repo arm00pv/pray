@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 00:52+0000\n"
-"PO-Revision-Date: 2026-01-25 00:52+0000\n"
+"POT-Creation-Date: 2026-01-25 01:03+0000\n"
+"PO-Revision-Date: 2026-01-25 01:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -277,6 +277,10 @@ msgstr "Nombre de usuario"
 msgid "Password"
 msgstr "Contraseña"
 
+#: templates/login.html:18
+msgid "Forgot Password?"
+msgstr "¿Olvidaste tu contraseña?"
+
 #: templates/register.html:7
 msgid "User Registration"
 msgstr "Registro de Usuario"
@@ -368,6 +372,10 @@ msgstr "Cambiar Contraseña"
 #: templates/settings.html:31
 msgid "Current Password"
 msgstr "Contraseña Actual"
+
+#: templates/settings.html:35
+msgid "New Password"
+msgstr "Nueva Contraseña"
 
 #: templates/user_dashboard.html:9
 msgid "Prayer Streak"

@@ -14,6 +14,9 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">{{ _('Password') }}</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="mt-2 text-end">
+                            <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot Password?') }}</a>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">{{ _('Login') }}</button>
                 </form>

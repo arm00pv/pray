@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 02:21+0000\n"
+"POT-Creation-Date: 2026-01-25 04:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,7 +166,7 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:62 templates/index.html:13 templates/login.html:18
+#: templates/base.html:62 templates/index.html:13 templates/login.html:21
 msgid "Login"
 msgstr ""
 
@@ -266,6 +266,10 @@ msgstr ""
 
 #: templates/login.html:15
 msgid "Password"
+msgstr ""
+
+#: templates/login.html:18
+msgid "Forgot Password?"
 msgstr ""
 
 #: templates/reset_password.html:7 templates/reset_password.html:30
