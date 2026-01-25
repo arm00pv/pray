@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 00:27+0000\n"
-"PO-Revision-Date: 2026-01-25 00:27+0000\n"
+"POT-Creation-Date: 2026-01-25 00:52+0000\n"
+"PO-Revision-Date: 2026-01-25 00:52+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -111,6 +111,22 @@ msgstr "Categorías de Oración"
 msgid "Prayer Count"
 msgstr "Conteo de Oraciones"
 
+#: templates/answer_security_question.html:6
+msgid "Security Check"
+msgstr "Control de Seguridad"
+
+#: templates/answer_security_question.html:9
+msgid "Please answer your security question to reset your password."
+msgstr "Por favor responde tu pregunta de seguridad para restablecer tu contraseña."
+
+#: templates/answer_security_question.html:13 templates/register.html:38
+msgid "Security Answer"
+msgstr "Respuesta de Seguridad"
+
+#: templates/answer_security_question.html:16
+msgid "Verify Answer"
+msgstr "Verificar Respuesta"
+
 #: templates/base.html:12 templates/index.html:7
 #: templates/user_dashboard.html:8
 msgid "Praying Diary"
@@ -164,7 +180,7 @@ msgstr "Cerrar Sesión"
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: templates/base.html:64 templates/index.html:13 templates/register.html:22
+#: templates/base.html:64 templates/index.html:13 templates/register.html:41
 msgid "Register"
 msgstr "Registrarse"
 
@@ -195,6 +211,23 @@ msgstr "Amén"
 #: templates/community.html:60
 msgid "No public prayer requests yet. Be the first to share one!"
 msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!"
+
+#: templates/forgot_password.html:6
+msgid "Forgot Password"
+msgstr "Olvidé mi Contraseña"
+
+#: templates/forgot_password.html:11 templates/register.html:15
+#: templates/settings.html:19
+msgid "Email Address"
+msgstr "Correo Electrónico"
+
+#: templates/forgot_password.html:14 templates/login.html:7
+msgid "User Login"
+msgstr "Inicio de Sesión de Usuario"
+
+#: templates/forgot_password.html:14
+msgid "Next"
+msgstr "Siguiente"
 
 #: templates/gratitude.html:6
 msgid "Gratitude"
@@ -234,15 +267,13 @@ msgstr "No hay oraciones públicas todavía."
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
 
-#: templates/login.html:7
-msgid "User Login"
-msgstr "Inicio de Sesión de Usuario"
-
 #: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:11
 msgid "Username"
 msgstr "Nombre de usuario"
 
 #: templates/login.html:15 templates/register.html:19
+#: templates/reset_password.html:11
 msgid "Password"
 msgstr "Contraseña"
 
@@ -253,6 +284,66 @@ msgstr "Registro de Usuario"
 #: templates/register.html:15
 msgid "Email Address (Optional)"
 msgstr "Correo Electrónico (Opcional)"
+
+#: templates/register.html:22 templates/reset_password.html:14
+msgid "Password Strength"
+msgstr "Fortaleza de la Contraseña"
+
+#: templates/register.html:25 templates/reset_password.html:20
+msgid "At least 8 characters"
+msgstr "Al menos 8 caracteres"
+
+#: templates/register.html:26 templates/reset_password.html:21
+msgid "One uppercase letter"
+msgstr "Una letra mayúscula"
+
+#: templates/register.html:27 templates/reset_password.html:22
+msgid "One lowercase letter"
+msgstr "Una letra minúscula"
+
+#: templates/register.html:28 templates/reset_password.html:23
+msgid "One number"
+msgstr "Un número"
+
+#: templates/register.html:32
+msgid "Confirm Password"
+msgstr "Confirmar Contraseña"
+
+#: templates/register.html:37
+msgid "Security Question"
+msgstr "Pregunta de Seguridad"
+
+#: templates/register.html:39
+msgid "Select a question..."
+msgstr "Selecciona una pregunta..."
+
+#: templates/register.html:40
+msgid "What was the name of your first pet?"
+msgstr "¿Cuál fue el nombre de tu primera mascota?"
+
+#: templates/register.html:41
+msgid "What is your mother's maiden name?"
+msgstr "¿Cuál es el apellido de soltera de tu madre?"
+
+#: templates/register.html:42
+msgid "What city were you born in?"
+msgstr "¿En qué ciudad naciste?"
+
+#: templates/register.html:43
+msgid "What is the name of your favorite book?"
+msgstr "¿Cuál es el nombre de tu libro favorito?"
+
+#: templates/reset_password.html:6 templates/reset_password.html:27
+msgid "Reset Password"
+msgstr "Restablecer Contraseña"
+
+#: templates/reset_password.html:10
+msgid "New Password"
+msgstr "Nueva Contraseña"
+
+#: templates/reset_password.html:25
+msgid "Confirm New Password"
+msgstr "Confirmar Nueva Contraseña"
 
 #: templates/settings.html:6
 msgid "Profile Settings"
@@ -266,10 +357,6 @@ msgstr "Actualizar Perfil"
 msgid "Username cannot be changed."
 msgstr "El nombre de usuario no se puede cambiar."
 
-#: templates/settings.html:19
-msgid "Email Address"
-msgstr "Correo Electrónico"
-
 #: templates/settings.html:22
 msgid "Save Changes"
 msgstr "Guardar Cambios"
@@ -281,10 +368,6 @@ msgstr "Cambiar Contraseña"
 #: templates/settings.html:31
 msgid "Current Password"
 msgstr "Contraseña Actual"
-
-#: templates/settings.html:35
-msgid "New Password"
-msgstr "Nueva Contraseña"
 
 #: templates/user_dashboard.html:9
 msgid "Prayer Streak"

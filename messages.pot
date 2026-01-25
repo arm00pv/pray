@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 02:04+0000\n"
+"POT-Creation-Date: 2026-01-25 02:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,6 +110,22 @@ msgstr ""
 msgid "Prayer Count"
 msgstr ""
 
+#: templates/answer_security_question.html:7
+msgid "Security Check"
+msgstr ""
+
+#: templates/answer_security_question.html:9
+msgid "Please answer your security question to reset your password."
+msgstr ""
+
+#: templates/answer_security_question.html:13
+msgid "Security Answer"
+msgstr ""
+
+#: templates/answer_security_question.html:16
+msgid "Verify Answer"
+msgstr ""
+
 #: templates/base.html:12 templates/index.html:8
 msgid "Praying Diary"
 msgstr ""
@@ -154,7 +170,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:63 templates/index.html:14 templates/register.html:22
+#: templates/base.html:63 templates/index.html:14
 msgid "Register"
 msgstr ""
 
@@ -188,6 +204,18 @@ msgstr ""
 
 #: templates/community.html:60
 msgid "No public prayer requests yet. Be the first to share one!"
+msgstr ""
+
+#: templates/forgot_password.html:7
+msgid "Forgot Password"
+msgstr ""
+
+#: templates/forgot_password.html:11 templates/settings.html:19
+msgid "Email Address"
+msgstr ""
+
+#: templates/forgot_password.html:14
+msgid "Next"
 msgstr ""
 
 #: templates/gratitude.html:6
@@ -232,21 +260,44 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: templates/login.html:11 templates/register.html:11
-#: templates/settings.html:14
+#: templates/login.html:11 templates/settings.html:14
 msgid "Username"
 msgstr ""
 
-#: templates/login.html:15 templates/register.html:19
+#: templates/login.html:15
 msgid "Password"
 msgstr ""
 
-#: templates/register.html:7
-msgid "User Registration"
+#: templates/reset_password.html:7 templates/reset_password.html:30
+msgid "Reset Password"
 msgstr ""
 
-#: templates/register.html:15
-msgid "Email Address (Optional)"
+#: templates/reset_password.html:11 templates/settings.html:37
+msgid "New Password"
+msgstr ""
+
+#: templates/reset_password.html:14
+msgid "Password Strength"
+msgstr ""
+
+#: templates/reset_password.html:20 templates/reset_password.html:49
+msgid "At least 8 characters"
+msgstr ""
+
+#: templates/reset_password.html:21 templates/reset_password.html:50
+msgid "One uppercase letter"
+msgstr ""
+
+#: templates/reset_password.html:22 templates/reset_password.html:51
+msgid "One lowercase letter"
+msgstr ""
+
+#: templates/reset_password.html:23 templates/reset_password.html:52
+msgid "One number"
+msgstr ""
+
+#: templates/reset_password.html:27
+msgid "Confirm New Password"
 msgstr ""
 
 #: templates/settings.html:6
@@ -261,10 +312,6 @@ msgstr ""
 msgid "Username cannot be changed."
 msgstr ""
 
-#: templates/settings.html:19
-msgid "Email Address"
-msgstr ""
-
 #: templates/settings.html:22
 msgid "Save Changes"
 msgstr ""
@@ -275,10 +322,6 @@ msgstr ""
 
 #: templates/settings.html:33
 msgid "Current Password"
-msgstr ""
-
-#: templates/settings.html:37
-msgid "New Password"
 msgstr ""
 
 #: templates/user_dashboard.html:8

@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required
 from models import User, Admin, BlockedUser
 from extensions import db, bcrypt, login_manager
-from utils import send_email
+from utils import send_email, validate_password_strength
 import uuid
+from datetime import datetime, timedelta
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -21,9 +22,22 @@ def register():
         username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        security_question = request.form.get('security_question')
+        security_answer = request.form.get('security_answer')
 
-        if not username or not password:
-            flash('Username and password are required.')
+        if not username or not password or not security_question or not security_answer:
+            flash('All fields including security question/answer are required.')
+            return redirect(url_for('auth.register'))
+
+        if password != confirm_password:
+            flash('Passwords do not match.')
+            return redirect(url_for('auth.register'))
+
+        valid, errors = validate_password_strength(password)
+        if not valid:
+            for error in errors:
+                flash(error)
             return redirect(url_for('auth.register'))
 
         if User.query.filter_by(username=username).first():
@@ -35,8 +49,18 @@ def register():
             return redirect(url_for('auth.register'))
 
         hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
+        hashed_answer = bcrypt.generate_password_hash(security_answer.lower().strip()).decode('utf-8')
         token = str(uuid.uuid4())
-        user = User(username=username, email=email, password_hash=hashed_pw, verification_token=token, is_verified=False)
+
+        user = User(
+            username=username,
+            email=email,
+            password_hash=hashed_pw,
+            verification_token=token,
+            is_verified=False,
+            security_question=security_question,
+            security_answer_hash=hashed_answer
+        )
         db.session.add(user)
         db.session.commit()
 
@@ -48,6 +72,78 @@ def register():
         flash('Registration successful. Please check your email to verify your account.')
         return redirect(url_for('entry.user_dashboard'))
     return render_template('register.html')
+
+@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Step 1 passed: Email found. Redirect to answer security question.
+            # We pass the user id lightly obfuscated or just in session? Session is safer.
+            # But query param allows bookmarking if needed? No, session is better flow.
+            # Or render the question form directly here?
+            return render_template('answer_security_question.html', user_id=user.id, question=user.security_question)
+        else:
+            flash('Email not found.')
+    return render_template('forgot_password.html')
+
+@auth_bp.route('/verify-security-answer/<int:user_id>', methods=['POST'])
+def verify_security_answer(user_id):
+    user = User.query.get_or_404(user_id)
+    answer = request.form.get('security_answer')
+
+    if answer and bcrypt.check_password_hash(user.security_answer_hash, answer.lower().strip()):
+        # Step 2 passed. Generate reset token.
+        token = str(uuid.uuid4())
+        user.reset_token = token
+        user.reset_token_expiry = datetime.utcnow() + timedelta(hours=1)
+        db.session.commit()
+
+        # Send reset link
+        reset_url = url_for('auth.reset_password', token=token, _external=True)
+        if user.email:
+            send_email(user.email, "Password Reset Request", f"Click here to reset your password: {reset_url}")
+            flash(f'Security answer correct. A password reset link has been sent to {user.email}')
+            return redirect(url_for('auth.login'))
+        else:
+            flash('Error: User has no email to send reset link.')
+    else:
+        flash('Incorrect security answer.')
+        return render_template('answer_security_question.html', user_id=user.id, question=user.security_question)
+
+    return redirect(url_for('auth.login'))
+
+@auth_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    user = User.query.filter_by(reset_token=token).first()
+    if not user or not user.reset_token_expiry or user.reset_token_expiry < datetime.utcnow():
+        flash('Invalid or expired reset link.')
+        return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+
+        if password != confirm_password:
+            flash('Passwords do not match.')
+            return render_template('reset_password.html', token=token)
+
+        valid, errors = validate_password_strength(password)
+        if not valid:
+            for error in errors:
+                flash(error)
+            return render_template('reset_password.html', token=token)
+
+        hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
+        user.password_hash = hashed_pw
+        user.reset_token = None
+        user.reset_token_expiry = None
+        db.session.commit()
+        flash('Password updated successfully. Please login.')
+        return redirect(url_for('auth.login'))
+
+    return render_template('reset_password.html', token=token)
 
 @auth_bp.route('/verify/<token>')
 def verify_email(token):

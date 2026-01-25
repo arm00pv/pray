@@ -109,21 +109,53 @@ def extract_tags(text, locale='en'):
         print(f"Error extracting tags: {e}")
         return []
 
+import re
+import unicodedata
+
 class ProfanityFilter:
     def __init__(self):
-        # Basic list, can be expanded
+        # Basic list including Spanish foul words with accents variations
+        # This is a sample list. In a real app, this should be more extensive or loaded from a file/db.
         self.bad_words = [
-            'badword', 'swear', 'spam' # Placeholder list
+            'badword', 'swear', 'spam',
+            'mierda', 'puta', 'puto', 'cabron', 'cabrón', 'coño', 'joder', 'estupido', 'estúpido',
+            'idiota', 'imbecil', 'imbécil', 'verga', 'pendejo', 'chingar', 'pinche'
         ]
+
+    def normalize_text(self, text):
+        # Remove accents
+        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
 
     def is_profane(self, text):
         if not text:
             return False
+
         text_lower = text.lower()
+        normalized_text = self.normalize_text(text_lower)
+
         for word in self.bad_words:
-            if word in text_lower:
+            word_lower = word.lower()
+            if word_lower in text_lower or self.normalize_text(word_lower) in normalized_text:
                 return True
         return False
+
+def validate_password_strength(password):
+    """
+    Validates password strength.
+    Returns (bool, list_of_errors)
+    Requirements: 8+ chars, 1 upper, 1 lower, 1 number
+    """
+    errors = []
+    if len(password) < 8:
+        errors.append("Password must be at least 8 characters long.")
+    if not re.search(r"[A-Z]", password):
+        errors.append("Password must contain at least one uppercase letter.")
+    if not re.search(r"[a-z]", password):
+        errors.append("Password must contain at least one lowercase letter.")
+    if not re.search(r"\d", password):
+        errors.append("Password must contain at least one number.")
+
+    return len(errors) == 0, errors
 
 def send_email(to, subject, text, html=None):
     api_key = current_app.config.get('MAILGUN_API_KEY')
