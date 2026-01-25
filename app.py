@@ -16,6 +16,10 @@ from routes.notification_routes import notification_bp
 from routes.gratitude_routes import gratitude_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
+import logging
+
+# Configure basic logging
+logging.basicConfig(level=logging.INFO)
 
 def send_reminders(app):
     """
@@ -77,7 +81,8 @@ def create_app():
 
 app = create_app()
 
-def create_master_admin():
+def initialize_db():
+    """Initializes the database and creates the master admin if needed."""
     with app.app_context():
         db.create_all() # Ensure tables exist
         if not Admin.query.first():
@@ -90,8 +95,10 @@ def create_master_admin():
         else:
             print("Admin already exists.")
 
+# Ensure DB is initialized in production (Gunicorn)
+initialize_db()
+
 if __name__ == '__main__':
-    create_master_admin()
     port = int(os.environ.get('PORT', 8080))
     # Disable debug mode in production context
     app.run(debug=False, host='0.0.0.0', port=port)
