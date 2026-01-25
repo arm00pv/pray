@@ -55,6 +55,7 @@ def add_entry():
     content = request.form.get('content')
     is_public = 'is_public' in request.form
     is_anonymous = 'is_anonymous' in request.form
+    is_private = 'is_private' in request.form
     category = request.form.get('category')
 
     if not content:
@@ -81,6 +82,7 @@ def add_entry():
         geolocation_data=json.dumps(geo_data) if geo_data else None,
         is_public=is_public,
         is_anonymous=is_anonymous,
+        is_private=is_private,
         category=category
     )
 

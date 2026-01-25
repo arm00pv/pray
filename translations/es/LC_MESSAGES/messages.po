@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-24 23:55+0000\n"
-"PO-Revision-Date: 2026-01-24 23:55+0000\n"
+"POT-Creation-Date: 2026-01-25 00:03+0000\n"
+"PO-Revision-Date: 2026-01-25 00:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -63,6 +63,7 @@ msgid "Flagged Entries"
 msgstr "Entradas Reportadas"
 
 #: templates/admin_flagged.html:7 templates/analytics.html:23
+#: templates/gratitude.html:36
 msgid "Back to Dashboard"
 msgstr "Volver al Panel"
 
@@ -130,33 +131,37 @@ msgstr "Hola"
 msgid "My Prayers"
 msgstr "Mis Oraciones"
 
-#: templates/base.html:54
+#: templates/base.html:54 templates/gratitude.html:6
+msgid "Gratitude Journal"
+msgstr "Diario de Gratitud"
+
+#: templates/base.html:55 templates/community.html:6
+msgid "Community Prayer Wall"
+msgstr "Muro de Oración de la Comunidad"
+
+#: templates/base.html:55 templates/community.html:6
 msgid "Community"
 msgstr "Comunidad"
 
-#: templates/base.html:55
+#: templates/base.html:56 templates/settings.html:6
 msgid "Settings"
 msgstr "Configuración"
 
-#: templates/base.html:57
+#: templates/base.html:58
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:59 templates/login.html:18
+#: templates/base.html:60 templates/login.html:18
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: templates/base.html:60 templates/register.html:22
+#: templates/base.html:61 templates/register.html:22
 msgid "Register"
 msgstr "Registrarse"
 
-#: templates/base.html:61
+#: templates/base.html:62
 msgid "Admin"
 msgstr "Administrador"
-
-#: templates/community.html:6
-msgid "Community Prayer Wall"
-msgstr "Muro de Oración de la Comunidad"
 
 #: templates/community.html:7
 msgid "Join others in prayer. These requests have been shared anonymously."
@@ -181,6 +186,22 @@ msgstr "Amén"
 #: templates/community.html:60
 msgid "No public prayer requests yet. Be the first to share one!"
 msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!"
+
+#: templates/gratitude.html:6
+msgid "Gratitude"
+msgstr "Gratitud"
+
+#: templates/gratitude.html:12
+msgid "What are you grateful for today?"
+msgstr "¿Por qué estás agradecido hoy?"
+
+#: templates/gratitude.html:14
+msgid "Add Gratitude"
+msgstr "Añadir Gratitud"
+
+#: templates/gratitude.html:31
+msgid "No gratitude entries yet."
+msgstr "No hay entradas de gratitud todavía."
 
 #: templates/login.html:7
 msgid "User Login"
@@ -298,7 +319,11 @@ msgstr "Compartir en Muro de la Comunidad"
 msgid "Post Anonymously"
 msgstr "Publicar Anónimamente"
 
-#: templates/user_dashboard.html:55
+#: templates/user_dashboard.html:57
+msgid "Private Entry (Only visible to me)"
+msgstr "Entrada Privada (Solo visible para mí)"
+
+#: templates/user_dashboard.html:61
 msgid "Add Entry"
 msgstr "Añadir Entrada"
 

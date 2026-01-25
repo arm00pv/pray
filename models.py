@@ -86,6 +86,7 @@ class PrayerEntry(db.Model):
     is_anonymous = db.Column(db.Boolean, default=False)
     flag_count = db.Column(db.Integer, default=0)
     category = db.Column(db.String(50), nullable=True)
+    is_private = db.Column(db.Boolean, default=False)
     stickers = db.Column(db.String(200)) # Comma separated list
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
@@ -107,4 +108,10 @@ class Notification(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     message = db.Column(db.String(255), nullable=False)
     is_read = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+class GratitudeEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))

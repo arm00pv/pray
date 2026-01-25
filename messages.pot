@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-24 23:55+0000\n"
+"POT-Creation-Date: 2026-01-25 00:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,6 +62,7 @@ msgid "Flagged Entries"
 msgstr ""
 
 #: templates/admin_flagged.html:6 templates/analytics.html:23
+#: templates/gratitude.html:36
 msgid "Back to Dashboard"
 msgstr ""
 
@@ -126,26 +127,30 @@ msgid "My Prayers"
 msgstr ""
 
 #: templates/base.html:53
-msgid "Community"
+msgid "Gratitude"
 msgstr ""
 
 #: templates/base.html:54
+msgid "Community"
+msgstr ""
+
+#: templates/base.html:55
 msgid "Settings"
 msgstr ""
 
-#: templates/base.html:56
+#: templates/base.html:57
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:58 templates/login.html:18
+#: templates/base.html:59 templates/login.html:18
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:59 templates/register.html:22
+#: templates/base.html:60 templates/register.html:22
 msgid "Register"
 msgstr ""
 
-#: templates/base.html:60
+#: templates/base.html:61
 msgid "Admin"
 msgstr ""
 
@@ -175,6 +180,22 @@ msgstr ""
 
 #: templates/community.html:60
 msgid "No public prayer requests yet. Be the first to share one!"
+msgstr ""
+
+#: templates/gratitude.html:6
+msgid "Gratitude Journal"
+msgstr ""
+
+#: templates/gratitude.html:12
+msgid "What are you grateful for today?"
+msgstr ""
+
+#: templates/gratitude.html:14
+msgid "Add Gratitude"
+msgstr ""
+
+#: templates/gratitude.html:31
+msgid "No gratitude entries yet."
 msgstr ""
 
 #: templates/login.html:7
@@ -298,66 +319,70 @@ msgstr ""
 msgid "Post Anonymously"
 msgstr ""
 
-#: templates/user_dashboard.html:55
+#: templates/user_dashboard.html:58
+msgid "Private Entry (Only visible to me)"
+msgstr ""
+
+#: templates/user_dashboard.html:61
 msgid "Add Entry"
 msgstr ""
 
-#: templates/user_dashboard.html:78
+#: templates/user_dashboard.html:84
 msgid "Search keywords..."
 msgstr ""
 
-#: templates/user_dashboard.html:87
+#: templates/user_dashboard.html:93
 msgid "Filter"
 msgstr ""
 
-#: templates/user_dashboard.html:92
+#: templates/user_dashboard.html:98
 msgid "Clear Filters"
 msgstr ""
 
-#: templates/user_dashboard.html:100
+#: templates/user_dashboard.html:106
 msgid "Export CSV"
 msgstr ""
 
-#: templates/user_dashboard.html:101
+#: templates/user_dashboard.html:107
 msgid "Export PDF"
 msgstr ""
 
-#: templates/user_dashboard.html:105
+#: templates/user_dashboard.html:111
 msgid "Past Entries"
 msgstr ""
 
-#: templates/user_dashboard.html:112
+#: templates/user_dashboard.html:118
 msgid "Continuous"
 msgstr ""
 
-#: templates/user_dashboard.html:115
+#: templates/user_dashboard.html:121
 msgid "Public"
 msgstr ""
 
-#: templates/user_dashboard.html:139
+#: templates/user_dashboard.html:145
 msgid "Fulfilled"
 msgstr ""
 
-#: templates/user_dashboard.html:143
+#: templates/user_dashboard.html:149
 msgid "No longer petition"
 msgstr ""
 
-#: templates/user_dashboard.html:147
+#: templates/user_dashboard.html:153
 msgid "Unmark Continuous"
 msgstr ""
 
-#: templates/user_dashboard.html:147
+#: templates/user_dashboard.html:153
 msgid "Mark Continuous"
 msgstr ""
 
-#: templates/user_dashboard.html:151
+#: templates/user_dashboard.html:157
 msgid "Add Sticker"
 msgstr ""
 
-#: templates/user_dashboard.html:152
+#: templates/user_dashboard.html:158
 msgid "Add"
 msgstr ""
 
-#: templates/user_dashboard.html:159
+#: templates/user_dashboard.html:165
 msgid "No entries found."
 msgstr ""
