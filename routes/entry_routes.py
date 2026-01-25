@@ -62,6 +62,10 @@ def add_entry():
         flash('Prayer content cannot be empty.')
         return redirect(url_for('entry.user_dashboard'))
 
+    # Enforce privacy logic: If private, it cannot be public
+    if is_private:
+        is_public = False
+
     pf = ProfanityFilter()
     if pf.is_profane(content):
         flash('Content contains profanity and cannot be posted.')
