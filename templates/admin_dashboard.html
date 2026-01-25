@@ -8,9 +8,10 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Admin Management') }}</h5>
-                <form action="{{ url_for('admin.create_invite') }}" method="POST">
+                <form action="{{ url_for('admin.create_invite') }}" method="POST" class="mb-2">
                     <button type="submit" class="btn btn-warning">{{ _('Generate New Admin Invite Code') }}</button>
                 </form>
+                <a href="{{ url_for('admin.flagged_entries') }}" class="btn btn-danger">{{ _('Review Flagged Entries') }}</a>
             </div>
         </div>
 

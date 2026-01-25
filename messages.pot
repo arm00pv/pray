@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 00:17+0000\n"
+"POT-Creation-Date: 2026-01-25 02:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: templates/admin_dashboard.html:6 templates/base.html:50
+#: templates/admin_dashboard.html:6 templates/base.html:53
 msgid "Admin Dashboard"
 msgstr ""
 
@@ -29,31 +29,35 @@ msgstr ""
 msgid "Generate New Admin Invite Code"
 msgstr ""
 
-#: templates/admin_dashboard.html:20
+#: templates/admin_dashboard.html:14
+msgid "Review Flagged Entries"
+msgstr ""
+
+#: templates/admin_dashboard.html:21
 msgid "Top Petitions (Tags)"
 msgstr ""
 
-#: templates/admin_dashboard.html:29
+#: templates/admin_dashboard.html:30
 msgid "No tags data yet."
 msgstr ""
 
-#: templates/admin_dashboard.html:37
+#: templates/admin_dashboard.html:38
 msgid "Prayer Locations"
 msgstr ""
 
-#: templates/admin_dashboard.html:42
+#: templates/admin_dashboard.html:43
 msgid "Country"
 msgstr ""
 
-#: templates/admin_dashboard.html:43
+#: templates/admin_dashboard.html:44
 msgid "City"
 msgstr ""
 
-#: templates/admin_dashboard.html:44
+#: templates/admin_dashboard.html:45
 msgid "IP"
 msgstr ""
 
-#: templates/admin_dashboard.html:55
+#: templates/admin_dashboard.html:56
 msgid "No location data yet."
 msgstr ""
 
@@ -75,14 +79,18 @@ msgid "Author ID"
 msgstr ""
 
 #: templates/admin_flagged.html:16
-msgid "Delete Entry"
+msgid "Approve/Repost"
 msgstr ""
 
 #: templates/admin_flagged.html:19
+msgid "Delete Entry"
+msgstr ""
+
+#: templates/admin_flagged.html:22
 msgid "Block User"
 msgstr ""
 
-#: templates/admin_flagged.html:26
+#: templates/admin_flagged.html:29
 msgid "No flagged entries."
 msgstr ""
 
@@ -102,55 +110,55 @@ msgstr ""
 msgid "Prayer Count"
 msgstr ""
 
-#: templates/base.html:12
+#: templates/base.html:12 templates/index.html:8
 msgid "Praying Diary"
 msgstr ""
 
-#: templates/base.html:28
+#: templates/base.html:31
 msgid "Notifications"
 msgstr ""
 
-#: templates/base.html:41
+#: templates/base.html:44
 msgid "No new notifications"
 msgstr ""
 
-#: templates/base.html:44
+#: templates/base.html:47
 msgid "Mark all as read"
 msgstr ""
 
-#: templates/base.html:48
+#: templates/base.html:51
 msgid "Hello"
 msgstr ""
 
-#: templates/base.html:52
+#: templates/base.html:55
 msgid "My Prayers"
 msgstr ""
 
-#: templates/base.html:53
+#: templates/base.html:56
 msgid "Gratitude"
 msgstr ""
 
-#: templates/base.html:54
+#: templates/base.html:57
 msgid "Community"
 msgstr ""
 
-#: templates/base.html:55
+#: templates/base.html:58
 msgid "Settings"
 msgstr ""
 
-#: templates/base.html:57
+#: templates/base.html:60
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:59 templates/login.html:18
+#: templates/base.html:62 templates/index.html:13 templates/login.html:18
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:60 templates/register.html:22
+#: templates/base.html:63 templates/index.html:14 templates/register.html:22
 msgid "Register"
 msgstr ""
 
-#: templates/base.html:61
+#: templates/base.html:64
 msgid "Admin"
 msgstr ""
 
@@ -162,7 +170,7 @@ msgstr ""
 msgid "Join others in prayer. These requests have been shared anonymously."
 msgstr ""
 
-#: templates/community.html:14
+#: templates/community.html:14 templates/index.html:33
 msgid "Anonymous"
 msgstr ""
 
@@ -196,6 +204,28 @@ msgstr ""
 
 #: templates/gratitude.html:31
 msgid "No gratitude entries yet."
+msgstr ""
+
+#: templates/index.html:9
+msgid ""
+"A safe space to document your prayers, gratitude, and connect with a "
+"supportive community."
+msgstr ""
+
+#: templates/index.html:18
+msgid "Go to Dashboard"
+msgstr ""
+
+#: templates/index.html:26
+msgid "Live Community Feed"
+msgstr ""
+
+#: templates/index.html:47
+msgid "No public prayers yet."
+msgstr ""
+
+#: templates/index.html:51
+msgid "View Full Community Wall"
 msgstr ""
 
 #: templates/login.html:7
