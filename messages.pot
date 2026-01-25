@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 04:56+0000\n"
+"POT-Creation-Date: 2026-01-25 17:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Security Answer"
 msgstr ""
 
-#: templates/admin_register.html:47 templates/base.html:63
+#: templates/admin_register.html:47 templates/base.html:65
 #: templates/index.html:14 templates/register.html:53
 msgid "Register"
 msgstr ""
@@ -237,23 +237,31 @@ msgstr ""
 msgid "Gratitude"
 msgstr ""
 
-#: templates/base.html:57
-msgid "Community"
+#: templates/base.html:57 templates/testimonies.html:6
+msgid "Testimonies"
 msgstr ""
 
 #: templates/base.html:58
-msgid "Settings"
+msgid "Groups"
+msgstr ""
+
+#: templates/base.html:59
+msgid "Community"
 msgstr ""
 
 #: templates/base.html:60
+msgid "Settings"
+msgstr ""
+
+#: templates/base.html:62
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:62 templates/index.html:13 templates/login.html:21
+#: templates/base.html:64 templates/index.html:13 templates/login.html:21
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:64
+#: templates/base.html:66
 msgid "Admin"
 msgstr ""
 
@@ -307,6 +315,42 @@ msgstr ""
 
 #: templates/gratitude.html:31
 msgid "No gratitude entries yet."
+msgstr ""
+
+#: templates/groups.html:6
+msgid "Prayer Groups"
+msgstr ""
+
+#: templates/groups.html:11
+msgid "Create New Group"
+msgstr ""
+
+#: templates/groups.html:14
+msgid "Group Name"
+msgstr ""
+
+#: templates/groups.html:17
+msgid "Description (Optional)"
+msgstr ""
+
+#: templates/groups.html:20
+msgid "Create"
+msgstr ""
+
+#: templates/groups.html:34
+msgid "Members"
+msgstr ""
+
+#: templates/groups.html:39
+msgid "Leave Group"
+msgstr ""
+
+#: templates/groups.html:43
+msgid "Join Group"
+msgstr ""
+
+#: templates/groups.html:52
+msgid "No prayer groups found."
 msgstr ""
 
 #: templates/index.html:9
@@ -427,6 +471,22 @@ msgstr ""
 
 #: templates/settings.html:33
 msgid "Current Password"
+msgstr ""
+
+#: templates/testimonies.html:7
+msgid "Share your answered prayers and testimonies to encourage others."
+msgstr ""
+
+#: templates/testimonies.html:14
+msgid "Share your testimony..."
+msgstr ""
+
+#: templates/testimonies.html:16
+msgid "Share Testimony"
+msgstr ""
+
+#: templates/testimonies.html:32
+msgid "No testimonies yet."
 msgstr ""
 
 #: templates/user_dashboard.html:8

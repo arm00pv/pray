@@ -14,6 +14,8 @@ from routes.community_routes import community_bp
 from routes.language_routes import language_bp
 from routes.notification_routes import notification_bp
 from routes.gratitude_routes import gratitude_bp
+from routes.testimony_routes import testimony_bp
+from routes.group_routes import group_bp
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import logging
@@ -59,6 +61,8 @@ def create_app():
     app.register_blueprint(language_bp)
     app.register_blueprint(notification_bp)
     app.register_blueprint(gratitude_bp)
+    app.register_blueprint(testimony_bp)
+    app.register_blueprint(group_bp)
 
     # Scheduler
     # Only run scheduler if not in debug/reloader mode to avoid duplicates

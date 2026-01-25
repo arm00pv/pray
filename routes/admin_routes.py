@@ -17,6 +17,9 @@ def dashboard():
     # Metrics: Most mentioned petitions
     top_tags = Tag.query.order_by(Tag.count.desc()).limit(10).all()
 
+    # Metrics: Flagged entries count
+    flagged_count = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).count()
+
     # Metrics: IP locations
     # Get all entries with geo data
     entries = PrayerEntry.query.filter(PrayerEntry.geolocation_data != None).all()
@@ -35,7 +38,7 @@ def dashboard():
         except:
             pass
 
-    return render_template('admin_dashboard.html', top_tags=top_tags, locations=locations)
+    return render_template('admin_dashboard.html', top_tags=top_tags, locations=locations, flagged_count=flagged_count)
 
 @admin_bp.route('/dashboard/flagged')
 def flagged_entries():

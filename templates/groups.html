@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{ _('Prayer Groups') }}</h2>
+
+        {% if current_user.is_authenticated %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>{{ _('Create New Group') }}</h5>
+                <form action="{{ url_for('group.create_group') }}" method="POST" class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="name" placeholder="{{ _('Group Name') }}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="description" placeholder="{{ _('Description (Optional)') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-success w-100">{{ _('Create') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            {% for group in groups %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ group.name }}</h5>
+                        <p class="card-text">{{ group.description }}</p>
+                        <p class="card-text"><small class="text-muted">{{ group.members|length }} {{ _('Members') }}</small></p>
+
+                        {% if current_user.is_authenticated %}
+                            {% if current_user in group.members %}
+                                <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">{{ _('Leave Group') }}</button>
+                                </form>
+                            {% else %}
+                                <form action="{{ url_for('group.join_group', group_id=group.id) }}" method="POST">
+                                    <button type="submit" class="btn btn-primary btn-sm">{{ _('Join Group') }}</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12">
+                <p>{{ _('No prayer groups found.') }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

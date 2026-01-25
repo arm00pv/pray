@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 01:29+0000\n"
-"PO-Revision-Date: 2026-01-25 01:29+0000\n"
+"POT-Creation-Date: 2026-01-25 01:46+0000\n"
+"PO-Revision-Date: 2026-01-25 01:46+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -203,32 +203,40 @@ msgstr "Mis Oraciones"
 msgid "Gratitude Journal"
 msgstr "Diario de Gratitud"
 
-#: templates/base.html:58 templates/community.html:6
+#: templates/base.html:58 templates/testimonies.html:6
+msgid "Testimonies"
+msgstr "Testimonios"
+
+#: templates/base.html:59 templates/groups.html:6
+msgid "Groups"
+msgstr "Grupos"
+
+#: templates/base.html:60 templates/community.html:6
 msgid "Community Prayer Wall"
 msgstr "Muro de Oración de la Comunidad"
 
-#: templates/base.html:58 templates/community.html:6
+#: templates/base.html:60 templates/community.html:6
 msgid "Community"
 msgstr "Comunidad"
 
-#: templates/base.html:59 templates/settings.html:6
+#: templates/base.html:61 templates/settings.html:6
 msgid "Settings"
 msgstr "Configuración"
 
-#: templates/base.html:61
+#: templates/base.html:63
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:63 templates/index.html:12 templates/login.html:18
+#: templates/base.html:65 templates/index.html:12 templates/login.html:18
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: templates/base.html:64 templates/index.html:13 templates/register.html:41
+#: templates/base.html:66 templates/index.html:13 templates/register.html:41
 #: templates/admin_register.html:46
 msgid "Register"
 msgstr "Registrarse"
 
-#: templates/base.html:65
+#: templates/base.html:67
 msgid "Admin"
 msgstr "Administrador"
 
@@ -283,6 +291,42 @@ msgstr "Añadir Gratitud"
 #: templates/gratitude.html:31
 msgid "No gratitude entries yet."
 msgstr "No hay entradas de gratitud todavía."
+
+#: templates/groups.html:6
+msgid "Prayer Groups"
+msgstr "Grupos de Oración"
+
+#: templates/groups.html:10
+msgid "Create New Group"
+msgstr "Crear Nuevo Grupo"
+
+#: templates/groups.html:13
+msgid "Group Name"
+msgstr "Nombre del Grupo"
+
+#: templates/groups.html:16
+msgid "Description (Optional)"
+msgstr "Descripción (Opcional)"
+
+#: templates/groups.html:19
+msgid "Create"
+msgstr "Crear"
+
+#: templates/groups.html:29
+msgid "Members"
+msgstr "Miembros"
+
+#: templates/groups.html:34
+msgid "Leave Group"
+msgstr "Dejar Grupo"
+
+#: templates/groups.html:38
+msgid "Join Group"
+msgstr "Unirse a Grupo"
+
+#: templates/groups.html:47
+msgid "No prayer groups found."
+msgstr "No se encontraron grupos de oración."
 
 #: templates/index.html:8
 msgid ""
@@ -444,6 +488,22 @@ msgstr "Contraseña Actual"
 #: templates/settings.html:35
 msgid "New Password"
 msgstr "Nueva Contraseña"
+
+#: templates/testimonies.html:7
+msgid "Share your answered prayers and testimonies to encourage others."
+msgstr "Comparte tus oraciones contestadas y testimonios para animar a otros."
+
+#: templates/testimonies.html:13
+msgid "Share your testimony..."
+msgstr "Comparte tu testimonio..."
+
+#: templates/testimonies.html:15
+msgid "Share Testimony"
+msgstr "Compartir Testimonio"
+
+#: templates/testimonies.html:30
+msgid "No testimonies yet."
+msgstr "No hay testimonios todavía."
 
 #: templates/user_dashboard.html:9
 msgid "Prayer Streak"

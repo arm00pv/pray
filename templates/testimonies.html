@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{{ _('Testimonies') }}</h2>
+        <p>{{ _('Share your answered prayers and testimonies to encourage others.') }}</p>
+
+        {% if current_user.is_authenticated %}
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="{{ url_for('testimony.add_testimony') }}" method="POST">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Share your testimony...') }}" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ _('Share Testimony') }}</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="list-group">
+            {% for testimony in testimonies %}
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ testimony.author.username }}</h5>
+                    <small>{{ testimony.created_at.strftime('%Y-%m-%d') }}</small>
+                </div>
+                <p class="mb-1">{{ testimony.content }}</p>
+            </div>
+            {% else %}
+            <div class="list-group-item">{{ _('No testimonies yet.') }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
