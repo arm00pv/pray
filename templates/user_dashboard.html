@@ -139,21 +139,21 @@
 
                 <!-- Status Update Controls -->
                 <div class="mt-2">
-                    <div class="btn-group" role="group">
+                    <div class="d-flex flex-wrap gap-2">
                         <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
                             <input type="hidden" name="status" value="fulfilled">
                             <button type="submit" class="btn btn-sm btn-outline-success">{{ _('Fulfilled') }}</button>
                         </form>
-                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
+                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
                             <input type="hidden" name="status" value="dropped">
                             <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('No longer petition') }}</button>
                         </form>
-                        <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
+                        <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline">
                             <button type="submit" class="btn btn-sm btn-outline-warning">
                                 {% if entry.is_continuous %}{{ _('Unmark Continuous') }}{% else %}{{ _('Mark Continuous') }}{% endif %}
                             </button>
                         </form>
-                         <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
+                         <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline d-flex align-items-center gap-1">
                              <input type="text" name="sticker" placeholder="{{ _('Add Sticker') }}" class="form-control form-control-sm d-inline w-auto">
                             <button type="submit" class="btn btn-sm btn-outline-info">{{ _('Add') }}</button>
                         </form>

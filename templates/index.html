@@ -3,8 +3,8 @@
 {% block content %}
 <div class="row">
     <!-- Left Column: App Description & Login -->
-    <div class="col-md-6 mb-4">
-        <div class="p-5 bg-light rounded-3">
+    <div class="col-12 col-md-6 mb-4">
+        <div class="p-4 p-md-5 bg-light rounded-3">
             <h1 class="display-5 fw-bold">{{ _('Praying Diary') }}</h1>
             <p class="col-md-8 fs-4">{{ _('A safe space to document your prayers, gratitude, and connect with a supportive community.') }}</p>
 
@@ -22,7 +22,7 @@
     </div>
 
     <!-- Right Column: Live Community Board -->
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
         <h3>{{ _('Live Community Feed') }}</h3>
         <div class="list-group">
             {% for entry in entries %}
