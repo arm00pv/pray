@@ -87,6 +87,7 @@ class PrayerEntry(db.Model):
     flag_count = db.Column(db.Integer, default=0)
     category = db.Column(db.String(50), nullable=True)
     is_private = db.Column(db.Boolean, default=False)
+    is_hidden = db.Column(db.Boolean, default=False)
     stickers = db.Column(db.String(200)) # Comma separated list
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))

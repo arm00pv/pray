@@ -68,7 +68,10 @@ def create_app():
 
     @app.route('/')
     def index():
-        return render_template('base.html')
+        # Fetch 5 most recent public, non-hidden entries for the live feed
+        recent_entries = PrayerEntry.query.filter_by(is_public=True, is_hidden=False)\
+            .order_by(PrayerEntry.created_at.desc()).limit(5).all()
+        return render_template('index.html', entries=recent_entries)
 
     return app
 

@@ -39,8 +39,18 @@ def dashboard():
 
 @admin_bp.route('/dashboard/flagged')
 def flagged_entries():
+    # Show entries that are flagged (and likely hidden)
     entries = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).all()
     return render_template('admin_flagged.html', entries=entries)
+
+@admin_bp.route('/unhide_entry/<int:entry_id>', methods=['POST'])
+def unhide_entry(entry_id):
+    entry = PrayerEntry.query.get_or_404(entry_id)
+    entry.is_hidden = False
+    entry.flag_count = 0  # Reset flags on approval
+    db.session.commit()
+    flash('Entry approved and reposted.')
+    return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/block_user/<int:user_id>', methods=['POST'])
 def block_user(user_id):

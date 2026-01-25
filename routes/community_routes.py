@@ -8,8 +8,8 @@ community_bp = Blueprint('community', __name__, url_prefix='/community')
 
 @community_bp.route('/')
 def index():
-    # Show entries marked as public, ordered by date
-    entries = PrayerEntry.query.filter_by(is_public=True).order_by(PrayerEntry.created_at.desc()).all()
+    # Show entries marked as public and NOT hidden, ordered by date
+    entries = PrayerEntry.query.filter_by(is_public=True, is_hidden=False).order_by(PrayerEntry.created_at.desc()).all()
     return render_template('community.html', entries=entries)
 
 @community_bp.route('/flag/<int:entry_id>', methods=['POST'])
@@ -17,6 +17,7 @@ def index():
 def flag_entry(entry_id):
     entry = PrayerEntry.query.get_or_404(entry_id)
     entry.flag_count += 1
+    entry.is_hidden = True  # Auto-hide on flag
     db.session.commit()
     flash('Entry flagged for review.')
     return redirect(url_for('community.index'))

@@ -12,6 +12,9 @@
                 <p>{{ entry.content }}</p>
                 <small>{{ _('Flag Count') }}: {{ entry.flag_count }} | {{ _('Author ID') }}: {{ entry.user_id }}</small>
                 <div class="mt-2">
+                    <form action="{{ url_for('admin.unhide_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-success btn-sm">{{ _('Approve/Repost') }}</button>
+                    </form>
                     <form action="{{ url_for('admin.delete_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">{{ _('Delete Entry') }}</button>
                     </form>
