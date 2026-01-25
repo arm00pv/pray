@@ -18,7 +18,7 @@
                     <form action="{{ url_for('admin.delete_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-danger btn-sm">{{ _('Delete Entry') }}</button>
                     </form>
-                    <form action="{{ url_for('admin.block_user', user_id=entry.user_id) }}" method="POST" style="display:inline;">
+                    <form action="{{ url_for('admin.block_author', entry_id=entry.id) }}" method="POST" style="display:inline;">
                         <button type="submit" class="btn btn-warning btn-sm">{{ _('Block User') }}</button>
                     </form>
                 </div>

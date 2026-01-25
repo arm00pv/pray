@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 04:34+0000\n"
+"POT-Creation-Date: 2026-01-25 04:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,47 +21,55 @@ msgstr ""
 msgid "Admin Dashboard"
 msgstr ""
 
-#: templates/admin_dashboard.html:10
+#: templates/admin_dashboard.html:16
+msgid "Admin Notifications"
+msgstr ""
+
+#: templates/admin_dashboard.html:18
+msgid "Flagged Posts"
+msgstr ""
+
+#: templates/admin_dashboard.html:24
 msgid "Admin Management"
 msgstr ""
 
-#: templates/admin_dashboard.html:12
+#: templates/admin_dashboard.html:26
 msgid "Generate New Admin Invite Code"
 msgstr ""
 
-#: templates/admin_dashboard.html:14
+#: templates/admin_dashboard.html:28
 msgid "Review Flagged Entries"
 msgstr ""
 
-#: templates/admin_dashboard.html:15 templates/admin_emails.html:5
+#: templates/admin_dashboard.html:29 templates/admin_emails.html:5
 msgid "Community Email List"
 msgstr ""
 
-#: templates/admin_dashboard.html:22
+#: templates/admin_dashboard.html:36
 msgid "Top Petitions (Tags)"
 msgstr ""
 
-#: templates/admin_dashboard.html:31
+#: templates/admin_dashboard.html:45
 msgid "No tags data yet."
 msgstr ""
 
-#: templates/admin_dashboard.html:39
+#: templates/admin_dashboard.html:53
 msgid "Prayer Locations"
 msgstr ""
 
-#: templates/admin_dashboard.html:44
+#: templates/admin_dashboard.html:58
 msgid "Country"
 msgstr ""
 
-#: templates/admin_dashboard.html:45
+#: templates/admin_dashboard.html:59
 msgid "City"
 msgstr ""
 
-#: templates/admin_dashboard.html:46
+#: templates/admin_dashboard.html:60
 msgid "IP"
 msgstr ""
 
-#: templates/admin_dashboard.html:57
+#: templates/admin_dashboard.html:71
 msgid "No location data yet."
 msgstr ""
 
@@ -70,7 +78,7 @@ msgstr ""
 msgid "Back to Dashboard"
 msgstr ""
 
-#: templates/admin_emails.html:14 templates/forgot_password.html:11
+#: templates/admin_emails.html:14 templates/admin_register.html:19
 #: templates/index.html:25 templates/settings.html:19
 msgid "Email Address"
 msgstr ""
@@ -115,6 +123,64 @@ msgstr ""
 msgid "No flagged entries."
 msgstr ""
 
+#: templates/admin_register.html:7
+msgid "Admin Registration"
+msgstr ""
+
+#: templates/admin_register.html:11
+msgid "Invite Code"
+msgstr ""
+
+#: templates/admin_register.html:15 templates/forgot_password.html:11
+#: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:14
+msgid "Username"
+msgstr ""
+
+#: templates/admin_register.html:23 templates/login.html:15
+#: templates/register.html:19
+msgid "Password"
+msgstr ""
+
+#: templates/admin_register.html:26 templates/register.html:22
+#: templates/reset_password.html:14
+msgid "Password Strength"
+msgstr ""
+
+#: templates/admin_register.html:34 templates/register.html:40
+msgid "Security Question"
+msgstr ""
+
+#: templates/admin_register.html:36 templates/register.html:42
+msgid "Select a question..."
+msgstr ""
+
+#: templates/admin_register.html:37 templates/register.html:43
+msgid "What was the name of your first pet?"
+msgstr ""
+
+#: templates/admin_register.html:38 templates/register.html:44
+msgid "What is your mother's maiden name?"
+msgstr ""
+
+#: templates/admin_register.html:39 templates/register.html:45
+msgid "What city were you born in?"
+msgstr ""
+
+#: templates/admin_register.html:40 templates/register.html:46
+msgid "What is the name of your favorite book?"
+msgstr ""
+
+#: templates/admin_register.html:44 templates/answer_security_question.html:13
+#: templates/register.html:50
+msgid "Security Answer"
+msgstr ""
+
+#: templates/admin_register.html:47 templates/base.html:63
+#: templates/index.html:14 templates/register.html:53
+msgid "Register"
+msgstr ""
+
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
 msgstr ""
@@ -137,10 +203,6 @@ msgstr ""
 
 #: templates/answer_security_question.html:9
 msgid "Please answer your security question to reset your password."
-msgstr ""
-
-#: templates/answer_security_question.html:13 templates/register.html:50
-msgid "Security Answer"
 msgstr ""
 
 #: templates/answer_security_question.html:16
@@ -189,10 +251,6 @@ msgstr ""
 
 #: templates/base.html:62 templates/index.html:13 templates/login.html:21
 msgid "Login"
-msgstr ""
-
-#: templates/base.html:63 templates/index.html:14 templates/register.html:53
-msgid "Register"
 msgstr ""
 
 #: templates/base.html:64
@@ -299,15 +357,6 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: templates/login.html:11 templates/register.html:11
-#: templates/settings.html:14
-msgid "Username"
-msgstr ""
-
-#: templates/login.html:15 templates/register.html:19
-msgid "Password"
-msgstr ""
-
 #: templates/login.html:18
 msgid "Forgot Password?"
 msgstr ""
@@ -318,10 +367,6 @@ msgstr ""
 
 #: templates/register.html:15
 msgid "Email Address (Optional)"
-msgstr ""
-
-#: templates/register.html:22 templates/reset_password.html:14
-msgid "Password Strength"
 msgstr ""
 
 #: templates/register.html:28 templates/register.html:72
@@ -346,30 +391,6 @@ msgstr ""
 
 #: templates/register.html:35
 msgid "Confirm Password"
-msgstr ""
-
-#: templates/register.html:40
-msgid "Security Question"
-msgstr ""
-
-#: templates/register.html:42
-msgid "Select a question..."
-msgstr ""
-
-#: templates/register.html:43
-msgid "What was the name of your first pet?"
-msgstr ""
-
-#: templates/register.html:44
-msgid "What is your mother's maiden name?"
-msgstr ""
-
-#: templates/register.html:45
-msgid "What city were you born in?"
-msgstr ""
-
-#: templates/register.html:46
-msgid "What is the name of your favorite book?"
 msgstr ""
 
 #: templates/reset_password.html:7 templates/reset_password.html:30

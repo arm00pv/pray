@@ -114,12 +114,23 @@ import unicodedata
 
 class ProfanityFilter:
     def __init__(self):
-        # Basic list including Spanish foul words with accents variations
-        # This is a sample list. In a real app, this should be more extensive or loaded from a file/db.
+        # Expanded list including English, Spanish, slang, and common compounds
         self.bad_words = [
             'badword', 'swear', 'spam',
+            # Spanish
             'mierda', 'puta', 'puto', 'cabron', 'cabrón', 'coño', 'joder', 'estupido', 'estúpido',
-            'idiota', 'imbecil', 'imbécil', 'verga', 'pendejo', 'chingar', 'pinche'
+            'idiota', 'imbecil', 'imbécil', 'verga', 'pendejo', 'chingar', 'pinche', 'mamaguevo',
+            'gonorrea', 'malparido',
+            # English
+            'fuck', 'shit', 'bitch', 'asshole', 'bastard', 'damn', 'cunt', 'dick', 'pussy',
+            'faggot', 'nigger', 'slut', 'whore', 'cock', 'tits'
+        ]
+        # Regex for compounds/evasions (e.g., a$$hole, f.u.c.k) - Simplified for demo
+        self.patterns = [
+            r'f[u*]+c+k',
+            r's[h*]+i+t',
+            r'b[i*]+t+c+h',
+            r'a+s+s+',
         ]
 
     def normalize_text(self, text):
@@ -137,6 +148,12 @@ class ProfanityFilter:
             word_lower = word.lower()
             if word_lower in text_lower or self.normalize_text(word_lower) in normalized_text:
                 return True
+
+        # Check patterns
+        for pattern in self.patterns:
+            if re.search(pattern, text_lower):
+                return True
+
         return False
 
 def validate_password_strength(password):

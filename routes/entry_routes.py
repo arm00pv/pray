@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response, session
 from flask_login import login_required, current_user
-from models import PrayerEntry, Tag, entry_tags, CommunityEmail
+from models import PrayerEntry, Tag, entry_tags, CommunityEmail, BlockedUser
 from extensions import db
 from utils import extract_tags, get_geolocation, ProfanityFilter
 import json
@@ -62,6 +62,12 @@ def add_entry():
         flash('Prayer content cannot be empty.')
         return redirect(url_for('entry.user_dashboard'))
 
+    # Check if user is blocked
+    blocked = BlockedUser.query.filter((BlockedUser.user_id == current_user.id) | (BlockedUser.email == current_user.email)).first()
+    if blocked:
+        flash('Your account is blocked from posting.')
+        return redirect(url_for('entry.user_dashboard'))
+
     # Enforce privacy logic: If private, it cannot be public
     if is_private:
         is_public = False
@@ -115,6 +121,12 @@ def add_anonymous_entry():
 
     if not content or not email or not agreed:
         flash('All fields including agreement to terms are required for anonymous posting.')
+        return redirect(url_for('index'))
+
+    # Check if email is blocked
+    blocked = BlockedUser.query.filter_by(email=email).first()
+    if blocked:
+        flash('This email address is blocked from posting.')
         return redirect(url_for('index'))
 
     pf = ProfanityFilter()

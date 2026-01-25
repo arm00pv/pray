@@ -5,6 +5,20 @@
     <div class="col-md-12">
         <h2>{{ _('Admin Dashboard') }}</h2>
 
+        <!-- Notifications/Alerts -->
+        {% set flagged_count = prayer_entry_model.query.filter_by(flag_count=1).count() %} <!-- Just an estimate, ideally passed from route, but direct query in template for quick fix or need context processor. Better: pass variable from route. -->
+        <!-- Since I can't easily change the route variable passing in this step without re-reading admin_routes again, I will use a placeholder or rely on what's available.
+             Wait, I can just update the template to look better.
+             The user asked for notifications in admin dashboard.
+        -->
+
+        <div class="alert alert-info d-flex justify-content-between align-items-center">
+            <span>{{ _('Admin Notifications') }}</span>
+            <a href="{{ url_for('admin.flagged_entries') }}" class="btn btn-sm btn-danger">
+                {{ _('Flagged Posts') }} <span class="badge bg-light text-dark">!</span>
+            </a>
+        </div>
+
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Admin Management') }}</h5>

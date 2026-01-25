@@ -76,16 +76,12 @@ def register():
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
-        email = request.form.get('email')
-        user = User.query.filter_by(email=email).first()
+        username = request.form.get('username')
+        user = User.query.filter_by(username=username).first()
         if user:
-            # Step 1 passed: Email found. Redirect to answer security question.
-            # We pass the user id lightly obfuscated or just in session? Session is safer.
-            # But query param allows bookmarking if needed? No, session is better flow.
-            # Or render the question form directly here?
             return render_template('answer_security_question.html', user_id=user.id, question=user.security_question)
         else:
-            flash('Email not found.')
+            flash('Username not found.')
     return render_template('forgot_password.html')
 
 @auth_bp.route('/verify-security-answer/<int:user_id>', methods=['POST'])
@@ -100,14 +96,8 @@ def verify_security_answer(user_id):
         user.reset_token_expiry = datetime.utcnow() + timedelta(hours=1)
         db.session.commit()
 
-        # Send reset link
-        reset_url = url_for('auth.reset_password', token=token, _external=True)
-        if user.email:
-            send_email(user.email, "Password Reset Request", f"Click here to reset your password: {reset_url}")
-            flash(f'Security answer correct. A password reset link has been sent to {user.email}')
-            return redirect(url_for('auth.login'))
-        else:
-            flash('Error: User has no email to send reset link.')
+        # Allow direct reset since email is optional
+        return redirect(url_for('auth.reset_password', token=token))
     else:
         flash('Incorrect security answer.')
         return render_template('answer_security_question.html', user_id=user.id, question=user.security_question)
