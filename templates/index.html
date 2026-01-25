@@ -9,9 +9,30 @@
             <p class="col-md-8 fs-4">{{ _('A safe space to document your prayers, gratitude, and connect with a supportive community.') }}</p>
 
             {% if not current_user.is_authenticated %}
-                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4">
                     <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-4 me-md-2">{{ _('Login') }}</a>
                     <a href="{{ url_for('auth.register') }}" class="btn btn-outline-secondary btn-lg px-4">{{ _('Register') }}</a>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ _('Share Prayer Anonymously') }}</h5>
+                        <form action="{{ url_for('entry.add_anonymous_entry') }}" method="POST">
+                            <div class="mb-3">
+                                <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">{{ _('Email Address') }}</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="form-text">{{ _('Your email is required for Terms & Conditions but will not be publicly displayed.') }}</div>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="agreed_to_terms" name="agreed_to_terms" required>
+                                <label class="form-check-label" for="agreed_to_terms">{{ _('I agree to the Terms & Conditions') }}</label>
+                            </div>
+                            <button type="submit" class="btn btn-success">{{ _('Share Prayer') }}</button>
+                        </form>
+                    </div>
                 </div>
             {% else %}
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">

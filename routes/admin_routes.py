@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail
 from extensions import db
 import json
 import uuid
@@ -42,6 +42,11 @@ def flagged_entries():
     # Show entries that are flagged (and likely hidden)
     entries = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).all()
     return render_template('admin_flagged.html', entries=entries)
+
+@admin_bp.route('/dashboard/emails')
+def community_emails():
+    emails = CommunityEmail.query.order_by(CommunityEmail.created_at.desc()).all()
+    return render_template('admin_emails.html', emails=emails)
 
 @admin_bp.route('/unhide_entry/<int:entry_id>', methods=['POST'])
 def unhide_entry(entry_id):

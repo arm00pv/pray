@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 01:03+0000\n"
-"PO-Revision-Date: 2026-01-25 01:03+0000\n"
+"POT-Creation-Date: 2026-01-25 01:12+0000\n"
+"PO-Revision-Date: 2026-01-25 01:12+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -34,42 +34,64 @@ msgstr "Generar Nuevo Código de Invitación de Admin"
 msgid "Review Flagged Entries"
 msgstr "Revisar Entradas Reportadas"
 
-#: templates/admin_dashboard.html:21
+#: templates/admin_dashboard.html:15 templates/admin_emails.html:5
+msgid "Community Email List"
+msgstr "Lista de Correos de la Comunidad"
+
+#: templates/admin_dashboard.html:22
 msgid "Top Petitions (Tags)"
 msgstr "Peticiones Principales (Etiquetas)"
 
-#: templates/admin_dashboard.html:30
+#: templates/admin_dashboard.html:31
 msgid "No tags data yet."
 msgstr "No hay datos de etiquetas todavía."
 
-#: templates/admin_dashboard.html:38
+#: templates/admin_dashboard.html:39
 msgid "Prayer Locations"
 msgstr "Ubicaciones de Oración"
 
-#: templates/admin_dashboard.html:42
+#: templates/admin_dashboard.html:43
 msgid "Country"
 msgstr "País"
 
-#: templates/admin_dashboard.html:43
+#: templates/admin_dashboard.html:44
 msgid "City"
 msgstr "Ciudad"
 
-#: templates/admin_dashboard.html:44
+#: templates/admin_dashboard.html:45
 msgid "IP"
 msgstr "IP"
 
-#: templates/admin_dashboard.html:57
+#: templates/admin_dashboard.html:58
 msgid "No location data yet."
 msgstr "No hay datos de ubicación todavía."
+
+#: templates/admin_emails.html:6 templates/admin_flagged.html:7
+#: templates/analytics.html:23 templates/gratitude.html:36
+msgid "Back to Dashboard"
+msgstr "Volver al Panel"
+
+#: templates/admin_emails.html:14 templates/forgot_password.html:11
+#: templates/index.html:24 templates/register.html:15
+#: templates/settings.html:19
+msgid "Email Address"
+msgstr "Correo Electrónico"
+
+#: templates/admin_emails.html:15
+msgid "Date Joined"
+msgstr "Fecha de Ingreso"
+
+#: templates/admin_emails.html:16
+msgid "Agreed to Terms"
+msgstr "Aceptó Términos"
+
+#: templates/admin_emails.html:29
+msgid "No community emails found."
+msgstr "No se encontraron correos de la comunidad."
 
 #: templates/admin_flagged.html:6
 msgid "Flagged Entries"
 msgstr "Entradas Reportadas"
-
-#: templates/admin_flagged.html:7 templates/analytics.html:23
-#: templates/gratitude.html:36
-msgid "Back to Dashboard"
-msgstr "Volver al Panel"
 
 #: templates/admin_flagged.html:14
 msgid "Flag Count"
@@ -192,7 +214,7 @@ msgstr "Administrador"
 msgid "Join others in prayer. These requests have been shared anonymously."
 msgstr "Únete a otros en oración. Estas peticiones han sido compartidas anónimamente."
 
-#: templates/community.html:14 templates/index.html:30
+#: templates/community.html:14 templates/index.html:51
 msgid "Anonymous"
 msgstr "Anónimo"
 
@@ -215,11 +237,6 @@ msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!
 #: templates/forgot_password.html:6
 msgid "Forgot Password"
 msgstr "Olvidé mi Contraseña"
-
-#: templates/forgot_password.html:11 templates/register.html:15
-#: templates/settings.html:19
-msgid "Email Address"
-msgstr "Correo Electrónico"
 
 #: templates/forgot_password.html:14 templates/login.html:7
 msgid "User Login"
@@ -251,19 +268,41 @@ msgid ""
 "supportive community."
 msgstr "Un espacio seguro para documentar tus oraciones, gratitud y conectarte con una comunidad solidaria."
 
-#: templates/index.html:17
+#: templates/index.html:19
+msgid "Share Prayer Anonymously"
+msgstr "Compartir Oración Anónimamente"
+
+#: templates/index.html:22 templates/user_dashboard.html:22
+msgid "Write your prayer here..."
+msgstr "Escribe tu oración aquí..."
+
+#: templates/index.html:26
+msgid ""
+"Your email is required for Terms & Conditions but will not be publicly "
+"displayed."
+msgstr "Tu correo es requerido para los Términos y Condiciones pero no será mostrado públicamente."
+
+#: templates/index.html:30
+msgid "I agree to the Terms & Conditions"
+msgstr "Acepto los Términos y Condiciones"
+
+#: templates/index.html:32
+msgid "Share Prayer"
+msgstr "Compartir Oración"
+
+#: templates/index.html:38
 msgid "Go to Dashboard"
 msgstr "Ir al Panel"
 
-#: templates/index.html:23
+#: templates/index.html:44
 msgid "Live Community Feed"
 msgstr "Muro de Comunidad en Vivo"
 
-#: templates/index.html:43
+#: templates/index.html:64
 msgid "No public prayers yet."
 msgstr "No hay oraciones públicas todavía."
 
-#: templates/index.html:47
+#: templates/index.html:68
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
 
@@ -392,10 +431,6 @@ msgstr "Análisis"
 #: templates/user_dashboard.html:19
 msgid "New Entry"
 msgstr "Nueva Entrada"
-
-#: templates/user_dashboard.html:22
-msgid "Write your prayer here..."
-msgstr "Escribe tu oración aquí..."
 
 #: templates/user_dashboard.html:25
 msgid "Category"

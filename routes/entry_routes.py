@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response, session
 from flask_login import login_required, current_user
-from models import PrayerEntry, Tag, entry_tags
+from models import PrayerEntry, Tag, entry_tags, CommunityEmail
 from extensions import db
 from utils import extract_tags, get_geolocation, ProfanityFilter
 import json
@@ -106,6 +106,63 @@ def add_entry():
     db.session.commit()
     flash('Prayer entry added.')
     return redirect(url_for('entry.user_dashboard'))
+
+@entry_bp.route('/add_anonymous', methods=['POST'])
+def add_anonymous_entry():
+    content = request.form.get('content')
+    email = request.form.get('email')
+    agreed = request.form.get('agreed_to_terms')
+
+    if not content or not email or not agreed:
+        flash('All fields including agreement to terms are required for anonymous posting.')
+        return redirect(url_for('index'))
+
+    pf = ProfanityFilter()
+    if pf.is_profane(content):
+        flash('Content contains profanity and cannot be posted.')
+        return redirect(url_for('index'))
+
+    # IP and Geo
+    ip = request.remote_addr
+    if request.headers.get('X-Forwarded-For'):
+        ip = request.headers.get('X-Forwarded-For').split(',')[0]
+
+    geo_data = get_geolocation(ip)
+
+    # Handle Email Record
+    comm_email = CommunityEmail.query.filter_by(email=email).first()
+    if not comm_email:
+        comm_email = CommunityEmail(email=email, agreed_to_terms=True)
+        db.session.add(comm_email)
+        db.session.commit() # Commit to get ID
+
+    entry = PrayerEntry(
+        user_id=None,
+        community_email_id=comm_email.id,
+        content=content,
+        ip_address=ip,
+        geolocation_data=json.dumps(geo_data) if geo_data else None,
+        is_public=True,
+        is_anonymous=True,
+        is_private=False
+    )
+
+    # Tags
+    locale = session.get('language', request.accept_languages.best_match(['en', 'es']))
+    tag_names = extract_tags(content, locale=locale)
+    for name in tag_names:
+        tag = Tag.query.filter_by(name=name).first()
+        if not tag:
+            tag = Tag(name=name, count=1)
+            db.session.add(tag)
+        else:
+            tag.count += 1
+        entry.tags.append(tag)
+
+    db.session.add(entry)
+    db.session.commit()
+    flash('Anonymous prayer shared successfully.')
+    return redirect(url_for('index'))
 
 @entry_bp.route('/entry/<int:entry_id>/status', methods=['POST'])
 @login_required

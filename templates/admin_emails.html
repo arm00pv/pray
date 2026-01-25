@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ _('Community Email List') }}</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mb-3">{{ _('Back to Dashboard') }}</a>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ _('Email Address') }}</th>
+                        <th>{{ _('Date Joined') }}</th>
+                        <th>{{ _('Agreed to Terms') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for email in emails %}
+                    <tr>
+                        <td>{{ email.id }}</td>
+                        <td>{{ email.email }}</td>
+                        <td>{{ email.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{% if email.agreed_to_terms %}✅{% else %}❌{% endif %}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">{{ _('No community emails found.') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

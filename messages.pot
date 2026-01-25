@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 04:01+0000\n"
+"POT-Creation-Date: 2026-01-25 04:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,41 +33,62 @@ msgstr ""
 msgid "Review Flagged Entries"
 msgstr ""
 
-#: templates/admin_dashboard.html:21
+#: templates/admin_dashboard.html:15 templates/admin_emails.html:5
+msgid "Community Email List"
+msgstr ""
+
+#: templates/admin_dashboard.html:22
 msgid "Top Petitions (Tags)"
 msgstr ""
 
-#: templates/admin_dashboard.html:30
+#: templates/admin_dashboard.html:31
 msgid "No tags data yet."
 msgstr ""
 
-#: templates/admin_dashboard.html:38
+#: templates/admin_dashboard.html:39
 msgid "Prayer Locations"
 msgstr ""
 
-#: templates/admin_dashboard.html:43
+#: templates/admin_dashboard.html:44
 msgid "Country"
 msgstr ""
 
-#: templates/admin_dashboard.html:44
+#: templates/admin_dashboard.html:45
 msgid "City"
 msgstr ""
 
-#: templates/admin_dashboard.html:45
+#: templates/admin_dashboard.html:46
 msgid "IP"
 msgstr ""
 
-#: templates/admin_dashboard.html:56
+#: templates/admin_dashboard.html:57
 msgid "No location data yet."
+msgstr ""
+
+#: templates/admin_emails.html:6 templates/admin_flagged.html:6
+#: templates/analytics.html:23 templates/gratitude.html:36
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/admin_emails.html:14 templates/forgot_password.html:11
+#: templates/index.html:25 templates/settings.html:19
+msgid "Email Address"
+msgstr ""
+
+#: templates/admin_emails.html:15
+msgid "Date Joined"
+msgstr ""
+
+#: templates/admin_emails.html:16
+msgid "Agreed to Terms"
+msgstr ""
+
+#: templates/admin_emails.html:29
+msgid "No community emails found."
 msgstr ""
 
 #: templates/admin_flagged.html:5
 msgid "Flagged Entries"
-msgstr ""
-
-#: templates/admin_flagged.html:6 templates/analytics.html:23
-#: templates/gratitude.html:36
-msgid "Back to Dashboard"
 msgstr ""
 
 #: templates/admin_flagged.html:13
@@ -118,7 +139,7 @@ msgstr ""
 msgid "Please answer your security question to reset your password."
 msgstr ""
 
-#: templates/answer_security_question.html:13
+#: templates/answer_security_question.html:13 templates/register.html:50
 msgid "Security Answer"
 msgstr ""
 
@@ -170,7 +191,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:63 templates/index.html:14
+#: templates/base.html:63 templates/index.html:14 templates/register.html:53
 msgid "Register"
 msgstr ""
 
@@ -186,7 +207,7 @@ msgstr ""
 msgid "Join others in prayer. These requests have been shared anonymously."
 msgstr ""
 
-#: templates/community.html:14 templates/index.html:33
+#: templates/community.html:14 templates/index.html:54
 msgid "Anonymous"
 msgstr ""
 
@@ -208,10 +229,6 @@ msgstr ""
 
 #: templates/forgot_password.html:7
 msgid "Forgot Password"
-msgstr ""
-
-#: templates/forgot_password.html:11 templates/settings.html:19
-msgid "Email Address"
 msgstr ""
 
 #: templates/forgot_password.html:14
@@ -240,19 +257,41 @@ msgid ""
 "supportive community."
 msgstr ""
 
-#: templates/index.html:18
+#: templates/index.html:19
+msgid "Share Prayer Anonymously"
+msgstr ""
+
+#: templates/index.html:22 templates/user_dashboard.html:22
+msgid "Write your prayer here..."
+msgstr ""
+
+#: templates/index.html:27
+msgid ""
+"Your email is required for Terms & Conditions but will not be publicly "
+"displayed."
+msgstr ""
+
+#: templates/index.html:31
+msgid "I agree to the Terms & Conditions"
+msgstr ""
+
+#: templates/index.html:33
+msgid "Share Prayer"
+msgstr ""
+
+#: templates/index.html:39
 msgid "Go to Dashboard"
 msgstr ""
 
-#: templates/index.html:26
+#: templates/index.html:47
 msgid "Live Community Feed"
 msgstr ""
 
-#: templates/index.html:47
+#: templates/index.html:68
 msgid "No public prayers yet."
 msgstr ""
 
-#: templates/index.html:51
+#: templates/index.html:72
 msgid "View Full Community Wall"
 msgstr ""
 
@@ -260,16 +299,77 @@ msgstr ""
 msgid "User Login"
 msgstr ""
 
-#: templates/login.html:11 templates/settings.html:14
+#: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:14
 msgid "Username"
 msgstr ""
 
-#: templates/login.html:15
+#: templates/login.html:15 templates/register.html:19
 msgid "Password"
 msgstr ""
 
 #: templates/login.html:18
 msgid "Forgot Password?"
+msgstr ""
+
+#: templates/register.html:7
+msgid "User Registration"
+msgstr ""
+
+#: templates/register.html:15
+msgid "Email Address (Optional)"
+msgstr ""
+
+#: templates/register.html:22 templates/reset_password.html:14
+msgid "Password Strength"
+msgstr ""
+
+#: templates/register.html:28 templates/register.html:72
+#: templates/reset_password.html:20 templates/reset_password.html:49
+msgid "At least 8 characters"
+msgstr ""
+
+#: templates/register.html:29 templates/register.html:73
+#: templates/reset_password.html:21 templates/reset_password.html:50
+msgid "One uppercase letter"
+msgstr ""
+
+#: templates/register.html:30 templates/register.html:74
+#: templates/reset_password.html:22 templates/reset_password.html:51
+msgid "One lowercase letter"
+msgstr ""
+
+#: templates/register.html:31 templates/register.html:75
+#: templates/reset_password.html:23 templates/reset_password.html:52
+msgid "One number"
+msgstr ""
+
+#: templates/register.html:35
+msgid "Confirm Password"
+msgstr ""
+
+#: templates/register.html:40
+msgid "Security Question"
+msgstr ""
+
+#: templates/register.html:42
+msgid "Select a question..."
+msgstr ""
+
+#: templates/register.html:43
+msgid "What was the name of your first pet?"
+msgstr ""
+
+#: templates/register.html:44
+msgid "What is your mother's maiden name?"
+msgstr ""
+
+#: templates/register.html:45
+msgid "What city were you born in?"
+msgstr ""
+
+#: templates/register.html:46
+msgid "What is the name of your favorite book?"
 msgstr ""
 
 #: templates/reset_password.html:7 templates/reset_password.html:30
@@ -278,26 +378,6 @@ msgstr ""
 
 #: templates/reset_password.html:11 templates/settings.html:37
 msgid "New Password"
-msgstr ""
-
-#: templates/reset_password.html:14
-msgid "Password Strength"
-msgstr ""
-
-#: templates/reset_password.html:20 templates/reset_password.html:49
-msgid "At least 8 characters"
-msgstr ""
-
-#: templates/reset_password.html:21 templates/reset_password.html:50
-msgid "One uppercase letter"
-msgstr ""
-
-#: templates/reset_password.html:22 templates/reset_password.html:51
-msgid "One lowercase letter"
-msgstr ""
-
-#: templates/reset_password.html:23 templates/reset_password.html:52
-msgid "One number"
 msgstr ""
 
 #: templates/reset_password.html:27
@@ -346,10 +426,6 @@ msgstr ""
 
 #: templates/user_dashboard.html:19
 msgid "New Entry"
-msgstr ""
-
-#: templates/user_dashboard.html:22
-msgid "Write your prayer here..."
 msgstr ""
 
 #: templates/user_dashboard.html:25
