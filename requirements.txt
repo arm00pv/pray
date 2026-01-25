@@ -9,4 +9,4 @@ nltk==3.8.1
 fpdf==1.7.2
 APScheduler==3.10.4
 email-validator==2.1.0.post1
-psycopg2-binary==2.9.9
+psycopg2-binary>=2.9.9
