@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 01:46+0000\n"
-"PO-Revision-Date: 2026-01-25 01:46+0000\n"
+"POT-Creation-Date: 2026-01-25 01:57+0000\n"
+"PO-Revision-Date: 2026-01-25 01:57+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -26,64 +26,119 @@ msgstr "Panel de Admin"
 msgid "Admin Notifications"
 msgstr "Notificaciones de Admin"
 
+#: templates/admin_dashboard.html:16
+msgid "There are entries requiring review."
+msgstr "Hay entradas que requieren revisión."
+
 #: templates/admin_dashboard.html:18
 msgid "Flagged Posts"
 msgstr "Publicaciones Reportadas"
 
-#: templates/admin_dashboard.html:24
+#: templates/admin_dashboard.html:22
+msgid "No pending notifications."
+msgstr "No hay notificaciones pendientes."
+
+#: templates/admin_dashboard.html:27
+msgid "Total Users"
+msgstr "Usuarios Totales"
+
+#: templates/admin_dashboard.html:34
+msgid "Total Prayer Entries"
+msgstr "Entradas de Oración Totales"
+
+#: templates/admin_dashboard.html:41
+msgid "Total Gratitude Entries"
+msgstr "Entradas de Gratitud Totales"
+
+#: templates/admin_dashboard.html:50
 msgid "Admin Management"
 msgstr "Gestión de Admin"
 
-#: templates/admin_dashboard.html:26
+#: templates/admin_dashboard.html:52
 msgid "Generate New Admin Invite Code"
 msgstr "Generar Nuevo Código de Invitación de Admin"
 
-#: templates/admin_dashboard.html:28
+#: templates/admin_dashboard.html:54
 msgid "Review Flagged Entries"
 msgstr "Revisar Entradas Reportadas"
 
-#: templates/admin_dashboard.html:29 templates/admin_emails.html:5
+#: templates/admin_dashboard.html:55 templates/admin_emails.html:5
 msgid "Community Email List"
 msgstr "Lista de Correos de la Comunidad"
 
-#: templates/admin_dashboard.html:36
+#: templates/admin_dashboard.html:62
 msgid "Top Petitions (Tags)"
 msgstr "Peticiones Principales (Etiquetas)"
 
-#: templates/admin_dashboard.html:45
+#: templates/admin_dashboard.html:71
 msgid "No tags data yet."
 msgstr "No hay datos de etiquetas todavía."
 
-#: templates/admin_dashboard.html:53
+#: templates/admin_dashboard.html:79
 msgid "Prayer Locations"
 msgstr "Ubicaciones de Oración"
 
-#: templates/admin_dashboard.html:57
+#: templates/admin_dashboard.html:83
 msgid "Country"
 msgstr "País"
 
-#: templates/admin_dashboard.html:58
+#: templates/admin_dashboard.html:84
 msgid "City"
 msgstr "Ciudad"
 
-#: templates/admin_dashboard.html:59
+#: templates/admin_dashboard.html:85
 msgid "IP"
 msgstr "IP"
 
-#: templates/admin_dashboard.html:72
+#: templates/admin_dashboard.html:86
+msgid "Count"
+msgstr "Conteo"
+
+#: templates/admin_dashboard.html:99
 msgid "No location data yet."
 msgstr "No hay datos de ubicación todavía."
+
+#: templates/admin_dashboard.html:107
+msgid "Registered Users"
+msgstr "Usuarios Registrados"
+
+#: templates/admin_dashboard.html:113 templates/admin_login.html:11
+#: templates/admin_register.html:14 templates/login.html:11
+#: templates/register.html:11 templates/settings.html:11
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: templates/admin_dashboard.html:114 templates/admin_emails.html:14
+#: templates/admin_register.html:17 templates/forgot_password.html:11
+#: templates/index.html:24 templates/register.html:15
+#: templates/settings.html:19
+msgid "Email"
+msgstr "Correo Electrónico"
+
+#: templates/admin_dashboard.html:115
+msgid "Joined Date"
+msgstr "Fecha de Ingreso"
+
+#: templates/admin_dashboard.html:116
+msgid "Status"
+msgstr "Estado"
+
+#: templates/admin_dashboard.html:127
+msgid "Verified"
+msgstr "Verificado"
+
+#: templates/admin_dashboard.html:131
+msgid "No users found."
+msgstr "No se encontraron usuarios."
 
 #: templates/admin_emails.html:6 templates/admin_flagged.html:7
 #: templates/analytics.html:23 templates/gratitude.html:36
 msgid "Back to Dashboard"
 msgstr "Volver al Panel"
 
-#: templates/admin_emails.html:14 templates/forgot_password.html:11
-#: templates/index.html:24 templates/register.html:15
-#: templates/settings.html:19 templates/admin_register.html:17
+#: templates/admin_emails.html:14
 msgid "Email Address"
-msgstr "Correo Electrónico"
+msgstr "Dirección de Correo"
 
 #: templates/admin_emails.html:15
 msgid "Date Joined"
@@ -129,6 +184,12 @@ msgstr "No hay entradas reportadas."
 msgid "Admin Login"
 msgstr "Inicio de Sesión Admin"
 
+#: templates/admin_login.html:15 templates/admin_register.html:21
+#: templates/login.html:15 templates/register.html:19
+#: templates/reset_password.html:11
+msgid "Password"
+msgstr "Contraseña"
+
 #: templates/admin_register.html:7
 msgid "Admin Registration"
 msgstr "Registro de Admin"
@@ -136,6 +197,66 @@ msgstr "Registro de Admin"
 #: templates/admin_register.html:11
 msgid "Invite Code"
 msgstr "Código de Invitación"
+
+#: templates/admin_register.html:24 templates/register.html:22
+#: templates/reset_password.html:14
+msgid "Password Strength"
+msgstr "Fortaleza de la Contraseña"
+
+#: templates/admin_register.html:33 templates/answer_security_question.html:13
+#: templates/register.html:37
+msgid "Security Question"
+msgstr "Pregunta de Seguridad"
+
+#: templates/admin_register.html:35 templates/register.html:39
+msgid "Select a question..."
+msgstr "Selecciona una pregunta..."
+
+#: templates/admin_register.html:36 templates/register.html:40
+msgid "What was the name of your first pet?"
+msgstr "¿Cuál fue el nombre de tu primera mascota?"
+
+#: templates/admin_register.html:37 templates/register.html:41
+msgid "What is your mother's maiden name?"
+msgstr "¿Cuál es el apellido de soltera de tu madre?"
+
+#: templates/admin_register.html:38 templates/register.html:42
+msgid "What city were you born in?"
+msgstr "¿En qué ciudad naciste?"
+
+#: templates/admin_register.html:39 templates/register.html:43
+msgid "What is the name of your favorite book?"
+msgstr "¿Cuál es el nombre de tu libro favorito?"
+
+#: templates/admin_register.html:43 templates/answer_security_question.html:13
+#: templates/register.html:38
+msgid "Security Answer"
+msgstr "Respuesta de Seguridad"
+
+#: templates/admin_register.html:46 templates/base.html:66
+#: templates/index.html:13 templates/register.html:41
+msgid "Register"
+msgstr "Registrarse"
+
+#: templates/admin_register.html:57 templates/register.html:25
+#: templates/reset_password.html:20
+msgid "At least 8 characters"
+msgstr "Al menos 8 caracteres"
+
+#: templates/admin_register.html:63 templates/register.html:26
+#: templates/reset_password.html:21
+msgid "One uppercase letter"
+msgstr "Una letra mayúscula"
+
+#: templates/admin_register.html:64 templates/register.html:27
+#: templates/reset_password.html:22
+msgid "One lowercase letter"
+msgstr "Una letra minúscula"
+
+#: templates/admin_register.html:65 templates/register.html:28
+#: templates/reset_password.html:23
+msgid "One number"
+msgstr "Un número"
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
@@ -160,11 +281,6 @@ msgstr "Control de Seguridad"
 #: templates/answer_security_question.html:9
 msgid "Please answer your security question to reset your password."
 msgstr "Por favor responde tu pregunta de seguridad para restablecer tu contraseña."
-
-#: templates/answer_security_question.html:13 templates/register.html:38
-#: templates/admin_register.html:43
-msgid "Security Answer"
-msgstr "Respuesta de Seguridad"
 
 #: templates/answer_security_question.html:16
 msgid "Verify Answer"
@@ -230,11 +346,6 @@ msgstr "Cerrar Sesión"
 #: templates/base.html:65 templates/index.html:12 templates/login.html:18
 msgid "Login"
 msgstr "Iniciar Sesión"
-
-#: templates/base.html:66 templates/index.html:13 templates/register.html:41
-#: templates/admin_register.html:46
-msgid "Register"
-msgstr "Registrarse"
 
 #: templates/base.html:67
 msgid "Admin"
@@ -372,18 +483,6 @@ msgstr "No hay oraciones públicas todavía."
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
 
-#: templates/login.html:11 templates/register.html:11
-#: templates/settings.html:11 templates/admin_login.html:11
-#: templates/admin_register.html:14
-msgid "Username"
-msgstr "Nombre de usuario"
-
-#: templates/login.html:15 templates/register.html:19
-#: templates/reset_password.html:11 templates/admin_login.html:15
-#: templates/admin_register.html:21
-msgid "Password"
-msgstr "Contraseña"
-
 #: templates/login.html:18
 msgid "Forgot Password?"
 msgstr "¿Olvidaste tu contraseña?"
@@ -396,58 +495,9 @@ msgstr "Registro de Usuario"
 msgid "Email Address (Optional)"
 msgstr "Correo Electrónico (Opcional)"
 
-#: templates/register.html:22 templates/reset_password.html:14
-#: templates/admin_register.html:24
-msgid "Password Strength"
-msgstr "Fortaleza de la Contraseña"
-
-#: templates/register.html:25 templates/reset_password.html:20
-#: templates/admin_register.html:57
-msgid "At least 8 characters"
-msgstr "Al menos 8 caracteres"
-
-#: templates/register.html:26 templates/reset_password.html:21
-#: templates/admin_register.html:63
-msgid "One uppercase letter"
-msgstr "Una letra mayúscula"
-
-#: templates/register.html:27 templates/reset_password.html:22
-#: templates/admin_register.html:64
-msgid "One lowercase letter"
-msgstr "Una letra minúscula"
-
-#: templates/register.html:28 templates/reset_password.html:23
-#: templates/admin_register.html:65
-msgid "One number"
-msgstr "Un número"
-
 #: templates/register.html:32
 msgid "Confirm Password"
 msgstr "Confirmar Contraseña"
-
-#: templates/register.html:37 templates/admin_register.html:33
-msgid "Security Question"
-msgstr "Pregunta de Seguridad"
-
-#: templates/register.html:39 templates/admin_register.html:35
-msgid "Select a question..."
-msgstr "Selecciona una pregunta..."
-
-#: templates/register.html:40 templates/admin_register.html:36
-msgid "What was the name of your first pet?"
-msgstr "¿Cuál fue el nombre de tu primera mascota?"
-
-#: templates/register.html:41 templates/admin_register.html:37
-msgid "What is your mother's maiden name?"
-msgstr "¿Cuál es el apellido de soltera de tu madre?"
-
-#: templates/register.html:42 templates/admin_register.html:38
-msgid "What city were you born in?"
-msgstr "¿En qué ciudad naciste?"
-
-#: templates/register.html:43 templates/admin_register.html:39
-msgid "What is the name of your favorite book?"
-msgstr "¿Cuál es el nombre de tu libro favorito?"
 
 #: templates/reset_password.html:6 templates/reset_password.html:27
 msgid "Reset Password"

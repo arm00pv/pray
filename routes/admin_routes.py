@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry
 from extensions import db
 import json
 import uuid
+from sqlalchemy import func
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admins')
 
@@ -14,31 +15,56 @@ def require_admin():
 
 @admin_bp.route('/dashboard')
 def dashboard():
-    # Metrics: Most mentioned petitions
+    # Metrics
+    total_users = User.query.count()
+    total_entries = PrayerEntry.query.count()
+    total_gratitude = GratitudeEntry.query.count()
+
+    # Most mentioned petitions
     top_tags = Tag.query.order_by(Tag.count.desc()).limit(10).all()
 
-    # Metrics: Flagged entries count
+    # Flagged entries count
     flagged_count = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).count()
 
-    # Metrics: IP locations
+    # Registered Users
+    users = User.query.order_by(User.created_at.desc()).all()
+
+    # Metrics: IP locations (Aggregated)
     # Get all entries with geo data
     entries = PrayerEntry.query.filter(PrayerEntry.geolocation_data != None).all()
-    locations = []
+    locations_map = {}
+
     for e in entries:
         try:
             data = json.loads(e.geolocation_data)
+            ip = e.ip_address
             if data and 'lat' in data and 'lon' in data:
-                locations.append({
-                    'lat': data['lat'],
-                    'lon': data['lon'],
-                    'country': data.get('country'),
-                    'city': data.get('city'),
-                    'ip': e.ip_address
-                })
+                key = ip
+                if key not in locations_map:
+                    locations_map[key] = {
+                        'lat': data['lat'],
+                        'lon': data['lon'],
+                        'country': data.get('country'),
+                        'city': data.get('city'),
+                        'ip': ip,
+                        'count': 1
+                    }
+                else:
+                    locations_map[key]['count'] += 1
         except:
             pass
 
-    return render_template('admin_dashboard.html', top_tags=top_tags, locations=locations, flagged_count=flagged_count)
+    locations = list(locations_map.values())
+    locations.sort(key=lambda x: x['count'], reverse=True)
+
+    return render_template('admin_dashboard.html',
+                           top_tags=top_tags,
+                           locations=locations,
+                           flagged_count=flagged_count,
+                           total_users=total_users,
+                           total_entries=total_entries,
+                           total_gratitude=total_gratitude,
+                           users=users)
 
 @admin_bp.route('/dashboard/flagged')
 def flagged_entries():

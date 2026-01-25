@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 17:05+0000\n"
+"POT-Creation-Date: 2026-01-25 18:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,56 +21,110 @@ msgstr ""
 msgid "Admin Dashboard"
 msgstr ""
 
-#: templates/admin_dashboard.html:16
+#: templates/admin_dashboard.html:11
 msgid "Admin Notifications"
 msgstr ""
 
-#: templates/admin_dashboard.html:18
+#: templates/admin_dashboard.html:11
+msgid "There are entries requiring review."
+msgstr ""
+
+#: templates/admin_dashboard.html:13
 msgid "Flagged Posts"
 msgstr ""
 
-#: templates/admin_dashboard.html:24
-msgid "Admin Management"
+#: templates/admin_dashboard.html:18
+msgid "No pending notifications."
 msgstr ""
 
 #: templates/admin_dashboard.html:26
+msgid "Total Users"
+msgstr ""
+
+#: templates/admin_dashboard.html:34
+msgid "Total Prayer Entries"
+msgstr ""
+
+#: templates/admin_dashboard.html:42
+msgid "Total Gratitude Entries"
+msgstr ""
+
+#: templates/admin_dashboard.html:52
+msgid "Admin Management"
+msgstr ""
+
+#: templates/admin_dashboard.html:54
 msgid "Generate New Admin Invite Code"
 msgstr ""
 
-#: templates/admin_dashboard.html:28
+#: templates/admin_dashboard.html:56
 msgid "Review Flagged Entries"
 msgstr ""
 
-#: templates/admin_dashboard.html:29 templates/admin_emails.html:5
+#: templates/admin_dashboard.html:57 templates/admin_emails.html:5
 msgid "Community Email List"
 msgstr ""
 
-#: templates/admin_dashboard.html:36
+#: templates/admin_dashboard.html:64
 msgid "Top Petitions (Tags)"
 msgstr ""
 
-#: templates/admin_dashboard.html:45
+#: templates/admin_dashboard.html:73
 msgid "No tags data yet."
 msgstr ""
 
-#: templates/admin_dashboard.html:53
+#: templates/admin_dashboard.html:81
 msgid "Prayer Locations"
 msgstr ""
 
-#: templates/admin_dashboard.html:58
+#: templates/admin_dashboard.html:86
 msgid "Country"
 msgstr ""
 
-#: templates/admin_dashboard.html:59
+#: templates/admin_dashboard.html:87
 msgid "City"
 msgstr ""
 
-#: templates/admin_dashboard.html:60
+#: templates/admin_dashboard.html:88
 msgid "IP"
 msgstr ""
 
-#: templates/admin_dashboard.html:71
+#: templates/admin_dashboard.html:89
+msgid "Count"
+msgstr ""
+
+#: templates/admin_dashboard.html:101
 msgid "No location data yet."
+msgstr ""
+
+#: templates/admin_dashboard.html:112
+msgid "Registered Users"
+msgstr ""
+
+#: templates/admin_dashboard.html:118 templates/admin_register.html:15
+#: templates/forgot_password.html:11 templates/login.html:11
+#: templates/register.html:11 templates/settings.html:14
+msgid "Username"
+msgstr ""
+
+#: templates/admin_dashboard.html:119
+msgid "Email"
+msgstr ""
+
+#: templates/admin_dashboard.html:120
+msgid "Joined Date"
+msgstr ""
+
+#: templates/admin_dashboard.html:121
+msgid "Status"
+msgstr ""
+
+#: templates/admin_dashboard.html:132
+msgid "Verified"
+msgstr ""
+
+#: templates/admin_dashboard.html:136
+msgid "No users found."
 msgstr ""
 
 #: templates/admin_emails.html:6 templates/admin_flagged.html:6
@@ -129,12 +183,6 @@ msgstr ""
 
 #: templates/admin_register.html:11
 msgid "Invite Code"
-msgstr ""
-
-#: templates/admin_register.html:15 templates/forgot_password.html:11
-#: templates/login.html:11 templates/register.html:11
-#: templates/settings.html:14
-msgid "Username"
 msgstr ""
 
 #: templates/admin_register.html:23 templates/login.html:15

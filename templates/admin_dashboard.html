@@ -19,6 +19,34 @@
         </div>
         {% endif %}
 
+        <!-- Key Metrics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">{{ _('Total Users') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_users }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">{{ _('Total Prayer Entries') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_entries }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">{{ _('Total Gratitude Entries') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_gratitude }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Admin Management') }}</h5>
@@ -58,6 +86,7 @@
                                     <th>{{ _('Country') }}</th>
                                     <th>{{ _('City') }}</th>
                                     <th>{{ _('IP') }}</th>
+                                    <th>{{ _('Count') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,14 +95,48 @@
                                     <td>{{ loc.country }}</td>
                                     <td>{{ loc.city }}</td>
                                     <td>{{ loc.ip }}</td>
+                                    <td>{{ loc.count }}</td>
                                 </tr>
                                 {% else %}
-                                <tr><td colspan="3">{{ _('No location data yet.') }}</td></tr>
+                                <tr><td colspan="4">{{ _('No location data yet.') }}</td></tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Registered Users List -->
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Registered Users') }}</div>
+            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ _('Username') }}</th>
+                            <th>{{ _('Email') }}</th>
+                            <th>{{ _('Joined Date') }}</th>
+                            <th>{{ _('Status') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email or 'N/A' }}</td>
+                            <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                {% if user.is_verified %}<span class="badge bg-success">{{ _('Verified') }}</span>{% endif %}
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="5">{{ _('No users found.') }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
