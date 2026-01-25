@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- User Info Sidebar -->
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=random&size=128" class="rounded-circle" alt="{{ user.username }}">
+                </div>
+                <h3 class="card-title">{{ user.username }}</h3>
+                <p class="text-muted">{{ _('Joined') }}: {{ user.created_at.strftime('%Y-%m-%d') }}</p>
+
+                <hr>
+
+                <div class="d-flex justify-content-around">
+                    <div class="text-center">
+                        <h5>{{ prayer_count }}</h5>
+                        <small class="text-muted">{{ _('Prayers Shared') }}</small>
+                    </div>
+                    <div class="text-center">
+                        <h5>{{ amen_count }}</h5>
+                        <small class="text-muted">{{ _('Amens Received') }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-8">
+        <!-- Tabs -->
+        <ul class="nav nav-tabs mb-3" id="profileTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="prayers-tab" data-bs-toggle="tab" data-bs-target="#prayers" type="button" role="tab">{{ _('Public Prayers') }}</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="testimonies-tab" data-bs-toggle="tab" data-bs-target="#testimonies" type="button" role="tab">{{ _('Testimonies') }}</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="profileTabsContent">
+            <!-- Public Prayers -->
+            <div class="tab-pane fade show active" id="prayers" role="tabpanel">
+                {% for entry in prayers %}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {% if entry.category %}
+                                    <span class="badge bg-secondary">{{ _(entry.category) }}</span>
+                                {% endif %}
+                                <small class="text-muted float-end">{{ entry.created_at.strftime('%Y-%m-%d') }}</small>
+                            </h5>
+                            <p class="card-text">{{ entry.content }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-muted"><small>{{ entry.amens|length }} {{ _('Amens') }}</small></span>
+                                <!-- Note: Amens interaction requires logged in user, maybe just show count here for read-only view -->
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">{{ _('No public prayers shared yet.') }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Testimonies -->
+            <div class="tab-pane fade" id="testimonies" role="tabpanel">
+                 {% for testimony in testimonies %}
+                    <div class="card mb-3 shadow-sm border-success">
+                        <div class="card-body">
+                            <h5 class="card-title text-success"><i class="bi bi-patch-check"></i> {{ _('Testimony') }}</h5>
+                            <p class="card-text">{{ testimony.content }}</p>
+                            <small class="text-muted">{{ testimony.created_at.strftime('%Y-%m-%d') }}</small>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">{{ _('No testimonies shared yet.') }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 20:06+0000\n"
+"POT-Creation-Date: 2026-01-25 22:05+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -154,7 +154,7 @@ msgid "Active"
 msgstr "Activo"
 
 #: templates/admin_emails.html:20 templates/admin_register.html:19
-#: templates/index.html:25 templates/settings.html:19
+#: templates/index.html:36 templates/settings.html:19
 msgid "Email Address"
 msgstr "Dirección de Correo"
 
@@ -246,7 +246,7 @@ msgid "Security Answer"
 msgstr "Respuesta de Seguridad"
 
 #: templates/admin_register.html:47 templates/base.html:65
-#: templates/index.html:14 templates/register.html:53
+#: templates/index.html:25 templates/register.html:53
 msgid "Register"
 msgstr "Registrarse"
 
@@ -280,7 +280,7 @@ msgstr ""
 msgid "Verify Answer"
 msgstr "Verificar Respuesta"
 
-#: templates/base.html:12 templates/index.html:8
+#: templates/base.html:12 templates/index.html:19
 msgid "Praying Diary"
 msgstr "Diario de Oración"
 
@@ -308,7 +308,8 @@ msgstr "Mis Oraciones"
 msgid "Gratitude"
 msgstr "Gratitud"
 
-#: templates/base.html:57 templates/testimonies.html:6
+#: templates/base.html:57 templates/public_profile.html:40
+#: templates/testimonies.html:6
 msgid "Testimonies"
 msgstr "Testimonios"
 
@@ -328,7 +329,7 @@ msgstr "Configuración"
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:64 templates/index.html:13 templates/login.html:21
+#: templates/base.html:64 templates/index.html:24 templates/login.html:21
 msgid "Login"
 msgstr "Iniciar Sesión"
 
@@ -346,7 +347,7 @@ msgstr ""
 "Únete a otros en oración. Estas peticiones han sido compartidas "
 "anónimamente."
 
-#: templates/community.html:14 templates/index.html:54
+#: templates/community.html:14 templates/index.html:65
 msgid "Anonymous"
 msgstr "Anónimo"
 
@@ -454,7 +455,11 @@ msgstr "Unirse a Grupo"
 msgid "No prayer groups found."
 msgstr "No se encontraron grupos de oración."
 
-#: templates/index.html:9
+#: templates/index.html:9 templates/user_dashboard.html:12
+msgid "Verse of the Day"
+msgstr "Versículo del Día"
+
+#: templates/index.html:20
 msgid ""
 "A safe space to document your prayers, gratitude, and connect with a "
 "supportive community."
@@ -462,15 +467,15 @@ msgstr ""
 "Un espacio seguro para documentar tus oraciones, gratitud y conectarte "
 "con una comunidad solidaria."
 
-#: templates/index.html:19
+#: templates/index.html:30
 msgid "Share Prayer Anonymously"
 msgstr "Compartir Oración Anónimamente"
 
-#: templates/index.html:22 templates/user_dashboard.html:22
+#: templates/index.html:33 templates/user_dashboard.html:32
 msgid "Write your prayer here..."
 msgstr "Escribe tu oración aquí..."
 
-#: templates/index.html:27
+#: templates/index.html:38
 msgid ""
 "Your email is required for Terms & Conditions but will not be publicly "
 "displayed."
@@ -478,27 +483,27 @@ msgstr ""
 "Tu correo es requerido para los Términos y Condiciones pero no será "
 "mostrado públicamente."
 
-#: templates/index.html:31
+#: templates/index.html:42
 msgid "I agree to the Terms & Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: templates/index.html:33
+#: templates/index.html:44
 msgid "Share Prayer"
 msgstr "Compartir Oración"
 
-#: templates/index.html:39
+#: templates/index.html:50
 msgid "Go to Dashboard"
 msgstr "Ir al Panel"
 
-#: templates/index.html:47
+#: templates/index.html:58
 msgid "Live Community Feed"
 msgstr "Muro de Comunidad en Vivo"
 
-#: templates/index.html:68
+#: templates/index.html:79
 msgid "No public prayers yet."
 msgstr "No hay oraciones públicas todavía."
 
-#: templates/index.html:72
+#: templates/index.html:83
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
 
@@ -509,6 +514,38 @@ msgstr "Inicio de Sesión de Usuario"
 #: templates/login.html:18
 msgid "Forgot Password?"
 msgstr "¿Olvidaste tu contraseña?"
+
+#: templates/public_profile.html:14
+msgid "Joined"
+msgstr "Se unió"
+
+#: templates/public_profile.html:21
+msgid "Prayers Shared"
+msgstr "Oraciones Compartidas"
+
+#: templates/public_profile.html:25
+msgid "Amens Received"
+msgstr "Amens Recibidos"
+
+#: templates/public_profile.html:37
+msgid "Public Prayers"
+msgstr "Oraciones Públicas"
+
+#: templates/public_profile.html:58
+msgid "Amens"
+msgstr "Amén"
+
+#: templates/public_profile.html:64
+msgid "No public prayers shared yet."
+msgstr "Aún no se han compartido oraciones públicas."
+
+#: templates/public_profile.html:73
+msgid "Testimony"
+msgstr "Testimonio"
+
+#: templates/public_profile.html:79
+msgid "No testimonies shared yet."
+msgstr "Aún no hay testimonios."
 
 #: templates/register.html:7
 msgid "User Registration"
@@ -594,136 +631,136 @@ msgstr "Compartir Testimonio"
 msgid "No testimonies yet."
 msgstr "No hay testimonios todavía."
 
-#: templates/user_dashboard.html:8
+#: templates/user_dashboard.html:18
 #, fuzzy
 msgid "My Prayer Diary"
 msgstr "Mis Oraciones"
 
-#: templates/user_dashboard.html:9
+#: templates/user_dashboard.html:19
 msgid "Prayer Streak"
 msgstr "Racha de Oración"
 
-#: templates/user_dashboard.html:9
+#: templates/user_dashboard.html:19
 msgid "Days"
 msgstr "Días"
 
-#: templates/user_dashboard.html:12
+#: templates/user_dashboard.html:22
 msgid "Analytics"
 msgstr "Análisis"
 
-#: templates/user_dashboard.html:19
+#: templates/user_dashboard.html:29
 msgid "New Entry"
 msgstr "Nueva Entrada"
 
-#: templates/user_dashboard.html:25
+#: templates/user_dashboard.html:35
 msgid "Category"
 msgstr "Categoría"
 
-#: templates/user_dashboard.html:27
+#: templates/user_dashboard.html:37
 msgid "No Category"
 msgstr "Sin Categoría"
 
-#: templates/user_dashboard.html:28
+#: templates/user_dashboard.html:38
 msgid "Personal"
 msgstr "Personal"
 
-#: templates/user_dashboard.html:29
+#: templates/user_dashboard.html:39
 msgid "Family"
 msgstr "Familia"
 
-#: templates/user_dashboard.html:30
+#: templates/user_dashboard.html:40
 msgid "Work"
 msgstr "Trabajo"
 
-#: templates/user_dashboard.html:31
+#: templates/user_dashboard.html:41
 msgid "Health"
 msgstr "Salud"
 
-#: templates/user_dashboard.html:32
+#: templates/user_dashboard.html:42
 msgid "Church"
 msgstr "Iglesia"
 
-#: templates/user_dashboard.html:33
+#: templates/user_dashboard.html:43
 msgid "World"
 msgstr "Mundo"
 
-#: templates/user_dashboard.html:34
+#: templates/user_dashboard.html:44
 msgid "Other"
 msgstr "Otro"
 
-#: templates/user_dashboard.html:42
+#: templates/user_dashboard.html:52
 msgid "Share to Community Wall"
 msgstr "Compartir en Muro de la Comunidad"
 
-#: templates/user_dashboard.html:50
+#: templates/user_dashboard.html:60
 msgid "Post Anonymously"
 msgstr "Publicar Anónimamente"
 
-#: templates/user_dashboard.html:58
+#: templates/user_dashboard.html:68
 msgid "Private Entry (Only visible to me)"
 msgstr "Entrada Privada (Solo visible para mí)"
 
-#: templates/user_dashboard.html:61
+#: templates/user_dashboard.html:71
 msgid "Add Entry"
 msgstr "Añadir Entrada"
 
-#: templates/user_dashboard.html:84
+#: templates/user_dashboard.html:94
 msgid "Search keywords..."
 msgstr "Buscar palabras clave..."
 
-#: templates/user_dashboard.html:93
+#: templates/user_dashboard.html:103
 msgid "Filter"
 msgstr "Filtrar"
 
-#: templates/user_dashboard.html:98
+#: templates/user_dashboard.html:108
 msgid "Clear Filters"
 msgstr "Borrar Filtros"
 
-#: templates/user_dashboard.html:106
+#: templates/user_dashboard.html:116
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: templates/user_dashboard.html:107
+#: templates/user_dashboard.html:117
 msgid "Export PDF"
 msgstr "Exportar PDF"
 
-#: templates/user_dashboard.html:111
+#: templates/user_dashboard.html:121
 msgid "Past Entries"
 msgstr "Entradas Pasadas"
 
-#: templates/user_dashboard.html:118
+#: templates/user_dashboard.html:128
 msgid "Continuous"
 msgstr "Continuo"
 
-#: templates/user_dashboard.html:121
+#: templates/user_dashboard.html:131
 msgid "Public"
 msgstr "Público"
 
-#: templates/user_dashboard.html:145
+#: templates/user_dashboard.html:155
 msgid "Fulfilled"
 msgstr "Cumplido"
 
-#: templates/user_dashboard.html:149
+#: templates/user_dashboard.html:159
 msgid "No longer petition"
 msgstr "Ya no pedir"
 
-#: templates/user_dashboard.html:153
+#: templates/user_dashboard.html:163
 msgid "Unmark Continuous"
 msgstr "Desmarcar Continuo"
 
-#: templates/user_dashboard.html:153
+#: templates/user_dashboard.html:163
 msgid "Mark Continuous"
 msgstr "Marcar Continuo"
 
-#: templates/user_dashboard.html:157
+#: templates/user_dashboard.html:167
 msgid "Add Sticker"
 msgstr "Añadir Sticker"
 
-#: templates/user_dashboard.html:158
+#: templates/user_dashboard.html:168
 msgid "Add"
 msgstr "Añadir"
 
-#: templates/user_dashboard.html:165
+#: templates/user_dashboard.html:175
 msgid "No entries found."
 msgstr "No se encontraron entradas."
 

@@ -4,6 +4,17 @@
 <div class="row">
     <!-- Left Column: App Description & Login -->
     <div class="col-12 col-md-6 mb-4">
+        <!-- Daily Verse -->
+        <div class="card text-white bg-primary mb-4 shadow-sm">
+            <div class="card-header">{{ _('Verse of the Day') }}</div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p style="font-size: 1.1em;">"{{ daily_verse.text }}"</p>
+                    <footer class="blockquote-footer text-white"><cite title="Source">{{ daily_verse.ref }}</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+
         <div class="p-4 p-md-5 bg-light rounded-3">
             <h1 class="display-5 fw-bold">{{ _('Praying Diary') }}</h1>
             <p class="col-md-8 fs-4">{{ _('A safe space to document your prayers, gratitude, and connect with a supportive community.') }}</p>
@@ -53,7 +64,7 @@
                             {% if entry.is_anonymous %}
                                 {{ _('Anonymous') }}
                             {% else %}
-                                {{ entry.author.username }}
+                                <a href="{{ url_for('profile.public_profile', username=entry.author.username) }}" class="text-decoration-none text-dark">{{ entry.author.username }}</a>
                             {% endif %}
                         </h5>
                         <small>{{ entry.created_at.strftime('%H:%M') }}</small>

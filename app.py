@@ -16,6 +16,8 @@ from routes.notification_routes import notification_bp
 from routes.gratitude_routes import gratitude_bp
 from routes.testimony_routes import testimony_bp
 from routes.group_routes import group_bp
+from routes.profile_routes import profile_bp
+from utils import get_random_verse
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 import logging
@@ -63,6 +65,15 @@ def create_app():
     app.register_blueprint(gratitude_bp)
     app.register_blueprint(testimony_bp)
     app.register_blueprint(group_bp)
+    app.register_blueprint(profile_bp)
+
+    @app.context_processor
+    def inject_daily_verse():
+        locale = get_locale()
+        # Fallback if locale is None or complex object
+        if not isinstance(locale, str):
+             locale = str(locale)
+        return dict(daily_verse=get_random_verse(locale))
 
     # Scheduler
     # Only run scheduler if not in debug/reloader mode to avoid duplicates
