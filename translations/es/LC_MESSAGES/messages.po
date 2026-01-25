@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-24 23:46+0000\n"
-"PO-Revision-Date: 2026-01-24 23:46+0000\n"
+"POT-Creation-Date: 2026-01-24 23:55+0000\n"
+"PO-Revision-Date: 2026-01-24 23:55+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -17,6 +17,74 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: templates/admin_dashboard.html:6 templates/base.html:51
+msgid "Admin Dashboard"
+msgstr "Panel de Admin"
+
+#: templates/admin_dashboard.html:10
+msgid "Admin Management"
+msgstr "Gestión de Admin"
+
+#: templates/admin_dashboard.html:12
+msgid "Generate New Admin Invite Code"
+msgstr "Generar Nuevo Código de Invitación de Admin"
+
+#: templates/admin_dashboard.html:20
+msgid "Top Petitions (Tags)"
+msgstr "Peticiones Principales (Etiquetas)"
+
+#: templates/admin_dashboard.html:29
+msgid "No tags data yet."
+msgstr "No hay datos de etiquetas todavía."
+
+#: templates/admin_dashboard.html:37
+msgid "Prayer Locations"
+msgstr "Ubicaciones de Oración"
+
+#: templates/admin_dashboard.html:41
+msgid "Country"
+msgstr "País"
+
+#: templates/admin_dashboard.html:42
+msgid "City"
+msgstr "Ciudad"
+
+#: templates/admin_dashboard.html:43
+msgid "IP"
+msgstr "IP"
+
+#: templates/admin_dashboard.html:56
+msgid "No location data yet."
+msgstr "No hay datos de ubicación todavía."
+
+#: templates/admin_flagged.html:6
+msgid "Flagged Entries"
+msgstr "Entradas Marcadas"
+
+#: templates/admin_flagged.html:7 templates/analytics.html:23
+msgid "Back to Dashboard"
+msgstr "Volver al Panel"
+
+#: templates/admin_flagged.html:14
+msgid "Flag Count"
+msgstr "Conteo de Marcas"
+
+#: templates/admin_flagged.html:14
+msgid "Author ID"
+msgstr "ID del Autor"
+
+#: templates/admin_flagged.html:17
+msgid "Delete Entry"
+msgstr "Eliminar Entrada"
+
+#: templates/admin_flagged.html:20
+msgid "Block User"
+msgstr "Bloquear Usuario"
+
+#: templates/admin_flagged.html:27
+msgid "No flagged entries."
+msgstr "No hay entradas marcadas."
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
@@ -30,15 +98,11 @@ msgstr "Temas de Oración Principales"
 msgid "Prayer Categories"
 msgstr "Categorías de Oración"
 
-#: templates/analytics.html:23
-msgid "Back to Dashboard"
-msgstr "Volver al Panel"
-
 #: templates/analytics.html:36
 msgid "Prayer Count"
 msgstr "Conteo de Oraciones"
 
-#: templates/base.html:12
+#: templates/base.html:12 templates/user_dashboard.html:8
 msgid "Praying Diary"
 msgstr "Diario de Oración"
 
@@ -62,11 +126,7 @@ msgstr "Marcar todo como leído"
 msgid "Hello"
 msgstr "Hola"
 
-#: templates/base.html:51
-msgid "Admin Dashboard"
-msgstr "Panel de Admin"
-
-#: templates/base.html:53
+#: templates/base.html:53 templates/user_dashboard.html:12
 msgid "My Prayers"
 msgstr "Mis Oraciones"
 
@@ -142,9 +202,37 @@ msgstr "Registro de Usuario"
 msgid "Email Address (Optional)"
 msgstr "Correo Electrónico (Opcional)"
 
-#: templates/user_dashboard.html:8
-msgid "My Prayer Diary"
-msgstr "Mi Diario de Oración"
+#: templates/settings.html:6
+msgid "Profile Settings"
+msgstr "Configuración de Perfil"
+
+#: templates/settings.html:9
+msgid "Update Profile"
+msgstr "Actualizar Perfil"
+
+#: templates/settings.html:16
+msgid "Username cannot be changed."
+msgstr "El nombre de usuario no se puede cambiar."
+
+#: templates/settings.html:19
+msgid "Email Address"
+msgstr "Correo Electrónico"
+
+#: templates/settings.html:22
+msgid "Save Changes"
+msgstr "Guardar Cambios"
+
+#: templates/settings.html:28 templates/settings.html:37
+msgid "Change Password"
+msgstr "Cambiar Contraseña"
+
+#: templates/settings.html:31
+msgid "Current Password"
+msgstr "Contraseña Actual"
+
+#: templates/settings.html:35
+msgid "New Password"
+msgstr "Nueva Contraseña"
 
 #: templates/user_dashboard.html:9
 msgid "Prayer Streak"

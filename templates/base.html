@@ -12,13 +12,12 @@
             <a class="navbar-brand" href="#">{{ _('Praying Diary') }}</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <!-- Language Switcher -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ _('Language') }}</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ url_for('language.set_language', lang_code='en') }}">English</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('language.set_language', lang_code='es') }}">Español</a></li>
-                        </ul>
+                    <!-- Language Switcher (UX Friendly) -->
+                    <li class="nav-item me-3">
+                        <div class="btn-group" role="group" aria-label="Language Switcher">
+                            <a href="{{ url_for('language.set_language', lang_code='en') }}" class="btn btn-sm {% if session.get('language') == 'en' or not session.get('language') %}btn-primary{% else %}btn-outline-primary{% endif %}">EN</a>
+                            <a href="{{ url_for('language.set_language', lang_code='es') }}" class="btn btn-sm {% if session.get('language') == 'es' %}btn-primary{% else %}btn-outline-primary{% endif %}">ES</a>
+                        </div>
                     </li>
 
                     {% if current_user.is_authenticated %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-24 23:46+0000\n"
+"POT-Creation-Date: 2026-01-24 23:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,74 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: templates/admin_dashboard.html:6 templates/base.html:50
+msgid "Admin Dashboard"
+msgstr ""
+
+#: templates/admin_dashboard.html:10
+msgid "Admin Management"
+msgstr ""
+
+#: templates/admin_dashboard.html:12
+msgid "Generate New Admin Invite Code"
+msgstr ""
+
+#: templates/admin_dashboard.html:20
+msgid "Top Petitions (Tags)"
+msgstr ""
+
+#: templates/admin_dashboard.html:29
+msgid "No tags data yet."
+msgstr ""
+
+#: templates/admin_dashboard.html:37
+msgid "Prayer Locations"
+msgstr ""
+
+#: templates/admin_dashboard.html:42
+msgid "Country"
+msgstr ""
+
+#: templates/admin_dashboard.html:43
+msgid "City"
+msgstr ""
+
+#: templates/admin_dashboard.html:44
+msgid "IP"
+msgstr ""
+
+#: templates/admin_dashboard.html:55
+msgid "No location data yet."
+msgstr ""
+
+#: templates/admin_flagged.html:5
+msgid "Flagged Entries"
+msgstr ""
+
+#: templates/admin_flagged.html:6 templates/analytics.html:23
+msgid "Back to Dashboard"
+msgstr ""
+
+#: templates/admin_flagged.html:13
+msgid "Flag Count"
+msgstr ""
+
+#: templates/admin_flagged.html:13
+msgid "Author ID"
+msgstr ""
+
+#: templates/admin_flagged.html:16
+msgid "Delete Entry"
+msgstr ""
+
+#: templates/admin_flagged.html:19
+msgid "Block User"
+msgstr ""
+
+#: templates/admin_flagged.html:26
+msgid "No flagged entries."
+msgstr ""
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
@@ -29,10 +97,6 @@ msgstr ""
 msgid "Prayer Categories"
 msgstr ""
 
-#: templates/analytics.html:23
-msgid "Back to Dashboard"
-msgstr ""
-
 #: templates/analytics.html:36
 msgid "Prayer Count"
 msgstr ""
@@ -41,55 +105,47 @@ msgstr ""
 msgid "Praying Diary"
 msgstr ""
 
-#: templates/base.html:17
-msgid "Language"
-msgstr ""
-
-#: templates/base.html:29
+#: templates/base.html:28
 msgid "Notifications"
 msgstr ""
 
-#: templates/base.html:42
+#: templates/base.html:41
 msgid "No new notifications"
 msgstr ""
 
-#: templates/base.html:45
+#: templates/base.html:44
 msgid "Mark all as read"
 msgstr ""
 
-#: templates/base.html:49
+#: templates/base.html:48
 msgid "Hello"
 msgstr ""
 
-#: templates/base.html:51
-msgid "Admin Dashboard"
-msgstr ""
-
-#: templates/base.html:53
+#: templates/base.html:52
 msgid "My Prayers"
 msgstr ""
 
-#: templates/base.html:54
+#: templates/base.html:53
 msgid "Community"
 msgstr ""
 
-#: templates/base.html:55
+#: templates/base.html:54
 msgid "Settings"
 msgstr ""
 
-#: templates/base.html:57
+#: templates/base.html:56
 msgid "Logout"
 msgstr ""
 
-#: templates/base.html:59 templates/login.html:18
+#: templates/base.html:58 templates/login.html:18
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:60 templates/register.html:22
+#: templates/base.html:59 templates/register.html:22
 msgid "Register"
 msgstr ""
 
-#: templates/base.html:61
+#: templates/base.html:60
 msgid "Admin"
 msgstr ""
 
@@ -126,6 +182,7 @@ msgid "User Login"
 msgstr ""
 
 #: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:14
 msgid "Username"
 msgstr ""
 
@@ -139,6 +196,38 @@ msgstr ""
 
 #: templates/register.html:15
 msgid "Email Address (Optional)"
+msgstr ""
+
+#: templates/settings.html:6
+msgid "Profile Settings"
+msgstr ""
+
+#: templates/settings.html:9
+msgid "Update Profile"
+msgstr ""
+
+#: templates/settings.html:16
+msgid "Username cannot be changed."
+msgstr ""
+
+#: templates/settings.html:19
+msgid "Email Address"
+msgstr ""
+
+#: templates/settings.html:22
+msgid "Save Changes"
+msgstr ""
+
+#: templates/settings.html:28 templates/settings.html:40
+msgid "Change Password"
+msgstr ""
+
+#: templates/settings.html:33
+msgid "Current Password"
+msgstr ""
+
+#: templates/settings.html:37
+msgid "New Password"
 msgstr ""
 
 #: templates/user_dashboard.html:8

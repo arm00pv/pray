@@ -3,41 +3,41 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2>Profile Settings</h2>
+        <h2>{{ _('Profile Settings') }}</h2>
 
         <div class="card mb-4">
-            <div class="card-header">Update Profile</div>
+            <div class="card-header">{{ _('Update Profile') }}</div>
             <div class="card-body">
                 <form method="POST">
                     <input type="hidden" name="action" value="update_profile">
                     <div class="mb-3">
-                        <label class="form-label">Username</label>
+                        <label class="form-label">{{ _('Username') }}</label>
                         <input type="text" class="form-control" value="{{ current_user.username }}" disabled>
-                        <div class="form-text">Username cannot be changed.</div>
+                        <div class="form-text">{{ _('Username cannot be changed.') }}</div>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
+                        <label for="email" class="form-label">{{ _('Email Address') }}</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email or '' }}">
                     </div>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">{{ _('Save Changes') }}</button>
                 </form>
             </div>
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">Change Password</div>
+            <div class="card-header">{{ _('Change Password') }}</div>
             <div class="card-body">
                 <form method="POST">
                     <input type="hidden" name="action" value="change_password">
                     <div class="mb-3">
-                        <label for="current_password" class="form-label">Current Password</label>
+                        <label for="current_password" class="form-label">{{ _('Current Password') }}</label>
                         <input type="password" class="form-control" id="current_password" name="current_password" required>
                     </div>
                     <div class="mb-3">
-                        <label for="new_password" class="form-label">New Password</label>
+                        <label for="new_password" class="form-label">{{ _('New Password') }}</label>
                         <input type="password" class="form-control" id="new_password" name="new_password" required>
                     </div>
-                    <button type="submit" class="btn btn-warning">Change Password</button>
+                    <button type="submit" class="btn btn-warning">{{ _('Change Password') }}</button>
                 </form>
             </div>
         </div>
