@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 02:07+0000\n"
+"POT-Creation-Date: 2026-01-25 20:06+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: templates/admin_dashboard.html:6 templates/base.html:51
+#: templates/admin_dashboard.html:6 templates/base.html:53
 msgid "Admin Dashboard"
 msgstr "Panel de Admin"
 
-#: templates/admin_dashboard.html:16
+#: templates/admin_dashboard.html:11
 msgid "Admin Notifications"
 msgstr "Notificaciones de Admin"
 
-#: templates/admin_dashboard.html:16
+#: templates/admin_dashboard.html:11
 msgid "There are entries requiring review."
 msgstr "Hay entradas que requieren revisión."
 
-#: templates/admin_dashboard.html:18
+#: templates/admin_dashboard.html:13
 msgid "Flagged Posts"
 msgstr "Publicaciones Reportadas"
 
-#: templates/admin_dashboard.html:22
+#: templates/admin_dashboard.html:18
 msgid "No pending notifications."
 msgstr "No hay notificaciones pendientes."
 
-#: templates/admin_dashboard.html:27
+#: templates/admin_dashboard.html:26
 msgid "Total Users"
 msgstr "Usuarios Totales"
 
@@ -46,161 +46,157 @@ msgstr "Usuarios Totales"
 msgid "Total Prayer Entries"
 msgstr "Entradas de Oración Totales"
 
-#: templates/admin_dashboard.html:41
+#: templates/admin_dashboard.html:42
 msgid "Total Gratitude Entries"
 msgstr "Entradas de Gratitud Totales"
 
-#: templates/admin_dashboard.html:50
+#: templates/admin_dashboard.html:53
+msgid "Total Testimonies"
+msgstr "Total de Testimonios"
+
+#: templates/admin_dashboard.html:61
+msgid "Active Prayer Groups"
+msgstr "Grupos de Oración Activos"
+
+#: templates/admin_dashboard.html:71
 msgid "Admin Management"
 msgstr "Gestión de Admin"
 
-#: templates/admin_dashboard.html:52
+#: templates/admin_dashboard.html:73
 msgid "Generate New Admin Invite Code"
 msgstr "Generar Nuevo Código de Invitación de Admin"
 
-#: templates/admin_dashboard.html:54
+#: templates/admin_dashboard.html:75
 msgid "Review Flagged Entries"
 msgstr "Revisar Entradas Reportadas"
 
-#: templates/admin_dashboard.html:55 templates/admin_emails.html:5
+#: templates/admin_dashboard.html:76 templates/admin_emails.html:5
 msgid "Community Email List"
 msgstr "Lista de Correos de la Comunidad"
 
-#: templates/admin_dashboard.html:62
+#: templates/admin_dashboard.html:83
 msgid "Top Petitions (Tags)"
 msgstr "Peticiones Principales (Etiquetas)"
 
-#: templates/admin_dashboard.html:71
+#: templates/admin_dashboard.html:92
 msgid "No tags data yet."
 msgstr "No hay datos de etiquetas todavía."
 
-#: templates/admin_dashboard.html:79
+#: templates/admin_dashboard.html:100
 msgid "Prayer Locations"
 msgstr "Ubicaciones de Oración"
 
-#: templates/admin_dashboard.html:83
+#: templates/admin_dashboard.html:105
 msgid "Country"
 msgstr "País"
 
-#: templates/admin_dashboard.html:84
+#: templates/admin_dashboard.html:106
 msgid "City"
 msgstr "Ciudad"
 
-#: templates/admin_dashboard.html:85
+#: templates/admin_dashboard.html:107
 msgid "IP"
 msgstr "IP"
 
-#: templates/admin_dashboard.html:86
+#: templates/admin_dashboard.html:108
 msgid "Count"
 msgstr "Conteo"
 
-#: templates/admin_dashboard.html:99
+#: templates/admin_dashboard.html:120
 msgid "No location data yet."
 msgstr "No hay datos de ubicación todavía."
 
-#: templates/admin_dashboard.html:107
+#: templates/admin_dashboard.html:131
 msgid "Registered Users"
 msgstr "Usuarios Registrados"
 
-#: templates/admin_dashboard.html:113 templates/admin_login.html:11
-#: templates/admin_register.html:14 templates/login.html:11
-#: templates/register.html:11 templates/settings.html:11
+#: templates/admin_dashboard.html:137 templates/admin_register.html:15
+#: templates/forgot_password.html:11 templates/login.html:11
+#: templates/register.html:11 templates/settings.html:14
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: templates/admin_dashboard.html:114 templates/admin_emails.html:14
-#: templates/admin_register.html:17 templates/forgot_password.html:11
-#: templates/index.html:24 templates/register.html:15
-#: templates/settings.html:19
+#: templates/admin_dashboard.html:138
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: templates/admin_dashboard.html:115
+#: templates/admin_dashboard.html:139
 msgid "Joined Date"
 msgstr "Fecha de Ingreso"
 
-#: templates/admin_dashboard.html:116 templates/admin_emails.html:17
+#: templates/admin_dashboard.html:140 templates/admin_emails.html:23
 msgid "Status"
 msgstr "Estado"
 
-#: templates/admin_dashboard.html:127
+#: templates/admin_dashboard.html:151
 msgid "Verified"
 msgstr "Verificado"
 
-#: templates/admin_dashboard.html:131
+#: templates/admin_dashboard.html:155
 msgid "No users found."
 msgstr "No se encontraron usuarios."
 
-#: templates/admin_emails.html:6 templates/admin_flagged.html:7
+#: templates/admin_emails.html:6 templates/admin_flagged.html:6
 #: templates/analytics.html:23 templates/gratitude.html:36
 msgid "Back to Dashboard"
 msgstr "Volver al Panel"
 
-#: templates/admin_emails.html:8
+#: templates/admin_emails.html:9
 msgid "All"
 msgstr "Todos"
 
-#: templates/admin_emails.html:9 templates/admin_emails.html:30
+#: templates/admin_emails.html:10 templates/admin_emails.html:35
 msgid "Blocked"
 msgstr "Bloqueado"
 
-#: templates/admin_emails.html:10 templates/admin_emails.html:32
+#: templates/admin_emails.html:11 templates/admin_emails.html:37
 msgid "Active"
 msgstr "Activo"
 
-#: templates/admin_emails.html:14
+#: templates/admin_emails.html:20 templates/admin_register.html:19
+#: templates/index.html:25 templates/settings.html:19
 msgid "Email Address"
 msgstr "Dirección de Correo"
 
-#: templates/admin_emails.html:15
+#: templates/admin_emails.html:21
 msgid "Date Joined"
 msgstr "Fecha de Ingreso"
 
-#: templates/admin_emails.html:16
+#: templates/admin_emails.html:22
 msgid "Agreed to Terms"
 msgstr "Aceptó Términos"
 
-#: templates/admin_emails.html:36
+#: templates/admin_emails.html:43
 msgid "No community emails found."
 msgstr "No se encontraron correos de la comunidad."
 
-#: templates/admin_flagged.html:6
+#: templates/admin_flagged.html:5
 msgid "Flagged Entries"
 msgstr "Entradas Reportadas"
 
-#: templates/admin_flagged.html:14
+#: templates/admin_flagged.html:13
 msgid "Flag Count"
 msgstr "Conteo de Reportes"
 
-#: templates/admin_flagged.html:14
+#: templates/admin_flagged.html:13
 msgid "Author ID"
 msgstr "ID del Autor"
 
-#: templates/admin_flagged.html:18
+#: templates/admin_flagged.html:16
 msgid "Approve/Repost"
 msgstr "Aprobar/Republicar"
 
-#: templates/admin_flagged.html:21
+#: templates/admin_flagged.html:19
 msgid "Delete Entry"
 msgstr "Eliminar Entrada"
 
-#: templates/admin_flagged.html:24
+#: templates/admin_flagged.html:22
 msgid "Block User"
 msgstr "Bloquear Usuario"
 
-#: templates/admin_flagged.html:31
+#: templates/admin_flagged.html:29
 msgid "No flagged entries."
 msgstr "No hay entradas reportadas."
-
-#: templates/admin_login.html:7
-msgid "Admin Login"
-msgstr "Inicio de Sesión Admin"
-
-#: templates/admin_login.html:15 templates/admin_register.html:21
-#: templates/login.html:15 templates/register.html:19
-#: templates/reset_password.html:11
-msgid "Password"
-msgstr "Contraseña"
 
 #: templates/admin_register.html:7
 msgid "Admin Registration"
@@ -210,65 +206,49 @@ msgstr "Registro de Admin"
 msgid "Invite Code"
 msgstr "Código de Invitación"
 
-#: templates/admin_register.html:24 templates/register.html:22
+#: templates/admin_register.html:23 templates/login.html:15
+#: templates/register.html:19
+msgid "Password"
+msgstr "Contraseña"
+
+#: templates/admin_register.html:26 templates/register.html:22
 #: templates/reset_password.html:14
 msgid "Password Strength"
 msgstr "Fortaleza de la Contraseña"
 
-#: templates/admin_register.html:33 templates/answer_security_question.html:13
-#: templates/register.html:37
+#: templates/admin_register.html:34 templates/register.html:40
 msgid "Security Question"
 msgstr "Pregunta de Seguridad"
 
-#: templates/admin_register.html:35 templates/register.html:39
+#: templates/admin_register.html:36 templates/register.html:42
 msgid "Select a question..."
 msgstr "Selecciona una pregunta..."
 
-#: templates/admin_register.html:36 templates/register.html:40
+#: templates/admin_register.html:37 templates/register.html:43
 msgid "What was the name of your first pet?"
 msgstr "¿Cuál fue el nombre de tu primera mascota?"
 
-#: templates/admin_register.html:37 templates/register.html:41
+#: templates/admin_register.html:38 templates/register.html:44
 msgid "What is your mother's maiden name?"
 msgstr "¿Cuál es el apellido de soltera de tu madre?"
 
-#: templates/admin_register.html:38 templates/register.html:42
+#: templates/admin_register.html:39 templates/register.html:45
 msgid "What city were you born in?"
 msgstr "¿En qué ciudad naciste?"
 
-#: templates/admin_register.html:39 templates/register.html:43
+#: templates/admin_register.html:40 templates/register.html:46
 msgid "What is the name of your favorite book?"
 msgstr "¿Cuál es el nombre de tu libro favorito?"
 
-#: templates/admin_register.html:43 templates/answer_security_question.html:13
-#: templates/register.html:38
+#: templates/admin_register.html:44 templates/answer_security_question.html:13
+#: templates/register.html:50
 msgid "Security Answer"
 msgstr "Respuesta de Seguridad"
 
-#: templates/admin_register.html:46 templates/base.html:66
-#: templates/index.html:13 templates/register.html:41
+#: templates/admin_register.html:47 templates/base.html:65
+#: templates/index.html:14 templates/register.html:53
 msgid "Register"
 msgstr "Registrarse"
-
-#: templates/admin_register.html:57 templates/register.html:25
-#: templates/reset_password.html:20
-msgid "At least 8 characters"
-msgstr "Al menos 8 caracteres"
-
-#: templates/admin_register.html:63 templates/register.html:26
-#: templates/reset_password.html:21
-msgid "One uppercase letter"
-msgstr "Una letra mayúscula"
-
-#: templates/admin_register.html:64 templates/register.html:27
-#: templates/reset_password.html:22
-msgid "One lowercase letter"
-msgstr "Una letra minúscula"
-
-#: templates/admin_register.html:65 templates/register.html:28
-#: templates/reset_password.html:23
-msgid "One number"
-msgstr "Un número"
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
@@ -286,88 +266,87 @@ msgstr "Categorías de Oración"
 msgid "Prayer Count"
 msgstr "Conteo de Oraciones"
 
-#: templates/answer_security_question.html:6
+#: templates/answer_security_question.html:7
 msgid "Security Check"
 msgstr "Control de Seguridad"
 
 #: templates/answer_security_question.html:9
 msgid "Please answer your security question to reset your password."
-msgstr "Por favor responde tu pregunta de seguridad para restablecer tu contraseña."
+msgstr ""
+"Por favor responde tu pregunta de seguridad para restablecer tu "
+"contraseña."
 
 #: templates/answer_security_question.html:16
 msgid "Verify Answer"
 msgstr "Verificar Respuesta"
 
-#: templates/base.html:12 templates/index.html:7
-#: templates/user_dashboard.html:8
+#: templates/base.html:12 templates/index.html:8
 msgid "Praying Diary"
 msgstr "Diario de Oración"
 
-#: templates/base.html:17
-msgid "Language"
-msgstr "Idioma"
-
-#: templates/base.html:32
+#: templates/base.html:31
 msgid "Notifications"
 msgstr "Notificaciones"
 
-#: templates/base.html:45
+#: templates/base.html:44
 msgid "No new notifications"
 msgstr "No hay notificaciones nuevas"
 
-#: templates/base.html:48
+#: templates/base.html:47
 msgid "Mark all as read"
 msgstr "Marcar todo como leído"
 
-#: templates/base.html:52
+#: templates/base.html:51
 msgid "Hello"
 msgstr "Hola"
 
-#: templates/base.html:56 templates/user_dashboard.html:12
+#: templates/base.html:55
 msgid "My Prayers"
 msgstr "Mis Oraciones"
 
-#: templates/base.html:57 templates/gratitude.html:6
-msgid "Gratitude Journal"
-msgstr "Diario de Gratitud"
+#: templates/base.html:56
+msgid "Gratitude"
+msgstr "Gratitud"
 
-#: templates/base.html:58 templates/testimonies.html:6
+#: templates/base.html:57 templates/testimonies.html:6
 msgid "Testimonies"
 msgstr "Testimonios"
 
-#: templates/base.html:59 templates/groups.html:6
+#: templates/base.html:58
 msgid "Groups"
 msgstr "Grupos"
 
-#: templates/base.html:60 templates/community.html:6
-msgid "Community Prayer Wall"
-msgstr "Muro de Oración de la Comunidad"
-
-#: templates/base.html:60 templates/community.html:6
+#: templates/base.html:59
 msgid "Community"
 msgstr "Comunidad"
 
-#: templates/base.html:61 templates/settings.html:6
+#: templates/base.html:60
 msgid "Settings"
 msgstr "Configuración"
 
-#: templates/base.html:63
+#: templates/base.html:62
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:65 templates/index.html:12 templates/login.html:18
+#: templates/base.html:64 templates/index.html:13 templates/login.html:21
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: templates/base.html:67
+#: templates/base.html:66 templates/group_detail.html:57
 msgid "Admin"
 msgstr "Administrador"
 
+#: templates/community.html:6
+msgid "Community Prayer Wall"
+msgstr "Muro de Oración de la Comunidad"
+
 #: templates/community.html:7
 msgid "Join others in prayer. These requests have been shared anonymously."
-msgstr "Únete a otros en oración. Estas peticiones han sido compartidas anónimamente."
+msgstr ""
+"Únete a otros en oración. Estas peticiones han sido compartidas "
+"anónimamente."
 
-#: templates/community.html:14 templates/index.html:51
+#: templates/community.html:14 templates/index.html:54
 msgid "Anonymous"
 msgstr "Anónimo"
 
@@ -387,21 +366,17 @@ msgstr "Amén"
 msgid "No public prayer requests yet. Be the first to share one!"
 msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!"
 
-#: templates/forgot_password.html:6
+#: templates/forgot_password.html:7
 msgid "Forgot Password"
 msgstr "Olvidé mi Contraseña"
-
-#: templates/forgot_password.html:14 templates/login.html:7
-msgid "User Login"
-msgstr "Inicio de Sesión de Usuario"
 
 #: templates/forgot_password.html:14
 msgid "Next"
 msgstr "Siguiente"
 
 #: templates/gratitude.html:6
-msgid "Gratitude"
-msgstr "Gratitud"
+msgid "Gratitude Journal"
+msgstr "Diario de Gratitud"
 
 #: templates/gratitude.html:12
 msgid "What are you grateful for today?"
@@ -419,35 +394,31 @@ msgstr "No hay entradas de gratitud todavía."
 msgid "Back to Groups"
 msgstr "Volver a Grupos"
 
-#: templates/group_detail.html:15
+#: templates/group_detail.html:16
 msgid "Created by"
 msgstr "Creado por"
 
-#: templates/group_detail.html:20
+#: templates/group_detail.html:21
 msgid "Group Chat"
 msgstr "Chat de Grupo"
 
-#: templates/group_detail.html:32
+#: templates/group_detail.html:33
 msgid "No messages yet."
 msgstr "No hay mensajes todavía."
 
-#: templates/group_detail.html:39
+#: templates/group_detail.html:40
 msgid "Type a message..."
 msgstr "Escribe un mensaje..."
 
-#: templates/group_detail.html:40
+#: templates/group_detail.html:41
 msgid "Send"
 msgstr "Enviar"
 
-#: templates/group_detail.html:49 templates/groups.html:29
+#: templates/group_detail.html:50 templates/groups.html:34
 msgid "Members"
 msgstr "Miembros"
 
-#: templates/group_detail.html:56 templates/base.html:67
-msgid "Admin"
-msgstr "Administrador"
-
-#: templates/group_detail.html:62
+#: templates/group_detail.html:63
 msgid "Promote"
 msgstr "Promover"
 
@@ -455,39 +426,41 @@ msgstr "Promover"
 msgid "Prayer Groups"
 msgstr "Grupos de Oración"
 
-#: templates/groups.html:10
+#: templates/groups.html:11
 msgid "Create New Group"
 msgstr "Crear Nuevo Grupo"
 
-#: templates/groups.html:13
+#: templates/groups.html:14
 msgid "Group Name"
 msgstr "Nombre del Grupo"
 
-#: templates/groups.html:16
+#: templates/groups.html:17
 msgid "Description (Optional)"
 msgstr "Descripción (Opcional)"
 
-#: templates/groups.html:19
+#: templates/groups.html:20
 msgid "Create"
 msgstr "Crear"
 
-#: templates/groups.html:34
+#: templates/groups.html:39
 msgid "Leave Group"
 msgstr "Dejar Grupo"
 
-#: templates/groups.html:38
+#: templates/groups.html:43
 msgid "Join Group"
 msgstr "Unirse a Grupo"
 
-#: templates/groups.html:47
+#: templates/groups.html:52
 msgid "No prayer groups found."
 msgstr "No se encontraron grupos de oración."
 
-#: templates/index.html:8
+#: templates/index.html:9
 msgid ""
 "A safe space to document your prayers, gratitude, and connect with a "
 "supportive community."
-msgstr "Un espacio seguro para documentar tus oraciones, gratitud y conectarte con una comunidad solidaria."
+msgstr ""
+"Un espacio seguro para documentar tus oraciones, gratitud y conectarte "
+"con una comunidad solidaria."
 
 #: templates/index.html:19
 msgid "Share Prayer Anonymously"
@@ -497,35 +470,41 @@ msgstr "Compartir Oración Anónimamente"
 msgid "Write your prayer here..."
 msgstr "Escribe tu oración aquí..."
 
-#: templates/index.html:26
+#: templates/index.html:27
 msgid ""
 "Your email is required for Terms & Conditions but will not be publicly "
 "displayed."
-msgstr "Tu correo es requerido para los Términos y Condiciones pero no será mostrado públicamente."
+msgstr ""
+"Tu correo es requerido para los Términos y Condiciones pero no será "
+"mostrado públicamente."
 
-#: templates/index.html:30
+#: templates/index.html:31
 msgid "I agree to the Terms & Conditions"
 msgstr "Acepto los Términos y Condiciones"
 
-#: templates/index.html:32
+#: templates/index.html:33
 msgid "Share Prayer"
 msgstr "Compartir Oración"
 
-#: templates/index.html:38
+#: templates/index.html:39
 msgid "Go to Dashboard"
 msgstr "Ir al Panel"
 
-#: templates/index.html:44
+#: templates/index.html:47
 msgid "Live Community Feed"
 msgstr "Muro de Comunidad en Vivo"
 
-#: templates/index.html:64
+#: templates/index.html:68
 msgid "No public prayers yet."
 msgstr "No hay oraciones públicas todavía."
 
-#: templates/index.html:68
+#: templates/index.html:72
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
+
+#: templates/login.html:7
+msgid "User Login"
+msgstr "Inicio de Sesión de Usuario"
 
 #: templates/login.html:18
 msgid "Forgot Password?"
@@ -539,19 +518,39 @@ msgstr "Registro de Usuario"
 msgid "Email Address (Optional)"
 msgstr "Correo Electrónico (Opcional)"
 
-#: templates/register.html:32
+#: templates/register.html:28 templates/register.html:72
+#: templates/reset_password.html:20 templates/reset_password.html:49
+msgid "At least 8 characters"
+msgstr "Al menos 8 caracteres"
+
+#: templates/register.html:29 templates/register.html:73
+#: templates/reset_password.html:21 templates/reset_password.html:50
+msgid "One uppercase letter"
+msgstr "Una letra mayúscula"
+
+#: templates/register.html:30 templates/register.html:74
+#: templates/reset_password.html:22 templates/reset_password.html:51
+msgid "One lowercase letter"
+msgstr "Una letra minúscula"
+
+#: templates/register.html:31 templates/register.html:75
+#: templates/reset_password.html:23 templates/reset_password.html:52
+msgid "One number"
+msgstr "Un número"
+
+#: templates/register.html:35
 msgid "Confirm Password"
 msgstr "Confirmar Contraseña"
 
-#: templates/reset_password.html:6 templates/reset_password.html:27
+#: templates/reset_password.html:7 templates/reset_password.html:30
 msgid "Reset Password"
 msgstr "Restablecer Contraseña"
 
-#: templates/reset_password.html:10
+#: templates/reset_password.html:11 templates/settings.html:37
 msgid "New Password"
 msgstr "Nueva Contraseña"
 
-#: templates/reset_password.html:25
+#: templates/reset_password.html:27
 msgid "Confirm New Password"
 msgstr "Confirmar Nueva Contraseña"
 
@@ -571,33 +570,34 @@ msgstr "El nombre de usuario no se puede cambiar."
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: templates/settings.html:28 templates/settings.html:37
+#: templates/settings.html:28 templates/settings.html:40
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: templates/settings.html:31
+#: templates/settings.html:33
 msgid "Current Password"
 msgstr "Contraseña Actual"
-
-#: templates/settings.html:35
-msgid "New Password"
-msgstr "Nueva Contraseña"
 
 #: templates/testimonies.html:7
 msgid "Share your answered prayers and testimonies to encourage others."
 msgstr "Comparte tus oraciones contestadas y testimonios para animar a otros."
 
-#: templates/testimonies.html:13
+#: templates/testimonies.html:14
 msgid "Share your testimony..."
 msgstr "Comparte tu testimonio..."
 
-#: templates/testimonies.html:15
+#: templates/testimonies.html:16
 msgid "Share Testimony"
 msgstr "Compartir Testimonio"
 
-#: templates/testimonies.html:30
+#: templates/testimonies.html:32
 msgid "No testimonies yet."
 msgstr "No hay testimonios todavía."
+
+#: templates/user_dashboard.html:8
+#, fuzzy
+msgid "My Prayer Diary"
+msgstr "Mis Oraciones"
 
 #: templates/user_dashboard.html:9
 msgid "Prayer Streak"
@@ -659,7 +659,7 @@ msgstr "Compartir en Muro de la Comunidad"
 msgid "Post Anonymously"
 msgstr "Publicar Anónimamente"
 
-#: templates/user_dashboard.html:57
+#: templates/user_dashboard.html:58
 msgid "Private Entry (Only visible to me)"
 msgstr "Entrada Privada (Solo visible para mí)"
 
@@ -667,62 +667,68 @@ msgstr "Entrada Privada (Solo visible para mí)"
 msgid "Add Entry"
 msgstr "Añadir Entrada"
 
-#: templates/user_dashboard.html:78
+#: templates/user_dashboard.html:84
 msgid "Search keywords..."
 msgstr "Buscar palabras clave..."
 
-#: templates/user_dashboard.html:87
+#: templates/user_dashboard.html:93
 msgid "Filter"
 msgstr "Filtrar"
 
-#: templates/user_dashboard.html:92
+#: templates/user_dashboard.html:98
 msgid "Clear Filters"
 msgstr "Borrar Filtros"
 
-#: templates/user_dashboard.html:100
+#: templates/user_dashboard.html:106
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: templates/user_dashboard.html:101
+#: templates/user_dashboard.html:107
 msgid "Export PDF"
 msgstr "Exportar PDF"
 
-#: templates/user_dashboard.html:105
+#: templates/user_dashboard.html:111
 msgid "Past Entries"
 msgstr "Entradas Pasadas"
 
-#: templates/user_dashboard.html:112
+#: templates/user_dashboard.html:118
 msgid "Continuous"
 msgstr "Continuo"
 
-#: templates/user_dashboard.html:115
+#: templates/user_dashboard.html:121
 msgid "Public"
 msgstr "Público"
 
-#: templates/user_dashboard.html:139
+#: templates/user_dashboard.html:145
 msgid "Fulfilled"
 msgstr "Cumplido"
 
-#: templates/user_dashboard.html:143
+#: templates/user_dashboard.html:149
 msgid "No longer petition"
 msgstr "Ya no pedir"
 
-#: templates/user_dashboard.html:147
+#: templates/user_dashboard.html:153
 msgid "Unmark Continuous"
 msgstr "Desmarcar Continuo"
 
-#: templates/user_dashboard.html:147
+#: templates/user_dashboard.html:153
 msgid "Mark Continuous"
 msgstr "Marcar Continuo"
 
-#: templates/user_dashboard.html:151
+#: templates/user_dashboard.html:157
 msgid "Add Sticker"
 msgstr "Añadir Sticker"
 
-#: templates/user_dashboard.html:152
+#: templates/user_dashboard.html:158
 msgid "Add"
 msgstr "Añadir"
 
-#: templates/user_dashboard.html:159
+#: templates/user_dashboard.html:165
 msgid "No entries found."
 msgstr "No se encontraron entradas."
+
+#~ msgid "Admin Login"
+#~ msgstr "Inicio de Sesión Admin"
+
+#~ msgid "Language"
+#~ msgstr "Idioma"

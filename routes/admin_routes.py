@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from flask_login import login_required, current_user
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup
 from extensions import db
 import json
 import uuid
@@ -19,6 +19,8 @@ def dashboard():
     total_users = User.query.count()
     total_entries = PrayerEntry.query.count()
     total_gratitude = GratitudeEntry.query.count()
+    total_testimonies = Testimony.query.count()
+    total_groups = PrayerGroup.query.count()
 
     # Most mentioned petitions
     top_tags = Tag.query.order_by(Tag.count.desc()).limit(10).all()
@@ -26,8 +28,10 @@ def dashboard():
     # Flagged entries count
     flagged_count = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).count()
 
-    # Registered Users
+    # Registered Users (Most active logic could be implemented, but simple list for now)
     users = User.query.order_by(User.created_at.desc()).all()
+    # Calculate simple activity metric (entries count) for display?
+    # Or rely on template to show len(user.entries) if lazy loading permits without N+1 issue for small sets.
 
     # Metrics: IP locations (Aggregated)
     # Get all entries with geo data
@@ -64,6 +68,8 @@ def dashboard():
                            total_users=total_users,
                            total_entries=total_entries,
                            total_gratitude=total_gratitude,
+                           total_testimonies=total_testimonies,
+                           total_groups=total_groups,
                            users=users)
 
 @admin_bp.route('/dashboard/flagged')
