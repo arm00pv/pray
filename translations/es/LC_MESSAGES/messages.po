@@ -60,7 +60,7 @@ msgstr "No hay datos de ubicación todavía."
 
 #: templates/admin_flagged.html:6
 msgid "Flagged Entries"
-msgstr "Entradas Marcadas"
+msgstr "Entradas Reportadas"
 
 #: templates/admin_flagged.html:7 templates/analytics.html:23
 msgid "Back to Dashboard"
@@ -68,7 +68,7 @@ msgstr "Volver al Panel"
 
 #: templates/admin_flagged.html:14
 msgid "Flag Count"
-msgstr "Conteo de Marcas"
+msgstr "Conteo de Reportes"
 
 #: templates/admin_flagged.html:14
 msgid "Author ID"
@@ -84,7 +84,7 @@ msgstr "Bloquear Usuario"
 
 #: templates/admin_flagged.html:27
 msgid "No flagged entries."
-msgstr "No hay entradas marcadas."
+msgstr "No hay entradas reportadas."
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
@@ -168,11 +168,11 @@ msgstr "Anónimo"
 
 #: templates/community.html:22
 msgid "Flag this post as inappropriate?"
-msgstr "¿Marcar esta publicación como inapropiada?"
+msgstr "¿Reportar esta publicación como inapropiada?"
 
 #: templates/community.html:22
 msgid "Flag"
-msgstr "Marcar"
+msgstr "Reportar"
 
 #: templates/community.html:52
 msgid "Amen"
