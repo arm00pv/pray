@@ -74,8 +74,32 @@ def flagged_entries():
 
 @admin_bp.route('/dashboard/emails')
 def community_emails():
-    emails = CommunityEmail.query.order_by(CommunityEmail.created_at.desc()).all()
-    return render_template('admin_emails.html', emails=emails)
+    filter_status = request.args.get('filter', 'all')
+
+    query = CommunityEmail.query.order_by(CommunityEmail.created_at.desc())
+    emails = query.all()
+
+    # Process blocking status manually since it's a join on string email
+    # Or cleaner: Fetch all blocked emails first
+    blocked_emails = [b.email for b in BlockedUser.query.filter(BlockedUser.email != None).all()]
+
+    results = []
+    for e in emails:
+        is_blocked = e.email in blocked_emails
+        if filter_status == 'blocked' and not is_blocked:
+            continue
+        if filter_status == 'active' and is_blocked:
+            continue
+
+        results.append({
+            'id': e.id,
+            'email': e.email,
+            'created_at': e.created_at,
+            'agreed_to_terms': e.agreed_to_terms,
+            'is_blocked': is_blocked
+        })
+
+    return render_template('admin_emails.html', emails=results, filter=filter_status)
 
 @admin_bp.route('/unhide_entry/<int:entry_id>', methods=['POST'])
 def unhide_entry(entry_id):

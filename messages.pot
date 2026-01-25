@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 18:33+0000\n"
+"POT-Creation-Date: 2026-01-25 19:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Joined Date"
 msgstr ""
 
-#: templates/admin_dashboard.html:121
+#: templates/admin_dashboard.html:121 templates/admin_emails.html:23
 msgid "Status"
 msgstr ""
 
@@ -132,20 +132,32 @@ msgstr ""
 msgid "Back to Dashboard"
 msgstr ""
 
-#: templates/admin_emails.html:14 templates/admin_register.html:19
+#: templates/admin_emails.html:9
+msgid "All"
+msgstr ""
+
+#: templates/admin_emails.html:10 templates/admin_emails.html:35
+msgid "Blocked"
+msgstr ""
+
+#: templates/admin_emails.html:11 templates/admin_emails.html:37
+msgid "Active"
+msgstr ""
+
+#: templates/admin_emails.html:20 templates/admin_register.html:19
 #: templates/index.html:25 templates/settings.html:19
 msgid "Email Address"
 msgstr ""
 
-#: templates/admin_emails.html:15
+#: templates/admin_emails.html:21
 msgid "Date Joined"
 msgstr ""
 
-#: templates/admin_emails.html:16
+#: templates/admin_emails.html:22
 msgid "Agreed to Terms"
 msgstr ""
 
-#: templates/admin_emails.html:29
+#: templates/admin_emails.html:43
 msgid "No community emails found."
 msgstr ""
 
@@ -309,7 +321,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/base.html:66
+#: templates/base.html:66 templates/group_detail.html:57
 msgid "Admin"
 msgstr ""
 
@@ -365,6 +377,38 @@ msgstr ""
 msgid "No gratitude entries yet."
 msgstr ""
 
+#: templates/group_detail.html:6
+msgid "Back to Groups"
+msgstr ""
+
+#: templates/group_detail.html:16
+msgid "Created by"
+msgstr ""
+
+#: templates/group_detail.html:21
+msgid "Group Chat"
+msgstr ""
+
+#: templates/group_detail.html:33
+msgid "No messages yet."
+msgstr ""
+
+#: templates/group_detail.html:40
+msgid "Type a message..."
+msgstr ""
+
+#: templates/group_detail.html:41
+msgid "Send"
+msgstr ""
+
+#: templates/group_detail.html:50 templates/groups.html:34
+msgid "Members"
+msgstr ""
+
+#: templates/group_detail.html:63
+msgid "Promote"
+msgstr ""
+
 #: templates/groups.html:6
 msgid "Prayer Groups"
 msgstr ""
@@ -383,10 +427,6 @@ msgstr ""
 
 #: templates/groups.html:20
 msgid "Create"
-msgstr ""
-
-#: templates/groups.html:34
-msgid "Members"
 msgstr ""
 
 #: templates/groups.html:39

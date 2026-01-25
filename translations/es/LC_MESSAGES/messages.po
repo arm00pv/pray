@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 01:57+0000\n"
-"PO-Revision-Date: 2026-01-25 01:57+0000\n"
+"POT-Creation-Date: 2026-01-25 02:07+0000\n"
+"PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
@@ -119,7 +119,7 @@ msgstr "Correo Electrónico"
 msgid "Joined Date"
 msgstr "Fecha de Ingreso"
 
-#: templates/admin_dashboard.html:116
+#: templates/admin_dashboard.html:116 templates/admin_emails.html:17
 msgid "Status"
 msgstr "Estado"
 
@@ -136,6 +136,18 @@ msgstr "No se encontraron usuarios."
 msgid "Back to Dashboard"
 msgstr "Volver al Panel"
 
+#: templates/admin_emails.html:8
+msgid "All"
+msgstr "Todos"
+
+#: templates/admin_emails.html:9 templates/admin_emails.html:30
+msgid "Blocked"
+msgstr "Bloqueado"
+
+#: templates/admin_emails.html:10 templates/admin_emails.html:32
+msgid "Active"
+msgstr "Activo"
+
 #: templates/admin_emails.html:14
 msgid "Email Address"
 msgstr "Dirección de Correo"
@@ -148,7 +160,7 @@ msgstr "Fecha de Ingreso"
 msgid "Agreed to Terms"
 msgstr "Aceptó Términos"
 
-#: templates/admin_emails.html:29
+#: templates/admin_emails.html:36
 msgid "No community emails found."
 msgstr "No se encontraron correos de la comunidad."
 
@@ -403,6 +415,42 @@ msgstr "Añadir Gratitud"
 msgid "No gratitude entries yet."
 msgstr "No hay entradas de gratitud todavía."
 
+#: templates/group_detail.html:6
+msgid "Back to Groups"
+msgstr "Volver a Grupos"
+
+#: templates/group_detail.html:15
+msgid "Created by"
+msgstr "Creado por"
+
+#: templates/group_detail.html:20
+msgid "Group Chat"
+msgstr "Chat de Grupo"
+
+#: templates/group_detail.html:32
+msgid "No messages yet."
+msgstr "No hay mensajes todavía."
+
+#: templates/group_detail.html:39
+msgid "Type a message..."
+msgstr "Escribe un mensaje..."
+
+#: templates/group_detail.html:40
+msgid "Send"
+msgstr "Enviar"
+
+#: templates/group_detail.html:49 templates/groups.html:29
+msgid "Members"
+msgstr "Miembros"
+
+#: templates/group_detail.html:56 templates/base.html:67
+msgid "Admin"
+msgstr "Administrador"
+
+#: templates/group_detail.html:62
+msgid "Promote"
+msgstr "Promover"
+
 #: templates/groups.html:6
 msgid "Prayer Groups"
 msgstr "Grupos de Oración"
@@ -422,10 +470,6 @@ msgstr "Descripción (Opcional)"
 #: templates/groups.html:19
 msgid "Create"
 msgstr "Crear"
-
-#: templates/groups.html:29
-msgid "Members"
-msgstr "Miembros"
 
 #: templates/groups.html:34
 msgid "Leave Group"

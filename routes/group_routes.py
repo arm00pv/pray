@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerGroup
-from extensions import db
+from models import PrayerGroup, GroupMessage, User
+from extensions import db, bcrypt # bcrypt not needed unless verifying passwords, but db is.
 
 group_bp = Blueprint('group', __name__, url_prefix='/groups')
 
@@ -9,6 +9,17 @@ group_bp = Blueprint('group', __name__, url_prefix='/groups')
 def index():
     groups = PrayerGroup.query.order_by(PrayerGroup.created_at.desc()).all()
     return render_template('groups.html', groups=groups)
+
+@group_bp.route('/<int:group_id>')
+@login_required
+def detail(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        flash('You must join the group to view details.')
+        return redirect(url_for('group.index'))
+
+    messages = GroupMessage.query.filter_by(group_id=group_id).order_by(GroupMessage.created_at.asc()).all()
+    return render_template('group_detail.html', group=group, messages=messages)
 
 @group_bp.route('/create', methods=['POST'])
 @login_required
@@ -22,10 +33,43 @@ def create_group():
 
     group = PrayerGroup(name=name, description=description, created_by=current_user.id)
     group.members.append(current_user)
+    group.admins.append(current_user) # Creator is admin
     db.session.add(group)
     db.session.commit()
     flash('Prayer group created.')
     return redirect(url_for('group.index'))
+
+@group_bp.route('/<int:group_id>/message', methods=['POST'])
+@login_required
+def post_message(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        return redirect(url_for('group.index'))
+
+    content = request.form.get('content')
+    if content:
+        msg = GroupMessage(group_id=group.id, user_id=current_user.id, content=content)
+        db.session.add(msg)
+        db.session.commit()
+        # Here we could trigger notifications for group members
+    return redirect(url_for('group.detail', group_id=group_id))
+
+@group_bp.route('/<int:group_id>/promote/<int:user_id>', methods=['POST'])
+@login_required
+def promote_member(group_id, user_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+
+    if current_user not in group.admins:
+        flash('Only group admins can promote members.')
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    member = User.query.get_or_404(user_id)
+    if member in group.members and member not in group.admins:
+        group.admins.append(member)
+        db.session.commit()
+        flash(f'{member.username} promoted to admin.')
+
+    return redirect(url_for('group.detail', group_id=group_id))
 
 @group_bp.route('/join/<int:group_id>', methods=['POST'])
 @login_required

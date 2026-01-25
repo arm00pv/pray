@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <a href="{{ url_for('group.index') }}" class="btn btn-secondary">{{ _('Back to Groups') }}</a>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ group.name }}</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead">{{ group.description }}</p>
+                <p><small class="text-muted">{{ _('Created by') }}: {{ group.created_by }} | {{ group.created_at.strftime('%Y-%m-%d') }}</small></p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Group Chat') }}</div>
+            <div class="card-body" style="height: 400px; overflow-y: auto;">
+                <div class="list-group list-group-flush">
+                    {% for msg in messages %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <strong class="mb-1">{{ msg.author.username }}</strong>
+                                <small class="text-muted">{{ msg.created_at.strftime('%H:%M') }}</small>
+                            </div>
+                            <p class="mb-1">{{ msg.content }}</p>
+                        </div>
+                    {% else %}
+                        <div class="text-center p-3 text-muted">{{ _('No messages yet.') }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if current_user in group.members %}
+            <div class="card-footer">
+                <form action="{{ url_for('group.post_message', group_id=group.id) }}" method="POST" class="d-flex">
+                    <input type="text" name="content" class="form-control me-2" placeholder="{{ _('Type a message...') }}" required>
+                    <button type="submit" class="btn btn-primary">{{ _('Send') }}</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">{{ _('Members') }} ({{ group.members|length }})</div>
+            <ul class="list-group list-group-flush">
+                {% for member in group.members %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>
+                        {{ member.username }}
+                        {% if member in group.admins %}
+                            <span class="badge bg-warning text-dark">{{ _('Admin') }}</span>
+                        {% endif %}
+                    </span>
+
+                    {% if current_user in group.admins and member not in group.admins %}
+                        <form action="{{ url_for('group.promote_member', group_id=group.id, user_id=member.id) }}" method="POST">
+                            <button type="submit" class="btn btn-sm btn-outline-info">{{ _('Promote') }}</button>
+                        </form>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

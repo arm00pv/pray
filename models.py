@@ -141,7 +141,20 @@ class Testimony(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     author = db.relationship('User', backref='testimonies', lazy=True)
 
+class GroupMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    author = db.relationship('User')
+
 group_members = db.Table('group_members',
+    db.Column('group_id', db.Integer, db.ForeignKey('prayer_group.id'), primary_key=True),
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
+)
+
+group_admins = db.Table('group_admins',
     db.Column('group_id', db.Integer, db.ForeignKey('prayer_group.id'), primary_key=True),
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
 )
@@ -154,3 +167,6 @@ class PrayerGroup(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     members = db.relationship('User', secondary=group_members, lazy='subquery',
         backref=db.backref('prayer_groups', lazy=True))
+    admins = db.relationship('User', secondary=group_admins, lazy='subquery',
+        backref=db.backref('admin_groups', lazy=True))
+    messages = db.relationship('GroupMessage', backref='group', lazy=True)
