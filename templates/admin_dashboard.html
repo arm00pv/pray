@@ -69,11 +69,29 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">{{ _('Admin Management') }}</h5>
-                <form action="{{ url_for('admin.create_invite') }}" method="POST" class="mb-2">
+                <form action="{{ url_for('admin.create_invite') }}" method="POST" class="mb-2 d-inline">
                     <button type="submit" class="btn btn-warning">{{ _('Generate New Admin Invite Code') }}</button>
                 </form>
                 <a href="{{ url_for('admin.flagged_entries') }}" class="btn btn-danger">{{ _('Review Flagged Entries') }}</a>
                 <a href="{{ url_for('admin.community_emails') }}" class="btn btn-info">{{ _('Community Email List') }}</a>
+            </div>
+        </div>
+
+        <!-- Announcement Manager -->
+        <div class="card mb-4 border-warning">
+            <div class="card-header">{{ _('Global Announcement') }}</div>
+            <div class="card-body">
+                <form action="{{ url_for('admin.create_announcement') }}" method="POST" class="row g-2 align-items-center">
+                    <div class="col-auto flex-grow-1">
+                        <input type="text" class="form-control" name="message" placeholder="{{ _('Enter announcement message...') }}" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">{{ _('Post') }}</button>
+                    </div>
+                </form>
+                <form action="{{ url_for('admin.deactivate_announcement') }}" method="POST" class="mt-2">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('Clear Active Announcement') }}</button>
+                </form>
             </div>
         </div>
 

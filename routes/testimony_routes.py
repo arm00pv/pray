@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import Testimony
-from extensions import db
-from utils import ProfanityFilter
+from models import Testimony, Praise, Notification, User
+from extensions import db, login_manager
+from utils import ProfanityFilter, send_email
 
 testimony_bp = Blueprint('testimony', __name__, url_prefix='/testimonies')
 
@@ -29,3 +29,32 @@ def add_testimony():
     db.session.commit()
     flash('Testimony shared successfully.')
     return redirect(url_for('testimony.index'))
+
+@testimony_bp.route('/praise/<int:testimony_id>', methods=['POST'])
+@login_required
+def toggle_praise(testimony_id):
+    testimony = Testimony.query.get_or_404(testimony_id)
+
+    existing = Praise.query.filter_by(user_id=current_user.id, testimony_id=testimony_id).first()
+
+    if existing:
+        db.session.delete(existing)
+        message = 'Praise removed.'
+    else:
+        praise = Praise(user_id=current_user.id, testimony_id=testimony_id)
+        db.session.add(praise)
+
+        if testimony.user_id != current_user.id:
+            notif = Notification(user_id=testimony.user_id, message=f"{current_user.username} praised your testimony.")
+            db.session.add(notif)
+
+            author = User.query.get(testimony.user_id)
+            if author and author.email:
+                send_email(
+                    author.email,
+                    "New Praise on your Testimony",
+                    f"{current_user.username} praised your testimony."
+                )
+
+    db.session.commit()
+    return redirect(request.referrer or url_for('testimony.index'))

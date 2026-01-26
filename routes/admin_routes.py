@@ -1,6 +1,6 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement
 from extensions import db
 import json
 import uuid
@@ -173,4 +173,24 @@ def create_invite():
     db.session.add(invite)
     db.session.commit()
     flash(f'Invite code created: {code}')
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/announcements', methods=['POST'])
+def create_announcement():
+    message = request.form.get('message')
+    if message:
+        # Deactivate all previous announcements (optional rule: only one active)
+        Announcement.query.update({Announcement.is_active: False})
+
+        announcement = Announcement(message=message, created_by_admin_id=current_user.id)
+        db.session.add(announcement)
+        db.session.commit()
+        flash('Announcement posted.')
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/announcements/deactivate', methods=['POST'])
+def deactivate_announcement():
+    Announcement.query.update({Announcement.is_active: False})
+    db.session.commit()
+    flash('Announcement cleared.')
     return redirect(url_for('admin.dashboard'))

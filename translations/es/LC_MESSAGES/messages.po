@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-26 03:52+0000\n"
+"POT-Creation-Date: 2026-01-26 05:02+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -74,65 +74,82 @@ msgstr "Revisar Entradas Reportadas"
 msgid "Community Email List"
 msgstr "Lista de Correos de la Comunidad"
 
-#: templates/admin_dashboard.html:83
+#: templates/admin_dashboard.html:82
+msgid "Global Announcement"
+msgstr ""
+
+#: templates/admin_dashboard.html:86
+#, fuzzy
+msgid "Enter announcement message..."
+msgstr "Escribe un mensaje..."
+
+#: templates/admin_dashboard.html:89
+msgid "Post"
+msgstr ""
+
+#: templates/admin_dashboard.html:93
+msgid "Clear Active Announcement"
+msgstr ""
+
+#: templates/admin_dashboard.html:101
 msgid "Top Petitions (Tags)"
 msgstr "Peticiones Principales (Etiquetas)"
 
-#: templates/admin_dashboard.html:92
+#: templates/admin_dashboard.html:110
 msgid "No tags data yet."
 msgstr "No hay datos de etiquetas todavía."
 
-#: templates/admin_dashboard.html:100
+#: templates/admin_dashboard.html:118
 msgid "Prayer Locations"
 msgstr "Ubicaciones de Oración"
 
-#: templates/admin_dashboard.html:105
+#: templates/admin_dashboard.html:123
 msgid "Country"
 msgstr "País"
 
-#: templates/admin_dashboard.html:106
+#: templates/admin_dashboard.html:124
 msgid "City"
 msgstr "Ciudad"
 
-#: templates/admin_dashboard.html:107
+#: templates/admin_dashboard.html:125
 msgid "IP"
 msgstr "IP"
 
-#: templates/admin_dashboard.html:108
+#: templates/admin_dashboard.html:126
 msgid "Count"
 msgstr "Conteo"
 
-#: templates/admin_dashboard.html:120
+#: templates/admin_dashboard.html:138
 msgid "No location data yet."
 msgstr "No hay datos de ubicación todavía."
 
-#: templates/admin_dashboard.html:131
+#: templates/admin_dashboard.html:149
 msgid "Registered Users"
 msgstr "Usuarios Registrados"
 
-#: templates/admin_dashboard.html:137 templates/admin_register.html:15
+#: templates/admin_dashboard.html:155 templates/admin_register.html:15
 #: templates/forgot_password.html:11 templates/login.html:11
 #: templates/register.html:11 templates/settings.html:14
 msgid "Username"
 msgstr "Nombre de usuario"
 
-#: templates/admin_dashboard.html:138
+#: templates/admin_dashboard.html:156
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: templates/admin_dashboard.html:139
+#: templates/admin_dashboard.html:157
 msgid "Joined Date"
 msgstr "Fecha de Ingreso"
 
-#: templates/admin_dashboard.html:140 templates/admin_emails.html:23
+#: templates/admin_dashboard.html:158 templates/admin_emails.html:23
 msgid "Status"
 msgstr "Estado"
 
-#: templates/admin_dashboard.html:151
+#: templates/admin_dashboard.html:169
 msgid "Verified"
 msgstr "Verificado"
 
-#: templates/admin_dashboard.html:155
+#: templates/admin_dashboard.html:173
 msgid "No users found."
 msgstr "No se encontraron usuarios."
 
@@ -336,6 +353,10 @@ msgstr "Iniciar Sesión"
 #: templates/base.html:73 templates/group_detail.html:57
 msgid "Admin"
 msgstr "Administrador"
+
+#: templates/base.html:82
+msgid "Announcement"
+msgstr ""
 
 #: templates/community.html:6
 msgid "Community Prayer Wall"
@@ -656,7 +677,11 @@ msgstr "Comparte tu testimonio..."
 msgid "Share Testimony"
 msgstr "Compartir Testimonio"
 
-#: templates/testimonies.html:32
+#: templates/testimonies.html:40
+msgid "Praise"
+msgstr "Alabanza"
+
+#: templates/testimonies.html:49
 msgid "No testimonies yet."
 msgstr "No hay testimonios todavía."
 

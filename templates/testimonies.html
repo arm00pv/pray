@@ -27,6 +27,23 @@
                     <small>{{ testimony.created_at.strftime('%Y-%m-%d') }}</small>
                 </div>
                 <p class="mb-1">{{ testimony.content }}</p>
+                <div class="mt-2">
+                    {% if current_user.is_authenticated %}
+                        {% set praised = false %}
+                        {% for praise in testimony.praises %}
+                            {% if praise.user_id == current_user.id %}
+                                {% set praised = true %}
+                            {% endif %}
+                        {% endfor %}
+                        <form action="{{ url_for('testimony.toggle_praise', testimony_id=testimony.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm {% if praised %}btn-warning{% else %}btn-outline-warning{% endif %}">
+                                🙌 {{ _('Praise') }} ({{ testimony.praises|length }})
+                            </button>
+                        </form>
+                    {% else %}
+                        <span class="text-muted">🙌 {{ testimony.praises|length }}</span>
+                    {% endif %}
+                </div>
             </div>
             {% else %}
             <div class="list-group-item">{{ _('No testimonies yet.') }}</div>

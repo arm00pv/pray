@@ -142,6 +142,7 @@ class Testimony(db.Model):
     content = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     author = db.relationship('User', backref='testimonies', lazy=True)
+    praises = db.relationship('Praise', backref='testimony', lazy=True)
 
 class GroupMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -172,3 +173,16 @@ class PrayerGroup(db.Model):
     admins = db.relationship('User', secondary=group_admins, lazy='subquery',
         backref=db.backref('admin_groups', lazy=True))
     messages = db.relationship('GroupMessage', backref='group', lazy=True)
+
+class Announcement(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    message = db.Column(db.String(500), nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    created_by_admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=True)
+
+class Praise(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    testimony_id = db.Column(db.Integer, db.ForeignKey('testimony.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
