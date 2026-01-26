@@ -1,0 +1,24 @@
+Admin already exists.
+ * Serving Flask app 'app'
+ * Debug mode: off
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.0.2:8080
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "[32mGET /set_language/es HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "GET /admins/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "[32mPOST /admins/login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:48] "GET /admins/dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:49] "[32mPOST /admins/announcements HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:45:49] "GET /admins/dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "[32mGET /set_language/es HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "GET /admins/login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "[32mPOST /admins/login HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:05] "GET /admins/dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:06] "[32mPOST /admins/announcements HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [26/Jan/2026 12:48:06] "GET /admins/dashboard HTTP/1.1" 200 -

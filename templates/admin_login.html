@@ -4,19 +4,19 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card border-danger">
-            <div class="card-header bg-danger text-white">Admin Login</div>
+            <div class="card-header bg-danger text-white">{{ _('Admin Login') }}</div>
             <div class="card-body">
                 <form method="POST">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">{{ _('Username') }}</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">{{ _('Password') }}</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-danger">Login</button>
-                    <a href="{{ url_for('admin_auth.register') }}" class="btn btn-link">Register with Invite</a>
+                    <button type="submit" class="btn btn-danger">{{ _('Login') }}</button>
+                    <a href="{{ url_for('admin_auth.register') }}" class="btn btn-link">{{ _('Register with Invite') }}</a>
                 </form>
             </div>
         </div>

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
+from flask_babel import _
 from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement
 from extensions import db
 import json
@@ -113,7 +114,7 @@ def unhide_entry(entry_id):
     entry.is_hidden = False
     entry.flag_count = 0  # Reset flags on approval
     db.session.commit()
-    flash('Entry approved and reposted.')
+    flash(_('Entry approved and reposted.'))
     return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/block_user/<int:user_id>', methods=['POST'])
@@ -132,7 +133,7 @@ def block_user(user_id):
             blocked = BlockedUser(user_id=user.id, email=user.email, reason="Blocked by admin")
             db.session.add(blocked)
             db.session.commit()
-            flash(f'User {user.username} blocked.')
+            flash(_('User %(username)s blocked.', username=user.username))
     return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/block_author/<int:entry_id>', methods=['POST'])
@@ -146,7 +147,7 @@ def block_author(entry_id):
             blocked = BlockedUser(user_id=entry.user_id, email=user.email, reason="Blocked by admin")
             db.session.add(blocked)
             db.session.commit()
-            flash('Registered author blocked.')
+            flash(_('Registered author blocked.'))
     elif entry.community_email_id:
         # Anonymous User via Email
         comm_email = CommunityEmail.query.get(entry.community_email_id)
@@ -154,7 +155,7 @@ def block_author(entry_id):
             blocked = BlockedUser(email=comm_email.email, reason="Blocked by admin")
             db.session.add(blocked)
             db.session.commit()
-            flash(f'Anonymous author ({comm_email.email}) blocked.')
+            flash(_('Anonymous author (%(email)s) blocked.', email=comm_email.email))
 
     return redirect(url_for('admin.flagged_entries'))
 
@@ -163,7 +164,7 @@ def delete_entry(entry_id):
     entry = PrayerEntry.query.get_or_404(entry_id)
     db.session.delete(entry)
     db.session.commit()
-    flash('Entry deleted.')
+    flash(_('Entry deleted.'))
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/invite', methods=['POST'])
@@ -172,7 +173,7 @@ def create_invite():
     invite = AdminInvite(code=code, created_by_admin_id=current_user.id)
     db.session.add(invite)
     db.session.commit()
-    flash(f'Invite code created: {code}')
+    flash(_('Invite code created: %(code)s', code=code))
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/announcements', methods=['POST'])
@@ -185,12 +186,12 @@ def create_announcement():
         announcement = Announcement(message=message, created_by_admin_id=current_user.id)
         db.session.add(announcement)
         db.session.commit()
-        flash('Announcement posted.')
+        flash(_('Announcement posted.'))
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/announcements/deactivate', methods=['POST'])
 def deactivate_announcement():
     Announcement.query.update({Announcement.is_active: False})
     db.session.commit()
-    flash('Announcement cleared.')
+    flash(_('Announcement cleared.'))
     return redirect(url_for('admin.dashboard'))

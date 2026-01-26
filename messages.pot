@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-26 05:02+0000\n"
+"POT-Creation-Date: 2026-01-26 12:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,95 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: routes/admin_routes.py:117
+msgid "Entry approved and reposted."
+msgstr ""
+
+#: routes/admin_routes.py:136
+#, python-format
+msgid "User %(username)s blocked."
+msgstr ""
+
+#: routes/admin_routes.py:150
+msgid "Registered author blocked."
+msgstr ""
+
+#: routes/admin_routes.py:158
+#, python-format
+msgid "Anonymous author (%(email)s) blocked."
+msgstr ""
+
+#: routes/admin_routes.py:167
+msgid "Entry deleted."
+msgstr ""
+
+#: routes/admin_routes.py:176
+#, python-format
+msgid "Invite code created: %(code)s"
+msgstr ""
+
+#: routes/admin_routes.py:189
+msgid "Announcement posted."
+msgstr ""
+
+#: routes/admin_routes.py:196
+msgid "Announcement cleared."
+msgstr ""
+
+#: routes/community_routes.py:24
+msgid "Entry flagged for review."
+msgstr ""
+
+#: routes/community_routes.py:37
+msgid "Amen removed."
+msgstr ""
+
+#: routes/community_routes.py:41
+msgid "Amen added."
+msgstr ""
+
+#: routes/community_routes.py:45
+#, python-format
+msgid "%(username)s said Amen to your prayer."
+msgstr ""
+
+#: routes/settings_routes.py:23
+msgid "Email already in use."
+msgstr ""
+
+#: routes/settings_routes.py:30
+msgid "Profile updated."
+msgstr ""
+
+#: routes/settings_routes.py:37
+msgid "Incorrect current password."
+msgstr ""
+
+#: routes/settings_routes.py:41
+msgid "Password changed."
+msgstr ""
+
+#: routes/testimony_routes.py:20
+msgid "Content is required."
+msgstr ""
+
+#: routes/testimony_routes.py:25
+msgid "Content contains profanity."
+msgstr ""
+
+#: routes/testimony_routes.py:31
+msgid "Testimony shared successfully."
+msgstr ""
+
+#: routes/testimony_routes.py:43
+msgid "Praise removed."
+msgstr ""
+
+#: routes/testimony_routes.py:49
+#, python-format
+msgid "%(username)s praised your testimony."
+msgstr ""
 
 #: templates/admin_dashboard.html:6 templates/base.html:60
 msgid "Admin Dashboard"
@@ -125,9 +214,10 @@ msgstr ""
 msgid "Registered Users"
 msgstr ""
 
-#: templates/admin_dashboard.html:155 templates/admin_register.html:15
-#: templates/forgot_password.html:11 templates/login.html:11
-#: templates/register.html:11 templates/settings.html:14
+#: templates/admin_dashboard.html:155 templates/admin_login.html:11
+#: templates/admin_register.html:15 templates/forgot_password.html:11
+#: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:14
 msgid "Username"
 msgstr ""
 
@@ -213,17 +303,30 @@ msgstr ""
 msgid "No flagged entries."
 msgstr ""
 
+#: templates/admin_login.html:7
+msgid "Admin Login"
+msgstr ""
+
+#: templates/admin_login.html:15 templates/admin_register.html:23
+#: templates/login.html:15 templates/register.html:19
+msgid "Password"
+msgstr ""
+
+#: templates/admin_login.html:18 templates/base.html:71 templates/index.html:24
+#: templates/login.html:21
+msgid "Login"
+msgstr ""
+
+#: templates/admin_login.html:19
+msgid "Register with Invite"
+msgstr ""
+
 #: templates/admin_register.html:7
 msgid "Admin Registration"
 msgstr ""
 
 #: templates/admin_register.html:11
 msgid "Invite Code"
-msgstr ""
-
-#: templates/admin_register.html:23 templates/login.html:15
-#: templates/register.html:19
-msgid "Password"
 msgstr ""
 
 #: templates/admin_register.html:26 templates/register.html:22
@@ -340,10 +443,6 @@ msgstr ""
 
 #: templates/base.html:69
 msgid "Logout"
-msgstr ""
-
-#: templates/base.html:71 templates/index.html:24 templates/login.html:21
-msgid "Login"
 msgstr ""
 
 #: templates/base.html:73 templates/group_detail.html:57

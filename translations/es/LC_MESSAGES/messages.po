@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-26 05:02+0000\n"
+"POT-Creation-Date: 2026-01-26 12:32+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -17,6 +17,95 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: routes/admin_routes.py:117
+msgid "Entry approved and reposted."
+msgstr "Entrada aprobada y republicada."
+
+#: routes/admin_routes.py:136
+#, python-format
+msgid "User %(username)s blocked."
+msgstr "Usuario %(username)s bloqueado."
+
+#: routes/admin_routes.py:150
+msgid "Registered author blocked."
+msgstr "Autor registrado bloqueado."
+
+#: routes/admin_routes.py:158
+#, python-format
+msgid "Anonymous author (%(email)s) blocked."
+msgstr "Autor anónimo (%(email)s) bloqueado."
+
+#: routes/admin_routes.py:167
+msgid "Entry deleted."
+msgstr "Entrada eliminada."
+
+#: routes/admin_routes.py:176
+#, python-format
+msgid "Invite code created: %(code)s"
+msgstr "Código de invitación creado: %(code)s"
+
+#: routes/admin_routes.py:189
+msgid "Announcement posted."
+msgstr "Anuncio publicado."
+
+#: routes/admin_routes.py:196
+msgid "Announcement cleared."
+msgstr "Anuncio eliminado."
+
+#: routes/community_routes.py:24
+msgid "Entry flagged for review."
+msgstr "Entrada reportada para revisión."
+
+#: routes/community_routes.py:37
+msgid "Amen removed."
+msgstr "Amén eliminado."
+
+#: routes/community_routes.py:41
+msgid "Amen added."
+msgstr "Amén añadido."
+
+#: routes/community_routes.py:45
+#, python-format
+msgid "%(username)s said Amen to your prayer."
+msgstr "%(username)s dijo Amén a tu oración."
+
+#: routes/settings_routes.py:23
+msgid "Email already in use."
+msgstr "El correo electrónico ya está en uso."
+
+#: routes/settings_routes.py:30
+msgid "Profile updated."
+msgstr "Perfil actualizado."
+
+#: routes/settings_routes.py:37
+msgid "Incorrect current password."
+msgstr "Contraseña actual incorrecta."
+
+#: routes/settings_routes.py:41
+msgid "Password changed."
+msgstr "Contraseña cambiada."
+
+#: routes/testimony_routes.py:20
+msgid "Content is required."
+msgstr "El contenido es obligatorio."
+
+#: routes/testimony_routes.py:25
+msgid "Content contains profanity."
+msgstr "El contenido contiene blasfemias."
+
+#: routes/testimony_routes.py:31
+msgid "Testimony shared successfully."
+msgstr "Testimonio compartido exitosamente."
+
+#: routes/testimony_routes.py:43
+msgid "Praise removed."
+msgstr "Alabanza eliminada."
+
+#: routes/testimony_routes.py:49
+#, python-format
+msgid "%(username)s praised your testimony."
+msgstr "%(username)s alabó tu testimonio."
 
 #: templates/admin_dashboard.html:6 templates/base.html:60
 msgid "Admin Dashboard"
@@ -76,20 +165,19 @@ msgstr "Lista de Correos de la Comunidad"
 
 #: templates/admin_dashboard.html:82
 msgid "Global Announcement"
-msgstr ""
+msgstr "Anuncio Global"
 
 #: templates/admin_dashboard.html:86
-#, fuzzy
 msgid "Enter announcement message..."
-msgstr "Escribe un mensaje..."
+msgstr "Escribe el mensaje del anuncio..."
 
 #: templates/admin_dashboard.html:89
 msgid "Post"
-msgstr ""
+msgstr "Publicar"
 
 #: templates/admin_dashboard.html:93
 msgid "Clear Active Announcement"
-msgstr ""
+msgstr "Borrar Anuncio Activo"
 
 #: templates/admin_dashboard.html:101
 msgid "Top Petitions (Tags)"
@@ -127,9 +215,10 @@ msgstr "No hay datos de ubicación todavía."
 msgid "Registered Users"
 msgstr "Usuarios Registrados"
 
-#: templates/admin_dashboard.html:155 templates/admin_register.html:15
-#: templates/forgot_password.html:11 templates/login.html:11
-#: templates/register.html:11 templates/settings.html:14
+#: templates/admin_dashboard.html:155 templates/admin_login.html:11
+#: templates/admin_register.html:15 templates/forgot_password.html:11
+#: templates/login.html:11 templates/register.html:11
+#: templates/settings.html:14
 msgid "Username"
 msgstr "Nombre de usuario"
 
@@ -215,6 +304,24 @@ msgstr "Bloquear Usuario"
 msgid "No flagged entries."
 msgstr "No hay entradas reportadas."
 
+#: templates/admin_login.html:7
+msgid "Admin Login"
+msgstr "Inicio de Sesión Admin"
+
+#: templates/admin_login.html:15 templates/admin_register.html:23
+#: templates/login.html:15 templates/register.html:19
+msgid "Password"
+msgstr "Contraseña"
+
+#: templates/admin_login.html:18 templates/base.html:71 templates/index.html:24
+#: templates/login.html:21
+msgid "Login"
+msgstr "Iniciar Sesión"
+
+#: templates/admin_login.html:19
+msgid "Register with Invite"
+msgstr "Registrarse con Invitación"
+
 #: templates/admin_register.html:7
 msgid "Admin Registration"
 msgstr "Registro de Admin"
@@ -222,11 +329,6 @@ msgstr "Registro de Admin"
 #: templates/admin_register.html:11
 msgid "Invite Code"
 msgstr "Código de Invitación"
-
-#: templates/admin_register.html:23 templates/login.html:15
-#: templates/register.html:19
-msgid "Password"
-msgstr "Contraseña"
 
 #: templates/admin_register.html:26 templates/register.html:22
 #: templates/reset_password.html:14
@@ -346,17 +448,13 @@ msgstr "Configuración"
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:71 templates/index.html:24 templates/login.html:21
-msgid "Login"
-msgstr "Iniciar Sesión"
-
 #: templates/base.html:73 templates/group_detail.html:57
 msgid "Admin"
 msgstr "Administrador"
 
 #: templates/base.html:82
 msgid "Announcement"
-msgstr ""
+msgstr "Anuncio"
 
 #: templates/community.html:6
 msgid "Community Prayer Wall"
@@ -541,13 +639,12 @@ msgid "Joined"
 msgstr "Se unió"
 
 #: templates/public_profile.html:29
-#, fuzzy
 msgid "Prayer Warrior"
-msgstr "Ubicaciones de Oración"
+msgstr "Guerrero de Oración"
 
 #: templates/public_profile.html:32
 msgid "Encourager"
-msgstr ""
+msgstr "Alentador"
 
 #: templates/public_profile.html:39
 msgid "Prayers Shared"
@@ -686,7 +783,6 @@ msgid "No testimonies yet."
 msgstr "No hay testimonios todavía."
 
 #: templates/user_dashboard.html:18
-#, fuzzy
 msgid "My Prayer Diary"
 msgstr "Mis Oraciones"
 
@@ -795,7 +891,6 @@ msgid "Fulfilled"
 msgstr "Cumplido"
 
 #: templates/user_dashboard.html:159
-#, fuzzy
 msgid "Share as Testimony"
 msgstr "Compartir como Testimonio"
 

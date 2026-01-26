@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
+from flask_babel import _
 from models import User
 from extensions import db, bcrypt
 
@@ -19,25 +20,25 @@ def index():
             # Check uniqueness if changed
             if email != current_user.email:
                 if User.query.filter_by(email=email).first():
-                    flash('Email already in use.')
+                    flash(_('Email already in use.'))
                     return redirect(url_for('settings.index'))
                 current_user.email = email
 
             current_user.about_me = about_me
             current_user.profile_image_url = profile_image_url
             db.session.commit()
-            flash('Profile updated.')
+            flash(_('Profile updated.'))
 
         elif action == 'change_password':
             current_password = request.form.get('current_password')
             new_password = request.form.get('new_password')
 
             if not bcrypt.check_password_hash(current_user.password_hash, current_password):
-                flash('Incorrect current password.')
+                flash(_('Incorrect current password.'))
             else:
                 current_user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
                 db.session.commit()
-                flash('Password changed.')
+                flash(_('Password changed.'))
 
         return redirect(url_for('settings.index'))
 

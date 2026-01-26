@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
+from flask_babel import _
 from models import PrayerEntry, Amen, Notification, User
 from extensions import db
 from utils import send_email
@@ -20,7 +21,7 @@ def flag_entry(entry_id):
     entry.flag_count += 1
     entry.is_hidden = True  # Auto-hide on flag
     db.session.commit()
-    flash('Entry flagged for review.')
+    flash(_('Entry flagged for review.'))
     return redirect(url_for('community.index'))
 
 @community_bp.route('/amen/<int:entry_id>', methods=['POST'])
@@ -33,15 +34,15 @@ def toggle_amen(entry_id):
 
     if existing:
         db.session.delete(existing)
-        message = 'Amen removed.'
+        message = _('Amen removed.')
     else:
         amen = Amen(user_id=current_user.id, entry_id=entry_id)
         db.session.add(amen)
-        message = 'Amen added.'
+        message = _('Amen added.')
 
         # Notify author if not self
         if entry.user_id != current_user.id:
-            notif = Notification(user_id=entry.user_id, message=f"{current_user.username} said Amen to your prayer.")
+            notif = Notification(user_id=entry.user_id, message=_("%(username)s said Amen to your prayer.", username=current_user.username))
             db.session.add(notif)
 
             # Send Email
