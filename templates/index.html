@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="p-4 p-md-5 bg-light rounded-3">
+        <div class="p-4 p-md-5 bg-body-tertiary rounded-3">
             <h1 class="display-5 fw-bold">{{ _('Praying Diary') }}</h1>
             <p class="col-md-8 fs-4">{{ _('A safe space to document your prayers, gratitude, and connect with a supportive community.') }}</p>
 
@@ -64,10 +64,10 @@
                             {% if entry.is_anonymous %}
                                 {{ _('Anonymous') }}
                             {% else %}
-                                <a href="{{ url_for('profile.public_profile', username=entry.author.username) }}" class="text-decoration-none text-dark">{{ entry.author.username }}</a>
+                                <a href="{{ url_for('profile.public_profile', username=entry.author.username) }}" class="text-decoration-none text-body fw-bold">{{ entry.author.username }}</a>
                             {% endif %}
                         </h5>
-                        <small>{{ entry.created_at.strftime('%H:%M') }}</small>
+                        <small class="local-time" data-utc="{{ entry.created_at.isoformat() }}">{{ entry.created_at.strftime('%H:%M') }}</small>
                     </div>
                     <p class="mb-1">{{ entry.content|truncate(100) }}</p>
                     <small>
