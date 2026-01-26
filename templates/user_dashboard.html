@@ -154,6 +154,11 @@
                             <input type="hidden" name="status" value="fulfilled">
                             <button type="submit" class="btn btn-sm btn-outline-success">{{ _('Fulfilled') }}</button>
                         </form>
+                        {% if entry.status == 'fulfilled' %}
+                            <a href="{{ url_for('testimony.index', content=entry.content) }}" class="btn btn-sm btn-success">
+                                📣 {{ _('Share as Testimony') }}
+                            </a>
+                        {% endif %}
                         <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
                             <input type="hidden" name="status" value="dropped">
                             <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('No longer petition') }}</button>

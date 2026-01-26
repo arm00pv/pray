@@ -11,7 +11,7 @@
             <div class="card-body">
                 <form action="{{ url_for('testimony.add_testimony') }}" method="POST">
                     <div class="mb-3">
-                        <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Share your testimony...') }}" required></textarea>
+                        <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Share your testimony...') }}" required>{{ request.args.get('content', '') }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">{{ _('Share Testimony') }}</button>
                 </form>
