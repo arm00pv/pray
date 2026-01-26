@@ -1,17 +1,29 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _
-from models import PrayerEntry, Amen, Notification, User
+from models import PrayerEntry, Amen, Notification, User, Tag
 from extensions import db
 from utils import send_email
+from sqlalchemy import or_
 
 
 community_bp = Blueprint('community', __name__, url_prefix='/community')
 
 @community_bp.route('/')
 def index():
-    # Show entries marked as public and NOT hidden, ordered by date
-    entries = PrayerEntry.query.filter_by(is_public=True, is_hidden=False).order_by(PrayerEntry.created_at.desc()).all()
+    q = request.args.get('q')
+    query = PrayerEntry.query.filter_by(is_public=True, is_hidden=False)
+
+    if q:
+        search = f"%{q}%"
+        query = query.outerjoin(PrayerEntry.tags).filter(
+            or_(
+                PrayerEntry.content.ilike(search),
+                Tag.name.ilike(search)
+            )
+        )
+
+    entries = query.order_by(PrayerEntry.created_at.desc()).all()
     return render_template('community.html', entries=entries)
 
 @community_bp.route('/flag/<int:entry_id>', methods=['POST'])

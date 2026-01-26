@@ -168,6 +168,13 @@
                                 {% if entry.is_continuous %}{{ _('Unmark Continuous') }}{% else %}{{ _('Mark Continuous') }}{% endif %}
                             </button>
                         </form>
+
+                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                data-bs-toggle="modal" data-bs-target="#reminderModal"
+                                onclick="setReminderEntryId({{ entry.id }})">
+                            ⏰ {{ _('Remind Me') }}
+                        </button>
+
                          <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline d-flex align-items-center gap-1">
                              <input type="text" name="sticker" placeholder="{{ _('Add Sticker') }}" class="form-control form-control-sm d-inline w-auto">
                             <button type="submit" class="btn btn-sm btn-outline-info">{{ _('Add') }}</button>
@@ -181,4 +188,37 @@
         {% endfor %}
     </div>
 </div>
+
+<!-- Reminder Modal -->
+<div class="modal fade" id="reminderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="reminderForm" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Set Reminder') }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <p>{{ _('When would you like to be reminded?') }}</p>
+            <input type="datetime-local" name="reminder_time" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+          <button type="submit" class="btn btn-primary">{{ _('Set Reminder') }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function setReminderEntryId(id) {
+    var form = document.getElementById('reminderForm');
+    // We need to construct the URL dynamically.
+    // Since url_for is server-side, we use a placeholder and replace it.
+    // Base URL: /reminders/set/0
+    var baseUrl = "{{ url_for('reminder.set_reminder', entry_id=0) }}";
+    form.action = baseUrl.replace('0', id);
+}
+</script>
 {% endblock %}

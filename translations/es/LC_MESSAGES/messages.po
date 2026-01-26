@@ -923,3 +923,63 @@ msgstr "No se encontraron entradas."
 
 #~ msgid "Language"
 #~ msgstr "Idioma"
+
+msgid "Inbox"
+msgstr "Bandeja de Entrada"
+
+msgid "No messages yet."
+msgstr "No hay mensajes todavía."
+
+msgid "Back"
+msgstr "Atrás"
+
+msgid "Conversation with"
+msgstr "Conversación con"
+
+msgid "Type a message..."
+msgstr "Escribe un mensaje..."
+
+msgid "Send"
+msgstr "Enviar"
+
+msgid "Send Message"
+msgstr "Enviar Mensaje"
+
+msgid "Messages"
+msgstr "Mensajes"
+
+msgid "Set Reminder"
+msgstr "Establecer Recordatorio"
+
+msgid "When would you like to be reminded?"
+msgstr "¿Cuándo te gustaría recibir el recordatorio?"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Remind Me"
+msgstr "Recordarme"
+
+msgid "Please select a time."
+msgstr "Por favor selecciona una hora."
+
+msgid "Reminder set successfully."
+msgstr "Recordatorio establecido exitosamente."
+
+msgid "Invalid date format."
+msgstr "Formato de fecha inválido."
+
+msgid "Search keywords or tags..."
+msgstr "Buscar palabras clave o etiquetas..."
+
+msgid "Search"
+msgstr "Buscar"
+
+msgid "You"
+msgstr "Tú"
+
+msgid "Message sent."
+msgstr "Mensaje enviado."
+
+msgid "Message cannot be empty."
+msgstr "El mensaje no puede estar vacío."

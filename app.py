@@ -17,9 +17,12 @@ from routes.gratitude_routes import gratitude_bp
 from routes.testimony_routes import testimony_bp
 from routes.group_routes import group_bp
 from routes.profile_routes import profile_bp
-from utils import get_random_verse
-from models import Announcement
+from routes.message_routes import message_bp
+from routes.reminder_routes import reminder_bp
+from utils import get_random_verse, send_email
+from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
 import os
 import logging
 
@@ -29,16 +32,31 @@ logging.basicConfig(level=logging.INFO)
 def send_reminders(app):
     """
     Background job to send reminders.
-    In a real app, this would send emails via SMTP/SendGrid.
-    Here, we log to the console.
     """
     with app.app_context():
-        # Find continuous petitions
+        # 1. Continuous Petitions (Log only for now to avoid spamming in demo)
         continuous_entries = PrayerEntry.query.filter_by(is_continuous=True).all()
         for entry in continuous_entries:
             user = User.query.get(entry.user_id)
             if user and user.email:
-                print(f"[EMAIL MOCK] Sending reminder to {user.email} for continuous prayer: {entry.content[:30]}...")
+                # In real app, check if we already sent one today
+                pass
+
+        # 2. Scheduled Reminders
+        now = datetime.now()
+        due_reminders = PrayerReminder.query.filter(PrayerReminder.is_sent == False, PrayerReminder.reminder_datetime <= now).all()
+
+        for reminder in due_reminders:
+            user = reminder.user
+            entry = reminder.entry
+            if user and user.email and entry:
+                subject = "Prayer Reminder: " + (entry.content[:30] + "..." if len(entry.content) > 30 else entry.content)
+                body = f"Hello {user.username},\n\nYou asked to be reminded to pray for this request:\n\n{entry.content}\n\n- Praying Diary"
+
+                print(f"Sending reminder to {user.email}")
+                if send_email(user.email, subject, body):
+                    reminder.is_sent = True
+                    db.session.commit()
 
 def create_app():
     app = Flask(__name__)
@@ -67,6 +85,8 @@ def create_app():
     app.register_blueprint(testimony_bp)
     app.register_blueprint(group_bp)
     app.register_blueprint(profile_bp)
+    app.register_blueprint(message_bp)
+    app.register_blueprint(reminder_bp)
 
     @app.context_processor
     def inject_context():

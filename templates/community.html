@@ -6,6 +6,13 @@
         <h2>{{ _('Community Prayer Wall') }}</h2>
         <p>{{ _('Join others in prayer. These requests have been shared anonymously.') }}</p>
 
+        <form class="mb-4" method="GET" action="{{ url_for('community.index') }}">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="{{ _('Search keywords or tags...') }}" value="{{ request.args.get('q', '') }}">
+                <button class="btn btn-outline-secondary" type="submit">{{ _('Search') }}</button>
+            </div>
+        </form>
+
         {% for entry in entries %}
         <div class="card mb-3">
             <div class="card-header text-muted d-flex justify-content-between align-items-center">

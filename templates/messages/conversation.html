@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex align-items-center">
+            <a href="{{ url_for('message.inbox') }}" class="btn btn-outline-secondary btn-sm me-3">
+                <i class="bi bi-arrow-left"></i> {{ _('Back') }}
+            </a>
+            <h5 class="mb-0">
+                {{ _('Conversation with') }} {{ other_user.username }}
+            </h5>
+        </div>
+        <div class="card-body" style="height: 500px; overflow-y: auto; display: flex; flex-direction: column;">
+            {% for msg in messages %}
+                <div class="d-flex mb-3 {% if msg.sender_id == current_user.id %}justify-content-end{% else %}justify-content-start{% endif %}">
+                    {% if msg.sender_id != current_user.id %}
+                        {% if other_user.profile_image_url %}
+                            <img src="{{ other_user.profile_image_url }}" class="rounded-circle me-2" width="30" height="30" style="object-fit: cover;">
+                        {% else %}
+                            <img src="https://ui-avatars.com/api/?name={{ other_user.username }}&background=random" class="rounded-circle me-2" width="30" height="30">
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="p-3 rounded-3" style="max-width: 70%; {% if msg.sender_id == current_user.id %}background-color: #0d6efd; color: white;{% else %}background-color: #f1f1f1; color: black;{% endif %}">
+                        <p class="mb-0">{{ msg.content }}</p>
+                        <small class="{% if msg.sender_id == current_user.id %}text-light{% else %}text-muted{% endif %} d-block text-end mt-1" style="font-size: 0.75rem;">
+                            {{ msg.created_at.strftime('%H:%M') }}
+                        </small>
+                    </div>
+                </div>
+            {% endfor %}
+            <div id="scroll-anchor"></div>
+        </div>
+        <div class="card-footer">
+            <form method="POST">
+                <div class="input-group">
+                    <input type="text" name="content" class="form-control" placeholder="{{ _('Type a message...') }}" required autocomplete="off">
+                    <button class="btn btn-primary" type="submit">{{ _('Send') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Auto-scroll to bottom
+    window.onload = function() {
+        var element = document.getElementById("scroll-anchor");
+        element.scrollIntoView();
+    };
+</script>
+{% endblock %}
