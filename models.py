@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(150), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=True) # Added email
     about_me = db.Column(db.String(500), nullable=True) # Added Bio
+    profile_image_url = db.Column(db.String(255), nullable=True) # Added Profile Image
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_verified = db.Column(db.Boolean, default=False)

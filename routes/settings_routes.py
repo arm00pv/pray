@@ -14,6 +14,7 @@ def index():
         if action == 'update_profile':
             email = request.form.get('email')
             about_me = request.form.get('about_me')
+            profile_image_url = request.form.get('profile_image_url')
 
             # Check uniqueness if changed
             if email != current_user.email:
@@ -23,6 +24,7 @@ def index():
                 current_user.email = email
 
             current_user.about_me = about_me
+            current_user.profile_image_url = profile_image_url
             db.session.commit()
             flash('Profile updated.')
 

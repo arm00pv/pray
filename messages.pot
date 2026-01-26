@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-26 02:26+0000\n"
+"POT-Creation-Date: 2026-01-26 03:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,7 +305,7 @@ msgstr ""
 msgid "Gratitude"
 msgstr ""
 
-#: templates/base.html:64 templates/public_profile.html:54
+#: templates/base.html:64 templates/public_profile.html:58
 #: templates/testimonies.html:6
 msgid "Testimonies"
 msgstr ""
@@ -506,43 +506,43 @@ msgstr ""
 msgid "Forgot Password?"
 msgstr ""
 
-#: templates/public_profile.html:14
+#: templates/public_profile.html:18
 msgid "Joined"
 msgstr ""
 
-#: templates/public_profile.html:25
+#: templates/public_profile.html:29
 msgid "Prayer Warrior"
 msgstr ""
 
-#: templates/public_profile.html:28
+#: templates/public_profile.html:32
 msgid "Encourager"
 msgstr ""
 
-#: templates/public_profile.html:35
+#: templates/public_profile.html:39
 msgid "Prayers Shared"
 msgstr ""
 
-#: templates/public_profile.html:39
+#: templates/public_profile.html:43
 msgid "Amens Received"
 msgstr ""
 
-#: templates/public_profile.html:51
+#: templates/public_profile.html:55
 msgid "Public Prayers"
 msgstr ""
 
-#: templates/public_profile.html:72
+#: templates/public_profile.html:76
 msgid "Amens"
 msgstr ""
 
-#: templates/public_profile.html:78
+#: templates/public_profile.html:82
 msgid "No public prayers shared yet."
 msgstr ""
 
-#: templates/public_profile.html:87
+#: templates/public_profile.html:91
 msgid "Testimony"
 msgstr ""
 
-#: templates/public_profile.html:93
+#: templates/public_profile.html:97
 msgid "No testimonies shared yet."
 msgstr ""
 
@@ -582,7 +582,7 @@ msgstr ""
 msgid "Reset Password"
 msgstr ""
 
-#: templates/reset_password.html:11 templates/settings.html:41
+#: templates/reset_password.html:11 templates/settings.html:52
 msgid "New Password"
 msgstr ""
 
@@ -610,15 +610,27 @@ msgstr ""
 msgid "Share a little about yourself..."
 msgstr ""
 
-#: templates/settings.html:26
-msgid "Save Changes"
+#: templates/settings.html:27
+msgid "Profile Image URL"
 msgstr ""
 
-#: templates/settings.html:32 templates/settings.html:44
-msgid "Change Password"
+#: templates/settings.html:29
+msgid "Provide a direct link to an image (e.g. from Imgur)."
+msgstr ""
+
+#: templates/settings.html:33
+msgid "Current Image Preview"
 msgstr ""
 
 #: templates/settings.html:37
+msgid "Save Changes"
+msgstr ""
+
+#: templates/settings.html:43 templates/settings.html:55
+msgid "Change Password"
+msgstr ""
+
+#: templates/settings.html:48
 msgid "Current Password"
 msgstr ""
 

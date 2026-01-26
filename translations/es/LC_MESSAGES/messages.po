@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-26 02:26+0000\n"
+"POT-Creation-Date: 2026-01-26 03:52+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -308,7 +308,7 @@ msgstr "Mis Oraciones"
 msgid "Gratitude"
 msgstr "Gratitud"
 
-#: templates/base.html:64 templates/public_profile.html:54
+#: templates/base.html:64 templates/public_profile.html:58
 #: templates/testimonies.html:6
 msgid "Testimonies"
 msgstr "Testimonios"
@@ -515,44 +515,44 @@ msgstr "Inicio de Sesión de Usuario"
 msgid "Forgot Password?"
 msgstr "¿Olvidaste tu contraseña?"
 
-#: templates/public_profile.html:14
+#: templates/public_profile.html:18
 msgid "Joined"
 msgstr "Se unió"
 
-#: templates/public_profile.html:25
+#: templates/public_profile.html:29
 #, fuzzy
 msgid "Prayer Warrior"
 msgstr "Ubicaciones de Oración"
 
-#: templates/public_profile.html:28
+#: templates/public_profile.html:32
 msgid "Encourager"
 msgstr ""
 
-#: templates/public_profile.html:35
+#: templates/public_profile.html:39
 msgid "Prayers Shared"
 msgstr "Oraciones Compartidas"
 
-#: templates/public_profile.html:39
+#: templates/public_profile.html:43
 msgid "Amens Received"
 msgstr "Amens Recibidos"
 
-#: templates/public_profile.html:51
+#: templates/public_profile.html:55
 msgid "Public Prayers"
 msgstr "Oraciones Públicas"
 
-#: templates/public_profile.html:72
+#: templates/public_profile.html:76
 msgid "Amens"
 msgstr "Amén"
 
-#: templates/public_profile.html:78
+#: templates/public_profile.html:82
 msgid "No public prayers shared yet."
 msgstr "Aún no se han compartido oraciones públicas."
 
-#: templates/public_profile.html:87
+#: templates/public_profile.html:91
 msgid "Testimony"
 msgstr "Testimonio"
 
-#: templates/public_profile.html:93
+#: templates/public_profile.html:97
 msgid "No testimonies shared yet."
 msgstr "Aún no hay testimonios."
 
@@ -592,7 +592,7 @@ msgstr "Confirmar Contraseña"
 msgid "Reset Password"
 msgstr "Restablecer Contraseña"
 
-#: templates/reset_password.html:11 templates/settings.html:41
+#: templates/reset_password.html:11 templates/settings.html:52
 msgid "New Password"
 msgstr "Nueva Contraseña"
 
@@ -620,15 +620,27 @@ msgstr "Sobre Mí"
 msgid "Share a little about yourself..."
 msgstr "Comparte un poco sobre ti..."
 
-#: templates/settings.html:26
+#: templates/settings.html:27
+msgid "Profile Image URL"
+msgstr "URL de Imagen de Perfil"
+
+#: templates/settings.html:29
+msgid "Provide a direct link to an image (e.g. from Imgur)."
+msgstr "Proporciona un enlace directo a una imagen (ej. de Imgur)."
+
+#: templates/settings.html:33
+msgid "Current Image Preview"
+msgstr "Vista Previa de Imagen Actual"
+
+#: templates/settings.html:37
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: templates/settings.html:32 templates/settings.html:44
+#: templates/settings.html:43 templates/settings.html:55
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: templates/settings.html:37
+#: templates/settings.html:48
 msgid "Current Password"
 msgstr "Contraseña Actual"
 
