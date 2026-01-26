@@ -59,7 +59,33 @@
                                 🙏 {{ _('Amen') }} ({{ entry.amens|length }})
                             </button>
                         </form>
+
+                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#savePrayerModal{{ entry.id }}">
+                            🔖 {{ _('Save/Note') }}
+                        </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Prayer Modal -->
+        <div class="modal fade" id="savePrayerModal{{ entry.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('community.save_prayer', entry_id=entry.id) }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ _('Save Prayer & Add Note') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted small">"{{ entry.content }}"</p>
+                            <textarea name="note" class="form-control" placeholder="{{ _('Add a private note (optional)...') }}"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ _('Save') }}</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

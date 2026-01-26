@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import PrayerEntry, Amen, Notification, User, Tag
+from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer
 from extensions import db
 from utils import send_email
 from sqlalchemy import or_
@@ -77,4 +77,22 @@ def toggle_amen(entry_id):
 
     db.session.commit()
     # Return to referrer or index
+    return redirect(request.referrer or url_for('community.index'))
+@community_bp.route('/save_prayer/<int:entry_id>', methods=['POST'])
+@login_required
+def save_prayer(entry_id):
+    entry = PrayerEntry.query.get_or_404(entry_id)
+    note = request.form.get('note')
+
+    # Check if already saved
+    saved = SavedPrayer.query.filter_by(user_id=current_user.id, prayer_entry_id=entry.id).first()
+    if saved:
+        saved.note = note # Update note
+        flash(_('Prayer note updated.'))
+    else:
+        saved = SavedPrayer(user_id=current_user.id, prayer_entry_id=entry.id, note=note)
+        db.session.add(saved)
+        flash(_('Prayer saved to your list.'))
+
+    db.session.commit()
     return redirect(request.referrer or url_for('community.index'))

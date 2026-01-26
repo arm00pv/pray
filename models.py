@@ -209,3 +209,19 @@ class PrayerReminder(db.Model):
 
     user = db.relationship('User', backref='reminders')
     entry = db.relationship('PrayerEntry')
+
+class SystemLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    level = db.Column(db.String(20), default='INFO') # INFO, WARNING, ERROR
+    message = db.Column(db.String(500))
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+class SavedPrayer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    prayer_entry_id = db.Column(db.Integer, db.ForeignKey('prayer_entry.id'), nullable=False)
+    note = db.Column(db.String(255), nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='saved_prayers')
+    prayer_entry = db.relationship('PrayerEntry')

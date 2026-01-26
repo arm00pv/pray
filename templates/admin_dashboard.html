@@ -146,8 +146,14 @@
 
         <!-- Registered Users List -->
         <div class="card mb-4">
-            <div class="card-header">{{ _('Registered Users') }}</div>
-            <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ _('Registered Users') }}</span>
+                <form class="d-flex" action="{{ url_for('admin.dashboard') }}" method="GET">
+                    <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="{{ _('Search user...') }}" value="{{ request.args.get('q', '') }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit">{{ _('Search') }}</button>
+                </form>
+            </div>
+            <div class="card-body">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -159,7 +165,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for user in users %}
+                        {% for user in users.items %}
                         <tr>
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
@@ -171,6 +177,66 @@
                         </tr>
                         {% else %}
                         <tr><td colspan="5">{{ _('No users found.') }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                {% if users.pages > 1 %}
+                <nav aria-label="User pagination">
+                  <ul class="pagination pagination-sm justify-content-center">
+                    {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                      {% if page_num %}
+                        {% if users.page == page_num %}
+                          <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="{{ url_for('admin.dashboard', page=page_num, q=request.args.get('q', '')) }}">{{ page_num }}</a></li>
+                        {% endif %}
+                      {% else %}
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Broadcast Message -->
+        <div class="card mb-4 border-info">
+            <div class="card-header">{{ _('System Broadcast') }}</div>
+            <div class="card-body">
+                <form action="{{ url_for('admin.broadcast_message') }}" method="POST">
+                    <div class="input-group">
+                        <span class="input-group-text">📢</span>
+                        <input type="text" name="message" class="form-control" placeholder="{{ _('Send a notification to ALL users...') }}" required>
+                        <button type="submit" class="btn btn-info">{{ _('Broadcast') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- System Logs -->
+        <div class="card mb-4">
+            <div class="card-header">{{ _('System Logs') }}</div>
+            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-sm table-hover font-monospace" style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Time') }}</th>
+                            <th>{{ _('Level') }}</th>
+                            <th>{{ _('Message') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr class="{% if log.level == 'ERROR' %}table-danger{% elif log.level == 'WARNING' %}table-warning{% endif %}">
+                            <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>{{ log.level }}</td>
+                            <td>{{ log.message }}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="3" class="text-center text-muted">{{ _('No logs available.') }}</td></tr>
                         {% endfor %}
                     </tbody>
                 </table>

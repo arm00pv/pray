@@ -1007,3 +1007,51 @@ msgstr "%(username)s alabó tu testimonio."
 
 msgid "New message from %(username)s"
 msgstr "Nuevo mensaje de %(username)s"
+
+msgid "System Broadcast"
+msgstr "Difusión del Sistema"
+
+msgid "Send a notification to ALL users..."
+msgstr "Enviar una notificación a TODOS los usuarios..."
+
+msgid "Broadcast"
+msgstr "Difundir"
+
+msgid "System Logs"
+msgstr "Registros del Sistema"
+
+msgid "Time"
+msgstr "Hora"
+
+msgid "Level"
+msgstr "Nivel"
+
+msgid "Message"
+msgstr "Mensaje"
+
+msgid "No logs available."
+msgstr "No hay registros disponibles."
+
+msgid "Search user..."
+msgstr "Buscar usuario..."
+
+msgid "Broadcast sent to %(count)d users."
+msgstr "Difusión enviada a %(count)d usuarios."
+
+msgid "Save/Note"
+msgstr "Guardar/Nota"
+
+msgid "Save Prayer & Add Note"
+msgstr "Guardar Oración y Añadir Nota"
+
+msgid "Add a private note (optional)..."
+msgstr "Añadir una nota privada (opcional)..."
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Prayer note updated."
+msgstr "Nota de oración actualizada."
+
+msgid "Prayer saved to your list."
+msgstr "Oración guardada en tu lista."

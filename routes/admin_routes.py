@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from flask_babel import _
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement
+from flask_babel import _, force_locale
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement, SystemLog, Notification, PrivateMessage
 from extensions import db
 import json
 import uuid
@@ -29,10 +29,15 @@ def dashboard():
     # Flagged entries count
     flagged_count = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).count()
 
-    # Registered Users (Most active logic could be implemented, but simple list for now)
-    users = User.query.order_by(User.created_at.desc()).all()
-    # Calculate simple activity metric (entries count) for display?
-    # Or rely on template to show len(user.entries) if lazy loading permits without N+1 issue for small sets.
+    # Registered Users (Pagination & Search)
+    q = request.args.get('q')
+    page = request.args.get('page', 1, type=int)
+
+    user_query = User.query
+    if q:
+        user_query = user_query.filter(User.username.ilike(f'%{q}%') | User.email.ilike(f'%{q}%'))
+
+    users = user_query.order_by(User.created_at.desc()).paginate(page=page, per_page=10)
 
     # Metrics: IP locations (Aggregated)
     # Get all entries with geo data
@@ -62,6 +67,9 @@ def dashboard():
     locations = list(locations_map.values())
     locations.sort(key=lambda x: x['count'], reverse=True)
 
+    # System Logs
+    logs = SystemLog.query.order_by(SystemLog.created_at.desc()).limit(50).all()
+
     return render_template('admin_dashboard.html',
                            top_tags=top_tags,
                            locations=locations,
@@ -71,7 +79,40 @@ def dashboard():
                            total_gratitude=total_gratitude,
                            total_testimonies=total_testimonies,
                            total_groups=total_groups,
-                           users=users)
+                           users=users,
+                           logs=logs)
+
+@admin_bp.route('/broadcast', methods=['POST'])
+def broadcast_message():
+    message = request.form.get('message')
+    if not message:
+        flash(_('Message cannot be empty.'))
+        return redirect(url_for('admin.dashboard'))
+
+    # Send to all users
+    users = User.query.all()
+    count = 0
+    for user in users:
+        # Create System Notification
+        with force_locale(user.preferred_language or 'en'):
+            msg_content = f"Admin Broadcast: {message}"
+
+        notif = Notification(
+            user_id=user.id,
+            message=msg_content
+        )
+        db.session.add(notif)
+        count += 1
+
+    db.session.commit()
+
+    # Log it
+    log = SystemLog(level='INFO', message=f"Broadcast sent to {count} users by {current_user.username}")
+    db.session.add(log)
+    db.session.commit()
+
+    flash(_('Broadcast sent to %(count)d users.', count=count))
+    return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/dashboard/flagged')
 def flagged_entries():
