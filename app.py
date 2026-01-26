@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, session, request
 from flask_migrate import Migrate
-from flask_babel import Babel
+from flask_babel import Babel, force_locale, _
 from config import Config
 from extensions import db, login_manager, bcrypt
 from models import User, Admin, AdminInvite, PrayerEntry, Tag
@@ -50,8 +50,10 @@ def send_reminders(app):
             user = reminder.user
             entry = reminder.entry
             if user and user.email and entry:
-                subject = "Prayer Reminder: " + (entry.content[:30] + "..." if len(entry.content) > 30 else entry.content)
-                body = f"Hello {user.username},\n\nYou asked to be reminded to pray for this request:\n\n{entry.content}\n\n- Praying Diary"
+                # Use user's preferred language
+                with force_locale(user.preferred_language or 'en'):
+                    subject = _("Prayer Reminder: %(content)s", content=(entry.content[:30] + "..." if len(entry.content) > 30 else entry.content))
+                    body = _("Hello %(username)s,\n\nYou asked to be reminded to pray for this request:\n\n%(entry_content)s\n\n- Praying Diary", username=user.username, entry_content=entry.content)
 
                 print(f"Sending reminder to {user.email}")
                 if send_email(user.email, subject, body):
@@ -137,7 +139,8 @@ def initialize_db():
             print("Admin already exists.")
 
 # Ensure DB is initialized in production (Gunicorn)
-initialize_db()
+if not os.environ.get('SKIP_DB_INIT'):
+    initialize_db()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))

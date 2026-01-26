@@ -20,6 +20,13 @@
                         <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email or '' }}">
                     </div>
                     <div class="mb-3">
+                        <label for="preferred_language" class="form-label">{{ _('Preferred Language') }}</label>
+                        <select class="form-select" id="preferred_language" name="preferred_language">
+                            <option value="en" {% if current_user.preferred_language == 'en' %}selected{% endif %}>English</option>
+                            <option value="es" {% if current_user.preferred_language == 'es' %}selected{% endif %}>Español</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="about_me" class="form-label">{{ _('About Me') }}</label>
                         <textarea class="form-control" id="about_me" name="about_me" rows="3" placeholder="{{ _('Share a little about yourself...') }}">{{ current_user.about_me or '' }}</textarea>
                     </div>

@@ -16,6 +16,7 @@ def index():
             email = request.form.get('email')
             about_me = request.form.get('about_me')
             profile_image_url = request.form.get('profile_image_url')
+            preferred_language = request.form.get('preferred_language')
 
             # Check uniqueness if changed
             if email != current_user.email:
@@ -26,6 +27,8 @@ def index():
 
             current_user.about_me = about_me
             current_user.profile_image_url = profile_image_url
+            if preferred_language in ['en', 'es']:
+                current_user.preferred_language = preferred_language
             db.session.commit()
             flash(_('Profile updated.'))
 

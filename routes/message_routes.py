@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from models import User, PrivateMessage, Notification
 from extensions import db
 from datetime import datetime, timezone
-from flask_babel import _
+from flask_babel import _, force_locale
 from sqlalchemy import or_, and_, func
 
 message_bp = Blueprint('message', __name__, url_prefix='/messages')
@@ -55,9 +55,12 @@ def conversation(user_id):
             db.session.add(msg)
 
             # Create notification
+            with force_locale(other_user.preferred_language or 'en'):
+                notif_msg = _("New message from %(username)s", username=current_user.username)
+
             notif = Notification(
                 user_id=other_user.id,
-                message=f"New message from {current_user.username}"
+                message=notif_msg
             )
             db.session.add(notif)
 
@@ -99,9 +102,13 @@ def send_quick(user_id):
         db.session.add(msg)
 
         # Notify
+        recipient = User.query.get(user_id)
+        with force_locale(recipient.preferred_language or 'en'):
+            notif_msg = _("New message from %(username)s", username=current_user.username)
+
         notif = Notification(
             user_id=user_id,
-            message=f"New message from {current_user.username}"
+            message=notif_msg
         )
         db.session.add(notif)
 

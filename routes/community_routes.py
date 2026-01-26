@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from flask_babel import _
+from flask_babel import _, force_locale
 from models import PrayerEntry, Amen, Notification, User, Tag
 from extensions import db
 from utils import send_email
@@ -54,17 +54,26 @@ def toggle_amen(entry_id):
 
         # Notify author if not self
         if entry.user_id != current_user.id:
-            notif = Notification(user_id=entry.user_id, message=_("%(username)s said Amen to your prayer.", username=current_user.username))
+            # Prepare notification message (stored in DB, usually displayed in user's UI context,
+            # but if we want it to be localized for recipient, we should store key or force locale if stored as text.
+            # Storing as text means it's baked in sender's language or server language.
+            # Best practice is storing key + params, but for now we bake it using recipient's pref if possible,
+            # or just generic. Actually, notifications in UI are usually translated at render time if structured.
+            # Since we store 'message' string, let's try to translate it to recipient's language.
+
+            author = User.query.get(entry.user_id)
+
+            with force_locale(author.preferred_language or 'en'):
+                notif_msg = _("%(username)s said Amen to your prayer.", username=current_user.username)
+                email_subject = _("Someone prayed with you")
+                email_body = _("%(username)s said Amen to your prayer: '%(content)s...'", username=current_user.username, content=entry.content[:50])
+
+            notif = Notification(user_id=entry.user_id, message=notif_msg)
             db.session.add(notif)
 
             # Send Email
-            author = User.query.get(entry.user_id)
             if author and author.email:
-                send_email(
-                    author.email,
-                    "Someone prayed with you",
-                    f"{current_user.username} said Amen to your prayer: '{entry.content[:50]}...'"
-                )
+                send_email(author.email, email_subject, email_body)
 
     db.session.commit()
     # Return to referrer or index

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from flask_login import login_user, logout_user, login_required
 from models import User, Admin, BlockedUser
 from extensions import db, bcrypt, login_manager
@@ -52,6 +52,9 @@ def register():
         hashed_answer = bcrypt.generate_password_hash(security_answer.lower().strip()).decode('utf-8')
         token = str(uuid.uuid4())
 
+        # Get preferred language from session or default to 'en'
+        preferred_language = session.get('language', 'en')
+
         user = User(
             username=username,
             email=email,
@@ -59,7 +62,8 @@ def register():
             verification_token=token,
             is_verified=False,
             security_question=security_question,
-            security_answer_hash=hashed_answer
+            security_answer_hash=hashed_answer,
+            preferred_language=preferred_language
         )
         db.session.add(user)
         db.session.commit()

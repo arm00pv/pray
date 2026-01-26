@@ -983,3 +983,27 @@ msgstr "Mensaje enviado."
 
 msgid "Message cannot be empty."
 msgstr "El mensaje no puede estar vacío."
+
+msgid "Preferred Language"
+msgstr "Idioma Preferido"
+
+msgid "Prayer Reminder: %(content)s"
+msgstr "Recordatorio de Oración: %(content)s"
+
+msgid "Hello %(username)s,\n\nYou asked to be reminded to pray for this request:\n\n%(entry_content)s\n\n- Praying Diary"
+msgstr "Hola %(username)s,\n\nPediste que te recordáramos orar por esta petición:\n\n%(entry_content)s\n\n- Diario de Oración"
+
+msgid "Someone prayed with you"
+msgstr "Alguien oró contigo"
+
+msgid "%(username)s said Amen to your prayer: '%(content)s...'"
+msgstr "%(username)s dijo Amén a tu oración: '%(content)s...'"
+
+msgid "New Praise on your Testimony"
+msgstr "Nueva Alabanza en tu Testimonio"
+
+msgid "%(username)s praised your testimony."
+msgstr "%(username)s alabó tu testimonio."
+
+msgid "New message from %(username)s"
+msgstr "Nuevo mensaje de %(username)s"

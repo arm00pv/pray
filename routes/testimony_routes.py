@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from flask_babel import _
+from flask_babel import _, force_locale
 from models import Testimony, Praise, Notification, User
 from extensions import db, login_manager
 from utils import ProfanityFilter, send_email
@@ -46,16 +46,17 @@ def toggle_praise(testimony_id):
         db.session.add(praise)
 
         if testimony.user_id != current_user.id:
-            notif = Notification(user_id=testimony.user_id, message=_("%(username)s praised your testimony.", username=current_user.username))
+            author = User.query.get(testimony.user_id)
+            with force_locale(author.preferred_language or 'en'):
+                notif_msg = _("%(username)s praised your testimony.", username=current_user.username)
+                email_subject = _("New Praise on your Testimony")
+                email_body = _("%(username)s praised your testimony.", username=current_user.username)
+
+            notif = Notification(user_id=testimony.user_id, message=notif_msg)
             db.session.add(notif)
 
-            author = User.query.get(testimony.user_id)
             if author and author.email:
-                send_email(
-                    author.email,
-                    "New Praise on your Testimony",
-                    f"{current_user.username} praised your testimony."
-                )
+                send_email(author.email, email_subject, email_body)
 
     db.session.commit()
     return redirect(request.referrer or url_for('testimony.index'))

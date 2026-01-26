@@ -1,3 +1,6 @@
+import os
+os.environ['SKIP_DB_INIT'] = 'true'
+
 import unittest
 from app import create_app, db
 from models import User, PrivateMessage, PrayerReminder, PrayerEntry
@@ -16,6 +19,17 @@ class TestFeatures(unittest.TestCase):
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
+
+    def test_preferred_language(self):
+        u1 = User(username='u1', password_hash='x', preferred_language='es')
+        db.session.add(u1)
+        db.session.commit()
+        self.assertEqual(u1.preferred_language, 'es')
+
+        u2 = User(username='u2', password_hash='x') # Default
+        db.session.add(u2)
+        db.session.commit()
+        self.assertEqual(u2.preferred_language, 'en')
 
     def test_private_message(self):
         u1 = User(username='u1', password_hash='x', email='u1@test.com')
