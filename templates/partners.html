@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>{{ _('Prayer Partners (Beta)') }}</h2>
+        <p class="lead">{{ _('Connect with a partner to pray for each other this week.') }}</p>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                {% if match and partner %}
+                    <h4 class="text-success">{{ _('You are matched!') }}</h4>
+                    <p>{{ _('Your prayer partner is:') }} <strong>{{ partner.username }}</strong></p>
+
+                    <div class="mt-3">
+                        <a href="{{ url_for('profile.public_profile', username=partner.username) }}" class="btn btn-outline-primary">{{ _('View Profile') }}</a>
+                        <a href="{{ url_for('message.conversation', user_id=partner.id) }}" class="btn btn-primary">{{ _('Send Message') }}</a>
+                    </div>
+
+                    <hr>
+                    <form method="POST">
+                        <input type="hidden" name="action" value="end_match">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">{{ _('End Match') }}</button>
+                    </form>
+                {% else %}
+                    <p>{{ _('You do not have an active prayer partner.') }}</p>
+                    <form method="POST">
+                        <input type="hidden" name="action" value="opt_in">
+                        <button type="submit" class="btn btn-lg btn-success">{{ _('Find a Partner') }}</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

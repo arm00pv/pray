@@ -1055,3 +1055,63 @@ msgstr "Nota de oración actualizada."
 
 msgid "Prayer saved to your list."
 msgstr "Oración guardada en tu lista."
+
+msgid "Prayer Partners (Beta)"
+msgstr "Compañeros de Oración (Beta)"
+
+msgid "Connect with a partner to pray for each other this week."
+msgstr "Conéctate con un compañero para orar el uno por el otro esta semana."
+
+msgid "You are matched!"
+msgstr "¡Tienes un compañero!"
+
+msgid "Your prayer partner is:"
+msgstr "Tu compañero de oración es:"
+
+msgid "View Profile"
+msgstr "Ver Perfil"
+
+msgid "End Match"
+msgstr "Terminar Compañerismo"
+
+msgid "You do not have an active prayer partner."
+msgstr "No tienes un compañero de oración activo."
+
+msgid "Find a Partner"
+msgstr "Buscar Compañero"
+
+msgid "Spiritual Goals"
+msgstr "Metas Espirituales"
+
+msgid "Set New Goal"
+msgstr "Establecer Nueva Meta"
+
+msgid "Goal Type"
+msgstr "Tipo de Meta"
+
+msgid "Target Count (Weekly)"
+msgstr "Objetivo (Semanal)"
+
+msgid "Set Goal"
+msgstr "Establecer Meta"
+
+msgid "Set a goal for this week!"
+msgstr "¡Establece una meta para esta semana!"
+
+msgid "Today's Reading"
+msgstr "Lectura de Hoy"
+
+msgid "Export All Entries"
+msgstr "Exportar Todas las Entradas"
+
+msgid "You already have an active prayer partner."
+msgstr "Ya tienes un compañero de oración activo."
+
+msgid "You have been matched with %(username)s!"
+msgstr "¡Has sido emparejado con %(username)s!"
+
+msgid "No partners available right now. Try again later."
+msgstr "No hay compañeros disponibles ahora. Inténtalo más tarde."
+
+msgid "Match ended."
+msgstr "Compañerismo terminado."

@@ -13,13 +13,48 @@
             </div>
         </div>
 
+        <!-- Bible Reading Plan -->
+        <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+            <span>📖 <strong>{{ reading_plan.plan_title }}:</strong> {{ reading_plan.reading }}</span>
+            <span class="badge bg-light text-dark">{{ _('Today\'s Reading') }}</span>
+        </div>
+
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
                 <h2>{{ _('My Prayer Diary') }}</h2>
                 <span class="badge bg-success">{{ _('Prayer Streak') }}: {{ current_user.calculate_streak() }} {{ _('Days') }}</span>
             </div>
             <div>
+                 <a href="{{ url_for('community.partners') }}" class="btn btn-outline-primary me-2">{{ _('Prayer Partner') }}</a>
                  <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">{{ _('Analytics') }}</a>
+            </div>
+        </div>
+
+        <!-- Goals Widget -->
+        <div class="card mb-4 border-info">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>🎯 {{ _('Spiritual Goals') }}</span>
+                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#goalModal">+</button>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-3">
+                    {% for goal in current_user.goals %}
+                        <div class="border rounded p-2 text-center" style="min-width: 120px;">
+                            <strong>{{ goal.goal_type }}</strong>
+                            <div class="progress my-2" style="height: 10px;">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ (goal.current_count / goal.target_count * 100)|round }}%"></div>
+                            </div>
+                            <small>{{ goal.current_count }} / {{ goal.target_count }}</small>
+                            {% if goal.current_count < goal.target_count %}
+                            <form action="{{ url_for('goal.increment_goal', goal_id=goal.id) }}" method="POST" class="mt-1">
+                                <button type="submit" class="btn btn-sm btn-link p-0 text-decoration-none">✅</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <small class="text-muted">{{ _('Set a goal for this week!') }}</small>
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
@@ -187,6 +222,34 @@
             <p>{{ _('No entries found.') }}</p>
         {% endfor %}
     </div>
+</div>
+
+<!-- Goal Modal -->
+<div class="modal fade" id="goalModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ url_for('goal.add_goal') }}" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Set New Goal') }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label class="form-label">{{ _('Goal Type') }}</label>
+                <input type="text" name="goal_type" class="form-control" placeholder="e.g. Daily Prayer" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">{{ _('Target Count (Weekly)') }}</label>
+                <input type="number" name="target_count" class="form-control" value="7" min="1" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+          <button type="submit" class="btn btn-primary">{{ _('Set Goal') }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 <!-- Reminder Modal -->

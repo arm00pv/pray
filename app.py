@@ -19,7 +19,8 @@ from routes.group_routes import group_bp
 from routes.profile_routes import profile_bp
 from routes.message_routes import message_bp
 from routes.reminder_routes import reminder_bp
-from utils import get_random_verse, send_email
+from routes.goal_routes import goal_bp
+from utils import get_random_verse, send_email, get_todays_reading
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
@@ -89,6 +90,7 @@ def create_app():
     app.register_blueprint(profile_bp)
     app.register_blueprint(message_bp)
     app.register_blueprint(reminder_bp)
+    app.register_blueprint(goal_bp)
 
     @app.context_processor
     def inject_context():
@@ -100,7 +102,8 @@ def create_app():
 
         return dict(
             daily_verse=get_random_verse(locale),
-            active_announcement=active_announcement
+            active_announcement=active_announcement,
+            reading_plan=get_todays_reading()
         )
 
     # Scheduler

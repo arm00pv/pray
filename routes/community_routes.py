@@ -1,9 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer
+from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch
 from extensions import db
 from utils import send_email
+import random
+from datetime import datetime, timedelta
 from sqlalchemy import or_
 
 
@@ -96,3 +98,58 @@ def save_prayer(entry_id):
 
     db.session.commit()
     return redirect(request.referrer or url_for('community.index'))
+
+@community_bp.route('/partners', methods=['GET', 'POST'])
+@login_required
+def partners():
+    if request.method == 'POST':
+        action = request.form.get('action')
+        if action == 'opt_in':
+            # Simplified Logic: Just find someone else available or wait
+            # Check if user already has active match
+            existing = PrayerPartnerMatch.query.filter(
+                (PrayerPartnerMatch.user_id_1 == current_user.id) | (PrayerPartnerMatch.user_id_2 == current_user.id),
+                PrayerPartnerMatch.is_active == True
+            ).first()
+
+            if existing:
+                flash(_('You already have an active prayer partner.'))
+            else:
+                # Find pending match (mock logic: find user with ID != current and no active match)
+                # For MVP, let's just say "You are on the waiting list" or random match if many users.
+                # Here we will just create a "Waitlist" concept or auto-match with a random user for demo.
+                potential_partners = User.query.filter(User.id != current_user.id).all()
+                if potential_partners:
+                    partner = random.choice(potential_partners)
+                    match = PrayerPartnerMatch(user_id_1=current_user.id, user_id_2=partner.id)
+                    db.session.add(match)
+                    db.session.commit()
+                    flash(_('You have been matched with %(username)s!', username=partner.username))
+                else:
+                    flash(_('No partners available right now. Try again later.'))
+
+        elif action == 'end_match':
+             match = PrayerPartnerMatch.query.filter(
+                (PrayerPartnerMatch.user_id_1 == current_user.id) | (PrayerPartnerMatch.user_id_2 == current_user.id),
+                PrayerPartnerMatch.is_active == True
+            ).first()
+             if match:
+                 match.is_active = False
+                 match.end_date = datetime.utcnow()
+                 db.session.commit()
+                 flash(_('Match ended.'))
+
+        return redirect(url_for('community.partners'))
+
+    # GET: Show status
+    current_match = PrayerPartnerMatch.query.filter(
+        (PrayerPartnerMatch.user_id_1 == current_user.id) | (PrayerPartnerMatch.user_id_2 == current_user.id),
+        PrayerPartnerMatch.is_active == True
+    ).first()
+
+    partner = None
+    if current_match:
+        partner_id = current_match.user_id_2 if current_match.user_id_1 == current_user.id else current_match.user_id_1
+        partner = User.query.get(partner_id)
+
+    return render_template('partners.html', match=current_match, partner=partner)

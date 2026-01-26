@@ -225,3 +225,21 @@ class SavedPrayer(db.Model):
 
     user = db.relationship('User', backref='saved_prayers')
     prayer_entry = db.relationship('PrayerEntry')
+
+class PrayerPartnerMatch(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id_1 = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id_2 = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    start_date = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    end_date = db.Column(db.DateTime, nullable=True)
+    is_active = db.Column(db.Boolean, default=True)
+
+class SpiritualGoal(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    goal_type = db.Column(db.String(50), nullable=False) # 'prayer', 'reading', 'gratitude'
+    target_count = db.Column(db.Integer, default=1)
+    current_count = db.Column(db.Integer, default=0)
+    week_start_date = db.Column(db.Date, default=lambda: datetime.now(timezone.utc).date())
+
+    user = db.relationship('User', backref='goals')

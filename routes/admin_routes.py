@@ -236,3 +236,24 @@ def deactivate_announcement():
     db.session.commit()
     flash(_('Announcement cleared.'))
     return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/export_all_entries')
+def export_all_entries():
+    # Export all public entries to CSV
+    import csv
+    from io import StringIO
+    from flask import make_response
+
+    si = StringIO()
+    cw = csv.writer(si)
+    cw.writerow(['ID', 'User', 'Content', 'Date', 'Category'])
+
+    entries = PrayerEntry.query.order_by(PrayerEntry.created_at.desc()).all()
+    for entry in entries:
+        username = entry.author.username if entry.author else 'Anonymous'
+        cw.writerow([entry.id, username, entry.content, entry.created_at, entry.category])
+
+    output = make_response(si.getvalue())
+    output.headers["Content-Disposition"] = "attachment; filename=all_prayers.csv"
+    output.headers["Content-type"] = "text/csv"
+    return output
