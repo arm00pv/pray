@@ -5,6 +5,7 @@ from extensions import db, bcrypt, login_manager
 from utils import send_email, validate_password_strength
 import uuid
 from datetime import datetime, timedelta
+from sqlalchemy.exc import IntegrityError
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -66,7 +67,17 @@ def register():
             preferred_language=preferred_language
         )
         db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            flash('Username or Email already exists.')
+            return redirect(url_for('auth.register'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred. Please try again.')
+            print(f"Registration error: {e}")
+            return redirect(url_for('auth.register'))
 
         if email:
             verify_url = url_for('auth.verify_email', token=token, _external=True)
