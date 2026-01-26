@@ -24,8 +24,8 @@
                     {% for msg in messages %}
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <strong class="mb-1">{{ msg.author.username }}</strong>
-                                <small class="text-muted">{{ msg.created_at.strftime('%H:%M') }}</small>
+                                <strong class="mb-1"><a href="{{ url_for('profile.public_profile', username=msg.author.username) }}" class="text-decoration-none text-dark">{{ msg.author.username }}</a></strong>
+                                <small class="text-muted local-time" data-utc="{{ msg.created_at.isoformat() }}">{{ msg.created_at.strftime('%H:%M') }}</small>
                             </div>
                             <p class="mb-1">{{ msg.content }}</p>
                         </div>
@@ -48,21 +48,31 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">{{ _('Members') }} ({{ group.members|length }})</div>
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush" style="max-height: 500px; overflow-y: auto;">
                 {% for member in group.members %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>
-                        {{ member.username }}
-                        {% if member in group.admins %}
-                            <span class="badge bg-warning text-dark">{{ _('Admin') }}</span>
-                        {% endif %}
-                    </span>
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>
+                            <strong><a href="{{ url_for('profile.public_profile', username=member.username) }}" class="text-decoration-none text-dark">{{ member.username }}</a></strong>
+                            {% if member in group.admins %}
+                                <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">{{ _('Admin') }}</span>
+                            {% endif %}
+                        </span>
+                    </div>
 
-                    {% if current_user in group.admins and member not in group.admins %}
-                        <form action="{{ url_for('group.promote_member', group_id=group.id, user_id=member.id) }}" method="POST">
-                            <button type="submit" class="btn btn-sm btn-outline-info">{{ _('Promote') }}</button>
-                        </form>
-                    {% endif %}
+                    <div class="d-flex justify-content-end gap-1">
+                        {% if current_user.is_authenticated and current_user.id != member.id %}
+                            <a href="{{ url_for('message.conversation', user_id=member.id) }}" class="btn btn-sm btn-outline-primary" title="{{ _('Send Message') }}">
+                                ✉️
+                            </a>
+                        {% endif %}
+
+                        {% if current_user in group.admins and member not in group.admins %}
+                            <form action="{{ url_for('group.promote_member', group_id=group.id, user_id=member.id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-info" title="{{ _('Promote to Admin') }}">⬆️</button>
+                            </form>
+                        {% endif %}
+                    </div>
                 </li>
                 {% endfor %}
             </ul>

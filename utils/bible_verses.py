@@ -43,10 +43,26 @@ VERSES = [
     }
 ]
 
-def get_random_verse(locale='en'):
-    # Simple consistent verse per day could be done with hash of date, but random is fine for "refresh" feel.
-    # To keep it consistent per session, we could store in session, but let's just do random for now.
-    verse_data = random.choice(VERSES)
+import datetime
+
+def get_random_verse(locale='en', seed_key=None):
+    """
+    Returns a random verse.
+    If seed_key is provided, uses it to seed the RNG for stability (e.g., per user per day).
+    """
+    rng = random.Random()
+
+    if seed_key:
+        # Create a stable seed based on date and user key
+        today_str = datetime.datetime.now().strftime('%Y%m%d')
+        full_seed_str = f"{today_str}-{seed_key}"
+        # Use hashlib to ensure a consistent integer seed
+        import hashlib
+        seed_int = int(hashlib.sha256(full_seed_str.encode('utf-8')).hexdigest(), 16)
+        rng.seed(seed_int)
+
+    verse_data = rng.choice(VERSES)
+
     # Default to english if locale not found
     lang = locale if locale in ['en', 'es'] else 'en'
     return verse_data[lang]
