@@ -22,6 +22,11 @@ def register():
     if request.method == 'POST':
         username = request.form.get('username')
         email = request.form.get('email')
+
+        # Convert empty string email to None to avoid unique constraint violation on ''
+        if not email or email.strip() == '':
+            email = None
+
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
         security_question = request.form.get('security_question')
