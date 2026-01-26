@@ -100,8 +100,18 @@ def create_app():
 
         active_announcement = Announcement.query.filter_by(is_active=True).first()
 
+        # Determine seed key for stable verse
+        # Need to import inside function to avoid circular imports or context issues
+        from flask_login import current_user
+
+        if current_user.is_authenticated:
+            seed_key = str(current_user.id)
+        else:
+            # Use remote address or session ID for anonymous users
+            seed_key = request.remote_addr or session.get('anon_id', 'anonymous')
+
         return dict(
-            daily_verse=get_random_verse(locale),
+            daily_verse=get_random_verse(locale, seed_key=seed_key),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading()
         )

@@ -153,3 +153,11 @@ def partners():
         partner = User.query.get(partner_id)
 
     return render_template('partners.html', match=current_match, partner=partner)
+@community_bp.route('/my-amens')
+@login_required
+def my_amens():
+    # Get all entries the current user has Amen'd
+    amens = Amen.query.filter_by(user_id=current_user.id).order_by(Amen.created_at.desc()).all()
+    # Extract the entries
+    entries = [amen.entry for amen in amens]
+    return render_template('my_amens.html', entries=entries)

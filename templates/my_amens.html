@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{{ _('My Amens') }}</h2>
+        <p>{{ _('Prayers you have supported.') }}</p>
+
+        {% for entry in entries %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a href="{{ url_for('profile.public_profile', username=entry.author.username) }}" class="text-decoration-none text-body">{{ entry.author.username }}</a>
+                    <small class="text-muted float-end">{{ entry.created_at.strftime('%Y-%m-%d') }}</small>
+                </h5>
+                <p class="card-text">{{ entry.content }}</p>
+
+                <div class="text-end">
+                    <form action="{{ url_for('community.toggle_amen', entry_id=entry.id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-success btn-sm">
+                            🙏 {{ _('Amen') }} ({{ entry.amens|length }})
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <p>{{ _('You haven\'t Amened any prayers yet.') }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

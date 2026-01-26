@@ -109,6 +109,7 @@ class PrayerEntry(db.Model):
     is_private = db.Column(db.Boolean, default=False)
     is_hidden = db.Column(db.Boolean, default=False)
     stickers = db.Column(db.String(200)) # Comma separated list
+    reflection = db.Column(db.Text, nullable=True) # Added Private Reflection
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
     amens = db.relationship('Amen', backref='entry', lazy=True)

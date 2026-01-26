@@ -1115,3 +1115,27 @@ msgstr "No hay compañeros disponibles ahora. Inténtalo más tarde."
 
 msgid "Match ended."
 msgstr "Compañerismo terminado."
+
+msgid "My Reflection"
+msgstr "Mi Reflexión"
+
+msgid "Add private notes/reflections..."
+msgstr "Añadir notas/reflexiones privadas..."
+
+msgid "Save Reflection"
+msgstr "Guardar Reflexión"
+
+msgid "Reflection updated."
+msgstr "Reflexión actualizada."
+
+msgid "My Amens"
+msgstr "Mis Aménes"
+
+msgid "Prayers you have supported."
+msgstr "Oraciones que has apoyado."
+
+msgid "You haven't Amened any prayers yet."
+msgstr "Aún no has dicho Amén a ninguna oración."
+
+msgid "Unauthorized action."
+msgstr "Acción no autorizada."

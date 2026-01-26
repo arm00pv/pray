@@ -268,3 +268,16 @@ def add_sticker(entry_id):
         db.session.commit()
 
     return redirect(url_for('entry.user_dashboard'))
+@entry_bp.route('/reflection/<int:entry_id>', methods=['POST'])
+@login_required
+def update_reflection(entry_id):
+    entry = PrayerEntry.query.get_or_404(entry_id)
+    if entry.user_id != current_user.id:
+        flash(_('Unauthorized action.'))
+        return redirect(url_for('entry.user_dashboard'))
+
+    reflection = request.form.get('reflection')
+    entry.reflection = reflection
+    db.session.commit()
+    flash(_('Reflection updated.'))
+    return redirect(url_for('entry.user_dashboard'))
