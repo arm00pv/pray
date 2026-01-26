@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 22:05+0000\n"
+"POT-Creation-Date: 2026-01-26 00:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,7 +305,7 @@ msgstr ""
 msgid "Gratitude"
 msgstr ""
 
-#: templates/base.html:57 templates/public_profile.html:40
+#: templates/base.html:57 templates/public_profile.html:54
 #: templates/testimonies.html:6
 msgid "Testimonies"
 msgstr ""
@@ -510,31 +510,39 @@ msgstr ""
 msgid "Joined"
 msgstr ""
 
-#: templates/public_profile.html:21
+#: templates/public_profile.html:25
+msgid "Prayer Warrior"
+msgstr ""
+
+#: templates/public_profile.html:28
+msgid "Encourager"
+msgstr ""
+
+#: templates/public_profile.html:35
 msgid "Prayers Shared"
 msgstr ""
 
-#: templates/public_profile.html:25
+#: templates/public_profile.html:39
 msgid "Amens Received"
 msgstr ""
 
-#: templates/public_profile.html:37
+#: templates/public_profile.html:51
 msgid "Public Prayers"
 msgstr ""
 
-#: templates/public_profile.html:58
+#: templates/public_profile.html:72
 msgid "Amens"
 msgstr ""
 
-#: templates/public_profile.html:64
+#: templates/public_profile.html:78
 msgid "No public prayers shared yet."
 msgstr ""
 
-#: templates/public_profile.html:73
+#: templates/public_profile.html:87
 msgid "Testimony"
 msgstr ""
 
-#: templates/public_profile.html:79
+#: templates/public_profile.html:93
 msgid "No testimonies shared yet."
 msgstr ""
 
@@ -574,7 +582,7 @@ msgstr ""
 msgid "Reset Password"
 msgstr ""
 
-#: templates/reset_password.html:11 templates/settings.html:37
+#: templates/reset_password.html:11 templates/settings.html:41
 msgid "New Password"
 msgstr ""
 
@@ -594,15 +602,23 @@ msgstr ""
 msgid "Username cannot be changed."
 msgstr ""
 
-#: templates/settings.html:22
+#: templates/settings.html:23
+msgid "About Me"
+msgstr ""
+
+#: templates/settings.html:24
+msgid "Share a little about yourself..."
+msgstr ""
+
+#: templates/settings.html:26
 msgid "Save Changes"
 msgstr ""
 
-#: templates/settings.html:28 templates/settings.html:40
+#: templates/settings.html:32 templates/settings.html:44
 msgid "Change Password"
 msgstr ""
 
-#: templates/settings.html:33
+#: templates/settings.html:37
 msgid "Current Password"
 msgstr ""
 

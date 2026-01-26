@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-25 22:05+0000\n"
+"POT-Creation-Date: 2026-01-26 00:36+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -308,7 +308,7 @@ msgstr "Mis Oraciones"
 msgid "Gratitude"
 msgstr "Gratitud"
 
-#: templates/base.html:57 templates/public_profile.html:40
+#: templates/base.html:57 templates/public_profile.html:54
 #: templates/testimonies.html:6
 msgid "Testimonies"
 msgstr "Testimonios"
@@ -519,31 +519,40 @@ msgstr "¿Olvidaste tu contraseña?"
 msgid "Joined"
 msgstr "Se unió"
 
-#: templates/public_profile.html:21
+#: templates/public_profile.html:25
+#, fuzzy
+msgid "Prayer Warrior"
+msgstr "Ubicaciones de Oración"
+
+#: templates/public_profile.html:28
+msgid "Encourager"
+msgstr ""
+
+#: templates/public_profile.html:35
 msgid "Prayers Shared"
 msgstr "Oraciones Compartidas"
 
-#: templates/public_profile.html:25
+#: templates/public_profile.html:39
 msgid "Amens Received"
 msgstr "Amens Recibidos"
 
-#: templates/public_profile.html:37
+#: templates/public_profile.html:51
 msgid "Public Prayers"
 msgstr "Oraciones Públicas"
 
-#: templates/public_profile.html:58
+#: templates/public_profile.html:72
 msgid "Amens"
 msgstr "Amén"
 
-#: templates/public_profile.html:64
+#: templates/public_profile.html:78
 msgid "No public prayers shared yet."
 msgstr "Aún no se han compartido oraciones públicas."
 
-#: templates/public_profile.html:73
+#: templates/public_profile.html:87
 msgid "Testimony"
 msgstr "Testimonio"
 
-#: templates/public_profile.html:79
+#: templates/public_profile.html:93
 msgid "No testimonies shared yet."
 msgstr "Aún no hay testimonios."
 
@@ -583,7 +592,7 @@ msgstr "Confirmar Contraseña"
 msgid "Reset Password"
 msgstr "Restablecer Contraseña"
 
-#: templates/reset_password.html:11 templates/settings.html:37
+#: templates/reset_password.html:11 templates/settings.html:41
 msgid "New Password"
 msgstr "Nueva Contraseña"
 
@@ -603,15 +612,23 @@ msgstr "Actualizar Perfil"
 msgid "Username cannot be changed."
 msgstr "El nombre de usuario no se puede cambiar."
 
-#: templates/settings.html:22
+#: templates/settings.html:23
+msgid "About Me"
+msgstr "Sobre Mí"
+
+#: templates/settings.html:24
+msgid "Share a little about yourself..."
+msgstr "Comparte un poco sobre ti..."
+
+#: templates/settings.html:26
 msgid "Save Changes"
 msgstr "Guardar Cambios"
 
-#: templates/settings.html:28 templates/settings.html:40
+#: templates/settings.html:32 templates/settings.html:44
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
-#: templates/settings.html:33
+#: templates/settings.html:37
 msgid "Current Password"
 msgstr "Contraseña Actual"
 

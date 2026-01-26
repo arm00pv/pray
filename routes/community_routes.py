@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerEntry, Amen, Notification
+from models import PrayerEntry, Amen, Notification, User
 from extensions import db
+from utils import send_email
 
 
 community_bp = Blueprint('community', __name__, url_prefix='/community')
@@ -42,6 +43,15 @@ def toggle_amen(entry_id):
         if entry.user_id != current_user.id:
             notif = Notification(user_id=entry.user_id, message=f"{current_user.username} said Amen to your prayer.")
             db.session.add(notif)
+
+            # Send Email
+            author = User.query.get(entry.user_id)
+            if author and author.email:
+                send_email(
+                    author.email,
+                    "Someone prayed with you",
+                    f"{current_user.username} said Amen to your prayer: '{entry.content[:50]}...'"
+                )
 
     db.session.commit()
     # Return to referrer or index

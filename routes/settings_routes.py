@@ -13,14 +13,18 @@ def index():
 
         if action == 'update_profile':
             email = request.form.get('email')
+            about_me = request.form.get('about_me')
+
             # Check uniqueness if changed
             if email != current_user.email:
                 if User.query.filter_by(email=email).first():
                     flash('Email already in use.')
                     return redirect(url_for('settings.index'))
                 current_user.email = email
-                db.session.commit()
-                flash('Profile updated.')
+
+            current_user.about_me = about_me
+            db.session.commit()
+            flash('Profile updated.')
 
         elif action == 'change_password':
             current_password = request.form.get('current_password')
