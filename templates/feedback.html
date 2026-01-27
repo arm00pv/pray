@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">{{ _('Send Feedback') }}</div>
+            <div class="card-body">
+                <p>{{ _('We value your feedback. Please let us know if you have found a bug, have a feature request, or just want to say hi!') }}</p>
+                <form method="POST">
+                    {% if not current_user.is_authenticated %}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{ _('Your Email (Optional)') }}</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                        <div class="form-text">{{ _('Only provided if you want us to get back to you.') }}</div>
+                    </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="category" class="form-label">{{ _('Category') }}</label>
+                        <select class="form-select" id="category" name="category">
+                            <option value="general">{{ _('General') }}</option>
+                            <option value="feature">{{ _('Feature Request') }}</option>
+                            <option value="bug">{{ _('Bug Report') }}</option>
+                            <option value="prayer_request">{{ _('Prayer Request for Dev Team') }}</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="content" class="form-label">{{ _('Message') }}</label>
+                        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">{{ _('Submit Feedback') }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

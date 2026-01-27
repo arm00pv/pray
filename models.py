@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.String(500), nullable=True) # Added Bio
     profile_image_url = db.Column(db.String(255), nullable=True) # Added Profile Image
     preferred_language = db.Column(db.String(10), default='en') # Added Preferred Language
+    allow_email_notifications = db.Column(db.Boolean, default=True) # Notification Preference
     password_hash = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     is_verified = db.Column(db.Boolean, default=False)
@@ -264,3 +265,14 @@ class AdminUserNote(db.Model):
 
     admin = db.relationship('Admin')
     user = db.relationship('User', backref='admin_notes')
+
+class Feedback(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    category = db.Column(db.String(50), default='general') # bug, feature, general, prayer_request
+    content = db.Column(db.Text, nullable=False)
+    email = db.Column(db.String(150), nullable=True) # For anonymous feedback
+    status = db.Column(db.String(20), default='new') # new, read, in_progress, resolved
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='feedback_entries')

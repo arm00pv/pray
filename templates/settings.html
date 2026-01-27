@@ -41,6 +41,12 @@
                         <img src="{{ current_user.profile_image_url }}" alt="Profile" class="img-thumbnail" style="max-height: 100px;">
                     </div>
                     {% endif %}
+
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="allow_email_notifications" name="allow_email_notifications" {% if current_user.allow_email_notifications %}checked{% endif %}>
+                        <label class="form-check-label" for="allow_email_notifications">{{ _('Receive Email Notifications') }}</label>
+                    </div>
+
                     <button type="submit" class="btn btn-primary">{{ _('Save Changes') }}</button>
                 </form>
             </div>
@@ -60,6 +66,40 @@
                         <input type="password" class="form-control" id="new_password" name="new_password" required>
                     </div>
                     <button type="submit" class="btn btn-warning">{{ _('Change Password') }}</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card border-danger mb-4">
+            <div class="card-header bg-danger text-white">{{ _('Danger Zone') }}</div>
+            <div class="card-body">
+                <p>{{ _('Once you delete your account, there is no going back. Please be certain.') }}</p>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                    {{ _('Delete Account') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ _('Delete Account') }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{ _('Are you absolutely sure?') }}</p>
+                <form action="{{ url_for('settings.delete_account') }}" method="POST">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" required id="confirm_delete">
+                        <label class="form-check-label" for="confirm_delete">
+                            {{ _('I understand that all my data (prayers, groups, messages) will be permanently deleted.') }}
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-danger">{{ _('Yes, Delete My Account') }}</button>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement, SystemLog, Notification, PrivateMessage, AdminUserNote
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement, SystemLog, Notification, PrivateMessage, AdminUserNote, Feedback
 from extensions import db
 import json
 import uuid
@@ -309,3 +309,18 @@ def add_user_note(user_id):
         db.session.commit()
         flash(_('Note added.'))
     return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/feedback')
+def feedback():
+    items = Feedback.query.order_by(Feedback.created_at.desc()).all()
+    return render_template('admin_feedback.html', items=items)
+
+@admin_bp.route('/feedback/<int:feedback_id>/status', methods=['POST'])
+def update_feedback_status(feedback_id):
+    item = Feedback.query.get_or_404(feedback_id)
+    new_status = request.form.get('status')
+    if new_status in ['new', 'read', 'in_progress', 'resolved']:
+        item.status = new_status
+        db.session.commit()
+        flash(_('Status updated.'))
+    return redirect(url_for('admin.feedback'))

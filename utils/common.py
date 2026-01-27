@@ -178,6 +178,28 @@ def validate_password_strength(password):
     return len(errors) == 0, errors
 
 def send_email(to, subject, text, html=None):
+    # Check user preference via crude query or assume caller handled it.
+    # Ideally, caller passes the user object or we query by email.
+    # To keep this util pure, we might just query the DB if we are inside app context.
+    # But circular imports might be an issue if we import User here.
+    # BETTER: The caller should check the flag.
+    # However, to be safe/global, we can try to query if 'to' is a registered user.
+
+    # We will assume the CALLER checks preference for now, OR we implement a quick check.
+    # Let's rely on caller for business logic (separation of concerns).
+    # ... Wait, the plan said "Update utils/common.py ... to check this flag".
+    # Let's try to import User inside the function to avoid circular dep at module level.
+
+    try:
+        from models import User
+        user = User.query.filter_by(email=to).first()
+        if user and not user.allow_email_notifications:
+            print(f"[EMAIL BLOCKED] User {user.username} disabled notifications.")
+            return False
+    except Exception:
+        # DB might not be ready or we are in a weird context
+        pass
+
     api_key = current_app.config.get('MAILGUN_API_KEY')
     domain = current_app.config.get('MAILGUN_DOMAIN')
     base_url = current_app.config.get('MAILGUN_BASE_URL')
