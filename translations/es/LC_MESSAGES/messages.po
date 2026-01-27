@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-27 18:06+0000\n"
+"POT-Creation-Date: 2026-01-27 19:58+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: app.py:58
+#: app.py:60
 #, python-format
 msgid "Prayer Reminder: %(content)s"
 msgstr "Recordatorio de Oración: %(content)s"
 
-#: app.py:59
+#: app.py:61
 #, python-format
 msgid ""
 "Hello %(username)s,\n"
@@ -95,62 +95,77 @@ msgstr "Nota añadida."
 msgid "Status updated."
 msgstr "Nota de oración actualizada."
 
-#: routes/community_routes.py:38
+#: routes/community_routes.py:39
 msgid "Entry flagged for review."
 msgstr "Entrada reportada para revisión."
 
-#: routes/community_routes.py:51
+#: routes/community_routes.py:52
 msgid "Amen removed."
 msgstr "Amén eliminado."
 
-#: routes/community_routes.py:55
+#: routes/community_routes.py:56 routes/community_routes.py:84
 msgid "Amen added."
 msgstr "Amén añadido."
 
-#: routes/community_routes.py:69
+#: routes/community_routes.py:70
 #, python-format
 msgid "%(username)s said Amen to your prayer."
 msgstr "%(username)s dijo Amén a tu oración."
 
-#: routes/community_routes.py:70
+#: routes/community_routes.py:71
 msgid "Someone prayed with you"
 msgstr "Alguien oró contigo"
 
-#: routes/community_routes.py:71
+#: routes/community_routes.py:72
 #, python-format
 msgid "%(username)s said Amen to your prayer: '%(content)s...'"
 msgstr "%(username)s dijo Amén a tu oración: '%(content)s...'"
 
-#: routes/community_routes.py:93
+#: routes/community_routes.py:88
+#, python-format
+msgid "Amen added. You earned new badges: %(names)s!"
+msgstr ""
+
+#: routes/community_routes.py:104
 msgid "Prayer note updated."
 msgstr "Nota de oración actualizada."
 
-#: routes/community_routes.py:97
+#: routes/community_routes.py:108
 msgid "Prayer saved to your list."
 msgstr "Oración guardada en tu lista."
 
-#: routes/community_routes.py:116
+#: routes/community_routes.py:127
 msgid "You already have an active prayer partner."
 msgstr "Ya tienes un compañero de oración activo."
 
-#: routes/community_routes.py:127
+#: routes/community_routes.py:138
 #, python-format
 msgid "You have been matched with %(username)s!"
 msgstr "¡Has sido emparejado con %(username)s!"
 
-#: routes/community_routes.py:129
+#: routes/community_routes.py:140
 msgid "No partners available right now. Try again later."
 msgstr "No hay compañeros disponibles ahora. Inténtalo más tarde."
 
-#: routes/community_routes.py:140
+#: routes/community_routes.py:151
 msgid "Match ended."
 msgstr "Compañerismo terminado."
 
-#: routes/entry_routes.py:279
+#: routes/entry_routes.py:123
+#, python-format
+msgid "Prayer entry added. You earned new badges: %(names)s!"
+msgstr ""
+
+#: routes/entry_routes.py:125
+#, fuzzy
+msgid "Prayer entry added."
+msgstr "Nota de oración actualizada."
+
+#: routes/entry_routes.py:289
 msgid "Unauthorized action."
 msgstr "Acción no autorizada."
 
-#: routes/entry_routes.py:285
+#: routes/entry_routes.py:295
 msgid "Reflection updated."
 msgstr "Reflexión actualizada."
 
@@ -173,6 +188,16 @@ msgstr "Evento creado."
 #: routes/group_routes.py:59 routes/reminder_routes.py:47
 msgid "Invalid date format."
 msgstr "Formato de fecha inválido."
+
+#: routes/group_routes.py:87
+#, fuzzy
+msgid "Only admins can edit the group."
+msgstr "Solo los administradores pueden crear eventos."
+
+#: routes/group_routes.py:94
+#, fuzzy
+msgid "Group updated."
+msgstr "Perfil actualizado."
 
 #: routes/message_routes.py:59 routes/message_routes.py:107
 #, python-format
@@ -286,7 +311,7 @@ msgid "Reported Rate"
 msgstr "Tasa de Reportes"
 
 #: templates/admin_dashboard.html:64 templates/base.html:71
-#: templates/public_profile.html:66 templates/testimonies.html:6
+#: templates/public_profile.html:67 templates/testimonies.html:6
 msgid "Testimonies"
 msgstr "Testimonios"
 
@@ -691,7 +716,7 @@ msgstr "Configuración"
 msgid "Logout"
 msgstr "Cerrar Sesión"
 
-#: templates/base.html:80 templates/group_detail.html:115
+#: templates/base.html:80
 msgid "Admin"
 msgstr "Administrador"
 
@@ -729,32 +754,33 @@ msgstr "¿Reportar esta publicación como inapropiada?"
 msgid "Flag"
 msgstr "Reportar"
 
-#: templates/community.html:59 templates/my_amens.html:21
+#: templates/community.html:69 templates/my_amens.html:21
 msgid "Amen"
 msgstr "Amén"
 
-#: templates/community.html:64
+#: templates/community.html:74
 msgid "Save/Note"
 msgstr "Guardar/Nota"
 
-#: templates/community.html:77
+#: templates/community.html:87
 msgid "Save Prayer & Add Note"
 msgstr "Guardar Oración y Añadir Nota"
 
-#: templates/community.html:82
+#: templates/community.html:92
 msgid "Add a private note (optional)..."
 msgstr "Añadir una nota privada (opcional)..."
 
-#: templates/community.html:85 templates/group_detail.html:97
-#: templates/user_dashboard.html:266 templates/user_dashboard.html:288
+#: templates/community.html:95 templates/group_detail.html:53
+#: templates/group_detail.html:144 templates/user_dashboard.html:282
+#: templates/user_dashboard.html:304
 msgid "Close"
 msgstr "Cerrar"
 
-#: templates/community.html:86
+#: templates/community.html:96
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/community.html:93
+#: templates/community.html:103
 msgid "No public prayer requests yet. Be the first to share one!"
 msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!"
 
@@ -778,7 +804,7 @@ msgstr "Tu Correo (Opcional)"
 msgid "Only provided if you want us to get back to you."
 msgstr "Solo si quieres que te respondamos."
 
-#: templates/feedback.html:20 templates/user_dashboard.html:80
+#: templates/feedback.html:20 templates/user_dashboard.html:87
 msgid "Category"
 msgstr "Categoría"
 
@@ -830,68 +856,91 @@ msgstr "No hay entradas de gratitud todavía."
 msgid "Back to Groups"
 msgstr "Volver a Grupos"
 
-#: templates/group_detail.html:16
+#: templates/group_detail.html:18 templates/group_detail.html:48
+#, fuzzy
+msgid "Purpose"
+msgstr "Alabanza"
+
+#: templates/group_detail.html:21
 msgid "Created by"
 msgstr "Creado por"
 
-#: templates/group_detail.html:23
-msgid "Upcoming Events"
-msgstr "Próximos Eventos"
+#: templates/group_detail.html:24 templates/group_detail.html:35
+#, fuzzy
+msgid "Edit Group"
+msgstr "Unirse a Grupo"
 
-#: templates/group_detail.html:25
-msgid "Add Event"
-msgstr "Añadir Evento"
+#: templates/group_detail.html:40
+#, fuzzy
+msgid "Name"
+msgstr "Amén"
 
-#: templates/group_detail.html:39
-msgid "No upcoming events."
-msgstr "No hay eventos próximos."
-
-#: templates/group_detail.html:46
-msgid "Group Chat"
-msgstr "Chat de Grupo"
-
-#: templates/group_detail.html:58 templates/messages/inbox.html:36
-msgid "No messages yet."
-msgstr "No hay mensajes todavía."
-
-#: templates/group_detail.html:65 templates/messages/conversation.html:38
-msgid "Type a message..."
-msgstr "Escribe un mensaje..."
-
-#: templates/group_detail.html:66 templates/messages/conversation.html:39
-msgid "Send"
-msgstr "Enviar"
-
-#: templates/group_detail.html:79
-msgid "Create Group Event"
-msgstr "Crear Evento de Grupo"
-
-#: templates/group_detail.html:84
-msgid "Title"
-msgstr "Título"
-
-#: templates/group_detail.html:88
+#: templates/group_detail.html:44 templates/group_detail.html:135
 msgid "Description"
 msgstr "Descripción"
 
-#: templates/group_detail.html:92
+#: templates/group_detail.html:54 templates/settings.html:50
+msgid "Save Changes"
+msgstr "Guardar Cambios"
+
+#: templates/group_detail.html:64
+msgid "Upcoming Events"
+msgstr "Próximos Eventos"
+
+#: templates/group_detail.html:66
+msgid "Add Event"
+msgstr "Añadir Evento"
+
+#: templates/group_detail.html:80
+msgid "No upcoming events."
+msgstr "No hay eventos próximos."
+
+#: templates/group_detail.html:88
+msgid "Group Chat"
+msgstr "Chat de Grupo"
+
+#: templates/group_detail.html:100 templates/messages/inbox.html:36
+msgid "No messages yet."
+msgstr "No hay mensajes todavía."
+
+#: templates/group_detail.html:107 templates/messages/conversation.html:38
+msgid "Type a message..."
+msgstr "Escribe un mensaje..."
+
+#: templates/group_detail.html:108 templates/messages/conversation.html:39
+msgid "Send"
+msgstr "Enviar"
+
+#: templates/group_detail.html:115
+msgid "Chat will be enabled once more members join."
+msgstr ""
+
+#: templates/group_detail.html:126
+msgid "Create Group Event"
+msgstr "Crear Evento de Grupo"
+
+#: templates/group_detail.html:131
+msgid "Title"
+msgstr "Título"
+
+#: templates/group_detail.html:139
 msgid "Date & Time"
 msgstr "Fecha y Hora"
 
-#: templates/group_detail.html:98
+#: templates/group_detail.html:145
 msgid "Create Event"
 msgstr "Crear Evento"
 
-#: templates/group_detail.html:107 templates/groups.html:34
+#: templates/group_detail.html:155
+#, fuzzy
+msgid "Group Admins"
+msgstr "Grupos"
+
+#: templates/group_detail.html:170 templates/groups.html:43
 msgid "Members"
 msgstr "Miembros"
 
-#: templates/group_detail.html:122 templates/partners.html:17
-#: templates/public_profile.html:50
-msgid "Send Message"
-msgstr "Enviar Mensaje"
-
-#: templates/group_detail.html:129
+#: templates/group_detail.html:184
 #, fuzzy
 msgid "Promote to Admin"
 msgstr "Promover"
@@ -913,18 +962,29 @@ msgid "Description (Optional)"
 msgstr "Descripción (Opcional)"
 
 #: templates/groups.html:20
+#, fuzzy
+msgid "Group Purpose (Optional)"
+msgstr "Tu Correo (Opcional)"
+
+#: templates/groups.html:23
 msgid "Create"
 msgstr "Crear"
 
-#: templates/groups.html:39
-msgid "Leave Group"
-msgstr "Dejar Grupo"
+#: templates/groups.html:48
+#, fuzzy
+msgid "Enter"
+msgstr "General"
 
-#: templates/groups.html:43
+#: templates/groups.html:50
+#, fuzzy
+msgid "Leave"
+msgstr "Nivel"
+
+#: templates/groups.html:55
 msgid "Join Group"
 msgstr "Unirse a Grupo"
 
-#: templates/groups.html:52
+#: templates/groups.html:64
 msgid "No prayer groups found."
 msgstr "No se encontraron grupos de oración."
 
@@ -944,7 +1004,7 @@ msgstr ""
 msgid "Share Prayer Anonymously"
 msgstr "Compartir Oración Anónimamente"
 
-#: templates/index.html:33 templates/user_dashboard.html:77
+#: templates/index.html:33 templates/user_dashboard.html:84
 msgid "Write your prayer here..."
 msgstr "Escribe tu oración aquí..."
 
@@ -1043,6 +1103,10 @@ msgstr "Tu compañero de oración es:"
 #: templates/partners.html:16
 msgid "View Profile"
 msgstr "Ver Perfil"
+
+#: templates/partners.html:17 templates/public_profile.html:51
+msgid "Send Message"
+msgstr "Enviar Mensaje"
 
 #: templates/partners.html:23
 msgid "End Match"
@@ -1158,39 +1222,36 @@ msgstr "Tu sesión de oración está completa."
 msgid "Joined"
 msgstr "Se unió"
 
-#: templates/public_profile.html:29
-msgid "Prayer Warrior"
-msgstr "Guerrero de Oración"
+#: templates/public_profile.html:33
+#, fuzzy
+msgid "No badges yet"
+msgstr "No hay mensajes todavía."
 
-#: templates/public_profile.html:32
-msgid "Encourager"
-msgstr "Alentador"
-
-#: templates/public_profile.html:39
+#: templates/public_profile.html:40
 msgid "Prayers Shared"
 msgstr "Oraciones Compartidas"
 
-#: templates/public_profile.html:43
+#: templates/public_profile.html:44
 msgid "Amens Received"
 msgstr "Amens Recibidos"
 
-#: templates/public_profile.html:63
+#: templates/public_profile.html:64
 msgid "Public Prayers"
 msgstr "Oraciones Públicas"
 
-#: templates/public_profile.html:84
+#: templates/public_profile.html:85
 msgid "Amens"
 msgstr "Amén"
 
-#: templates/public_profile.html:90
+#: templates/public_profile.html:91
 msgid "No public prayers shared yet."
 msgstr "Aún no se han compartido oraciones públicas."
 
-#: templates/public_profile.html:99
+#: templates/public_profile.html:100
 msgid "Testimony"
 msgstr "Testimonio"
 
-#: templates/public_profile.html:105
+#: templates/public_profile.html:106
 msgid "No testimonies shared yet."
 msgstr "Aún no hay testimonios."
 
@@ -1278,10 +1339,6 @@ msgstr "Vista Previa de Imagen Actual"
 msgid "Receive Email Notifications"
 msgstr "Recibir Notificaciones por Correo"
 
-#: templates/settings.html:50
-msgid "Save Changes"
-msgstr "Guardar Cambios"
-
 #: templates/settings.html:56 templates/settings.html:68
 msgid "Change Password"
 msgstr "Cambiar Contraseña"
@@ -1362,180 +1419,172 @@ msgstr "Racha de Oración"
 msgid "Days"
 msgstr "Días"
 
-#: templates/user_dashboard.html:28
+#: templates/user_dashboard.html:35
 #, fuzzy
 msgid "Prayer Partner"
 msgstr "Compañeros de Oración (Beta)"
 
-#: templates/user_dashboard.html:29
+#: templates/user_dashboard.html:36
 msgid "Analytics"
 msgstr "Análisis"
 
-#: templates/user_dashboard.html:36
+#: templates/user_dashboard.html:43
 msgid "Prayer Consistency (Last 30 Days)"
 msgstr "Consistencia de Oración (Últimos 30 Días)"
 
-#: templates/user_dashboard.html:46
+#: templates/user_dashboard.html:53
 msgid "Spiritual Goals"
 msgstr "Metas Espirituales"
 
-#: templates/user_dashboard.html:65
+#: templates/user_dashboard.html:72
 msgid "Set a goal for this week!"
 msgstr "¡Establece una meta para esta semana!"
 
-#: templates/user_dashboard.html:74
+#: templates/user_dashboard.html:81
 msgid "New Entry"
 msgstr "Nueva Entrada"
 
-#: templates/user_dashboard.html:82
+#: templates/user_dashboard.html:89
 msgid "No Category"
 msgstr "Sin Categoría"
 
-#: templates/user_dashboard.html:83
+#: templates/user_dashboard.html:90
 msgid "Personal"
 msgstr "Personal"
 
-#: templates/user_dashboard.html:84
+#: templates/user_dashboard.html:91
 msgid "Family"
 msgstr "Familia"
 
-#: templates/user_dashboard.html:85
+#: templates/user_dashboard.html:92
 msgid "Work"
 msgstr "Trabajo"
 
-#: templates/user_dashboard.html:86
+#: templates/user_dashboard.html:93
 msgid "Health"
 msgstr "Salud"
 
-#: templates/user_dashboard.html:87
+#: templates/user_dashboard.html:94
 msgid "Church"
 msgstr "Iglesia"
 
-#: templates/user_dashboard.html:88
+#: templates/user_dashboard.html:95
 msgid "World"
 msgstr "Mundo"
 
-#: templates/user_dashboard.html:89
+#: templates/user_dashboard.html:96
 msgid "Other"
 msgstr "Otro"
 
-#: templates/user_dashboard.html:97
+#: templates/user_dashboard.html:104
 msgid "Share to Community Wall"
 msgstr "Compartir en Muro de la Comunidad"
 
-#: templates/user_dashboard.html:105
+#: templates/user_dashboard.html:112
 msgid "Post Anonymously"
 msgstr "Publicar Anónimamente"
 
-#: templates/user_dashboard.html:113
+#: templates/user_dashboard.html:120
 msgid "Private Entry (Only visible to me)"
 msgstr "Entrada Privada (Solo visible para mí)"
 
-#: templates/user_dashboard.html:116
+#: templates/user_dashboard.html:123
 msgid "Add Entry"
 msgstr "Añadir Entrada"
 
-#: templates/user_dashboard.html:139
+#: templates/user_dashboard.html:146
 msgid "Search keywords..."
 msgstr "Buscar palabras clave..."
 
-#: templates/user_dashboard.html:148
+#: templates/user_dashboard.html:155
 msgid "Filter"
 msgstr "Filtrar"
 
-#: templates/user_dashboard.html:153
+#: templates/user_dashboard.html:160
 msgid "Clear Filters"
 msgstr "Borrar Filtros"
 
-#: templates/user_dashboard.html:161
+#: templates/user_dashboard.html:168
 msgid "Export CSV"
 msgstr "Exportar CSV"
 
-#: templates/user_dashboard.html:162
+#: templates/user_dashboard.html:169
 msgid "Export PDF"
 msgstr "Exportar PDF"
 
-#: templates/user_dashboard.html:166
+#: templates/user_dashboard.html:173
 msgid "Past Entries"
 msgstr "Entradas Pasadas"
 
-#: templates/user_dashboard.html:173
+#: templates/user_dashboard.html:180
 msgid "Continuous"
 msgstr "Continuo"
 
-#: templates/user_dashboard.html:176
+#: templates/user_dashboard.html:183
 msgid "Public"
 msgstr "Público"
 
-#: templates/user_dashboard.html:197
+#: templates/user_dashboard.html:208
 msgid "My Reflection"
 msgstr "Mi Reflexión"
 
-#: templates/user_dashboard.html:199
+#: templates/user_dashboard.html:210
 msgid "Add private notes/reflections..."
 msgstr "Añadir notas/reflexiones privadas..."
 
-#: templates/user_dashboard.html:200
+#: templates/user_dashboard.html:211
 msgid "Save Reflection"
 msgstr "Guardar Reflexión"
 
-#: templates/user_dashboard.html:209
+#: templates/user_dashboard.html:220
 msgid "Fulfilled"
 msgstr "Cumplido"
 
-#: templates/user_dashboard.html:213
+#: templates/user_dashboard.html:224
 msgid "Share as Testimony"
 msgstr "Compartir como Testimonio"
 
-#: templates/user_dashboard.html:218
+#: templates/user_dashboard.html:229
 msgid "No longer petition"
 msgstr "Ya no pedir"
 
-#: templates/user_dashboard.html:222
+#: templates/user_dashboard.html:233
 msgid "Unmark Continuous"
 msgstr "Desmarcar Continuo"
 
-#: templates/user_dashboard.html:222
+#: templates/user_dashboard.html:233
 msgid "Mark Continuous"
 msgstr "Marcar Continuo"
 
-#: templates/user_dashboard.html:229
+#: templates/user_dashboard.html:240
 msgid "Remind Me"
 msgstr "Recordarme"
 
-#: templates/user_dashboard.html:233
-msgid "Add Sticker"
-msgstr "Añadir Sticker"
-
-#: templates/user_dashboard.html:234
-msgid "Add"
-msgstr "Añadir"
-
-#: templates/user_dashboard.html:241
+#: templates/user_dashboard.html:257
 msgid "No entries found."
 msgstr "No se encontraron entradas."
 
-#: templates/user_dashboard.html:252
+#: templates/user_dashboard.html:268
 msgid "Set New Goal"
 msgstr "Establecer Nueva Meta"
 
-#: templates/user_dashboard.html:257
+#: templates/user_dashboard.html:273
 msgid "Goal Type"
 msgstr "Tipo de Meta"
 
-#: templates/user_dashboard.html:261
+#: templates/user_dashboard.html:277
 msgid "Target Count (Weekly)"
 msgstr "Objetivo (Semanal)"
 
-#: templates/user_dashboard.html:267
+#: templates/user_dashboard.html:283
 msgid "Set Goal"
 msgstr "Establecer Meta"
 
-#: templates/user_dashboard.html:280 templates/user_dashboard.html:289
+#: templates/user_dashboard.html:296 templates/user_dashboard.html:305
 msgid "Set Reminder"
 msgstr "Establecer Recordatorio"
 
-#: templates/user_dashboard.html:284
+#: templates/user_dashboard.html:300
 msgid "When would you like to be reminded?"
 msgstr "¿Cuándo te gustaría recibir el recordatorio?"
 
@@ -1586,3 +1635,18 @@ msgstr "Tú"
 
 #~ msgid "Review Queue"
 #~ msgstr "Cola de Revisión"
+
+#~ msgid "Leave Group"
+#~ msgstr "Dejar Grupo"
+
+#~ msgid "Prayer Warrior"
+#~ msgstr "Guerrero de Oración"
+
+#~ msgid "Encourager"
+#~ msgstr "Alentador"
+
+#~ msgid "Add Sticker"
+#~ msgstr "Añadir Sticker"
+
+#~ msgid "Add"
+#~ msgstr "Añadir"

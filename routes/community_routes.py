@@ -4,6 +4,7 @@ from flask_babel import _, force_locale
 from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch
 from extensions import db
 from utils import send_email
+from utils.gamification import check_and_award_badges
 import random
 from datetime import datetime, timedelta
 from sqlalchemy import or_
@@ -78,7 +79,17 @@ def toggle_amen(entry_id):
                 send_email(author.email, email_subject, email_body)
 
     db.session.commit()
+
+    # Check badges if amen added
+    if message == _('Amen added.'):
+        new_badges = check_and_award_badges(current_user)
+        if new_badges:
+            names = ", ".join([b.name for b in new_badges])
+            flash(_('Amen added. You earned new badges: %(names)s!', names=names))
+            return redirect(request.referrer or url_for('community.index'))
+
     # Return to referrer or index
+    flash(message) # Flash the original message if no badges or removal
     return redirect(request.referrer or url_for('community.index'))
 @community_bp.route('/save_prayer/<int:entry_id>', methods=['POST'])
 @login_required

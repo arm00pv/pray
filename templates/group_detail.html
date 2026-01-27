@@ -13,7 +13,48 @@
             </div>
             <div class="card-body">
                 <p class="lead">{{ group.description }}</p>
+                {% if group.purpose %}
+                    <div class="alert alert-info">
+                        <strong>{{ _('Purpose') }}:</strong> {{ group.purpose }}
+                    </div>
+                {% endif %}
                 <p><small class="text-muted">{{ _('Created by') }}: {{ group.created_by }} | {{ group.created_at.strftime('%Y-%m-%d') }}</small></p>
+
+                {% if current_user in group.admins %}
+                    <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editGroupModal">{{ _('Edit Group') }}</button>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Edit Group Modal -->
+        <div class="modal fade" id="editGroupModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('group.edit_group', group_id=group.id) }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ _('Edit Group') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">{{ _('Name') }}</label>
+                                <input type="text" name="name" class="form-control" value="{{ group.name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">{{ _('Description') }}</label>
+                                <input type="text" name="description" class="form-control" value="{{ group.description or '' }}">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">{{ _('Purpose') }}</label>
+                                <textarea name="purpose" class="form-control" rows="3">{{ group.purpose or '' }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ _('Save Changes') }}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -42,6 +83,7 @@
             </div>
         </div>
 
+        {% if group.members|length > 1 %}
         <div class="card mb-4">
             <div class="card-header">{{ _('Group Chat') }}</div>
             <div class="card-body" style="height: 400px; overflow-y: auto;">
@@ -68,6 +110,11 @@
             </div>
             {% endif %}
         </div>
+        {% else %}
+        <div class="alert alert-info">
+            {{ _('Chat will be enabled once more members join.') }}
+        </div>
+        {% endif %}
     </div>
 
     <!-- Event Modal -->
@@ -103,34 +150,44 @@
     </div>
 
     <div class="col-md-4">
+        <!-- Admins List -->
+        <div class="card mb-3 border-warning">
+            <div class="card-header bg-warning-subtle text-dark">{{ _('Group Admins') }}</div>
+            <ul class="list-group list-group-flush">
+                {% for admin in group.admins %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="{{ url_for('profile.public_profile', username=admin.username) }}" class="text-decoration-none fw-bold">{{ admin.username }}</a>
+                    {% if current_user.is_authenticated and current_user.id != admin.id %}
+                        <a href="{{ url_for('message.conversation', user_id=admin.id) }}" class="btn btn-sm btn-outline-primary py-0">✉️</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Members List -->
         <div class="card">
             <div class="card-header">{{ _('Members') }} ({{ group.members|length }})</div>
             <ul class="list-group list-group-flush" style="max-height: 500px; overflow-y: auto;">
                 {% for member in group.members %}
-                <li class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <span>
-                            <strong><a href="{{ url_for('profile.public_profile', username=member.username) }}" class="text-decoration-none text-body">{{ member.username }}</a></strong>
-                            {% if member in group.admins %}
-                                <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">{{ _('Admin') }}</span>
-                            {% endif %}
-                        </span>
-                    </div>
+                    {% if member not in group.admins %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ url_for('profile.public_profile', username=member.username) }}" class="text-decoration-none text-body">{{ member.username }}</a>
+                            <div class="d-flex gap-1">
+                                {% if current_user.is_authenticated and current_user.id != member.id %}
+                                    <a href="{{ url_for('message.conversation', user_id=member.id) }}" class="btn btn-sm btn-outline-primary py-0">✉️</a>
+                                {% endif %}
 
-                    <div class="d-flex justify-content-end gap-1">
-                        {% if current_user.is_authenticated and current_user.id != member.id %}
-                            <a href="{{ url_for('message.conversation', user_id=member.id) }}" class="btn btn-sm btn-outline-primary" title="{{ _('Send Message') }}">
-                                ✉️
-                            </a>
-                        {% endif %}
-
-                        {% if current_user in group.admins and member not in group.admins %}
-                            <form action="{{ url_for('group.promote_member', group_id=group.id, user_id=member.id) }}" method="POST" class="d-inline">
-                                <button type="submit" class="btn btn-sm btn-outline-info" title="{{ _('Promote to Admin') }}">⬆️</button>
-                            </form>
-                        {% endif %}
-                    </div>
-                </li>
+                                {% if current_user in group.admins %}
+                                    <form action="{{ url_for('group.promote_member', group_id=group.id, user_id=member.id) }}" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-info py-0" title="{{ _('Promote to Admin') }}">⬆️</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

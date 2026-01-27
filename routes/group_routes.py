@@ -65,18 +65,34 @@ def create_event(group_id):
 def create_group():
     name = request.form.get('name')
     description = request.form.get('description')
+    purpose = request.form.get('purpose')
 
     if not name:
         flash('Group name is required.')
         return redirect(url_for('group.index'))
 
-    group = PrayerGroup(name=name, description=description, created_by=current_user.id)
+    group = PrayerGroup(name=name, description=description, purpose=purpose, created_by=current_user.id)
     group.members.append(current_user)
     group.admins.append(current_user) # Creator is admin
     db.session.add(group)
     db.session.commit()
     flash('Prayer group created.')
     return redirect(url_for('group.index'))
+
+@group_bp.route('/<int:group_id>/edit', methods=['POST'])
+@login_required
+def edit_group(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash(_('Only admins can edit the group.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    group.name = request.form.get('name')
+    group.description = request.form.get('description')
+    group.purpose = request.form.get('purpose')
+    db.session.commit()
+    flash(_('Group updated.'))
+    return redirect(url_for('group.detail', group_id=group.id))
 
 @group_bp.route('/<int:group_id>/message', methods=['POST'])
 @login_required

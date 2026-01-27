@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from models import PrayerEntry, Tag, entry_tags, CommunityEmail, BlockedUser
 from extensions import db
 from utils import extract_tags, get_geolocation, ProfanityFilter
+from utils.gamification import check_and_award_badges
+from flask_babel import _
 import json
 from datetime import datetime
 import csv
@@ -113,7 +115,15 @@ def add_entry():
 
     db.session.add(entry)
     db.session.commit()
-    flash('Prayer entry added.')
+
+    # Check badges
+    new_badges = check_and_award_badges(current_user)
+    if new_badges:
+        names = ", ".join([b.name for b in new_badges])
+        flash(_('Prayer entry added. You earned new badges: %(names)s!', names=names))
+    else:
+        flash(_('Prayer entry added.'))
+
     return redirect(url_for('entry.user_dashboard'))
 
 @entry_bp.route('/add_anonymous', methods=['POST'])

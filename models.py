@@ -169,6 +169,7 @@ class PrayerGroup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
     description = db.Column(db.String(255))
+    purpose = db.Column(db.Text, nullable=True) # Extended profile purpose
     created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     members = db.relationship('User', secondary=group_members, lazy='subquery',
@@ -276,3 +277,20 @@ class Feedback(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship('User', backref='feedback_entries')
+
+class Badge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    description = db.Column(db.String(255))
+    icon = db.Column(db.String(50)) # Emoji or class name
+    criteria_type = db.Column(db.String(50)) # e.g., 'entries_count', 'amens_count', 'streak'
+    threshold = db.Column(db.Integer, default=1)
+
+class UserBadge(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    badge_id = db.Column(db.Integer, db.ForeignKey('badge.id'), nullable=False)
+    earned_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='badges')
+    badge = db.relationship('Badge')

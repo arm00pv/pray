@@ -23,6 +23,8 @@ from routes.goal_routes import goal_bp
 from routes.game_routes import game_bp
 from routes.feedback_routes import feedback_bp
 from utils import get_random_verse, send_email, get_todays_reading
+from utils.gamification import seed_badges
+from utils.sticker_helper import count_stickers
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
@@ -117,7 +119,8 @@ def create_app():
         return dict(
             daily_verse=get_random_verse(locale, seed_key=seed_key),
             active_announcement=active_announcement,
-            reading_plan=get_todays_reading()
+            reading_plan=get_todays_reading(),
+            count_stickers=count_stickers
         )
 
     # Scheduler
@@ -158,6 +161,9 @@ def initialize_db():
 # Ensure DB is initialized in production (Gunicorn)
 if not os.environ.get('SKIP_DB_INIT'):
     initialize_db()
+    with app.app_context():
+        seed_badges()
+        print("Badges seeded.")
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
