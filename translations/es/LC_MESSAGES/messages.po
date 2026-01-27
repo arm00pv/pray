@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-27 19:58+0000\n"
+"POT-Creation-Date: 2026-01-27 21:15+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -55,42 +55,67 @@ msgstr "Difusión enviada a %(count)d usuarios."
 msgid "Entry approved and reposted."
 msgstr "Entrada aprobada y republicada."
 
-#: routes/admin_routes.py:186
+#: routes/admin_routes.py:177
 #, python-format
 msgid "User %(username)s blocked."
 msgstr "Usuario %(username)s bloqueado."
 
-#: routes/admin_routes.py:200
+#: routes/admin_routes.py:179
+#, fuzzy, python-format
+msgid "User already blocked."
+msgstr "Usuario %(username)s bloqueado."
+
+#: routes/admin_routes.py:233
+#, fuzzy
+msgid "User deleted successfully."
+msgstr "Recordatorio establecido exitosamente."
+
+#: routes/admin_routes.py:236
+#, fuzzy, python-format
+msgid "Error deleting user: %(error)s"
+msgstr "Ocurrió un error al eliminar tu cuenta: %(error)s"
+
+#: routes/admin_routes.py:245
+#, fuzzy
+msgid "User is already an admin."
+msgstr "El correo electrónico ya está en uso."
+
+#: routes/admin_routes.py:258
+#, fuzzy
+msgid "User promoted to Admin successfully."
+msgstr "Promover"
+
+#: routes/admin_routes.py:273
 msgid "Registered author blocked."
 msgstr "Autor registrado bloqueado."
 
-#: routes/admin_routes.py:208
+#: routes/admin_routes.py:281
 #, python-format
 msgid "Anonymous author (%(email)s) blocked."
 msgstr "Autor anónimo (%(email)s) bloqueado."
 
-#: routes/admin_routes.py:217
+#: routes/admin_routes.py:290
 msgid "Entry deleted."
 msgstr "Entrada eliminada."
 
-#: routes/admin_routes.py:226
+#: routes/admin_routes.py:299
 #, python-format
 msgid "Invite code created: %(code)s"
 msgstr "Código de invitación creado: %(code)s"
 
-#: routes/admin_routes.py:239
+#: routes/admin_routes.py:312
 msgid "Announcement posted."
 msgstr "Anuncio publicado."
 
-#: routes/admin_routes.py:246
+#: routes/admin_routes.py:319
 msgid "Announcement cleared."
 msgstr "Anuncio eliminado."
 
-#: routes/admin_routes.py:310
+#: routes/admin_routes.py:383
 msgid "Note added."
 msgstr "Nota añadida."
 
-#: routes/admin_routes.py:325
+#: routes/admin_routes.py:398
 #, fuzzy
 msgid "Status updated."
 msgstr "Nota de oración actualizada."
@@ -438,55 +463,88 @@ msgstr "Acciones"
 msgid "Verified"
 msgstr "Verificado"
 
-#: templates/admin_dashboard.html:204
+#: templates/admin_dashboard.html:196
+#, fuzzy
+msgid "Notes"
+msgstr "Notas para"
+
+#: templates/admin_dashboard.html:198
+msgid "Are you sure you want to block this user?"
+msgstr ""
+
+#: templates/admin_dashboard.html:199
+#, fuzzy
+msgid "Block"
+msgstr "Bloqueado"
+
+#: templates/admin_dashboard.html:202
+#, fuzzy
+msgid "Promote this user to Admin?"
+msgstr "Promover"
+
+#: templates/admin_dashboard.html:203 templates/group_detail.html:184
+#, fuzzy
+msgid "Promote to Admin"
+msgstr "Promover"
+
+#: templates/admin_dashboard.html:206
+msgid "Are you sure? This will delete ALL user data permanently."
+msgstr ""
+
+#: templates/admin_dashboard.html:207
+#, fuzzy
+msgid "Delete"
+msgstr "Eliminar Entrada"
+
+#: templates/admin_dashboard.html:218
 msgid "Notes for"
 msgstr "Notas para"
 
-#: templates/admin_dashboard.html:215
+#: templates/admin_dashboard.html:229
 msgid "No notes yet."
 msgstr "No hay notas todavía."
 
-#: templates/admin_dashboard.html:219
+#: templates/admin_dashboard.html:233
 msgid "Add a note..."
 msgstr "Añadir una nota..."
 
-#: templates/admin_dashboard.html:220
+#: templates/admin_dashboard.html:234
 msgid "Add Note"
 msgstr "Añadir Nota"
 
-#: templates/admin_dashboard.html:228
+#: templates/admin_dashboard.html:242
 msgid "No users found."
 msgstr "No se encontraron usuarios."
 
-#: templates/admin_dashboard.html:256
+#: templates/admin_dashboard.html:270
 msgid "System Broadcast"
 msgstr "Difusión del Sistema"
 
-#: templates/admin_dashboard.html:261
+#: templates/admin_dashboard.html:275
 msgid "Send a notification to ALL users..."
 msgstr "Enviar una notificación a TODOS los usuarios..."
 
-#: templates/admin_dashboard.html:262
+#: templates/admin_dashboard.html:276
 msgid "Broadcast"
 msgstr "Difundir"
 
-#: templates/admin_dashboard.html:270
+#: templates/admin_dashboard.html:284
 msgid "System Logs"
 msgstr "Registros del Sistema"
 
-#: templates/admin_dashboard.html:275
+#: templates/admin_dashboard.html:289
 msgid "Time"
 msgstr "Hora"
 
-#: templates/admin_dashboard.html:276
+#: templates/admin_dashboard.html:290
 msgid "Level"
 msgstr "Nivel"
 
-#: templates/admin_dashboard.html:277 templates/feedback.html:30
+#: templates/admin_dashboard.html:291 templates/feedback.html:30
 msgid "Message"
 msgstr "Mensaje"
 
-#: templates/admin_dashboard.html:288
+#: templates/admin_dashboard.html:302
 msgid "No logs available."
 msgstr "No hay registros disponibles."
 
@@ -939,11 +997,6 @@ msgstr "Grupos"
 #: templates/group_detail.html:170 templates/groups.html:43
 msgid "Members"
 msgstr "Miembros"
-
-#: templates/group_detail.html:184
-#, fuzzy
-msgid "Promote to Admin"
-msgstr "Promover"
 
 #: templates/groups.html:6
 msgid "Prayer Groups"

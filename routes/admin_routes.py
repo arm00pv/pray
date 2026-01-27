@@ -169,22 +169,95 @@ def unhide_entry(entry_id):
 
 @admin_bp.route('/block_user/<int:user_id>', methods=['POST'])
 def block_user(user_id):
-    # This route might receive user_id=0 or null if it was anonymous, but URL requires int.
-    # The template should pass a valid user ID if registered, or we need a way to block by Entry ID to get the email.
-    # Current template logic passes user_id from entry.user_id. If entry.user_id is None (anonymous), this route might fail or needs adjustment.
-    # Let's adjust to finding the entry first if we want to block the *author* of an entry, regardless of registration.
-    # But standard route is /block_user/ID.
-    # Let's create a route that takes Entry ID to handle both cases better.
+    user = User.query.get_or_404(user_id)
+    if not BlockedUser.query.filter_by(user_id=user.id).first():
+        blocked = BlockedUser(user_id=user.id, email=user.email, reason="Blocked by admin")
+        db.session.add(blocked)
+        db.session.commit()
+        flash(_('User %(username)s blocked.', username=user.username))
+    else:
+        flash(_('User already blocked.'))
+    return redirect(request.referrer or url_for('admin.dashboard'))
 
-    user = User.query.get(user_id)
-    if user:
-        # Block registered user
-        if not BlockedUser.query.filter_by(user_id=user.id).first():
-            blocked = BlockedUser(user_id=user.id, email=user.email, reason="Blocked by admin")
-            db.session.add(blocked)
-            db.session.commit()
-            flash(_('User %(username)s blocked.', username=user.username))
-    return redirect(url_for('admin.flagged_entries'))
+@admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    # Similar logic to account deletion in settings_routes
+    try:
+        from models import Amen, Praise, GroupMessage, PrivateMessage, PrayerReminder, SavedPrayer, SpiritualGoal, Notification, GratitudeEntry, AdminUserNote, PrayerPartnerMatch, GroupEvent
+
+        # 1. Delete direct dependencies
+        Amen.query.filter_by(user_id=user.id).delete()
+        Praise.query.filter_by(user_id=user.id).delete()
+        GroupMessage.query.filter_by(user_id=user.id).delete()
+        PrivateMessage.query.filter((PrivateMessage.sender_id==user.id) | (PrivateMessage.recipient_id==user.id)).delete()
+        PrayerReminder.query.filter_by(user_id=user.id).delete()
+        SavedPrayer.query.filter_by(user_id=user.id).delete()
+        SpiritualGoal.query.filter_by(user_id=user.id).delete()
+        Notification.query.filter_by(user_id=user.id).delete()
+        GratitudeEntry.query.filter_by(user_id=user.id).delete()
+        AdminUserNote.query.filter_by(user_id=user.id).delete()
+        PrayerPartnerMatch.query.filter((PrayerPartnerMatch.user_id_1==user.id) | (PrayerPartnerMatch.user_id_2==user.id)).delete()
+
+        # 2. Testimonies
+        user_testimonies = Testimony.query.filter_by(user_id=user.id).all()
+        for t in user_testimonies:
+            Praise.query.filter_by(testimony_id=t.id).delete()
+            db.session.delete(t)
+
+        # 3. Prayer Entries
+        user_entries = PrayerEntry.query.filter_by(user_id=user.id).all()
+        for e in user_entries:
+            Amen.query.filter_by(entry_id=e.id).delete()
+            SavedPrayer.query.filter_by(prayer_entry_id=e.id).delete()
+            PrayerReminder.query.filter_by(entry_id=e.id).delete()
+            db.session.delete(e)
+
+        # 4. Groups
+        # Remove from memberships
+        user.prayer_groups = []
+        user.admin_groups = []
+        GroupEvent.query.filter_by(created_by=user.id).delete()
+
+        # Handle owned groups (delete them)
+        owned_groups = PrayerGroup.query.filter_by(created_by=user.id).all()
+        for g in owned_groups:
+             GroupMessage.query.filter_by(group_id=g.id).delete()
+             GroupEvent.query.filter_by(group_id=g.id).delete()
+             g.members = []
+             g.admins = []
+             db.session.delete(g)
+
+        db.session.delete(user)
+        db.session.commit()
+        flash(_('User deleted successfully.'))
+    except Exception as e:
+        db.session.rollback()
+        flash(_('Error deleting user: %(error)s', error=str(e)))
+
+    return redirect(url_for('admin.dashboard'))
+
+@admin_bp.route('/promote_user/<int:user_id>', methods=['POST'])
+def promote_user(user_id):
+    user = User.query.get_or_404(user_id)
+    # Check if already Admin (by username/email match in Admin table)
+    if Admin.query.filter_by(username=user.username).first():
+        flash(_('User is already an admin.'))
+    else:
+        # Create Admin record
+        # Note: We duplicate data because Admin and User are separate tables
+        new_admin = Admin(
+            username=user.username,
+            email=user.email,
+            password_hash=user.password_hash,
+            security_question=user.security_question,
+            security_answer_hash=user.security_answer_hash
+        )
+        db.session.add(new_admin)
+        db.session.commit()
+        flash(_('User promoted to Admin successfully.'))
+
+    return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/block_author/<int:entry_id>', methods=['POST'])
 def block_author(entry_id):
