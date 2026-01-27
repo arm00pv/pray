@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-01-27 15:47+0000\n"
+"POT-Creation-Date: 2026-01-27 18:06+0000\n"
 "PO-Revision-Date: 2026-01-25 02:07+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -146,11 +146,11 @@ msgstr "No hay compañeros disponibles ahora. Inténtalo más tarde."
 msgid "Match ended."
 msgstr "Compañerismo terminado."
 
-#: routes/entry_routes.py:276
+#: routes/entry_routes.py:279
 msgid "Unauthorized action."
 msgstr "Acción no autorizada."
 
-#: routes/entry_routes.py:282
+#: routes/entry_routes.py:285
 msgid "Reflection updated."
 msgstr "Reflexión actualizada."
 
@@ -717,7 +717,7 @@ msgstr ""
 msgid "Search keywords or tags..."
 msgstr "Buscar palabras clave o etiquetas..."
 
-#: templates/community.html:21 templates/index.html:65
+#: templates/community.html:21 templates/index.html:69
 msgid "Anonymous"
 msgstr "Anónimo"
 
@@ -767,8 +767,8 @@ msgid ""
 "We value your feedback. Please let us know if you have found a bug, have "
 "a feature request, or just want to say hi!"
 msgstr ""
-"Valoramos tus comentarios. Por favor avísanos si has encontrado un error, tienes "
-"una sugerencia, o solo quieres saludar."
+"Valoramos tus comentarios. Por favor avísanos si has encontrado un error,"
+" tienes una sugerencia, o solo quieres saludar."
 
 #: templates/feedback.html:13
 msgid "Your Email (Optional)"
@@ -964,19 +964,23 @@ msgstr "Acepto los Términos y Condiciones"
 msgid "Share Prayer"
 msgstr "Compartir Oración"
 
-#: templates/index.html:50 templates/prayer_guide.html:61
+#: templates/index.html:51
+msgid "Go to Admin Dashboard"
+msgstr "Ir al Panel de Admin"
+
+#: templates/index.html:53 templates/prayer_guide.html:61
 msgid "Go to Dashboard"
 msgstr "Ir al Panel"
 
-#: templates/index.html:58
+#: templates/index.html:62
 msgid "Live Community Feed"
 msgstr "Muro de Comunidad en Vivo"
 
-#: templates/index.html:79
+#: templates/index.html:83
 msgid "No public prayers yet."
 msgstr "No hay oraciones públicas todavía."
 
-#: templates/index.html:83
+#: templates/index.html:87
 msgid "View Full Community Wall"
 msgstr "Ver Muro Completo"
 

@@ -47,7 +47,11 @@
                 </div>
             {% else %}
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-primary btn-lg px-4 me-md-2">{{ _('Go to Dashboard') }}</a>
+                    {% if 'admin' in current_user.get_id() %}
+                        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-lg px-4 me-md-2">{{ _('Go to Admin Dashboard') }}</a>
+                    {% else %}
+                        <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-primary btn-lg px-4 me-md-2">{{ _('Go to Dashboard') }}</a>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>

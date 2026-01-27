@@ -15,6 +15,9 @@ entry_bp = Blueprint('entry', __name__)
 @entry_bp.route('/dashboard')
 @login_required
 def user_dashboard():
+    if current_user.get_id().startswith('admin_'):
+        return redirect(url_for('admin.dashboard'))
+
     query = PrayerEntry.query.filter_by(user_id=current_user.id)
 
     # Search & Filtering
