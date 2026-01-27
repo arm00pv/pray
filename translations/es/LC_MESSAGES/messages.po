@@ -1139,3 +1139,90 @@ msgstr "Aún no has dicho Amén a ninguna oración."
 
 msgid "Unauthorized action."
 msgstr "Acción no autorizada."
+
+msgid "Guided Prayer: A.C.T.S."
+msgstr "Oración Guiada: A.C.T.S."
+
+msgid "Take a moment to silence your heart."
+msgstr "Toma un momento para silenciar tu corazón."
+
+msgid "Begin"
+msgstr "Comenzar"
+
+msgid "Adoration"
+msgstr "Adoración"
+
+msgid "Praise God for who He is."
+msgstr "Alaba a Dios por quien Él es."
+
+msgid "Lord, I praise you for..."
+msgstr "Señor, te alabo por..."
+
+msgid "Confession"
+msgstr "Confesión"
+
+msgid "Confess your sins and ask for forgiveness."
+msgstr "Confiesa tus pecados y pide perdón."
+
+msgid "Lord, forgive me for..."
+msgstr "Señor, perdóname por..."
+
+msgid "Thanksgiving"
+msgstr "Acción de Gracias"
+
+msgid "Thank God for what He has done."
+msgstr "Agradece a Dios por lo que ha hecho."
+
+msgid "Thank you, Lord, for..."
+msgstr "Gracias, Señor, por..."
+
+msgid "Supplication"
+msgstr "Súplica"
+
+msgid "Present your requests to God."
+msgstr "Presenta tus peticiones a Dios."
+
+msgid "Lord, I ask for..."
+msgstr "Señor, te pido..."
+
+msgid "Your prayer session is complete."
+msgstr "Tu sesión de oración está completa."
+
+msgid "Scripture Memory Game"
+msgstr "Juego de Memoria de Escrituras"
+
+msgid "Fill in the missing words."
+msgstr "Rellena las palabras que faltan."
+
+msgid "Check Answers"
+msgstr "Comprobar Respuestas"
+
+msgid "New Verse"
+msgstr "Nuevo Versículo"
+
+msgid "Perfect! Well done!"
+msgstr "¡Perfecto! ¡Bien hecho!"
+
+msgid "Keep trying!"
+msgstr "¡Sigue intentándolo!"
+
+msgid "System Health Dashboard"
+msgstr "Panel de Salud del Sistema"
+
+msgid "System Health"
+msgstr "Salud del Sistema"
+
+msgid "CPU Usage"
+msgstr "Uso de CPU"
+
+msgid "Memory Usage"
+msgstr "Uso de Memoria"
+
+msgid "Disk Usage"
+msgstr "Uso de Disco"
+
+msgid "Database Status"
+msgstr "Estado de la Base de Datos"
+
+msgid "Prayer Consistency (Last 30 Days)"
+msgstr "Consistencia de Oración (Últimos 30 Días)"

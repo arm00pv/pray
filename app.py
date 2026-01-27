@@ -20,6 +20,7 @@ from routes.profile_routes import profile_bp
 from routes.message_routes import message_bp
 from routes.reminder_routes import reminder_bp
 from routes.goal_routes import goal_bp
+from routes.game_routes import game_bp
 from utils import get_random_verse, send_email, get_todays_reading
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -91,6 +92,7 @@ def create_app():
     app.register_blueprint(message_bp)
     app.register_blueprint(reminder_bp)
     app.register_blueprint(goal_bp)
+    app.register_blueprint(game_bp)
 
     @app.context_processor
     def inject_context():

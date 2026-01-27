@@ -281,3 +281,7 @@ def update_reflection(entry_id):
     db.session.commit()
     flash(_('Reflection updated.'))
     return redirect(url_for('entry.user_dashboard'))
+@entry_bp.route('/guide')
+@login_required
+def prayer_guide():
+    return render_template('prayer_guide.html')

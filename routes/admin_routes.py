@@ -257,3 +257,31 @@ def export_all_entries():
     output.headers["Content-Disposition"] = "attachment; filename=all_prayers.csv"
     output.headers["Content-type"] = "text/csv"
     return output
+@admin_bp.route('/system_health')
+@login_required
+def system_health():
+    if not current_user.get_id().startswith('admin_'):
+        return redirect(url_for('admin_auth.login'))
+
+    import psutil
+
+    cpu_usage = psutil.cpu_percent(interval=None)
+    memory = psutil.virtual_memory()
+    disk = psutil.disk_usage('/')
+
+    # DB Check
+    db_status = 'Unknown'
+    try:
+        db.session.execute(func.now())
+        db_status = 'Connected'
+    except Exception as e:
+        db_status = f'Error: {e}'
+
+    stats = {
+        'cpu': cpu_usage,
+        'memory': memory.percent,
+        'disk': disk.percent,
+        'db_status': db_status
+    }
+
+    return render_template('admin_system_health.html', stats=stats)

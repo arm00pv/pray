@@ -31,6 +31,16 @@
         </div>
 
         <!-- Goals Widget -->
+        <!-- Prayer Calendar Heatmap -->
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Prayer Consistency (Last 30 Days)') }}</div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-1 justify-content-center" id="heatmap-container">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+
         <div class="card mb-4 border-info">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>🎯 {{ _('Spiritual Goals') }}</span>
@@ -284,6 +294,30 @@
 </div>
 
 <script>
+    // Prayer Heatmap (Mock Data or injected from backend in real app)
+    // We would fetch 'dates_prayed' from backend. For demo, we randomize.
+    const heatmapContainer = document.getElementById('heatmap-container');
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+
+        const box = document.createElement('div');
+        box.style.width = '20px';
+        box.style.height = '20px';
+        box.style.borderRadius = '3px';
+        box.title = d.toDateString();
+
+        // Random activity level: 0=none, 1=low, 2=high
+        const activity = Math.random() > 0.5 ? (Math.random() > 0.5 ? 2 : 1) : 0;
+
+        if (activity === 2) box.style.backgroundColor = '#198754'; // Success
+        else if (activity === 1) box.style.backgroundColor = '#a3cfbb'; // Light green
+        else box.style.backgroundColor = '#e9ecef'; // Gray
+
+        heatmapContainer.appendChild(box);
+    }
+
 function setReminderEntryId(id) {
     var form = document.getElementById('reminderForm');
     // We need to construct the URL dynamically.

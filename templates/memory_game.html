@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>{{ _('Scripture Memory Game') }}</h2>
+        <p class="lead">{{ _('Fill in the missing words.') }}</p>
+
+        <div class="card mt-4 p-4">
+            <h4 class="mb-4" id="verse-ref"></h4>
+            <div id="game-area" class="fs-4 lh-lg">
+                <!-- Verse words injected here -->
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-outline-primary" onclick="checkAnswers()">{{ _('Check Answers') }}</button>
+                <button class="btn btn-secondary" onclick="loadGame()">{{ _('New Verse') }}</button>
+            </div>
+
+            <div id="result-msg" class="mt-3 fw-bold"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple client-side verse bank for the game (can be dynamic later)
+    const verses = [
+        {text: "The Lord is my shepherd; I shall not want.", ref: "Psalm 23:1"},
+        {text: "I can do all things through him who strengthens me.", ref: "Philippians 4:13"},
+        {text: "Trust in the Lord with all your heart.", ref: "Proverbs 3:5"}
+    ];
+
+    function loadGame() {
+        const verse = verses[Math.floor(Math.random() * verses.length)];
+        document.getElementById('verse-ref').textContent = verse.ref;
+        document.getElementById('result-msg').textContent = '';
+
+        const words = verse.text.split(' ');
+        const container = document.getElementById('game-area');
+        container.innerHTML = '';
+
+        words.forEach(word => {
+            // Randomly hide words (~40% chance)
+            if (Math.random() > 0.6) {
+                // Strip punctuation for checking logic if needed, but simple string match here
+                // We keep punctuation in the hidden value
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'form-control d-inline w-auto mx-1 text-center';
+                input.style.minWidth = '80px';
+                input.dataset.answer = word;
+                container.appendChild(input);
+            } else {
+                let span = document.createElement('span');
+                span.textContent = word + ' ';
+                container.appendChild(span);
+            }
+        });
+    }
+
+    function checkAnswers() {
+        const inputs = document.querySelectorAll('#game-area input');
+        let correct = 0;
+
+        inputs.forEach(input => {
+            // Case insensitive comparison, ignoring punctuation for leniency
+            const userVal = input.value.trim().toLowerCase().replace(/[.,;]/g, '');
+            const actualVal = input.dataset.answer.toLowerCase().replace(/[.,;]/g, '');
+
+            if (userVal === actualVal) {
+                input.classList.add('is-valid');
+                input.classList.remove('is-invalid');
+                correct++;
+            } else {
+                input.classList.add('is-invalid');
+                input.classList.remove('is-valid');
+            }
+        });
+
+        const resultDiv = document.getElementById('result-msg');
+        if (correct === inputs.length) {
+            resultDiv.className = 'mt-3 fw-bold text-success';
+            resultDiv.textContent = '{{ _("Perfect! Well done!") }}';
+        } else {
+            resultDiv.className = 'mt-3 fw-bold text-warning';
+            resultDiv.textContent = '{{ _("Keep trying!") }}';
+        }
+    }
+
+    window.onload = loadGame;
+</script>
+{% endblock %}
