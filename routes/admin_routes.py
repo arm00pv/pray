@@ -6,6 +6,7 @@ from extensions import db
 import json
 import uuid
 from sqlalchemy import func
+from datetime import datetime, timezone
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admins')
 
@@ -39,6 +40,12 @@ def dashboard():
 
     users = user_query.order_by(User.created_at.desc()).paginate(page=page, per_page=10)
 
+    # Active Users Today (Users created today OR posted entry today)
+    today = datetime.now(timezone.utc).date()
+    new_users_today = User.query.filter(func.date(User.created_at) == today).count()
+    posting_users_today = db.session.query(PrayerEntry.user_id).filter(func.date(PrayerEntry.created_at) == today).distinct().count()
+    active_users_today = new_users_today + posting_users_today # Approximation
+
     # Metrics: IP locations (Aggregated)
     # Get all entries with geo data
     entries = PrayerEntry.query.filter(PrayerEntry.geolocation_data != None).all()
@@ -55,6 +62,7 @@ def dashboard():
                         'lat': data['lat'],
                         'lon': data['lon'],
                         'country': data.get('country'),
+                        'region': data.get('regionName'), # State
                         'city': data.get('city'),
                         'ip': ip,
                         'count': 1
@@ -80,7 +88,8 @@ def dashboard():
                            total_testimonies=total_testimonies,
                            total_groups=total_groups,
                            users=users,
-                           logs=logs)
+                           logs=logs,
+                           active_users_today=active_users_today)
 
 @admin_bp.route('/broadcast', methods=['POST'])
 def broadcast_message():

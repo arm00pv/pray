@@ -81,26 +81,29 @@ def extract_tags(text, locale='en'):
 
         # Add some common prayer words that are not petitions themselves
         common_prayer_words = {
-            'english': ['god', 'lord', 'pray', 'prayer', 'please', 'amen', 'help', 'ask', 'give', 'thank', 'thanks', 'want'],
-            'spanish': ['dios', 'señor', 'orar', 'oracion', 'por favor', 'amen', 'ayuda', 'pedir', 'dar', 'gracias', 'quiero']
+            'english': ['god', 'lord', 'pray', 'prayer', 'please', 'amen', 'help', 'ask', 'give', 'thank', 'thanks', 'want', 'father', 'jesus', 'holy', 'spirit', 'dear'],
+            'spanish': ['dios', 'señor', 'orar', 'oracion', 'por favor', 'amen', 'ayuda', 'pedir', 'dar', 'gracias', 'quiero', 'padre', 'jesus', 'santo', 'espiritu', 'querido']
+        }
+
+        # Add contractions and articles often missed
+        extra_stopwords = {
+            'english': ["'s", "'m", "'re", "'ve", "n't", "the", "a", "an"],
+            'spanish': ["el", "la", "los", "las", "un", "una", "unos", "unas"]
         }
 
         stop_words.update(common_prayer_words.get(language, []))
+        stop_words.update(extra_stopwords.get(language, []))
 
         filtered_words = [word for word in words if word.isalnum() and word not in stop_words]
 
         # POS Tagging to find nouns
-        # Note: NLTK POS tagger is primarily trained for English.
-        # For Spanish, we might need a different tagger or just skip POS filtering and rely on stopwords.
-        # For simplicity in this demo, we'll try POS tagging for English, and for Spanish just take filtered words
-        # (or assume basic POS accuracy).
-
         tags = []
         if language == 'english':
             tagged = nltk.pos_tag(filtered_words)
-            tags = [word for word, tag in tagged if tag.startswith('NN')]
+            # Accept Nouns (NN*) and Gerunds (VBG e.g. healing)
+            tags = [word for word, tag in tagged if (tag.startswith('NN') or tag == 'VBG') and len(word) > 2]
         else:
-            # Simple fallback for non-English: just return filtered words (maybe length filter)
+            # Simple fallback for non-English: just return filtered words (length > 3 to avoid prepositions)
             tags = [word for word in filtered_words if len(word) > 3]
 
         # Return unique tags

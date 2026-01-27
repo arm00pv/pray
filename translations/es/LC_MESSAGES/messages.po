@@ -1262,3 +1262,18 @@ msgstr "Solo los administradores pueden crear eventos."
 
 msgid "Event created."
 msgstr "Evento creado."
+
+msgid "State"
+msgstr "Estado/Región"
+
+msgid "Active Today"
+msgstr "Activos Hoy"
+
+msgid "Avg per User"
+msgstr "Prom. por Usuario"
+
+msgid "Reported Rate"
+msgstr "Tasa de Reportes"
+
+msgid "Total Prayers"
+msgstr "Oraciones Totales"

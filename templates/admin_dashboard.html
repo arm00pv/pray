@@ -21,27 +21,38 @@
 
         <!-- Key Metrics Cards -->
         <div class="row mb-4">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-header">{{ _('Total Users') }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ total_users }}</h5>
+                        <small>{{ _('Active Today') }}: {{ active_users_today }}</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card text-white bg-success mb-3">
-                    <div class="card-header">{{ _('Total Prayer Entries') }}</div>
+                    <div class="card-header">{{ _('Total Prayers') }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ total_entries }}</h5>
+                        <small>{{ _('Avg per User') }}: {{ "%.1f"|format(total_entries / total_users if total_users else 0) }}</small>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card text-white bg-info mb-3">
-                    <div class="card-header">{{ _('Total Gratitude Entries') }}</div>
+                    <div class="card-header">{{ _('Gratitude') }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ total_gratitude }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">{{ _('Reported Rate') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ flagged_count }}</h5>
+                        <small>{{ "%.1f"|format(flagged_count / total_entries * 100 if total_entries else 0) }}%</small>
                     </div>
                 </div>
             </div>
@@ -50,7 +61,7 @@
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card text-white bg-secondary mb-3">
-                    <div class="card-header">{{ _('Total Testimonies') }}</div>
+                    <div class="card-header">{{ _('Testimonies') }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ total_testimonies }}</h5>
                     </div>
@@ -58,7 +69,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card text-white bg-dark mb-3">
-                    <div class="card-header">{{ _('Active Prayer Groups') }}</div>
+                    <div class="card-header">{{ _('Groups') }}</div>
                     <div class="card-body">
                         <h5 class="card-title">{{ total_groups }}</h5>
                     </div>
@@ -122,18 +133,20 @@
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th>{{ _('Country') }}</th>
-                                    <th>{{ _('City') }}</th>
                                     <th>{{ _('IP') }}</th>
+                                    <th>{{ _('Country') }}</th>
+                                    <th>{{ _('State') }}</th>
+                                    <th>{{ _('City') }}</th>
                                     <th>{{ _('Count') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for loc in locations %}
                                 <tr>
-                                    <td>{{ loc.country }}</td>
-                                    <td>{{ loc.city }}</td>
                                     <td>{{ loc.ip }}</td>
+                                    <td>{{ loc.country }}</td>
+                                    <td>{{ loc.region }}</td>
+                                    <td>{{ loc.city }}</td>
                                     <td>{{ loc.count }}</td>
                                 </tr>
                                 {% else %}
