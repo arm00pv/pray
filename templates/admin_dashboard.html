@@ -177,6 +177,7 @@
                             <th>{{ _('Email') }}</th>
                             <th>{{ _('Joined Date') }}</th>
                             <th>{{ _('Status') }}</th>
+                            <th>{{ _('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -189,7 +190,39 @@
                             <td>
                                 {% if user.is_verified %}<span class="badge bg-success">{{ _('Verified') }}</span>{% endif %}
                             </td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#userNoteModal{{ user.id }}">📝</button>
+                            </td>
                         </tr>
+
+                        <!-- Note Modal -->
+                        <div class="modal fade" id="userNoteModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{ _('Notes for') }} {{ user.username }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group mb-3">
+                                            {% for note in user.admin_notes %}
+                                                <li class="list-group-item">
+                                                    <small class="text-muted">{{ note.created_at.strftime('%Y-%m-%d') }}</small>
+                                                    <p class="mb-0">{{ note.content }}</p>
+                                                </li>
+                                            {% else %}
+                                                <p class="text-muted">{{ _('No notes yet.') }}</p>
+                                            {% endfor %}
+                                        </ul>
+                                        <form action="{{ url_for('admin.add_user_note', user_id=user.id) }}" method="POST">
+                                            <textarea name="content" class="form-control mb-2" placeholder="{{ _('Add a note...') }}" required></textarea>
+                                            <button type="submit" class="btn btn-primary btn-sm">{{ _('Add Note') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         {% else %}
                         <tr><td colspan="5">{{ _('No users found.') }}</td></tr>
                         {% endfor %}

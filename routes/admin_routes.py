@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement, SystemLog, Notification, PrivateMessage
+from models import Tag, PrayerEntry, AdminInvite, BlockedUser, User, CommunityEmail, GratitudeEntry, Testimony, PrayerGroup, Announcement, SystemLog, Notification, PrivateMessage, AdminUserNote
 from extensions import db
 import json
 import uuid
@@ -294,3 +294,18 @@ def system_health():
     }
 
     return render_template('admin_system_health.html', stats=stats)
+from models import AdminUserNote
+
+@admin_bp.route('/user/<int:user_id>/note', methods=['POST'])
+def add_user_note(user_id):
+    content = request.form.get('content')
+    if content:
+        note = AdminUserNote(
+            admin_id=current_user.id,
+            user_id=user_id,
+            content=content
+        )
+        db.session.add(note)
+        db.session.commit()
+        flash(_('Note added.'))
+    return redirect(url_for('admin.dashboard'))

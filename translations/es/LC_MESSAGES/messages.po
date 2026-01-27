@@ -1277,3 +1277,39 @@ msgstr "Tasa de Reportes"
 
 msgid "Total Prayers"
 msgstr "Oraciones Totales"
+
+msgid "Top Active Users"
+msgstr "Usuarios Más Activos"
+
+msgid "No active users yet."
+msgstr "No hay usuarios activos todavía."
+
+msgid "High content report rate detected (>5%)."
+msgstr "Tasa alta de reportes de contenido detectada (>5%)."
+
+msgid "Many unused admin invites (%(count)d)."
+msgstr "Muchas invitaciones de admin sin usar (%(count)d)."
+
+msgid "System Alert"
+msgstr "Alerta del Sistema"
+
+msgid "Review Queue"
+msgstr "Cola de Revisión"
+
+msgid "Actions"
+msgstr "Acciones"
+
+msgid "Notes for"
+msgstr "Notas para"
+
+msgid "No notes yet."
+msgstr "No hay notas todavía."
+
+msgid "Add a note..."
+msgstr "Añadir una nota..."
+
+msgid "Add Note"
+msgstr "Añadir Nota"
+
+msgid "Note added."
+msgstr "Nota añadida."

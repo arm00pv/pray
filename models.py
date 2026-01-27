@@ -254,3 +254,13 @@ class SpiritualGoal(db.Model):
     week_start_date = db.Column(db.Date, default=lambda: datetime.now(timezone.utc).date())
 
     user = db.relationship('User', backref='goals')
+
+class AdminUserNote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    admin = db.relationship('Admin')
+    user = db.relationship('User', backref='admin_notes')
