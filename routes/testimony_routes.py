@@ -60,3 +60,7 @@ def toggle_praise(testimony_id):
 
     db.session.commit()
     return redirect(request.referrer or url_for('testimony.index'))
+@testimony_bp.route('/timeline')
+def timeline():
+    testimonies = Testimony.query.order_by(Testimony.created_at.desc()).all()
+    return render_template('timeline.html', testimonies=testimonies)

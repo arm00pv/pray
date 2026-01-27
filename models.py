@@ -175,6 +175,16 @@ class PrayerGroup(db.Model):
     admins = db.relationship('User', secondary=group_admins, lazy='subquery',
         backref=db.backref('admin_groups', lazy=True))
     messages = db.relationship('GroupMessage', backref='group', lazy=True)
+    events = db.relationship('GroupEvent', backref='group', lazy=True)
+
+class GroupEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(255))
+    event_datetime = db.Column(db.DateTime, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
 class Announcement(db.Model):
     id = db.Column(db.Integer, primary_key=True)

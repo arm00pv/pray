@@ -1226,3 +1226,39 @@ msgstr "Estado de la Base de Datos"
 
 msgid "Prayer Consistency (Last 30 Days)"
 msgstr "Consistencia de Oración (Últimos 30 Días)"
+
+msgid "Upcoming Events"
+msgstr "Próximos Eventos"
+
+msgid "Add Event"
+msgstr "Añadir Evento"
+
+msgid "No upcoming events."
+msgstr "No hay eventos próximos."
+
+msgid "Create Group Event"
+msgstr "Crear Evento de Grupo"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Date & Time"
+msgstr "Fecha y Hora"
+
+msgid "Create Event"
+msgstr "Crear Evento"
+
+msgid "Answered Prayers Timeline"
+msgstr "Línea de Tiempo de Oraciones Contestadas"
+
+msgid "A journey of faith and gratitude."
+msgstr "Un viaje de fe y gratitud."
+
+msgid "Only admins can create events."
+msgstr "Solo los administradores pueden crear eventos."
+
+msgid "Event created."
+msgstr "Evento creado."

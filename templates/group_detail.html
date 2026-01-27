@@ -17,6 +17,31 @@
             </div>
         </div>
 
+        <!-- Group Events -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ _('Upcoming Events') }}</span>
+                {% if current_user in group.admins %}
+                    <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#eventModal">+ {{ _('Add Event') }}</button>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for event in events %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ event.title }}</h5>
+                            <small class="local-time" data-utc="{{ event.event_datetime.isoformat() }}">{{ event.event_datetime.strftime('%Y-%m-%d %H:%M') }}</small>
+                        </div>
+                        <p class="mb-1">{{ event.description }}</p>
+                    </div>
+                    {% else %}
+                        <p class="text-muted">{{ _('No upcoming events.') }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
         <div class="card mb-4">
             <div class="card-header">{{ _('Group Chat') }}</div>
             <div class="card-body" style="height: 400px; overflow-y: auto;">
@@ -42,6 +67,38 @@
                 </form>
             </div>
             {% endif %}
+        </div>
+    </div>
+
+    <!-- Event Modal -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ url_for('group.create_event', group_id=group.id) }}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ _('Create Group Event') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Title') }}</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Description') }}</label>
+                            <textarea name="description" class="form-control"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Date & Time') }}</label>
+                            <input type="datetime-local" name="event_datetime" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                        <button type="submit" class="btn btn-primary">{{ _('Create Event') }}</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 

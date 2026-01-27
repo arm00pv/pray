@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row text-center mb-5">
+        <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">{{ _('Answered Prayers Timeline') }}</h1>
+            <p class="lead mb-0 text-muted">{{ _('A journey of faith and gratitude.') }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Timeline -->
+            <ul class="timeline list-unstyled pl-0">
+                {% for testimony in testimonies %}
+                <li class="timeline-item mb-5 position-relative pl-4" style="border-left: 2px solid #e9ecef; padding-left: 2rem;">
+                    <span class="timeline-marker bg-primary position-absolute rounded-circle" style="width: 15px; height: 15px; left: -9px; top: 0; border: 3px solid #fff;"></span>
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-4">
+                            <h5 class="mt-0 mb-1">
+                                <a href="{{ url_for('profile.public_profile', username=testimony.author.username) }}" class="text-decoration-none text-body fw-bold">{{ testimony.author.username }}</a>
+                            </h5>
+                            <p class="text-muted text-small mb-2 local-time" data-utc="{{ testimony.created_at.isoformat() }}">{{ testimony.created_at.strftime('%Y-%m-%d') }}</p>
+                            <p class="text-muted mt-2">{{ testimony.content }}</p>
+                            <div class="mt-2">
+                                <span class="badge bg-success">👏 {{ testimony.praises|length }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% else %}
+                <li class="text-center">{{ _('No testimonies yet.') }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
