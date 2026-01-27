@@ -192,19 +192,23 @@
                                 {% if user.is_verified %}<span class="badge bg-success">{{ _('Verified') }}</span>{% endif %}
                             </td>
                             <td>
-                                <div class="btn-group" role="group">
+                                <div class="btn-group">
                                     <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#userNoteModal{{ user.id }}" title="{{ _('Notes') }}">📝</button>
-
-                                    <form action="{{ url_for('admin.block_user', user_id=user.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure you want to block this user?') }}');">
-                                        <button type="submit" class="btn btn-sm btn-outline-warning" title="{{ _('Block') }}">🚫</button>
+                                    <form action="{{ url_for('admin.block_user', user_id=user.id) }}" method="POST" class="d-inline" onsubmit="return confirm('{{ _('Block this user?') }}');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="{{ _('Block') }}">🚫</button>
                                     </form>
 
-                                    <form action="{{ url_for('admin.promote_user', user_id=user.id) }}" method="POST" onsubmit="return confirm('{{ _('Promote this user to Admin?') }}');">
-                                        <button type="submit" class="btn btn-sm btn-outline-info" title="{{ _('Promote to Admin') }}">⬆️</button>
+                                    <!-- Only show Unblock if strictly implemented to check status here, but for now we rely on explicit action or list filtered by block status.
+                                         However, since we don't pass is_blocked explicitly in this loop efficiently without N+1 query or join, we might add a specific query.
+                                         Let's assume we want to be able to Block/Unblock.
+                                         Ideally, we should check user status.
+                                    -->
+                                    <form action="{{ url_for('admin.unblock_user', user_id=user.id) }}" method="POST" class="d-inline ms-1">
+                                         <button type="submit" class="btn btn-sm btn-outline-success" title="{{ _('Unblock') }}">✅</button>
                                     </form>
 
-                                    <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure? This will delete ALL user data permanently.') }}');">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="{{ _('Delete') }}">🗑️</button>
+                                     <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" class="d-inline ms-1" onsubmit="return confirm('{{ _('Delete this user? This cannot be undone.') }}');">
+                                        <button type="submit" class="btn btn-sm btn-danger" title="{{ _('Delete User') }}">🗑️</button>
                                     </form>
                                 </div>
                             </td>

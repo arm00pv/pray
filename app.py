@@ -98,6 +98,25 @@ def create_app():
     app.register_blueprint(game_bp)
     app.register_blueprint(feedback_bp)
 
+    @app.template_filter('render_chat_message')
+    def render_chat_message(content):
+        # Basic filter to render GIF tags
+        import re
+        from markupsafe import escape
+
+        # Escape the content first to prevent XSS from user text
+        escaped_content = str(escape(content))
+
+        def replace_gif(match):
+            url = match.group(1)
+            # Basic validation
+            if url.startswith('http') or url.startswith('https'):
+                return f'<div class="mt-1"><img src="{url}" class="img-fluid rounded" style="max-width: 200px;" alt="GIF"></div>'
+            return match.group(0)
+
+        # Replace [GIF:url] with image tag
+        return re.sub(r'\[GIF:(.*?)\]', replace_gif, escaped_content)
+
     @app.context_processor
     def inject_context():
         locale = get_locale()

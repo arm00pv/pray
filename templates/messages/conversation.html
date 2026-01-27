@@ -23,7 +23,7 @@
                     {% endif %}
 
                     <div class="p-3 rounded-3" style="max-width: 70%; {% if msg.sender_id == current_user.id %}background-color: #0d6efd; color: white;{% else %}background-color: #f1f1f1; color: black;{% endif %}">
-                        <p class="mb-0">{{ msg.content }}</p>
+                        <p class="mb-0">{{ msg.content | render_chat_message | safe }}</p>
                         <small class="{% if msg.sender_id == current_user.id %}text-light{% else %}text-muted{% endif %} d-block text-end mt-1" style="font-size: 0.75rem;">
                             {{ msg.created_at.strftime('%H:%M') }}
                         </small>
@@ -33,9 +33,11 @@
             <div id="scroll-anchor"></div>
         </div>
         <div class="card-footer">
-            <form method="POST">
+            <form method="POST" id="chatForm">
                 <div class="input-group">
-                    <input type="text" name="content" class="form-control" placeholder="{{ _('Type a message...') }}" required autocomplete="off">
+                    <button type="button" class="btn btn-outline-secondary" id="emojiBtn">😊</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#gifModal">GIF</button>
+                    <input type="text" name="content" id="chatInput" class="form-control" placeholder="{{ _('Type a message...') }}" required autocomplete="off">
                     <button class="btn btn-primary" type="submit">{{ _('Send') }}</button>
                 </div>
             </form>
@@ -43,11 +45,107 @@
     </div>
 </div>
 
+<!-- GIF Selection Modal -->
+<div class="modal fade" id="gifModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ _('Select a Christian GIF') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex flex-wrap gap-2 justify-content-center" id="gifContainer">
+            <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     // Auto-scroll to bottom
     window.onload = function() {
         var element = document.getElementById("scroll-anchor");
-        element.scrollIntoView();
+        if(element) element.scrollIntoView();
     };
+
+    // Emoji Picker (Native fallback logic or simple injection)
+    // For simplicity in this demo, we'll just toggle a few common emojis or rely on OS picker
+    // But let's add a simple customized behavior: Insert an emoji into input
+    const emojis = ['🙏', '✝️', '❤️', '🙌', '🕊️', '⛪', '📖', '🕯️', '😊', '😇'];
+    const emojiBtn = document.getElementById('emojiBtn');
+    const input = document.getElementById('chatInput');
+
+    // Simple Popover-like behavior using a temporary div
+    let picker = null;
+    emojiBtn.addEventListener('click', () => {
+        if (picker) {
+            picker.remove();
+            picker = null;
+            return;
+        }
+        picker = document.createElement('div');
+        picker.style.position = 'absolute';
+        picker.style.bottom = '60px';
+        picker.style.left = '20px';
+        picker.style.background = 'white';
+        picker.style.border = '1px solid #ccc';
+        picker.style.padding = '10px';
+        picker.style.borderRadius = '5px';
+        picker.style.zIndex = '1000';
+        picker.style.display = 'flex';
+        picker.style.gap = '5px';
+        picker.style.flexWrap = 'wrap';
+        picker.style.width = '200px';
+
+        emojis.forEach(e => {
+            const span = document.createElement('span');
+            span.innerText = e;
+            span.style.fontSize = '20px';
+            span.style.cursor = 'pointer';
+            span.onclick = () => {
+                input.value += e;
+                picker.remove();
+                picker = null;
+                input.focus();
+            };
+            picker.appendChild(span);
+        });
+
+        emojiBtn.parentElement.appendChild(picker);
+    });
+
+    // GIF Logic
+    const gifs = [
+        { url: 'https://placehold.co/200x150/png?text=🙏+Praying', title: 'Praying' },
+        { url: 'https://placehold.co/200x150/png?text=✝️+Amen', title: 'Amen' },
+        { url: 'https://placehold.co/200x150/png?text=❤️+Blessings', title: 'Blessings' },
+        { url: 'https://placehold.co/200x150/png?text=🙌+Praise', title: 'Praise' },
+        { url: 'https://placehold.co/200x150/png?text=⛪+Church', title: 'Church' },
+        { url: 'https://placehold.co/200x150/png?text=🕊️+Peace', title: 'Peace' },
+        { url: 'https://placehold.co/200x150/png?text=📖+Bible', title: 'Bible' },
+        { url: 'https://placehold.co/200x150/png?text=😇+Grace', title: 'Grace' }
+    ];
+
+    const gifContainer = document.getElementById('gifContainer');
+    gifs.forEach(g => {
+        const img = document.createElement('img');
+        img.src = g.url;
+        img.alt = g.title;
+        img.style.cursor = 'pointer';
+        img.style.borderRadius = '5px';
+        img.className = 'border hover-shadow';
+        img.onclick = () => {
+            // Insert [GIF:url]
+            input.value = `[GIF:${g.url}]`;
+            // Close modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('gifModal'));
+            modal.hide();
+            // Submit form immediately for smoother experience
+            document.getElementById('chatForm').submit();
+        };
+        gifContainer.appendChild(img);
+    });
+
 </script>
 {% endblock %}
