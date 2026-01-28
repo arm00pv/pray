@@ -209,6 +209,16 @@ def block_author(entry_id):
 
     return redirect(url_for('admin.flagged_entries'))
 
+@admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    # Note: Cascading deletes should be handled by DB or model configuration.
+    # For now, we assume simple delete is sufficient or orphaned records remain as anonymous.
+    db.session.delete(user)
+    db.session.commit()
+    flash(_('User deleted.'))
+    return redirect(url_for('admin.dashboard'))
+
 @admin_bp.route('/unblock_user/<int:user_id>', methods=['POST'])
 def unblock_user(user_id):
     user = User.query.get_or_404(user_id)
