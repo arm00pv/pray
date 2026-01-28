@@ -60,6 +60,8 @@
                              <li class="nav-item"><a class="nav-link" href="{{ url_for('admin.dashboard') }}">{{ _('Admin Dashboard') }}</a></li>
                         {% else %}
                              <li class="nav-item"><a class="nav-link" href="{{ url_for('entry.user_dashboard') }}">{{ _('My Prayers') }}</a></li>
+                             <li class="nav-item"><a class="nav-link" href="{{ url_for('entry.archive') }}">{{ _('Archive') }}</a></li>
+                             <li class="nav-item"><a class="nav-link" href="{{ url_for('sermon.index') }}">{{ _('Sermon Notes') }}</a></li>
                              {% set unread_msgs = current_user.received_messages|selectattr('is_read', 'equalto', false)|list|length %}
                              <li class="nav-item">
                                  <a class="nav-link" href="{{ url_for('message.inbox') }}">

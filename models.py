@@ -303,3 +303,14 @@ class ReadingProgress(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship('User', backref='reading_progress')
+
+class SermonNote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    preacher = db.Column(db.String(100), nullable=True)
+    scripture_reference = db.Column(db.String(200), nullable=True)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='sermon_notes')

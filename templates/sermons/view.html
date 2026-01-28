@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{ note.title }}</h2>
+                <h6 class="card-subtitle mb-3 text-muted">
+                    {{ note.created_at.strftime('%Y-%m-%d') }}
+                    {% if note.preacher %} | {{ note.preacher }}{% endif %}
+                </h6>
+
+                {% if note.scripture_reference %}
+                <div class="alert alert-light border">
+                    <strong>📖 {{ _('Scripture') }}:</strong> {{ note.scripture_reference }}
+                </div>
+                {% endif %}
+
+                <div class="card-text mt-4" style="white-space: pre-wrap;">{{ note.content }}</div>
+
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('sermon.index') }}" class="btn btn-secondary">{{ _('Back') }}</a>
+                    <form action="{{ url_for('sermon.delete', note_id=note.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure?') }}');">
+                        <button type="submit" class="btn btn-danger">{{ _('Delete') }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

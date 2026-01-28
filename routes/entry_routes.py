@@ -298,3 +298,63 @@ def update_reflection(entry_id):
 @login_required
 def prayer_guide():
     return render_template('prayer_guide.html')
+
+@entry_bp.route('/guide/submit', methods=['POST'])
+@login_required
+def submit_guide():
+    adoration = request.form.get('adoration', '')
+    confession = request.form.get('confession', '')
+    thanksgiving = request.form.get('thanksgiving', '')
+    supplication = request.form.get('supplication', '')
+
+    # Construct structured content
+    content_parts = []
+    if adoration:
+        content_parts.append(f"🙌 Adoration: {adoration}")
+    if confession:
+        content_parts.append(f"🛐 Confession: {confession}")
+    if thanksgiving:
+        content_parts.append(f"🙏 Thanksgiving: {thanksgiving}")
+    if supplication:
+        content_parts.append(f"🤲 Supplication: {supplication}")
+
+    full_content = "\n\n".join(content_parts)
+
+    if not full_content:
+        flash(_("Prayer guide was empty."))
+        return redirect(url_for('entry.user_dashboard'))
+
+    # Create private entry
+    entry = PrayerEntry(
+        user_id=current_user.id,
+        content=full_content,
+        is_public=False,
+        is_private=True,
+        category="Guided Prayer"
+    )
+
+    db.session.add(entry)
+    db.session.commit()
+
+    flash(_("Guided prayer saved to your diary."))
+    return redirect(url_for('entry.user_dashboard'))
+
+@entry_bp.route('/archive')
+@login_required
+def archive():
+    entries = PrayerEntry.query.filter_by(user_id=current_user.id).order_by(PrayerEntry.created_at.desc()).all()
+
+    # Structure: tree[year][month][week][day] = [entries]
+    from collections import defaultdict
+    # 4 levels of nesting
+    tree = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(list))))
+
+    for entry in entries:
+        year = entry.created_at.year
+        month = entry.created_at.strftime('%B')
+        week = f"Week {entry.created_at.strftime('%V')}"
+        day = entry.created_at.strftime('%d (%A)')
+
+        tree[year][month][week][day].append(entry)
+
+    return render_template('archive.html', tree=tree)

@@ -7,57 +7,18 @@ INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a
  * Running on http://127.0.0.1:5001
  * Running on http://192.168.0.2:5001
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:26] "GET /login HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:26] "[32mPOST /login HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:26] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:27] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:27] "[32mPOST /reading/mark_read HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:27] "GET /dashboard HTTP/1.1" 200 -
-ERROR:app:Exception on /guide [GET]
-Traceback (most recent call last):
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 1455, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 869, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 867, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 852, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/app/routes/entry_routes.py", line 300, in prayer_guide
-    return render_template('prayer_guide.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/templating.py", line 152, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/templating.py", line 133, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/jinja2/environment.py", line 1295, in render
-    self.environment.handle_exception()
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/jinja2/environment.py", line 942, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/app/templates/prayer_guide.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/app/templates/base.html", line 101, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/app/templates/prayer_guide.html", line 12, in block 'content'
-    <form action="{{ url_for('entry.submit_guide') }}" method="POST">
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 1071, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 1060, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'entry.submit_guide'. Did you mean 'entry.prayer_guide' instead?
-INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 19:20:28] "[35m[1mGET /guide HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:50] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:52] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:52] "GET /dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:52] "GET /dashboard HTTP/1.1" 200 -
+/app/routes/entry_routes.py:108: SAWarning: Object of type <PrayerEntry> not in session, add operation along 'Tag.entries' won't proceed (This warning originated from the Session 'autoflush' process, which was invoked automatically in response to a user-initiated operation. Consider using ``no_autoflush`` context manager if this warning happened while initializing objects.)
+  tag = Tag.query.filter_by(name=name).first()
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:54] "[32mPOST /add HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:54] "GET /dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "GET /archive HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "[32mGET /sermons HTTP/1.1[0m" 308 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "GET /sermons/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "GET /sermons/add HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "[32mPOST /sermons/add HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:55] "GET /sermons/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 20:58:56] "GET /sermons/1 HTTP/1.1" 200 -
