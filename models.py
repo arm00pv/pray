@@ -294,3 +294,12 @@ class UserBadge(db.Model):
 
     user = db.relationship('User', backref='badges')
     badge = db.relationship('Badge')
+
+class ReadingProgress(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    reading_date = db.Column(db.Date, nullable=False)
+    is_completed = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='reading_progress')

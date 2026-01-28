@@ -15,8 +15,20 @@
 
         <!-- Bible Reading Plan -->
         <div class="alert alert-secondary d-flex justify-content-between align-items-center">
-            <span>📖 <strong>{{ reading_plan.plan_title }}:</strong> {{ reading_plan.reading }}</span>
-            <span class="badge bg-light text-dark">{{ _('Today\'s Reading') }}</span>
+            <div>
+                📖 <strong>{{ reading_plan.plan_title }}:</strong> {{ reading_plan.reading }}
+                {% if reading_completed %}
+                    <span class="badge bg-success ms-2">✅ {{ _('Read') }}</span>
+                {% endif %}
+            </div>
+            <div>
+                <form action="{{ url_for('reading.mark_read') }}" method="POST" class="d-inline">
+                    <button type="submit" id="mark-read-btn" class="btn btn-sm {% if reading_completed %}btn-outline-secondary{% else %}btn-success{% endif %}">
+                        {% if reading_completed %}{{ _('Mark Unread') }}{% else %}{{ _('Mark as Read') }}{% endif %}
+                    </button>
+                </form>
+                <span class="badge bg-light text-dark ms-1">{{ _('Today\'s Reading') }}</span>
+            </div>
         </div>
 
         <div class="d-flex justify-content-between align-items-center mb-3">

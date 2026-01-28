@@ -9,57 +9,53 @@
                 <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
             </div>
 
-            <div id="step-0" class="step active">
-                <h3>{{ _('Welcome') }}</h3>
-                <p class="lead">{{ _('Take a moment to silence your heart.') }}</p>
-                <button class="btn btn-primary btn-lg" onclick="nextStep(1)">{{ _('Begin') }}</button>
-            </div>
-
-            <div id="step-1" class="step d-none">
-                <h3>{{ _('Adoration') }}</h3>
-                <p>{{ _('Praise God for who He is.') }}</p>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="3" placeholder="{{ _('Lord, I praise you for...') }}"></textarea>
+            <form action="{{ url_for('entry.submit_guide') }}" method="POST">
+                <div id="step-0" class="step active">
+                    <h3>{{ _('Welcome') }}</h3>
+                    <p class="lead">{{ _('Take a moment to silence your heart.') }}</p>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(1)">{{ _('Begin') }}</button>
                 </div>
-                <button class="btn btn-secondary" onclick="nextStep(0)">{{ _('Back') }}</button>
-                <button class="btn btn-primary" onclick="nextStep(2)">{{ _('Next: Confession') }}</button>
-            </div>
 
-            <div id="step-2" class="step d-none">
-                <h3>{{ _('Confession') }}</h3>
-                <p>{{ _('Confess your sins and ask for forgiveness.') }}</p>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="3" placeholder="{{ _('Lord, forgive me for...') }}"></textarea>
+                <div id="step-1" class="step d-none">
+                    <h3>{{ _('Adoration') }}</h3>
+                    <p>{{ _('Praise God for who He is.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-adoration" name="adoration" rows="3" placeholder="{{ _('Lord, I praise you for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(0)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">{{ _('Next: Confession') }}</button>
                 </div>
-                <button class="btn btn-secondary" onclick="nextStep(1)">{{ _('Back') }}</button>
-                <button class="btn btn-primary" onclick="nextStep(3)">{{ _('Next: Thanksgiving') }}</button>
-            </div>
 
-            <div id="step-3" class="step d-none">
-                <h3>{{ _('Thanksgiving') }}</h3>
-                <p>{{ _('Thank God for what He has done.') }}</p>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="3" placeholder="{{ _('Thank you, Lord, for...') }}"></textarea>
+                <div id="step-2" class="step d-none">
+                    <h3>{{ _('Confession') }}</h3>
+                    <p>{{ _('Confess your sins and ask for forgiveness.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-confession" name="confession" rows="3" placeholder="{{ _('Lord, forgive me for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(1)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">{{ _('Next: Thanksgiving') }}</button>
                 </div>
-                <button class="btn btn-secondary" onclick="nextStep(2)">{{ _('Back') }}</button>
-                <button class="btn btn-primary" onclick="nextStep(4)">{{ _('Next: Supplication') }}</button>
-            </div>
 
-            <div id="step-4" class="step d-none">
-                <h3>{{ _('Supplication') }}</h3>
-                <p>{{ _('Present your requests to God.') }}</p>
-                <div class="mb-3">
-                    <textarea class="form-control" rows="3" placeholder="{{ _('Lord, I ask for...') }}"></textarea>
+                <div id="step-3" class="step d-none">
+                    <h3>{{ _('Thanksgiving') }}</h3>
+                    <p>{{ _('Thank God for what He has done.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-thanksgiving" name="thanksgiving" rows="3" placeholder="{{ _('Thank you, Lord, for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(2)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">{{ _('Next: Supplication') }}</button>
                 </div>
-                <button class="btn btn-secondary" onclick="nextStep(3)">{{ _('Back') }}</button>
-                <button class="btn btn-success" onclick="finishPrayer()">{{ _('Finish') }}</button>
-            </div>
 
-            <div id="step-5" class="step d-none">
-                <h3>{{ _('Amen!') }}</h3>
-                <p>{{ _('Your prayer session is complete.') }}</p>
-                <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-primary">{{ _('Go to Dashboard') }}</a>
-            </div>
+                <div id="step-4" class="step d-none">
+                    <h3>{{ _('Supplication') }}</h3>
+                    <p>{{ _('Present your requests to God.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-supplication" name="supplication" rows="3" placeholder="{{ _('Lord, I ask for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(3)">{{ _('Back') }}</button>
+                    <button type="submit" class="btn btn-success">{{ _('Finish & Save') }}</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -71,11 +67,6 @@
 
         let progress = (step / 5) * 100;
         document.getElementById('progress-bar').style.width = progress + '%';
-    }
-
-    function finishPrayer() {
-        nextStep(5);
-        // Optional: Submit logic via AJAX if we wanted to save it as a "Prayer Entry"
     }
 </script>
 {% endblock %}

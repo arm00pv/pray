@@ -22,6 +22,7 @@ from routes.reminder_routes import reminder_bp
 from routes.goal_routes import goal_bp
 from routes.game_routes import game_bp
 from routes.feedback_routes import feedback_bp
+from routes.reading_routes import reading_bp
 from utils import get_random_verse, send_email, get_todays_reading
 from utils.gamification import seed_badges
 from utils.sticker_helper import count_stickers
@@ -97,6 +98,7 @@ def create_app():
     app.register_blueprint(goal_bp)
     app.register_blueprint(game_bp)
     app.register_blueprint(feedback_bp)
+    app.register_blueprint(reading_bp)
 
     @app.template_filter('render_chat_message')
     def render_chat_message(content):
