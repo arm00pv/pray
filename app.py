@@ -139,7 +139,8 @@ def create_app():
             daily_verse=get_random_verse(locale, seed_key=seed_key),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading(),
-            count_stickers=count_stickers
+            count_stickers=count_stickers,
+            current_year=datetime.now().year
         )
 
     # Scheduler

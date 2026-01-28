@@ -7,18 +7,4 @@ INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a
  * Running on http://127.0.0.1:5001
  * Running on http://192.168.0.2:5001
 INFO:werkzeug:[33mPress CTRL+C to quit[0m
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:12] "GET /register HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:44] "[32mPOST /register HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:44] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:45] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:46] "[32mPOST /add HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:46] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:47] "[32mGET /logout HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:47] "GET /login HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:12:47] "GET /register HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:18] "[32mPOST /register HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:18] "GET /dashboard HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:19] "GET /u/user_31194 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:19] "GET /messages/conversation/14 HTTP/1.1" 200 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:21] "[32mPOST /messages/conversation/14 HTTP/1.1[0m" 302 -
-INFO:werkzeug:127.0.0.1 - - [27/Jan/2026 22:13:21] "GET /messages/conversation/14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [28/Jan/2026 01:11:33] "GET /login HTTP/1.1" 200 -
