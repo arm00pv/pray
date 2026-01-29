@@ -26,6 +26,28 @@
             </div>
         </div>
 
+        <!-- Pending Join Requests (Admins Only) -->
+        {% if join_requests %}
+        <div class="card mb-4 border-warning">
+            <div class="card-header bg-warning-subtle text-dark">{{ _('Pending Join Requests') }}</div>
+            <ul class="list-group list-group-flush">
+                {% for req in join_requests %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ req.user.username }}</span>
+                    <div class="d-flex gap-2">
+                         <form action="{{ url_for('group.handle_join_request', request_id=req.id, action='approve') }}" method="POST">
+                             <button type="submit" class="btn btn-sm btn-success">{{ _('Approve') }}</button>
+                         </form>
+                         <form action="{{ url_for('group.handle_join_request', request_id=req.id, action='reject') }}" method="POST">
+                             <button type="submit" class="btn btn-sm btn-danger">{{ _('Reject') }}</button>
+                         </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
         <!-- Edit Group Modal -->
         <div class="modal fade" id="editGroupModal" tabindex="-1">
             <div class="modal-dialog">
@@ -122,7 +144,14 @@
                     {% for msg in messages %}
                         <div class="list-group-item">
                             <div class="d-flex w-100 justify-content-between">
-                                <strong class="mb-1"><a href="{{ url_for('profile.public_profile', username=msg.author.username) }}" class="text-decoration-none text-body">{{ msg.author.username }}</a></strong>
+                                <strong class="mb-1">
+                                    <a href="{{ url_for('profile.public_profile', username=msg.author.username) }}" class="text-decoration-none text-body">
+                                        {{ msg.author.username }}
+                                        {% if msg.author in group.admins %}
+                                            <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7em;">ADMIN</span>
+                                        {% endif %}
+                                    </a>
+                                </strong>
                                 <small class="text-muted local-time" data-utc="{{ msg.created_at.isoformat() }}">{{ msg.created_at.strftime('%H:%M') }}</small>
                             </div>
                             <p class="mb-1">{{ msg.content | render_chat_message | safe }}</p>

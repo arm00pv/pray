@@ -52,7 +52,7 @@
                                 </div>
                             {% else %}
                                 <form action="{{ url_for('group.join_group', group_id=group.id) }}" method="POST">
-                                    <button type="submit" class="btn btn-primary btn-sm">{{ _('Join Group') }}</button>
+                                    <button type="submit" class="btn btn-primary btn-sm">{{ _('Request to Join') }}</button>
                                 </form>
                             {% endif %}
                         {% endif %}

@@ -327,3 +327,12 @@ class GroupRequest(db.Model):
 
     user = db.relationship('User', backref='group_requests')
     group = db.relationship('PrayerGroup', backref='requests')
+
+class GroupJoinRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='join_requests')
+    group = db.relationship('PrayerGroup', backref='join_requests')

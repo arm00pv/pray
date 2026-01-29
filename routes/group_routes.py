@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest
+from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest, GroupJoinRequest
 from extensions import db, bcrypt # bcrypt not needed unless verifying passwords, but db is.
 from datetime import datetime
 from flask_babel import _
@@ -30,7 +30,11 @@ def detail(group_id):
 
     requests = GroupRequest.query.filter_by(group_id=group_id).order_by(GroupRequest.created_at.desc()).all()
 
-    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests)
+    join_requests = []
+    if current_user in group.admins:
+        join_requests = GroupJoinRequest.query.filter_by(group_id=group.id).all()
+
+    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests, join_requests=join_requests)
 
 @group_bp.route('/<int:group_id>/request', methods=['POST'])
 @login_required
@@ -163,11 +167,42 @@ def promote_member(group_id, user_id):
 @login_required
 def join_group(group_id):
     group = PrayerGroup.query.get_or_404(group_id)
-    if current_user not in group.members:
-        group.members.append(current_user)
+    if current_user in group.members:
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    # Check if already requested
+    existing_req = GroupJoinRequest.query.filter_by(user_id=current_user.id, group_id=group.id).first()
+    if existing_req:
+        flash(_('You have already requested to join this group.'))
+    else:
+        req = GroupJoinRequest(user_id=current_user.id, group_id=group.id)
+        db.session.add(req)
         db.session.commit()
-        flash(f'Joined group {group.name}.')
+        flash(_('Join request sent. Waiting for admin approval.'))
+
     return redirect(url_for('group.index'))
+
+@group_bp.route('/join_request/<int:request_id>/<string:action>', methods=['POST'])
+@login_required
+def handle_join_request(request_id, action):
+    req = GroupJoinRequest.query.get_or_404(request_id)
+    group = PrayerGroup.query.get(req.group_id)
+
+    if current_user not in group.admins:
+        flash(_('Only admins can approve/reject requests.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    if action == 'approve':
+        group.members.append(req.user)
+        db.session.delete(req)
+        db.session.commit()
+        flash(_('User approved and added to group.'))
+    elif action == 'reject':
+        db.session.delete(req)
+        db.session.commit()
+        flash(_('Join request rejected.'))
+
+    return redirect(url_for('group.detail', group_id=group.id))
 
 @group_bp.route('/leave/<int:group_id>', methods=['POST'])
 @login_required
