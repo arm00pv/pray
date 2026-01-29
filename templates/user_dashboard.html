@@ -90,10 +90,23 @@
         <!-- New Entry Form -->
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">{{ _('New Entry') }}</h5>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title mb-0">{{ _('New Entry') }}</h5>
+                    {% if daily_prompt %}
+                    <div class="alert alert-info py-1 px-2 mb-0 d-flex align-items-center">
+                        <small class="me-2"><strong>{{ _('Daily Prompt') }}:</strong> {{ daily_prompt }}</small>
+                        <button type="button" class="btn btn-sm btn-outline-info bg-white" onclick="usePrompt('{{ daily_prompt }}')">
+                            {{ _('Use') }}
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
                 <form action="{{ url_for('entry.add_entry') }}" method="POST">
-                    <div class="mb-3">
-                        <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
+                    <div class="mb-3 position-relative">
+                        <textarea class="form-control" id="entryContent" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
+                        <button type="button" id="micBtn" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Prayer') }}" onclick="toggleDictation()">
+                            🎤
+                        </button>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -159,6 +172,61 @@
         </div>
 
         <script>
+        function usePrompt(promptText) {
+            var textarea = document.getElementById('entryContent');
+            if (textarea.value) {
+                textarea.value += "\n\n" + promptText + "\n";
+            } else {
+                textarea.value = promptText + "\n";
+            }
+            textarea.focus();
+        }
+
+        let recognition;
+        function toggleDictation() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("{{ _('Speech recognition is not supported in this browser.') }}");
+                return;
+            }
+
+            const micBtn = document.getElementById('micBtn');
+            const textarea = document.getElementById('entryContent');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (recognition && recognition.running) {
+                recognition.stop();
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "{{ session.get('language', 'en') }}"; // Use session lang
+
+            recognition.onstart = function() {
+                recognition.running = true;
+                micBtn.classList.remove('btn-light');
+                micBtn.classList.add('btn-danger'); // Recording indicator
+            };
+
+            recognition.onend = function() {
+                recognition.running = false;
+                micBtn.classList.remove('btn-danger');
+                micBtn.classList.add('btn-light');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                if (textarea.value) {
+                    textarea.value += " " + transcript;
+                } else {
+                    textarea.value = transcript;
+                }
+            };
+
+            recognition.start();
+        }
+
         function toggleAnonymous() {
             var isPublic = document.getElementById('is_public');
             var anonContainer = document.getElementById('anonymous_container');
@@ -185,7 +253,17 @@
                         <input type="date" class="form-control" name="end_date" value="{{ request.args.get('end_date', '') }}">
                     </div>
                     <div class="col-md-2">
-                        <button type="submit" class="btn btn-secondary w-100">{{ _('Filter') }}</button>
+                        <select class="form-select" name="mood">
+                            <option value="">{{ _('Mood') }}</option>
+                            <option value="🙏" {% if request.args.get('mood') == '🙏' %}selected{% endif %}>🙏</option>
+                            <option value="😀" {% if request.args.get('mood') == '😀' %}selected{% endif %}>😀</option>
+                            <option value="😔" {% if request.args.get('mood') == '😔' %}selected{% endif %}>😔</option>
+                            <option value="😟" {% if request.args.get('mood') == '😟' %}selected{% endif %}>😟</option>
+                            <option value="😤" {% if request.args.get('mood') == '😤' %}selected{% endif %}>😤</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary w-100">🔍</button>
                     </div>
                 </form>
                 {% if request.args %}
