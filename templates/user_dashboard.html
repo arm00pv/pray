@@ -95,18 +95,39 @@
                     <div class="mb-3">
                         <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
                     </div>
-                    <div class="mb-3">
-                        <label for="category" class="form-label">{{ _('Category') }}</label>
-                        <select class="form-select" name="category" id="category">
-                            <option value="">{{ _('No Category') }}</option>
-                            <option value="Personal">{{ _('Personal') }}</option>
-                            <option value="Family">{{ _('Family') }}</option>
-                            <option value="Work">{{ _('Work') }}</option>
-                            <option value="Health">{{ _('Health') }}</option>
-                            <option value="Church">{{ _('Church') }}</option>
-                            <option value="World">{{ _('World') }}</option>
-                            <option value="Other">{{ _('Other') }}</option>
-                        </select>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">{{ _('Category') }}</label>
+                            <select class="form-select" name="category" id="category">
+                                <option value="">{{ _('No Category') }}</option>
+                                <option value="Personal">{{ _('Personal') }}</option>
+                                <option value="Family">{{ _('Family') }}</option>
+                                <option value="Work">{{ _('Work') }}</option>
+                                <option value="Health">{{ _('Health') }}</option>
+                                <option value="Church">{{ _('Church') }}</option>
+                                <option value="World">{{ _('World') }}</option>
+                                <option value="Other">{{ _('Other') }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ _('Mood') }}</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="mood" id="mood1" value="🙏" checked>
+                                <label class="btn btn-outline-secondary" for="mood1">🙏</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood2" value="😀">
+                                <label class="btn btn-outline-secondary" for="mood2">😀</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood3" value="😔">
+                                <label class="btn btn-outline-secondary" for="mood3">😔</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood4" value="😟">
+                                <label class="btn btn-outline-secondary" for="mood4">😟</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood5" value="😤">
+                                <label class="btn btn-outline-secondary" for="mood5">😤</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -186,7 +207,10 @@
         {% for entry in entries %}
         <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                <span>
+                    {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+                    {% if entry.mood %}<span class="fs-5 ms-2" title="{{ _('Mood') }}">{{ entry.mood }}</span>{% endif %}
+                </span>
                 <div>
                     {% if entry.is_continuous %}
                     <span class="badge bg-warning text-dark">{{ _('Continuous') }}</span>
@@ -198,7 +222,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-text">{{ entry.content }}</p>
+                <p class="card-text">{{ entry.content | link_verses }}</p>
                 <div class="mb-2">
                     {% for tag in entry.tags %}
                         <a href="{{ url_for('entry.user_dashboard', tag=tag.name) }}" class="badge bg-info text-body text-decoration-none">#{{ tag.name }}</a>
