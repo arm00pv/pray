@@ -32,6 +32,7 @@ class User(UserMixin, db.Model):
     reset_token_expiry = db.Column(db.DateTime, nullable=True)
     entries = db.relationship('PrayerEntry', backref='author', lazy=True)
     notifications = db.relationship('Notification', backref='user', lazy=True)
+    mood = db.Column(db.String(20), nullable=True) # Added Mood
 
     def get_id(self):
         return f"user_{self.id}"
@@ -111,6 +112,7 @@ class PrayerEntry(db.Model):
     is_hidden = db.Column(db.Boolean, default=False)
     stickers = db.Column(db.String(200)) # Comma separated list
     reflection = db.Column(db.Text, nullable=True) # Added Private Reflection
+    mood = db.Column(db.String(20), nullable=True) # Added Mood to Entry
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
     amens = db.relationship('Amen', backref='entry', lazy=True)
@@ -314,3 +316,14 @@ class SermonNote(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     user = db.relationship('User', backref='sermon_notes')
+
+class GroupRequest(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(500), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    prayer_count = db.Column(db.Integer, default=0)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='group_requests')
+    group = db.relationship('PrayerGroup', backref='requests')

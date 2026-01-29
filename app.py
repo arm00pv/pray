@@ -27,6 +27,8 @@ from routes.sermon_routes import sermon_bp
 from utils import get_random_verse, send_email, get_todays_reading
 from utils.gamification import seed_badges
 from utils.sticker_helper import count_stickers
+from utils.verse_linker import link_bible_verses as link_verses
+from utils.prompts import get_daily_prompt
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
@@ -121,6 +123,10 @@ def create_app():
         # Replace [GIF:url] with image tag
         return re.sub(r'\[GIF:(.*?)\]', replace_gif, escaped_content)
 
+    @app.template_filter('link_verses')
+    def link_verses_filter(content):
+        return link_verses(content)
+
     @app.context_processor
     def inject_context():
         locale = get_locale()
@@ -141,6 +147,7 @@ def create_app():
 
         return dict(
             daily_verse=get_random_verse(locale, seed_key=seed_key),
+            daily_prompt=get_daily_prompt(),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading(),
             count_stickers=count_stickers,

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerGroup, GroupMessage, User, GroupEvent
+from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest
 from extensions import db, bcrypt # bcrypt not needed unless verifying passwords, but db is.
 from datetime import datetime
 from flask_babel import _
@@ -28,7 +28,40 @@ def detail(group_id):
         GroupEvent.event_datetime >= datetime.utcnow()
     ).order_by(GroupEvent.event_datetime.asc()).all()
 
-    return render_template('group_detail.html', group=group, messages=messages, events=events)
+    requests = GroupRequest.query.filter_by(group_id=group_id).order_by(GroupRequest.created_at.desc()).all()
+
+    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests)
+
+@group_bp.route('/<int:group_id>/request', methods=['POST'])
+@login_required
+def add_request(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        flash(_('You must be a member to post requests.'))
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    content = request.form.get('content')
+    if content:
+        req = GroupRequest(content=content, user_id=current_user.id, group_id=group.id)
+        db.session.add(req)
+        db.session.commit()
+        flash(_('Prayer request posted.'))
+
+    return redirect(url_for('group.detail', group_id=group_id))
+
+@group_bp.route('/request/<int:request_id>/pray', methods=['POST'])
+@login_required
+def pray_request(request_id):
+    req = GroupRequest.query.get_or_404(request_id)
+    if current_user not in req.group.members:
+         flash(_('You must be a member to pray for this request.'))
+         return redirect(url_for('group.detail', group_id=req.group_id))
+
+    req.prayer_count += 1
+    db.session.commit()
+    flash(_('You prayed for this request.'))
+
+    return redirect(url_for('group.detail', group_id=req.group_id))
 
 @group_bp.route('/<int:group_id>/events/create', methods=['POST'])
 @login_required

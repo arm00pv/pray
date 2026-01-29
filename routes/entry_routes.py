@@ -252,6 +252,31 @@ def export_pdf():
     response.headers['Content-Disposition'] = 'attachment; filename=prayer_diary.pdf'
     return response
 
+@entry_bp.route('/export/json')
+@login_required
+def export_json():
+    entries = PrayerEntry.query.filter_by(user_id=current_user.id).order_by(PrayerEntry.created_at.desc()).all()
+
+    data = []
+    for entry in entries:
+        data.append({
+            'id': entry.id,
+            'content': entry.content,
+            'created_at': entry.created_at.isoformat(),
+            'status': entry.status,
+            'tags': [t.name for t in entry.tags],
+            'category': entry.category,
+            'is_private': entry.is_private,
+            'is_public': entry.is_public,
+            'reflection': entry.reflection,
+            'mood': entry.mood
+        })
+
+    response = make_response(json.dumps(data, indent=4))
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Content-Disposition'] = 'attachment; filename=prayer_diary.json'
+    return response
+
 @entry_bp.route('/entry/<int:entry_id>/continuous', methods=['POST'])
 @login_required
 def toggle_continuous(entry_id):
