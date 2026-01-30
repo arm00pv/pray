@@ -29,6 +29,7 @@ from utils.gamification import seed_badges
 from utils.sticker_helper import count_stickers
 from utils.verse_linker import link_bible_verses as link_verses
 from utils.prompts import get_daily_prompt
+from utils.devotionals import get_daily_devotional
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime, timezone
@@ -153,6 +154,7 @@ def create_app():
         return dict(
             daily_verse=get_random_verse(locale, seed_key=seed_key),
             daily_prompt=get_daily_prompt(),
+            daily_devotional=get_daily_devotional(),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading(),
             count_stickers=count_stickers,

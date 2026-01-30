@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response, session
 from flask_login import login_required, current_user
-from models import PrayerEntry, Tag, entry_tags, CommunityEmail, BlockedUser
+from models import PrayerEntry, Tag, entry_tags, CommunityEmail, BlockedUser, PrayerList, PrayerListItem
 from extensions import db
 from utils import extract_tags, get_geolocation, ProfanityFilter
 from utils.gamification import check_and_award_badges
@@ -422,6 +422,76 @@ def submit_guide():
 
     flash(_("Guided prayer saved to your diary."))
     return redirect(url_for('entry.user_dashboard'))
+
+@entry_bp.route('/lists')
+@login_required
+def prayer_lists():
+    lists = PrayerList.query.filter_by(user_id=current_user.id).all()
+    return render_template('prayer_lists.html', lists=lists)
+
+@entry_bp.route('/lists/create', methods=['POST'])
+@login_required
+def create_list():
+    name = request.form.get('name')
+    if name:
+        new_list = PrayerList(user_id=current_user.id, name=name)
+        db.session.add(new_list)
+        db.session.commit()
+        flash(_('Prayer list created.'))
+    return redirect(url_for('entry.prayer_lists'))
+
+@entry_bp.route('/lists/<int:list_id>/delete', methods=['POST'])
+@login_required
+def delete_list(list_id):
+    plist = PrayerList.query.get_or_404(list_id)
+    if plist.user_id != current_user.id:
+        flash(_('Unauthorized'))
+        return redirect(url_for('entry.prayer_lists'))
+
+    db.session.delete(plist)
+    db.session.commit()
+    flash(_('Prayer list deleted.'))
+    return redirect(url_for('entry.prayer_lists'))
+
+@entry_bp.route('/lists/<int:list_id>/item', methods=['POST'])
+@login_required
+def add_list_item(list_id):
+    plist = PrayerList.query.get_or_404(list_id)
+    if plist.user_id != current_user.id:
+        flash(_('Unauthorized'))
+        return redirect(url_for('entry.prayer_lists'))
+
+    content = request.form.get('content')
+    if content:
+        item = PrayerListItem(list_id=plist.id, content=content)
+        db.session.add(item)
+        db.session.commit()
+
+    return redirect(url_for('entry.prayer_lists'))
+
+@entry_bp.route('/lists/item/<int:item_id>/toggle', methods=['POST'])
+@login_required
+def toggle_list_item(item_id):
+    item = PrayerListItem.query.get_or_404(item_id)
+    if item.list.user_id != current_user.id:
+        flash(_('Unauthorized'))
+        return redirect(url_for('entry.prayer_lists'))
+
+    item.is_answered = not item.is_answered
+    db.session.commit()
+    return redirect(url_for('entry.prayer_lists'))
+
+@entry_bp.route('/lists/item/<int:item_id>/delete', methods=['POST'])
+@login_required
+def delete_list_item(item_id):
+    item = PrayerListItem.query.get_or_404(item_id)
+    if item.list.user_id != current_user.id:
+        flash(_('Unauthorized'))
+        return redirect(url_for('entry.prayer_lists'))
+
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('entry.prayer_lists'))
 
 @entry_bp.route('/archive')
 @login_required

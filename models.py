@@ -354,3 +354,19 @@ class UserBlock(db.Model):
     blocker_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     blocked_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+class PrayerList(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='prayer_lists')
+    items = db.relationship('PrayerListItem', backref='list', lazy=True, cascade="all, delete-orphan")
+
+class PrayerListItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    list_id = db.Column(db.Integer, db.ForeignKey('prayer_list.id'), nullable=False)
+    content = db.Column(db.String(255), nullable=False)
+    is_answered = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))

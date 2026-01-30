@@ -13,6 +13,17 @@
             </div>
         </div>
 
+        <!-- Daily Devotional -->
+        <div class="card mb-4 border-success">
+            <div class="card-header bg-success-subtle text-success-emphasis">
+                <strong>🌱 {{ _('Daily Devotional') }}: {{ daily_devotional.title }}</strong>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ daily_devotional.content }}</p>
+                <footer class="blockquote-footer mt-1">{{ daily_devotional.scripture }}</footer>
+            </div>
+        </div>
+
         {% if memories %}
         <div class="card mb-4 border-info">
             <div class="card-header bg-info-subtle">
