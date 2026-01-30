@@ -113,6 +113,8 @@ class PrayerEntry(db.Model):
     stickers = db.Column(db.String(200)) # Comma separated list
     reflection = db.Column(db.Text, nullable=True) # Added Private Reflection
     mood = db.Column(db.String(20), nullable=True) # Added Mood to Entry
+    is_urgent = db.Column(db.Boolean, default=False)
+    urgent_expiry = db.Column(db.DateTime, nullable=True)
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
     amens = db.relationship('Amen', backref='entry', lazy=True)

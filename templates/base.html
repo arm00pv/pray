@@ -30,6 +30,12 @@
                         </button>
                     </li>
 
+                    <li class="nav-item me-3">
+                        <span class="badge bg-success-subtle text-success border border-success">
+                            🙏 {{ _('Prayers Today') }}: {{ prayers_today }}
+                        </span>
+                    </li>
+
                     {% if current_user.is_authenticated %}
                         <!-- Notifications -->
                         {% set unread_count = current_user.notifications|selectattr('is_read', 'equalto', false)|list|length %}
@@ -51,7 +57,7 @@
                                     <li><span class="dropdown-item">{{ _('No new notifications') }}</span></li>
                                 {% endfor %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-center" href="{{ url_for('notification.clear_all') }}">{{ _('Mark all as read') }}</a></li>
+                                <li><a class="dropdown-item text-center" href="{{ url_for('notification.index') }}">{{ _('View All Notifications') }}</a></li>
                             </ul>
                         </li>
 

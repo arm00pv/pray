@@ -6,7 +6,7 @@ from utils import extract_tags, get_geolocation, ProfanityFilter
 from utils.gamification import check_and_award_badges
 from flask_babel import _
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import csv
 import io
 from fpdf import FPDF
@@ -61,6 +61,7 @@ def add_entry():
     is_public = 'is_public' in request.form
     is_anonymous = 'is_anonymous' in request.form
     is_private = 'is_private' in request.form
+    is_urgent = 'is_urgent' in request.form
     category = request.form.get('category')
 
     if not content:
@@ -76,6 +77,10 @@ def add_entry():
     # Enforce privacy logic: If private, it cannot be public
     if is_private:
         is_public = False
+        is_urgent = False # Urgent implies public visibility usually
+
+    if is_urgent:
+        is_public = True # Urgent must be public to be seen
 
     pf = ProfanityFilter()
     if pf.is_profane(content):
@@ -98,6 +103,8 @@ def add_entry():
         is_public=is_public,
         is_anonymous=is_anonymous,
         is_private=is_private,
+        is_urgent=is_urgent,
+        urgent_expiry=datetime.utcnow() + timedelta(hours=24) if is_urgent else None,
         category=category
     )
 

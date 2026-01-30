@@ -6,6 +6,43 @@
         <h2>{{ _('Community Prayer Wall') }}</h2>
         <p>{{ _('Join others in prayer. These requests have been shared anonymously.') }}</p>
 
+        {% if urgent_requests %}
+        <div class="card mb-4 border-danger">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                 <span>🔥 <strong>{{ _('Urgent Prayer Chain (Expires in 24h)') }}</strong></span>
+                 <span class="badge bg-white text-danger">{{ urgent_requests|length }}</span>
+            </div>
+            <div class="card-body bg-danger-subtle">
+                <div class="list-group">
+                {% for req in urgent_requests %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start border-danger">
+                        <div class="d-flex w-100 justify-content-between">
+                             <h6 class="mb-1 text-danger fw-bold">
+                                {% if req.is_anonymous %}
+                                    {{ _('Anonymous') }}
+                                {% else %}
+                                    {{ req.author.username }}
+                                {% endif %}
+                             </h6>
+                             <small class="text-muted">{{ _('Expires') }}: {{ req.urgent_expiry.strftime('%H:%M') }} UTC</small>
+                        </div>
+                        <p class="mb-1">{{ req.content }}</p>
+                        <div class="mt-2">
+                             <!-- Simple Amen button for urgent list -->
+                            <form action="{{ url_for('community.toggle_amen', entry_id=req.id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    🙏 {{ _('Pray') }}
+                                </button>
+                            </form>
+                            <span class="ms-2 badge bg-danger">{{ req.amens|length }} {{ _('Praying') }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <form class="mb-4" method="GET" action="{{ url_for('community.index') }}">
             <div class="input-group">
                 <input type="text" class="form-control" name="q" placeholder="{{ _('Search keywords or tags...') }}" value="{{ request.args.get('q', '') }}">

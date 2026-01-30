@@ -17,6 +17,12 @@ def index():
     q = request.args.get('q')
     query = PrayerEntry.query.filter_by(is_public=True, is_hidden=False)
 
+    # Filter Urgent Requests: active, urgent, not expired
+    now = datetime.utcnow()
+    urgent_requests = PrayerEntry.query.filter_by(is_public=True, is_hidden=False, is_urgent=True)\
+        .filter(PrayerEntry.urgent_expiry > now)\
+        .order_by(PrayerEntry.created_at.desc()).all()
+
     if q:
         search = f"%{q}%"
         query = query.outerjoin(PrayerEntry.tags).filter(
@@ -27,7 +33,7 @@ def index():
         )
 
     entries = query.order_by(PrayerEntry.created_at.desc()).all()
-    return render_template('community.html', entries=entries)
+    return render_template('community.html', entries=entries, urgent_requests=urgent_requests)
 
 @community_bp.route('/flag/<int:entry_id>', methods=['POST'])
 @login_required

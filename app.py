@@ -31,7 +31,7 @@ from utils.verse_linker import link_bible_verses as link_verses
 from utils.prompts import get_daily_prompt
 from models import Announcement, PrayerReminder
 from apscheduler.schedulers.background import BackgroundScheduler
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 import logging
 
@@ -145,13 +145,18 @@ def create_app():
             # Use remote address or session ID for anonymous users
             seed_key = request.remote_addr or session.get('anon_id', 'anonymous')
 
+        # Global Prayer Counter (Today)
+        today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        prayers_today = PrayerEntry.query.filter(PrayerEntry.created_at >= today_start).count()
+
         return dict(
             daily_verse=get_random_verse(locale, seed_key=seed_key),
             daily_prompt=get_daily_prompt(),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading(),
             count_stickers=count_stickers,
-            current_year=datetime.now().year
+            current_year=datetime.now().year,
+            prayers_today=prayers_today
         )
 
     # Scheduler
