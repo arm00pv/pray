@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{{ _('My Saved Prayers') }}</h2>
+
+        {% for item in saved_items %}
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between">
+                <span>
+                    <strong>{{ item.prayer_entry.author.username if item.prayer_entry.author else _('Anonymous') }}</strong>
+                    <small class="text-muted ms-2">{{ item.prayer_entry.created_at.strftime('%Y-%m-%d') }}</small>
+                </span>
+                <span class="badge bg-secondary">{{ _('Saved on') }} {{ item.created_at.strftime('%Y-%m-%d') }}</span>
+            </div>
+            <div class="card-body">
+                <p class="card-text fst-italic">"{{ item.prayer_entry.content }}"</p>
+
+                {% if item.note %}
+                <div class="alert alert-light border">
+                    <strong>{{ _('My Note:') }}</strong> {{ item.note }}
+                </div>
+                {% endif %}
+
+                <div class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editNoteModal{{ item.id }}">
+                        {{ _('Edit Note') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Note Modal -->
+        <div class="modal fade" id="editNoteModal{{ item.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('community.save_prayer', entry_id=item.prayer_entry.id) }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ _('Edit Note') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea name="note" class="form-control">{{ item.note or '' }}</textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ _('Update Note') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <p class="text-muted">{{ _('You haven\'t saved any prayers yet.') }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

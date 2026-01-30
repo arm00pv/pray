@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch
+from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch, UserBlock
 from extensions import db
 from utils import send_email
 from utils.gamification import check_and_award_badges
 import random
 from datetime import datetime, timedelta
-from sqlalchemy import or_
+from sqlalchemy import or_, not_
 
 
 community_bp = Blueprint('community', __name__, url_prefix='/community')
@@ -15,13 +15,28 @@ community_bp = Blueprint('community', __name__, url_prefix='/community')
 @community_bp.route('/')
 def index():
     q = request.args.get('q')
+
+    # Base query for visible public entries
     query = PrayerEntry.query.filter_by(is_public=True, is_hidden=False)
+
+    # Exclude blocked users if logged in
+    if current_user.is_authenticated:
+        blocked_users_ids = [b.blocked_id for b in UserBlock.query.filter_by(blocker_id=current_user.id).all()]
+        blocking_users_ids = [b.blocker_id for b in UserBlock.query.filter_by(blocked_id=current_user.id).all()]
+        excluded_ids = set(blocked_users_ids + blocking_users_ids)
+
+        if excluded_ids:
+            query = query.filter(not_(PrayerEntry.user_id.in_(excluded_ids)))
 
     # Filter Urgent Requests: active, urgent, not expired
     now = datetime.utcnow()
-    urgent_requests = PrayerEntry.query.filter_by(is_public=True, is_hidden=False, is_urgent=True)\
-        .filter(PrayerEntry.urgent_expiry > now)\
-        .order_by(PrayerEntry.created_at.desc()).all()
+    urgent_query = PrayerEntry.query.filter_by(is_public=True, is_hidden=False, is_urgent=True)\
+        .filter(PrayerEntry.urgent_expiry > now)
+
+    if current_user.is_authenticated and excluded_ids:
+        urgent_query = urgent_query.filter(not_(PrayerEntry.user_id.in_(excluded_ids)))
+
+    urgent_requests = urgent_query.order_by(PrayerEntry.created_at.desc()).all()
 
     if q:
         search = f"%{q}%"
@@ -178,3 +193,9 @@ def my_amens():
     # Extract the entries
     entries = [amen.entry for amen in amens]
     return render_template('my_amens.html', entries=entries)
+
+@community_bp.route('/saved')
+@login_required
+def saved_prayers():
+    saved = SavedPrayer.query.filter_by(user_id=current_user.id).order_by(SavedPrayer.created_at.desc()).all()
+    return render_template('saved_prayers.html', saved_items=saved)

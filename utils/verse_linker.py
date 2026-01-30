@@ -1,5 +1,5 @@
 import re
-from markupsafe import Markup
+from markupsafe import Markup, escape
 
 def link_bible_verses(text):
     """
@@ -7,6 +7,9 @@ def link_bible_verses(text):
     """
     if not text:
         return ""
+
+    # Escape user content first to prevent XSS
+    escaped_text = str(escape(text))
 
     pattern = r'\b((?:[1-3]\s)?[A-Z][a-z]+)\s+(\d+):(\d+(?:-\d+)?)'
 
@@ -21,6 +24,6 @@ def link_bible_verses(text):
 
         return f'<a href="{url}" target="_blank" class="text-decoration-underline text-primary">{full_ref}</a>'
 
-    linked_text = re.sub(pattern, replace_match, text)
+    linked_text = re.sub(pattern, replace_match, escaped_text)
 
     return Markup(linked_text)

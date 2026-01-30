@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, session, request
 from flask_migrate import Migrate
 from flask_babel import Babel, force_locale, _
 from config import Config
-from extensions import db, login_manager, bcrypt
+from extensions import db, login_manager, bcrypt, csrf
 from models import User, Admin, AdminInvite, PrayerEntry, Tag
 from routes.auth_routes import auth_bp
 from routes.admin_auth_routes import admin_auth_bp
@@ -76,6 +76,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     bcrypt.init_app(app)
+    csrf.init_app(app)
     migrate = Migrate(app, db)
 
     def get_locale():

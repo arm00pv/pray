@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ url_for('entry.calendar_view', year=year, month=month-1) }}" class="btn btn-outline-secondary">&laquo; {{ _('Prev') }}</a>
+            <h2 class="mb-0">{{ month_name }} {{ year }}</h2>
+            <a href="{{ url_for('entry.calendar_view', year=year, month=month+1) }}" class="btn btn-outline-secondary">{{ _('Next') }} &raquo;</a>
+        </div>
+
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-0 text-center" style="table-layout: fixed;">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 14.28%;">{{ _('Sun') }}</th>
+                                <th style="width: 14.28%;">{{ _('Mon') }}</th>
+                                <th style="width: 14.28%;">{{ _('Tue') }}</th>
+                                <th style="width: 14.28%;">{{ _('Wed') }}</th>
+                                <th style="width: 14.28%;">{{ _('Thu') }}</th>
+                                <th style="width: 14.28%;">{{ _('Fri') }}</th>
+                                <th style="width: 14.28%;">{{ _('Sat') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for week in month_days %}
+                            <tr>
+                                {% for day in week %}
+                                <td class="p-2 {% if day.month != month %}bg-light text-muted{% endif %}" style="height: 120px; vertical-align: top;">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="fw-bold">{{ day.day }}</span>
+                                    </div>
+
+                                    {% if day in date_map %}
+                                        <div class="mt-1 d-flex flex-column gap-1">
+                                            {% for entry in date_map[day] %}
+                                                <a href="{{ url_for('entry.user_dashboard', q=entry.content[:10]) }}" class="badge text-decoration-none {% if entry.mood %}bg-warning text-dark{% else %}bg-info{% endif %} text-truncate d-block" title="{{ entry.content }}">
+                                                    {% if entry.mood %}{{ entry.mood }} {% endif %}
+                                                    {{ entry.content[:10] }}...
+                                                </a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

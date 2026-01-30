@@ -338,3 +338,9 @@ class GroupJoinRequest(db.Model):
 
     user = db.relationship('User', backref='join_requests')
     group = db.relationship('PrayerGroup', backref='join_requests')
+
+class UserBlock(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    blocker_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    blocked_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))

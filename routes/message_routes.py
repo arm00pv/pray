@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import User, PrivateMessage, Notification
+from models import User, PrivateMessage, Notification, UserBlock
 from extensions import db
 from datetime import datetime, timezone
 from flask_babel import _, force_locale
@@ -44,28 +44,37 @@ def inbox():
 def conversation(user_id):
     other_user = User.query.get_or_404(user_id)
 
+    # Check blocking
+    is_blocked = UserBlock.query.filter_by(blocker_id=other_user.id, blocked_id=current_user.id).first()
+    i_blocked = UserBlock.query.filter_by(blocker_id=current_user.id, blocked_id=other_user.id).first()
+
     if request.method == 'POST':
-        content = request.form.get('content')
-        if content:
-            msg = PrivateMessage(
-                sender_id=current_user.id,
-                recipient_id=other_user.id,
-                content=content
-            )
-            db.session.add(msg)
+        if is_blocked:
+            flash(_('You cannot send messages to this user.'))
+        elif i_blocked:
+            flash(_('You must unblock this user to send messages.'))
+        else:
+            content = request.form.get('content')
+            if content:
+                msg = PrivateMessage(
+                    sender_id=current_user.id,
+                    recipient_id=other_user.id,
+                    content=content
+                )
+                db.session.add(msg)
 
-            # Create notification
-            with force_locale(other_user.preferred_language or 'en'):
-                notif_msg = _("New message from %(username)s", username=current_user.username)
+                # Create notification
+                with force_locale(other_user.preferred_language or 'en'):
+                    notif_msg = _("New message from %(username)s", username=current_user.username)
 
-            notif = Notification(
-                user_id=other_user.id,
-                message=notif_msg
-            )
-            db.session.add(notif)
+                notif = Notification(
+                    user_id=other_user.id,
+                    message=notif_msg
+                )
+                db.session.add(notif)
 
-            db.session.commit()
-            return redirect(url_for('message.conversation', user_id=user_id))
+                db.session.commit()
+                return redirect(url_for('message.conversation', user_id=user_id))
 
     # Mark messages as read
     unread_msgs = PrivateMessage.query.filter_by(
@@ -92,6 +101,18 @@ def conversation(user_id):
 @login_required
 def send_quick(user_id):
     # Route for "Send Message" button from profile
+
+    # Check blocking
+    is_blocked = UserBlock.query.filter_by(blocker_id=user_id, blocked_id=current_user.id).first()
+    i_blocked = UserBlock.query.filter_by(blocker_id=current_user.id, blocked_id=user_id).first()
+
+    if is_blocked:
+        flash(_('You cannot send messages to this user.'))
+        return redirect(url_for('profile.public_profile', username=User.query.get(user_id).username))
+    if i_blocked:
+        flash(_('You must unblock this user to send messages.'))
+        return redirect(url_for('profile.public_profile', username=User.query.get(user_id).username))
+
     content = request.form.get('content')
     if content:
         msg = PrivateMessage(

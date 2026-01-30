@@ -7,12 +7,55 @@ from utils.gamification import check_and_award_badges
 from flask_babel import _
 import json
 from datetime import datetime, timedelta
+from sqlalchemy import func
 import csv
 import io
 from fpdf import FPDF
 from flask import Response
+import calendar
 
 entry_bp = Blueprint('entry', __name__)
+
+@entry_bp.route('/calendar')
+@login_required
+def calendar_view():
+    year = request.args.get('year', datetime.now().year, type=int)
+    month = request.args.get('month', datetime.now().month, type=int)
+
+    # Adjust month if out of range
+    if month > 12: month, year = 1, year + 1
+    if month < 1: month, year = 12, year - 1
+
+    cal = calendar.Calendar(firstweekday=6) # Sunday start
+    month_days = cal.monthdatescalendar(year, month)
+
+    # Fetch entries for this month range
+    start_date = month_days[0][0]
+    end_date = month_days[-1][-1]
+
+    entries = PrayerEntry.query.filter(
+        PrayerEntry.user_id == current_user.id,
+        func.date(PrayerEntry.created_at) >= start_date,
+        func.date(PrayerEntry.created_at) <= end_date
+    ).all()
+
+    # Map dates to entry counts/statuses
+    # Using a dict: {date_obj: [entries]}
+    date_map = {}
+    for e in entries:
+        d = e.created_at.date()
+        if d not in date_map: date_map[d] = []
+        date_map[d].append(e)
+
+    # Month name
+    month_name = calendar.month_name[month]
+
+    return render_template('calendar.html',
+                           month_days=month_days,
+                           date_map=date_map,
+                           year=year,
+                           month=month,
+                           month_name=month_name)
 
 @entry_bp.route('/dashboard')
 @login_required

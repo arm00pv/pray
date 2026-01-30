@@ -102,6 +102,7 @@
                     {% endif %}
                 </div>
                 <form action="{{ url_for('entry.add_entry') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3 position-relative">
                         <textarea class="form-control" id="entryContent" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
                         <button type="button" id="micBtn" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Prayer') }}" onclick="toggleDictation()">
@@ -390,6 +391,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="mb-3">
                 <label class="form-label">{{ _('Goal Type') }}</label>
                 <input type="text" name="goal_type" class="form-control" placeholder="e.g. Daily Prayer" required>
@@ -413,6 +415,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="reminderForm" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div class="modal-header">
           <h5 class="modal-title">{{ _('Set Reminder') }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

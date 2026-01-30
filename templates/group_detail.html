@@ -53,6 +53,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="{{ url_for('group.edit_group', group_id=group.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="modal-header">
                             <h5 class="modal-title">{{ _('Edit Group') }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -164,6 +165,7 @@
             {% if current_user in group.members %}
             <div class="card-footer">
                 <form action="{{ url_for('group.post_message', group_id=group.id) }}" method="POST" class="d-flex" id="groupChatForm">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="input-group">
                         <button type="button" class="btn btn-outline-secondary" id="groupEmojiBtn">😊</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#groupGifModal">GIF</button>
@@ -274,6 +276,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ url_for('group.add_request', group_id=group.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="modal-header">
                         <h5 class="modal-title">{{ _('Share Prayer Request') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -298,6 +301,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ url_for('group.create_event', group_id=group.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="modal-header">
                         <h5 class="modal-title">{{ _('Create Group Event') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
