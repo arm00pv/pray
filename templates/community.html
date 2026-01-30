@@ -110,6 +110,39 @@
                         <button type="button" class="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#savePrayerModal{{ entry.id }}">
                             🔖 {{ _('Save/Note') }}
                         </button>
+
+                        <button class="btn btn-sm btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#comments{{ entry.id }}">
+                            💬 {{ entry.encouragements|length }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Encouragements Section -->
+                <div class="collapse mt-3" id="comments{{ entry.id }}">
+                    <div class="card card-body bg-light">
+                        <h6>{{ _('Encouragements') }}</h6>
+                        <ul class="list-unstyled">
+                            {% for enc in entry.encouragements %}
+                            <li class="mb-2 border-bottom pb-1">
+                                <strong>{{ enc.user.username }}</strong>: {{ enc.content }}
+                                {% if current_user.id == enc.user_id %}
+                                <form action="{{ url_for('community.delete_encouragement', enc_id=enc.id) }}" method="POST" class="d-inline float-end">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-sm text-danger p-0" onclick="return confirm('{{ _('Delete?') }}')">x</button>
+                                </form>
+                                {% endif %}
+                            </li>
+                            {% else %}
+                            <li class="text-muted small">{{ _('No encouragements yet.') }}</li>
+                            {% endfor %}
+                        </ul>
+                        <form action="{{ url_for('community.add_encouragement', entry_id=entry.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="content" class="form-control" placeholder="{{ _('Write an encouragement...') }}" required>
+                                <button class="btn btn-primary" type="submit">{{ _('Post') }}</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -13,6 +13,24 @@
             </div>
         </div>
 
+        {% if memories %}
+        <div class="card mb-4 border-info">
+            <div class="card-header bg-info-subtle">
+                <strong>🗓️ {{ _('On This Day') }}</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for mem in memories %}
+                    <li class="mb-2">
+                        <small class="text-muted">{{ mem.created_at.year }}:</small>
+                        {{ mem.content }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Bible Reading Plan -->
         <div class="alert alert-secondary d-flex justify-content-between align-items-center">
             <div>

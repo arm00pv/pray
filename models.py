@@ -118,6 +118,16 @@ class PrayerEntry(db.Model):
     tags = db.relationship('Tag', secondary=entry_tags, lazy='subquery',
         backref=db.backref('entries', lazy=True))
     amens = db.relationship('Amen', backref='entry', lazy=True)
+    encouragements = db.relationship('Encouragement', backref='entry', lazy=True, cascade="all, delete-orphan")
+
+class Encouragement(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    entry_id = db.Column(db.Integer, db.ForeignKey('prayer_entry.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref='encouragements')
 
 class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)

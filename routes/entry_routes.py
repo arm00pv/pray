@@ -95,7 +95,16 @@ def user_dashboard():
 
     entries = query.order_by(PrayerEntry.created_at.desc()).all()
 
-    return render_template('user_dashboard.html', entries=entries)
+    # Memories: On This Day
+    today = datetime.now()
+    memories = PrayerEntry.query.filter(
+        PrayerEntry.user_id == current_user.id,
+        func.extract('month', PrayerEntry.created_at) == today.month,
+        func.extract('day', PrayerEntry.created_at) == today.day,
+        func.extract('year', PrayerEntry.created_at) < today.year
+    ).order_by(PrayerEntry.created_at.desc()).all()
+
+    return render_template('user_dashboard.html', entries=entries, memories=memories)
 
 @entry_bp.route('/add', methods=['POST'])
 @login_required

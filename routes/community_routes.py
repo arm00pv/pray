@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from flask_babel import _, force_locale
-from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch, UserBlock
+from models import PrayerEntry, Amen, Notification, User, Tag, SavedPrayer, PrayerPartnerMatch, UserBlock, Encouragement
 from extensions import db
-from utils import send_email
+from utils import send_email, ProfanityFilter
 from utils.gamification import check_and_award_badges
 import random
 from datetime import datetime, timedelta
@@ -199,3 +199,47 @@ def my_amens():
 def saved_prayers():
     saved = SavedPrayer.query.filter_by(user_id=current_user.id).order_by(SavedPrayer.created_at.desc()).all()
     return render_template('saved_prayers.html', saved_items=saved)
+
+@community_bp.route('/encourage/<int:entry_id>', methods=['POST'])
+@login_required
+def add_encouragement(entry_id):
+    entry = PrayerEntry.query.get_or_404(entry_id)
+    content = request.form.get('content')
+
+    if not content:
+        flash(_('Encouragement cannot be empty.'))
+        return redirect(request.referrer or url_for('community.index'))
+
+    pf = ProfanityFilter()
+    if pf.is_profane(content):
+        flash(_('Your comment contains inappropriate language.'))
+        return redirect(request.referrer or url_for('community.index'))
+
+    enc = Encouragement(user_id=current_user.id, entry_id=entry.id, content=content)
+    db.session.add(enc)
+
+    # Notify author
+    if entry.user_id and entry.user_id != current_user.id:
+        author = User.query.get(entry.user_id)
+        with force_locale(author.preferred_language or 'en'):
+            notif_msg = _("%(username)s encouraged you: %(content)s", username=current_user.username, content=content[:30])
+
+        notif = Notification(user_id=entry.user_id, message=notif_msg)
+        db.session.add(notif)
+
+    db.session.commit()
+    flash(_('Encouragement shared.'))
+    return redirect(request.referrer or url_for('community.index'))
+
+@community_bp.route('/encourage/delete/<int:enc_id>', methods=['POST'])
+@login_required
+def delete_encouragement(enc_id):
+    enc = Encouragement.query.get_or_404(enc_id)
+    if current_user.id != enc.user_id: # and not admin?
+        flash(_('Unauthorized.'))
+    else:
+        db.session.delete(enc)
+        db.session.commit()
+        flash(_('Encouragement removed.'))
+
+    return redirect(request.referrer or url_for('community.index'))
