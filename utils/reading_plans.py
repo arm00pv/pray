@@ -1,25 +1,13 @@
-READING_PLANS = {
-    "gospels_90": {
-        "title": "Gospels in 90 Days",
-        "days": {
-            1: "Matthew 1-2",
-            2: "Matthew 3-4",
-            3: "Matthew 5-6",
-            # ... truncated for demo ...
-            90: "John 20-21"
-        }
-    }
-}
+from .bible_plan import get_plan_for_day
 
 def get_todays_reading():
-    # Simple day of year logic
     from datetime import datetime
     day_of_year = datetime.now().timetuple().tm_yday
 
-    # Cycle through 90 days
-    day_num = (day_of_year % 90) + 1
+    # Use full year plan
+    # Adjust for leap years or just cap at 365
+    if day_of_year > 365: day_of_year = 365
 
-    plan = READING_PLANS['gospels_90']
-    reading = plan['days'].get(day_num, "Psalms 1") # Fallback
+    reading = get_plan_for_day(day_of_year)
 
-    return {"plan_title": plan['title'], "reading": reading}
+    return {"plan_title": "Bible in a Year", "reading": reading}

@@ -1,0 +1,49 @@
+Admin already exists.
+Badges seeded.
+ * Serving Flask app 'app'
+ * Debug mode: off
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.0.2:5001
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:31] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:31] "GET /static/js/push_notifications.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:31] "GET /static/js/dictation.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:31] "GET /static/sw.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "GET /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "POST /login HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:37:32] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:43:11] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:43:11] "GET /static/js/dictation.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:43:11] "GET /static/js/push_notifications.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:43:11] "GET /static/sw.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:35] "GET /register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:35] "GET /static/js/push_notifications.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:35] "GET /static/js/dictation.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:35] "GET /static/sw.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "[32mPOST /register HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "GET /dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "GET /reading/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:37] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "GET /dashboard HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "GET /settings/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "[36mGET /static/js/dictation.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [31/Jan/2026 05:48:38] "[36mGET /static/js/push_notifications.js HTTP/1.1[0m" 304 -

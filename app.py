@@ -151,12 +151,24 @@ def create_app():
         today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
         prayers_today = PrayerEntry.query.filter(PrayerEntry.created_at >= today_start).count()
 
+        # Reading Status
+        reading_completed = False
+        if current_user.is_authenticated:
+            # Check if today's plan day is marked read
+            from models import ReadingProgress
+            today_day = datetime.now().timetuple().tm_yday
+            # Simple check: assuming 'plan_day' aligns with day of year
+            prog = ReadingProgress.query.filter_by(user_id=current_user.id, plan_day=today_day, is_completed=True).first()
+            if prog:
+                reading_completed = True
+
         return dict(
             daily_verse=get_random_verse(locale, seed_key=seed_key),
             daily_prompt=get_daily_prompt(),
             daily_devotional=get_daily_devotional(),
             active_announcement=active_announcement,
             reading_plan=get_todays_reading(),
+            reading_completed=reading_completed,
             count_stickers=count_stickers,
             current_year=datetime.now().year,
             prayers_today=prayers_today

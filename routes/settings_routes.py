@@ -1,13 +1,16 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response
 from flask_login import login_required, current_user, logout_user
 from flask_babel import _
 from models import (
     User, Amen, Praise, GroupMessage, PrivateMessage, PrayerReminder,
     SavedPrayer, SpiritualGoal, Notification, GratitudeEntry,
     AdminUserNote, PrayerPartnerMatch, Testimony, PrayerEntry,
-    GroupEvent, PrayerGroup
+    GroupEvent, PrayerGroup, SermonNote, ReadingProgress
 )
 from extensions import db, bcrypt
+import json
+from datetime import datetime
+import io
 
 settings_bp = Blueprint('settings', __name__, url_prefix='/settings')
 
@@ -55,6 +58,162 @@ def index():
         return redirect(url_for('settings.index'))
 
     return render_template('settings.html')
+
+@settings_bp.route('/export', methods=['GET'])
+@login_required
+def export_all_data():
+    data = {
+        'version': 1,
+        'exported_at': datetime.utcnow().isoformat(),
+        'user': {
+            'username': current_user.username,
+            'email': current_user.email,
+            'about_me': current_user.about_me,
+            'preferred_language': current_user.preferred_language
+        },
+        'prayers': [],
+        'sermons': [],
+        'gratitude': [],
+        'reading_progress': []
+    }
+
+    # Prayers
+    prayers = PrayerEntry.query.filter_by(user_id=current_user.id).all()
+    for p in prayers:
+        data['prayers'].append({
+            'content': p.content,
+            'created_at': p.created_at.isoformat(),
+            'status': p.status,
+            'category': p.category,
+            'is_private': p.is_private,
+            'is_public': p.is_public,
+            'mood': p.mood,
+            'reflection': p.reflection
+        })
+
+    # Sermons
+    sermons = SermonNote.query.filter_by(user_id=current_user.id).all()
+    for s in sermons:
+        data['sermons'].append({
+            'title': s.title,
+            'preacher': s.preacher,
+            'scripture': s.scripture_reference,
+            'content': s.content,
+            'created_at': s.created_at.isoformat()
+        })
+
+    # Gratitude
+    gratitude = GratitudeEntry.query.filter_by(user_id=current_user.id).all()
+    for g in gratitude:
+        data['gratitude'].append({
+            'content': g.content,
+            'created_at': g.created_at.isoformat()
+        })
+
+    # Reading
+    reading = ReadingProgress.query.filter_by(user_id=current_user.id).all()
+    for r in reading:
+        data['reading_progress'].append({
+            'plan_day': r.plan_day,
+            'reading_date': r.reading_date.isoformat(),
+            'is_completed': r.is_completed
+        })
+
+    response = make_response(json.dumps(data, indent=2))
+    response.headers['Content-Type'] = 'application/json'
+    filename = f"backup_{current_user.username}_{datetime.now().strftime('%Y%m%d')}.json"
+    response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+    return response
+
+@settings_bp.route('/import', methods=['POST'])
+@login_required
+def import_data():
+    file = request.files.get('backup_file')
+    if not file:
+        flash(_('No file selected.'))
+        return redirect(url_for('settings.index'))
+
+    try:
+        data = json.load(file)
+
+        # Simple stats
+        stats = {'prayers': 0, 'sermons': 0, 'gratitude': 0}
+
+        # Import Prayers
+        if 'prayers' in data:
+            for p_data in data['prayers']:
+                # Avoid exact duplicates based on content and approximate time?
+                # For simplicity in this demo, we just add everything as new entries
+                # but let's check content to avoid obvious spamming the same backup
+                exists = PrayerEntry.query.filter_by(user_id=current_user.id, content=p_data['content']).first()
+                if not exists:
+                    entry = PrayerEntry(
+                        user_id=current_user.id,
+                        content=p_data['content'],
+                        status=p_data.get('status', 'active'),
+                        category=p_data.get('category'),
+                        is_private=p_data.get('is_private', True),
+                        is_public=p_data.get('is_public', False),
+                        mood=p_data.get('mood'),
+                        reflection=p_data.get('reflection'),
+                        created_at=datetime.fromisoformat(p_data['created_at']) if 'created_at' in p_data else datetime.utcnow()
+                    )
+                    db.session.add(entry)
+                    stats['prayers'] += 1
+
+        # Import Sermons
+        if 'sermons' in data:
+            for s_data in data['sermons']:
+                exists = SermonNote.query.filter_by(user_id=current_user.id, title=s_data['title'], content=s_data['content']).first()
+                if not exists:
+                    note = SermonNote(
+                        user_id=current_user.id,
+                        title=s_data['title'],
+                        preacher=s_data.get('preacher'),
+                        scripture_reference=s_data.get('scripture'),
+                        content=s_data['content'],
+                        created_at=datetime.fromisoformat(s_data['created_at']) if 'created_at' in s_data else datetime.utcnow()
+                    )
+                    db.session.add(note)
+                    stats['sermons'] += 1
+
+        # Import Gratitude
+        if 'gratitude' in data:
+            for g_data in data['gratitude']:
+                exists = GratitudeEntry.query.filter_by(user_id=current_user.id, content=g_data['content']).first()
+                if not exists:
+                    entry = GratitudeEntry(
+                        user_id=current_user.id,
+                        content=g_data['content'],
+                        created_at=datetime.fromisoformat(g_data['created_at']) if 'created_at' in g_data else datetime.utcnow()
+                    )
+                    db.session.add(entry)
+                    stats['gratitude'] += 1
+
+        # Import Reading (Optional, maybe overwrite or merge)
+        if 'reading_progress' in data:
+            for r_data in data['reading_progress']:
+                if 'plan_day' in r_data and r_data['plan_day']:
+                    exists = ReadingProgress.query.filter_by(user_id=current_user.id, plan_day=r_data['plan_day']).first()
+                    if not exists:
+                        rp = ReadingProgress(
+                            user_id=current_user.id,
+                            plan_day=r_data['plan_day'],
+                            reading_date=datetime.fromisoformat(r_data['reading_date']).date(),
+                            is_completed=r_data.get('is_completed', True)
+                        )
+                        db.session.add(rp)
+
+        db.session.commit()
+        flash(_('Import successful: %(p)d prayers, %(s)d sermons, %(g)d gratitude entries added.', p=stats['prayers'], s=stats['sermons'], g=stats['gratitude']))
+
+    except json.JSONDecodeError:
+        flash(_('Invalid JSON file.'))
+    except Exception as e:
+        db.session.rollback()
+        flash(_('Error importing data: %(error)s', error=str(e)))
+
+    return redirect(url_for('settings.index'))
 
 @settings_bp.route('/delete_account', methods=['POST'])
 @login_required

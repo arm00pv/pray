@@ -17,19 +17,22 @@
                         <textarea name="scripture" class="form-control" rows="2" placeholder="{{ _('Write down the Bible verse...') }}" required></textarea>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 position-relative">
                         <label class="form-label fw-bold">O - Observation</label>
-                        <textarea name="observation" class="form-control" rows="3" placeholder="{{ _('What stands out to you in this passage? Who is the audience? Is there a repetition of words?') }}" required></textarea>
+                        <textarea name="observation" id="obs" class="form-control" rows="3" placeholder="{{ _('What stands out to you in this passage? Who is the audience? Is there a repetition of words?') }}" required></textarea>
+                        <button type="button" id="micBtnObs" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" onclick="dictation.toggle('micBtnObs', 'obs')">🎤</button>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 position-relative">
                         <label class="form-label fw-bold">A - Application</label>
-                        <textarea name="application" class="form-control" rows="3" placeholder="{{ _('How can you apply this truth to your life today?') }}" required></textarea>
+                        <textarea name="application" id="app" class="form-control" rows="3" placeholder="{{ _('How can you apply this truth to your life today?') }}" required></textarea>
+                        <button type="button" id="micBtnApp" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" onclick="dictation.toggle('micBtnApp', 'app')">🎤</button>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 position-relative">
                         <label class="form-label fw-bold">P - Prayer</label>
-                        <textarea name="prayer" class="form-control" rows="3" placeholder="{{ _('Write a prayer asking God to help you apply this scripture.') }}" required></textarea>
+                        <textarea name="prayer" id="pray" class="form-control" rows="3" placeholder="{{ _('Write a prayer asking God to help you apply this scripture.') }}" required></textarea>
+                        <button type="button" id="micBtnPray" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" onclick="dictation.toggle('micBtnPray', 'pray')">🎤</button>
                     </div>
 
                     <div class="d-grid gap-2">
