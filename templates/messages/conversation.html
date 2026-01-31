@@ -34,6 +34,7 @@
         </div>
         <div class="card-footer">
             <form method="POST" id="chatForm">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div class="input-group">
                     <button type="button" class="btn btn-outline-secondary" id="emojiBtn">😊</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#gifModal">GIF</button>

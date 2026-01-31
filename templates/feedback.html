@@ -8,6 +8,7 @@
             <div class="card-body">
                 <p>{{ _('We value your feedback. Please let us know if you have found a bug, have a feature request, or just want to say hi!') }}</p>
                 <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     {% if not current_user.is_authenticated %}
                     <div class="mb-3">
                         <label for="email" class="form-label">{{ _('Your Email (Optional)') }}</label>

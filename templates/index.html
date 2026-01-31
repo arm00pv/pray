@@ -29,6 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ _('Share Prayer Anonymously') }}</h5>
                         <form action="{{ url_for('entry.add_anonymous_entry') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <div class="mb-3">
                                 <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
                             </div>

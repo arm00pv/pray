@@ -8,6 +8,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <form action="{{ url_for('gratitude.add_entry') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
                         <textarea class="form-control" name="content" rows="3" placeholder="{{ _('What are you grateful for today?') }}" required></textarea>
                     </div>
@@ -24,6 +25,7 @@
                     <small class="text-muted">{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
                 </div>
                 <form action="{{ url_for('gratitude.delete_entry', entry_id=entry.id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <button type="submit" class="btn btn-sm btn-outline-danger">&times;</button>
                 </form>
             </div>

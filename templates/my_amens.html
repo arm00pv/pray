@@ -17,6 +17,7 @@
 
                 <div class="text-end">
                     <form action="{{ url_for('community.toggle_amen', entry_id=entry.id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <button type="submit" class="btn btn-success btn-sm">
                             🙏 {{ _('Amen') }} ({{ entry.amens|length }})
                         </button>

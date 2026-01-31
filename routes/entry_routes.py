@@ -493,6 +493,89 @@ def delete_list_item(item_id):
     db.session.commit()
     return redirect(url_for('entry.prayer_lists'))
 
+@entry_bp.route('/prayer-walk')
+@login_required
+def prayer_walk():
+    # Gather items for the walk:
+    # 1. User's Prayer Lists items
+    list_items = []
+    user_lists = PrayerList.query.filter_by(user_id=current_user.id).all()
+    for lst in user_lists:
+        for item in lst.items:
+            if not item.is_answered:
+                list_items.append({
+                    'type': 'list_item',
+                    'id': item.id,
+                    'title': lst.name,
+                    'content': item.content
+                })
+
+    # 2. User's Active Entries (not fulfilled, not dropped)
+    active_entries = []
+    entries = PrayerEntry.query.filter_by(user_id=current_user.id, status='active').order_by(PrayerEntry.created_at.desc()).limit(10).all()
+    for e in entries:
+        active_entries.append({
+            'type': 'entry',
+            'id': e.id,
+            'title': _('My Prayer'),
+            'content': e.content
+        })
+
+    # 3. Community Urgent (Active)
+    now = datetime.utcnow()
+    urgent = PrayerEntry.query.filter_by(is_public=True, is_hidden=False, is_urgent=True)\
+        .filter(PrayerEntry.urgent_expiry > now).limit(5).all()
+
+    urgent_items = []
+    for u in urgent:
+        # Don't show own urgent requests again if they are in active_entries
+        if u.user_id != current_user.id:
+            urgent_items.append({
+                'type': 'urgent',
+                'id': u.id,
+                'title': _('Urgent Community Request'),
+                'content': u.content,
+                'author': u.author.username if u.author else _('Anonymous')
+            })
+
+    # Combine and shuffle slightly or keep structured? Let's structure: Lists -> Own -> Urgent
+    walk_items = list_items + active_entries + urgent_items
+
+    return render_template('prayer_walk.html', items=walk_items)
+
+@entry_bp.route('/soap')
+@login_required
+def soap_journal():
+    return render_template('soap_journal.html')
+
+@entry_bp.route('/soap/submit', methods=['POST'])
+@login_required
+def submit_soap():
+    scripture = request.form.get('scripture')
+    observation = request.form.get('observation')
+    application = request.form.get('application')
+    prayer = request.form.get('prayer')
+
+    if not (scripture and observation and application and prayer):
+        flash(_('All SOAP fields are required.'))
+        return redirect(url_for('entry.soap_journal'))
+
+    # Format content
+    content = f"**Scripture:** {scripture}\n\n**Observation:** {observation}\n\n**Application:** {application}\n\n**Prayer:** {prayer}"
+
+    entry = PrayerEntry(
+        user_id=current_user.id,
+        content=content,
+        category='SOAP Journal',
+        is_private=True, # Default to private for detailed journaling
+        is_public=False
+    )
+
+    db.session.add(entry)
+    db.session.commit()
+    flash(_('SOAP Journal entry saved.'))
+    return redirect(url_for('entry.user_dashboard'))
+
 @entry_bp.route('/archive')
 @login_required
 def archive():

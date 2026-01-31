@@ -10,6 +10,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <form action="{{ url_for('testimony.add_testimony') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
                         <textarea class="form-control" name="content" rows="3" placeholder="{{ _('Share your testimony...') }}" required>{{ request.args.get('content', '') }}</textarea>
                     </div>
@@ -36,6 +37,7 @@
                             {% endif %}
                         {% endfor %}
                         <form action="{{ url_for('testimony.toggle_praise', testimony_id=testimony.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <button type="submit" class="btn btn-sm {% if praised %}btn-warning{% else %}btn-outline-warning{% endif %}">
                                 🙌 {{ _('Praise') }} ({{ testimony.praises|length }})
                             </button>

@@ -19,12 +19,14 @@
 
                     <hr>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="action" value="end_match">
                         <button type="submit" class="btn btn-sm btn-outline-danger">{{ _('End Match') }}</button>
                     </form>
                 {% else %}
                     <p>{{ _('You do not have an active prayer partner.') }}</p>
                     <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <input type="hidden" name="action" value="opt_in">
                         <button type="submit" class="btn btn-lg btn-success">{{ _('Find a Partner') }}</button>
                     </form>

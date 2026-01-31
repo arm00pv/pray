@@ -13,12 +13,15 @@
                 <small>{{ _('Flag Count') }}: {{ entry.flag_count }} | {{ _('Author ID') }}: {{ entry.user_id }}</small>
                 <div class="mt-2">
                     <form action="{{ url_for('admin.unhide_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <button type="submit" class="btn btn-success btn-sm">{{ _('Approve/Repost') }}</button>
                     </form>
                     <form action="{{ url_for('admin.delete_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <button type="submit" class="btn btn-danger btn-sm">{{ _('Delete Entry') }}</button>
                     </form>
                     <form action="{{ url_for('admin.block_author', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <button type="submit" class="btn btn-warning btn-sm">{{ _('Block User') }}</button>
                     </form>
                 </div>

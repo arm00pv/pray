@@ -36,6 +36,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="{{ url_for('community.save_prayer', entry_id=item.prayer_entry.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="modal-header">
                             <h5 class="modal-title">{{ _('Edit Note') }}</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>

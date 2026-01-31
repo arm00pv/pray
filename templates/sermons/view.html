@@ -23,6 +23,7 @@
                 <div class="d-flex justify-content-between">
                     <a href="{{ url_for('sermon.index') }}" class="btn btn-secondary">{{ _('Back') }}</a>
                     <form action="{{ url_for('sermon.delete', note_id=note.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure?') }}');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <button type="submit" class="btn btn-danger">{{ _('Delete') }}</button>
                     </form>
                 </div>

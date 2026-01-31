@@ -10,6 +10,7 @@
             </div>
 
             <form action="{{ url_for('entry.submit_guide') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div id="step-0" class="step active">
                     <h3>{{ _('Welcome') }}</h3>
                     <p class="lead">{{ _('Take a moment to silence your heart.') }}</p>

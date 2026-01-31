@@ -9,6 +9,7 @@
             <div class="card-header">{{ _('Update Profile') }}</div>
             <div class="card-body">
                 <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input type="hidden" name="action" value="update_profile">
                     <div class="mb-3">
                         <label class="form-label">{{ _('Username') }}</label>
@@ -56,6 +57,7 @@
             <div class="card-header">{{ _('Change Password') }}</div>
             <div class="card-body">
                 <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <input type="hidden" name="action" value="change_password">
                     <div class="mb-3">
                         <label for="current_password" class="form-label">{{ _('Current Password') }}</label>
@@ -93,6 +95,7 @@
             <div class="modal-body">
                 <p>{{ _('Are you absolutely sure?') }}</p>
                 <form action="{{ url_for('settings.delete_account') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" required id="confirm_delete">
                         <label class="form-check-label" for="confirm_delete">
