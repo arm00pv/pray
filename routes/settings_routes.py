@@ -5,7 +5,7 @@ from models import (
     User, Amen, Praise, GroupMessage, PrivateMessage, PrayerReminder,
     SavedPrayer, SpiritualGoal, Notification, GratitudeEntry,
     AdminUserNote, PrayerPartnerMatch, Testimony, PrayerEntry,
-    GroupEvent, PrayerGroup, SermonNote, ReadingProgress
+    GroupEvent, PrayerGroup, SermonNote, ReadingProgress, UserBlock
 )
 from extensions import db, bcrypt
 import json
@@ -57,7 +57,16 @@ def index():
 
         return redirect(url_for('settings.index'))
 
-    return render_template('settings.html')
+    # Fetch blocked users
+    blocked_entries = UserBlock.query.filter_by(blocker_id=current_user.id).all()
+    # Resolve IDs to User objects
+    blocked_users = []
+    for entry in blocked_entries:
+        u = User.query.get(entry.blocked_id)
+        if u:
+            blocked_users.append(u)
+
+    return render_template('settings.html', blocked_users=blocked_users)
 
 @settings_bp.route('/export', methods=['GET'])
 @login_required

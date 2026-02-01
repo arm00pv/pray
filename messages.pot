@@ -1,18 +1,17 @@
-# Spanish translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2026 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2026-02-01 02:57+0000\n"
-"PO-Revision-Date: 2026-01-25 02:07+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
-"Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,7 +20,7 @@ msgstr ""
 #: app.py:67
 #, python-format
 msgid "Prayer Reminder: %(content)s"
-msgstr "Recordatorio de Oración: %(content)s"
+msgstr ""
 
 #: app.py:68
 #, python-format
@@ -34,60 +33,51 @@ msgid ""
 "\n"
 "- Praying Diary"
 msgstr ""
-"Hola %(username)s,\n"
-"\n"
-"Pediste que te recordáramos orar por esta petición:\n"
-"\n"
-"%(entry_content)s\n"
-"\n"
-"- Diario de Oración"
 
 #: routes/admin_routes.py:98 routes/message_routes.py:139
 msgid "Message cannot be empty."
-msgstr "El mensaje no puede estar vacío."
+msgstr ""
 
 #: routes/admin_routes.py:123
 #, python-format
 msgid "Broadcast sent to %(count)d users."
-msgstr "Difusión enviada a %(count)d usuarios."
+msgstr ""
 
 #: routes/admin_routes.py:167
 msgid "Entry approved and reposted."
-msgstr "Entrada aprobada y republicada."
+msgstr ""
 
 #: routes/admin_routes.py:186
 #, python-format
 msgid "User %(username)s blocked."
-msgstr "Usuario %(username)s bloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:200
 msgid "Registered author blocked."
-msgstr "Autor registrado bloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:208
 #, python-format
 msgid "Anonymous author (%(email)s) blocked."
-msgstr "Autor anónimo (%(email)s) bloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:219
-#, fuzzy
 msgid "User deleted."
-msgstr "Entrada eliminada."
+msgstr ""
 
 #: routes/admin_routes.py:229
-#, fuzzy, python-format
+#, python-format
 msgid "User %(username)s unblocked."
-msgstr "Usuario %(username)s bloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:231
-#, fuzzy, python-format
 msgid "User is not blocked."
-msgstr "Usuario %(username)s bloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:242
-#, fuzzy, python-format
+#, python-format
 msgid "Email %(email)s unblocked."
-msgstr "Correo %(email)s desbloqueado."
+msgstr ""
 
 #: routes/admin_routes.py:244
 msgid "Email is not blocked."
@@ -95,55 +85,54 @@ msgstr ""
 
 #: routes/admin_routes.py:252
 msgid "Entry deleted."
-msgstr "Entrada eliminada."
+msgstr ""
 
 #: routes/admin_routes.py:261
 #, python-format
 msgid "Invite code created: %(code)s"
-msgstr "Código de invitación creado: %(code)s"
+msgstr ""
 
 #: routes/admin_routes.py:274
 msgid "Announcement posted."
-msgstr "Anuncio publicado."
+msgstr ""
 
 #: routes/admin_routes.py:281
 msgid "Announcement cleared."
-msgstr "Anuncio eliminado."
+msgstr ""
 
 #: routes/admin_routes.py:345
 msgid "Note added."
-msgstr "Nota añadida."
+msgstr ""
 
 #: routes/admin_routes.py:360
-#, fuzzy
 msgid "Status updated."
-msgstr "Nota de oración actualizada."
+msgstr ""
 
 #: routes/community_routes.py:60
 msgid "Entry flagged for review."
-msgstr "Entrada reportada para revisión."
+msgstr ""
 
 #: routes/community_routes.py:73
 msgid "Amen removed."
-msgstr "Amén eliminado."
+msgstr ""
 
 #: routes/community_routes.py:77 routes/community_routes.py:105
 msgid "Amen added."
-msgstr "Amén añadido."
+msgstr ""
 
 #: routes/community_routes.py:91
 #, python-format
 msgid "%(username)s said Amen to your prayer."
-msgstr "%(username)s dijo Amén a tu oración."
+msgstr ""
 
 #: routes/community_routes.py:92
 msgid "Someone prayed with you"
-msgstr "Alguien oró contigo"
+msgstr ""
 
 #: routes/community_routes.py:93
 #, python-format
 msgid "%(username)s said Amen to your prayer: '%(content)s...'"
-msgstr "%(username)s dijo Amén a tu oración: '%(content)s...'"
+msgstr ""
 
 #: routes/community_routes.py:109
 #, python-format
@@ -152,66 +141,61 @@ msgstr ""
 
 #: routes/community_routes.py:125
 msgid "Prayer note updated."
-msgstr "Nota de oración actualizada."
+msgstr ""
 
 #: routes/community_routes.py:129
 msgid "Prayer saved to your list."
-msgstr "Oración guardada en tu lista."
+msgstr ""
 
 #: routes/community_routes.py:148
 msgid "You already have an active prayer partner."
-msgstr "Ya tienes un compañero de oración activo."
+msgstr ""
 
 #: routes/community_routes.py:159
 #, python-format
 msgid "You have been matched with %(username)s!"
-msgstr "¡Has sido emparejado con %(username)s!"
+msgstr ""
 
 #: routes/community_routes.py:161
 msgid "No partners available right now. Try again later."
-msgstr "No hay compañeros disponibles ahora. Inténtalo más tarde."
+msgstr ""
 
 #: routes/community_routes.py:172
 msgid "Match ended."
-msgstr "Compañerismo terminado."
+msgstr ""
 
 #: routes/community_routes.py:210
-#, fuzzy
 msgid "Encouragement cannot be empty."
-msgstr "El mensaje no puede estar vacío."
+msgstr ""
 
 #: routes/community_routes.py:215
 msgid "Your comment contains inappropriate language."
 msgstr ""
 
 #: routes/community_routes.py:225
-#, fuzzy, python-format
+#, python-format
 msgid "%(username)s encouraged you: %(content)s"
-msgstr "%(username)s dijo Amén a tu oración: '%(content)s...'"
+msgstr ""
 
 #: routes/community_routes.py:231
-#, fuzzy
 msgid "Encouragement shared."
-msgstr "Anuncio eliminado."
+msgstr ""
 
 #: routes/community_routes.py:239
-#, fuzzy
 msgid "Unauthorized."
-msgstr "Acción no autorizada."
+msgstr ""
 
 #: routes/community_routes.py:243
-#, fuzzy
 msgid "Encouragement removed."
-msgstr "Amén eliminado."
+msgstr ""
 
 #: routes/donation_routes.py:21
 msgid "Thank you for becoming a monthly supporter!"
 msgstr ""
 
 #: routes/donation_routes.py:23
-#, fuzzy
 msgid "Thank you for your donation!"
-msgstr "¡Gracias por tus comentarios!"
+msgstr ""
 
 #: routes/entry_routes.py:182
 #, python-format
@@ -219,59 +203,52 @@ msgid "Prayer entry added. You earned new badges: %(names)s!"
 msgstr ""
 
 #: routes/entry_routes.py:184
-#, fuzzy
 msgid "Prayer entry added."
-msgstr "Nota de oración actualizada."
+msgstr ""
 
 #: routes/entry_routes.py:373
 msgid "Unauthorized action."
-msgstr "Acción no autorizada."
+msgstr ""
 
 #: routes/entry_routes.py:379
 msgid "Reflection updated."
-msgstr "Reflexión actualizada."
+msgstr ""
 
 #: routes/entry_routes.py:408
 msgid "Prayer guide was empty."
 msgstr ""
 
 #: routes/entry_routes.py:423
-#, fuzzy
 msgid "Guided prayer saved to your diary."
-msgstr "Oración guardada en tu lista."
+msgstr ""
 
 #: routes/entry_routes.py:440
-#, fuzzy
 msgid "Prayer list created."
-msgstr "Racha de Oración"
+msgstr ""
 
 #: routes/entry_routes.py:448 routes/entry_routes.py:461
 #: routes/entry_routes.py:477 routes/entry_routes.py:489
 #: routes/sermon_routes.py:47 routes/sermon_routes.py:56
-#, fuzzy
 msgid "Unauthorized"
-msgstr "ID del Autor"
+msgstr ""
 
 #: routes/entry_routes.py:453
-#, fuzzy
 msgid "Prayer list deleted."
-msgstr "Nota de oración actualizada."
+msgstr ""
 
 #: routes/entry_routes.py:520
-#, fuzzy
 msgid "My Prayer"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: routes/entry_routes.py:536
-#, fuzzy
 msgid "Urgent Community Request"
-msgstr "Muro de Comunidad en Vivo"
+msgstr ""
 
 #: routes/entry_routes.py:538 templates/community.html:22
 #: templates/community.html:58 templates/index.html:70
 #: templates/saved_prayers.html:12
 msgid "Anonymous"
-msgstr "Anónimo"
+msgstr ""
 
 #: routes/entry_routes.py:560
 msgid "All SOAP fields are required."
@@ -283,20 +260,19 @@ msgstr ""
 
 #: routes/feedback_routes.py:18
 msgid "Please provide some content."
-msgstr "Por favor proporciona algún contenido."
+msgstr ""
 
 #: routes/feedback_routes.py:31
 msgid "Thank you for your feedback!"
-msgstr "¡Gracias por tus comentarios!"
+msgstr ""
 
 #: routes/group_routes.py:44
 msgid "You must be a member to post requests."
 msgstr ""
 
 #: routes/group_routes.py:52
-#, fuzzy
 msgid "Prayer request posted."
-msgstr "Petición de Oración por el Equipo"
+msgstr ""
 
 #: routes/group_routes.py:61
 msgid "You must be a member to pray for this request."
@@ -308,25 +284,23 @@ msgstr ""
 
 #: routes/group_routes.py:75
 msgid "Only admins can create events."
-msgstr "Solo los administradores pueden crear eventos."
+msgstr ""
 
 #: routes/group_routes.py:94
 msgid "Event created."
-msgstr "Evento creado."
+msgstr ""
 
 #: routes/group_routes.py:96 routes/reminder_routes.py:47
 msgid "Invalid date format."
-msgstr "Formato de fecha inválido."
+msgstr ""
 
 #: routes/group_routes.py:124
-#, fuzzy
 msgid "Only admins can edit the group."
-msgstr "Solo los administradores pueden crear eventos."
+msgstr ""
 
 #: routes/group_routes.py:131
-#, fuzzy
 msgid "Group updated."
-msgstr "Perfil actualizado."
+msgstr ""
 
 #: routes/group_routes.py:176
 msgid "You have already requested to join this group."
@@ -337,14 +311,12 @@ msgid "Join request sent. Waiting for admin approval."
 msgstr ""
 
 #: routes/group_routes.py:192
-#, fuzzy
 msgid "Only admins can approve/reject requests."
-msgstr "Solo los administradores pueden crear eventos."
+msgstr ""
 
 #: routes/group_routes.py:199
-#, fuzzy
 msgid "User approved and added to group."
-msgstr "Entrada aprobada y republicada."
+msgstr ""
 
 #: routes/group_routes.py:203
 msgid "Join request rejected."
@@ -361,30 +333,27 @@ msgstr ""
 #: routes/message_routes.py:68 routes/message_routes.py:128
 #, python-format
 msgid "New message from %(username)s"
-msgstr "Nuevo mensaje de %(username)s"
+msgstr ""
 
 #: routes/message_routes.py:137
 msgid "Message sent."
-msgstr "Mensaje enviado."
+msgstr ""
 
 #: routes/profile_routes.py:52
 msgid "You cannot block yourself."
 msgstr ""
 
 #: routes/profile_routes.py:60
-#, fuzzy
 msgid "User blocked."
-msgstr "Bloqueado"
+msgstr ""
 
 #: routes/profile_routes.py:72
-#, fuzzy, python-format
 msgid "User unblocked."
-msgstr "Usuario %(username)s bloqueado."
+msgstr ""
 
 #: routes/reading_routes.py:37
-#, fuzzy
 msgid "Invalid day."
-msgstr "Formato de fecha inválido."
+msgstr ""
 
 #: routes/reading_routes.py:51 routes/reading_routes.py:56
 #, python-format
@@ -398,334 +367,327 @@ msgstr ""
 
 #: routes/reminder_routes.py:22
 msgid "Please select a time."
-msgstr "Por favor selecciona una hora."
+msgstr ""
 
 #: routes/reminder_routes.py:44
 msgid "Reminder set successfully."
-msgstr "Recordatorio establecido exitosamente."
+msgstr ""
 
 #: routes/sermon_routes.py:25
-#, fuzzy
 msgid "Title and Content are required."
-msgstr "El contenido es obligatorio."
+msgstr ""
 
 #: routes/sermon_routes.py:37
-#, fuzzy
 msgid "Sermon note added."
-msgstr "Nota añadida."
+msgstr ""
 
 #: routes/sermon_routes.py:61
-#, fuzzy
 msgid "Note deleted."
-msgstr "Nota añadida."
+msgstr ""
 
 #: routes/settings_routes.py:30
 msgid "Email already in use."
-msgstr "El correo electrónico ya está en uso."
+msgstr ""
 
 #: routes/settings_routes.py:42
 msgid "Profile updated."
-msgstr "Perfil actualizado."
+msgstr ""
 
 #: routes/settings_routes.py:49
 msgid "Incorrect current password."
-msgstr "Contraseña actual incorrecta."
+msgstr ""
 
 #: routes/settings_routes.py:53
 msgid "Password changed."
-msgstr "Contraseña cambiada."
+msgstr ""
 
 #: routes/settings_routes.py:125
 msgid "Your account has been permanently deleted."
-msgstr "Tu cuenta ha sido eliminada permanentemente."
+msgstr ""
 
 #: routes/settings_routes.py:130
 #, python-format
 msgid "An error occurred while deleting your account: %(error)s"
-msgstr "Ocurrió un error al eliminar tu cuenta: %(error)s"
+msgstr ""
 
 #: routes/testimony_routes.py:20
 msgid "Content is required."
-msgstr "El contenido es obligatorio."
+msgstr ""
 
 #: routes/testimony_routes.py:25
 msgid "Content contains profanity."
-msgstr "El contenido contiene blasfemias."
+msgstr ""
 
 #: routes/testimony_routes.py:31
 msgid "Testimony shared successfully."
-msgstr "Testimonio compartido exitosamente."
+msgstr ""
 
 #: routes/testimony_routes.py:43
 msgid "Praise removed."
-msgstr "Alabanza eliminada."
+msgstr ""
 
 #: routes/testimony_routes.py:51 routes/testimony_routes.py:53
 #, python-format
 msgid "%(username)s praised your testimony."
-msgstr "%(username)s alabó tu testimonio."
+msgstr ""
 
 #: routes/testimony_routes.py:52
 msgid "New Praise on your Testimony"
-msgstr "Nueva Alabanza en tu Testimonio"
+msgstr ""
 
 #: templates/admin_dashboard.html:6 templates/base.html:66
 msgid "Admin Dashboard"
-msgstr "Panel de Admin"
+msgstr ""
 
 #: templates/admin_dashboard.html:11
 msgid "Admin Notifications"
-msgstr "Notificaciones de Admin"
+msgstr ""
 
 #: templates/admin_dashboard.html:11
 msgid "There are entries requiring review."
-msgstr "Hay entradas que requieren revisión."
+msgstr ""
 
 #: templates/admin_dashboard.html:13
 msgid "Flagged Posts"
-msgstr "Publicaciones Reportadas"
+msgstr ""
 
 #: templates/admin_dashboard.html:18
 msgid "No pending notifications."
-msgstr "No hay notificaciones pendientes."
+msgstr ""
 
 #: templates/admin_dashboard.html:26
 msgid "Total Users"
-msgstr "Usuarios Totales"
+msgstr ""
 
 #: templates/admin_dashboard.html:29
 msgid "Active Today"
-msgstr "Activos Hoy"
+msgstr ""
 
 #: templates/admin_dashboard.html:35
 msgid "Total Prayers"
-msgstr "Oraciones Totales"
+msgstr ""
 
 #: templates/admin_dashboard.html:38
 msgid "Avg per User"
-msgstr "Prom. por Usuario"
+msgstr ""
 
 #: templates/admin_dashboard.html:44 templates/base.html:78
 msgid "Gratitude"
-msgstr "Gratitud"
+msgstr ""
 
 #: templates/admin_dashboard.html:52
 msgid "Reported Rate"
-msgstr "Tasa de Reportes"
+msgstr ""
 
 #: templates/admin_dashboard.html:64 templates/base.html:79
 #: templates/public_profile.html:83 templates/testimonies.html:6
 msgid "Testimonies"
-msgstr "Testimonios"
+msgstr ""
 
 #: templates/admin_dashboard.html:72 templates/base.html:80
 msgid "Groups"
-msgstr "Grupos"
+msgstr ""
 
 #: templates/admin_dashboard.html:82
 msgid "Admin Management"
-msgstr "Gestión de Admin"
+msgstr ""
 
 #: templates/admin_dashboard.html:85
 msgid "Generate New Admin Invite Code"
-msgstr "Generar Nuevo Código de Invitación de Admin"
+msgstr ""
 
 #: templates/admin_dashboard.html:87
 msgid "Review Flagged Entries"
-msgstr "Revisar Entradas Reportadas"
+msgstr ""
 
 #: templates/admin_dashboard.html:88 templates/admin_emails.html:5
 msgid "Community Email List"
-msgstr "Lista de Correos de la Comunidad"
+msgstr ""
 
 #: templates/admin_dashboard.html:89 templates/admin_feedback.html:6
 msgid "User Feedback"
-msgstr "Comentarios de Usuarios"
+msgstr ""
 
 #: templates/admin_dashboard.html:90
 msgid "Export All Entries"
-msgstr "Exportar Todas las Entradas"
+msgstr ""
 
 #: templates/admin_dashboard.html:91
 msgid "System Health"
-msgstr "Salud del Sistema"
+msgstr ""
 
 #: templates/admin_dashboard.html:97
 msgid "Global Announcement"
-msgstr "Anuncio Global"
+msgstr ""
 
 #: templates/admin_dashboard.html:102
 msgid "Enter announcement message..."
-msgstr "Escribe el mensaje del anuncio..."
+msgstr ""
 
 #: templates/admin_dashboard.html:105 templates/community.html:143
 msgid "Post"
-msgstr "Publicar"
+msgstr ""
 
 #: templates/admin_dashboard.html:110
 msgid "Clear Active Announcement"
-msgstr "Borrar Anuncio Activo"
+msgstr ""
 
 #: templates/admin_dashboard.html:118
 msgid "Top Petitions (Tags)"
-msgstr "Peticiones Principales (Etiquetas)"
+msgstr ""
 
 #: templates/admin_dashboard.html:127
 msgid "No tags data yet."
-msgstr "No hay datos de etiquetas todavía."
+msgstr ""
 
 #: templates/admin_dashboard.html:135
 msgid "Prayer Locations"
-msgstr "Ubicaciones de Oración"
+msgstr ""
 
 #: templates/admin_dashboard.html:140
 msgid "IP"
-msgstr "IP"
+msgstr ""
 
 #: templates/admin_dashboard.html:141
 msgid "Country"
-msgstr "País"
+msgstr ""
 
 #: templates/admin_dashboard.html:142
 msgid "State"
-msgstr "Estado/Región"
+msgstr ""
 
 #: templates/admin_dashboard.html:143
 msgid "City"
-msgstr "Ciudad"
+msgstr ""
 
 #: templates/admin_dashboard.html:144
 msgid "Count"
-msgstr "Conteo"
+msgstr ""
 
 #: templates/admin_dashboard.html:157
 msgid "No location data yet."
-msgstr "No hay datos de ubicación todavía."
+msgstr ""
 
 #: templates/admin_dashboard.html:169
 msgid "Registered Users"
-msgstr "Usuarios Registrados"
+msgstr ""
 
 #: templates/admin_dashboard.html:171
 msgid "Search user..."
-msgstr "Buscar usuario..."
+msgstr ""
 
 #: templates/admin_dashboard.html:172 templates/community.html:49
 msgid "Search"
-msgstr "Buscar"
+msgstr ""
 
 #: templates/admin_dashboard.html:180 templates/admin_login.html:12
 #: templates/admin_register.html:16 templates/forgot_password.html:12
 #: templates/login.html:12 templates/register.html:12
 #: templates/settings.html:39
 msgid "Username"
-msgstr "Nombre de usuario"
+msgstr ""
 
 #: templates/admin_dashboard.html:181
 msgid "Email"
-msgstr "Correo Electrónico"
+msgstr ""
 
 #: templates/admin_dashboard.html:182
 msgid "Joined Date"
-msgstr "Fecha de Ingreso"
+msgstr ""
 
 #: templates/admin_dashboard.html:183 templates/admin_emails.html:23
 msgid "Status"
-msgstr "Estado"
+msgstr ""
 
 #: templates/admin_dashboard.html:184
 msgid "Actions"
-msgstr "Acciones"
+msgstr ""
 
 #: templates/admin_dashboard.html:195
 msgid "Verified"
-msgstr "Verificado"
+msgstr ""
 
 #: templates/admin_dashboard.html:199 templates/sermons/add.html:26
-#, fuzzy
 msgid "Notes"
-msgstr "Notas para"
+msgstr ""
 
 #: templates/admin_dashboard.html:201 templates/public_profile.html:56
 msgid "Are you sure you want to block this user?"
 msgstr ""
 
 #: templates/admin_dashboard.html:203
-#, fuzzy
 msgid "Block"
-msgstr "Bloqueado"
+msgstr ""
 
 #: templates/admin_dashboard.html:208 templates/admin_emails.html:39
 #: templates/settings.html:114
-#, fuzzy
 msgid "Unblock"
-msgstr "Bloqueado"
+msgstr ""
 
 #: templates/admin_dashboard.html:211
 msgid "Are you sure you want to delete this user? This cannot be undone."
 msgstr ""
 
 #: templates/admin_dashboard.html:213
-#, fuzzy
 msgid "Delete User"
-msgstr "Eliminar Entrada"
+msgstr ""
 
 #: templates/admin_dashboard.html:224
 msgid "Notes for"
-msgstr "Notas para"
+msgstr ""
 
 #: templates/admin_dashboard.html:235
 msgid "No notes yet."
-msgstr "No hay notas todavía."
+msgstr ""
 
 #: templates/admin_dashboard.html:240
 msgid "Add a note..."
-msgstr "Añadir una nota..."
+msgstr ""
 
 #: templates/admin_dashboard.html:241
 msgid "Add Note"
-msgstr "Añadir Nota"
+msgstr ""
 
 #: templates/admin_dashboard.html:249
 msgid "No users found."
-msgstr "No se encontraron usuarios."
+msgstr ""
 
 #: templates/admin_dashboard.html:277
 msgid "System Broadcast"
-msgstr "Difusión del Sistema"
+msgstr ""
 
 #: templates/admin_dashboard.html:283
 msgid "Send a notification to ALL users..."
-msgstr "Enviar una notificación a TODOS los usuarios..."
+msgstr ""
 
 #: templates/admin_dashboard.html:284
 msgid "Broadcast"
-msgstr "Difundir"
+msgstr ""
 
 #: templates/admin_dashboard.html:292
 msgid "System Logs"
-msgstr "Registros del Sistema"
+msgstr ""
 
 #: templates/admin_dashboard.html:297
 msgid "Time"
-msgstr "Hora"
+msgstr ""
 
 #: templates/admin_dashboard.html:298
 msgid "Level"
-msgstr "Nivel"
+msgstr ""
 
 #: templates/admin_dashboard.html:299 templates/feedback.html:31
 msgid "Message"
-msgstr "Mensaje"
+msgstr ""
 
 #: templates/admin_dashboard.html:310
 msgid "No logs available."
-msgstr "No hay registros disponibles."
+msgstr ""
 
 #: templates/admin_dashboard.html:324 templates/base.html:12
 #: templates/index.html:19
 msgid "Praying Diary"
-msgstr "Diario de Oración"
+msgstr ""
 
 #: templates/admin_dashboard.html:331 templates/sermons/add.html:30
 #: templates/soap_journal.html:37
@@ -733,261 +695,250 @@ msgid "Cancel"
 msgstr ""
 
 #: templates/admin_dashboard.html:332
-#, fuzzy
 msgid "Confirm"
-msgstr "Confirmar Contraseña"
+msgstr ""
 
 #: templates/admin_dashboard.html:350 templates/notifications.html:10
 #: templates/sermons/view.html:25
-#, fuzzy
 msgid "Are you sure?"
-msgstr "¿Estás absolutamente seguro?"
+msgstr ""
 
 #: templates/admin_emails.html:6 templates/admin_feedback.html:7
 #: templates/admin_flagged.html:6 templates/admin_system_health.html:7
 #: templates/analytics.html:42 templates/archive.html:61
 #: templates/gratitude.html:38
 msgid "Back to Dashboard"
-msgstr "Volver al Panel"
+msgstr ""
 
 #: templates/admin_emails.html:9
 msgid "All"
-msgstr "Todos"
+msgstr ""
 
 #: templates/admin_emails.html:10 templates/admin_emails.html:35
 msgid "Blocked"
-msgstr "Bloqueado"
+msgstr ""
 
 #: templates/admin_emails.html:11 templates/admin_emails.html:42
 msgid "Active"
-msgstr "Activo"
+msgstr ""
 
 #: templates/admin_emails.html:20 templates/admin_register.html:20
 #: templates/index.html:37 templates/settings.html:44
 msgid "Email Address"
-msgstr "Dirección de Correo"
+msgstr ""
 
 #: templates/admin_emails.html:21
 msgid "Date Joined"
-msgstr "Fecha de Ingreso"
+msgstr ""
 
 #: templates/admin_emails.html:22
 msgid "Agreed to Terms"
-msgstr "Aceptó Términos"
+msgstr ""
 
 #: templates/admin_emails.html:49
 msgid "No community emails found."
-msgstr "No se encontraron correos de la comunidad."
+msgstr ""
 
 #: templates/admin_feedback.html:58
 msgid "No feedback found."
-msgstr "No se encontraron comentarios."
+msgstr ""
 
 #: templates/admin_flagged.html:5
 msgid "Flagged Entries"
-msgstr "Entradas Reportadas"
+msgstr ""
 
 #: templates/admin_flagged.html:13
 msgid "Flag Count"
-msgstr "Conteo de Reportes"
+msgstr ""
 
 #: templates/admin_flagged.html:13
 msgid "Author ID"
-msgstr "ID del Autor"
+msgstr ""
 
 #: templates/admin_flagged.html:17
 msgid "Approve/Repost"
-msgstr "Aprobar/Republicar"
+msgstr ""
 
 #: templates/admin_flagged.html:21
 msgid "Delete Entry"
-msgstr "Eliminar Entrada"
+msgstr ""
 
 #: templates/admin_flagged.html:25 templates/public_profile.html:57
 msgid "Block User"
-msgstr "Bloquear Usuario"
+msgstr ""
 
 #: templates/admin_flagged.html:32
 msgid "No flagged entries."
-msgstr "No hay entradas reportadas."
+msgstr ""
 
 #: templates/admin_login.html:7
 msgid "Admin Login"
-msgstr "Inicio de Sesión Admin"
+msgstr ""
 
 #: templates/admin_login.html:16 templates/admin_register.html:24
 #: templates/login.html:16 templates/register.html:20
 msgid "Password"
-msgstr "Contraseña"
+msgstr ""
 
 #: templates/admin_login.html:19 templates/base.html:87 templates/index.html:24
 #: templates/login.html:22
 msgid "Login"
-msgstr "Iniciar Sesión"
+msgstr ""
 
 #: templates/admin_login.html:20
 msgid "Register with Invite"
-msgstr "Registrarse con Invitación"
+msgstr ""
 
 #: templates/admin_register.html:7
 msgid "Admin Registration"
-msgstr "Registro de Admin"
+msgstr ""
 
 #: templates/admin_register.html:12
 msgid "Invite Code"
-msgstr "Código de Invitación"
+msgstr ""
 
 #: templates/admin_register.html:27 templates/register.html:23
 #: templates/reset_password.html:15
 msgid "Password Strength"
-msgstr "Fortaleza de la Contraseña"
+msgstr ""
 
 #: templates/admin_register.html:35 templates/register.html:41
 msgid "Security Question"
-msgstr "Pregunta de Seguridad"
+msgstr ""
 
 #: templates/admin_register.html:37 templates/register.html:43
 msgid "Select a question..."
-msgstr "Selecciona una pregunta..."
+msgstr ""
 
 #: templates/admin_register.html:38 templates/register.html:44
 msgid "What was the name of your first pet?"
-msgstr "¿Cuál fue el nombre de tu primera mascota?"
+msgstr ""
 
 #: templates/admin_register.html:39 templates/register.html:45
 msgid "What is your mother's maiden name?"
-msgstr "¿Cuál es el apellido de soltera de tu madre?"
+msgstr ""
 
 #: templates/admin_register.html:40 templates/register.html:46
 msgid "What city were you born in?"
-msgstr "¿En qué ciudad naciste?"
+msgstr ""
 
 #: templates/admin_register.html:41 templates/register.html:47
 msgid "What is the name of your favorite book?"
-msgstr "¿Cuál es el nombre de tu libro favorito?"
+msgstr ""
 
 #: templates/admin_register.html:45 templates/answer_security_question.html:14
 #: templates/register.html:51
 msgid "Security Answer"
-msgstr "Respuesta de Seguridad"
+msgstr ""
 
 #: templates/admin_register.html:48 templates/base.html:88
 #: templates/index.html:25 templates/register.html:54
 msgid "Register"
-msgstr "Registrarse"
+msgstr ""
 
 #: templates/admin_system_health.html:6
 msgid "System Health Dashboard"
-msgstr "Panel de Salud del Sistema"
+msgstr ""
 
 #: templates/admin_system_health.html:12
 msgid "CPU Usage"
-msgstr "Uso de CPU"
+msgstr ""
 
 #: templates/admin_system_health.html:21
 msgid "Memory Usage"
-msgstr "Uso de Memoria"
+msgstr ""
 
 #: templates/admin_system_health.html:30
 msgid "Disk Usage"
-msgstr "Uso de Disco"
+msgstr ""
 
 #: templates/admin_system_health.html:39
 msgid "Database Status"
-msgstr "Estado de la Base de Datos"
+msgstr ""
 
 #: templates/analytics.html:6
 msgid "My Prayer Analytics"
-msgstr "Mis Análisis de Oración"
+msgstr ""
 
 #: templates/analytics.html:9
 msgid "Top Prayer Topics"
-msgstr "Temas de Oración Principales"
+msgstr ""
 
 #: templates/analytics.html:16
 msgid "Prayer Categories"
-msgstr "Categorías de Oración"
+msgstr ""
 
 #: templates/analytics.html:25
 msgid "Mood Distribution"
 msgstr ""
 
 #: templates/analytics.html:33
-#, fuzzy
 msgid "Activity Timeline (Last 30 Days)"
-msgstr "Consistencia de Oración (Últimos 30 Días)"
+msgstr ""
 
 #: templates/analytics.html:55
 msgid "Prayer Count"
-msgstr "Conteo de Oraciones"
+msgstr ""
 
 #: templates/analytics.html:123
-#, fuzzy
 msgid "Entries"
-msgstr "Entradas Pasadas"
+msgstr ""
 
 #: templates/answer_security_question.html:7
 msgid "Security Check"
-msgstr "Control de Seguridad"
+msgstr ""
 
 #: templates/answer_security_question.html:9
 msgid "Please answer your security question to reset your password."
 msgstr ""
-"Por favor responde tu pregunta de seguridad para restablecer tu "
-"contraseña."
 
 #: templates/answer_security_question.html:17
 msgid "Verify Answer"
-msgstr "Verificar Respuesta"
+msgstr ""
 
 #: templates/archive.html:6
-#, fuzzy
 msgid "Prayer Archive"
-msgstr "Oraciones Compartidas"
+msgstr ""
 
 #: templates/archive.html:7
-#, fuzzy
 msgid "Explore your prayer journey over time."
-msgstr "Escribe tu oración aquí..."
+msgstr ""
 
 #: templates/archive.html:31 templates/user_dashboard.html:145
 msgid "No Category"
-msgstr "Sin Categoría"
+msgstr ""
 
 #: templates/archive.html:56 templates/user_dashboard.html:408
 msgid "No entries found."
-msgstr "No se encontraron entradas."
+msgstr ""
 
 #: templates/base.html:35
-#, fuzzy
 msgid "Prayers Today"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/base.html:44
 msgid "Notifications"
-msgstr "Notificaciones"
+msgstr ""
 
 #: templates/base.html:57
 msgid "No new notifications"
-msgstr "No hay notificaciones nuevas"
+msgstr ""
 
 #: templates/base.html:60
-#, fuzzy
 msgid "View All Notifications"
-msgstr "No hay notificaciones nuevas"
+msgstr ""
 
 #: templates/base.html:64
 msgid "Hello"
-msgstr "Hola"
+msgstr ""
 
 #: templates/base.html:68
 msgid "My Prayers"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/base.html:69
-#, fuzzy
 msgid "Archive"
-msgstr "Activo"
+msgstr ""
 
 #: templates/base.html:70 templates/sermons/index.html:7
 msgid "Sermon Notes"
@@ -995,50 +946,48 @@ msgstr ""
 
 #: templates/base.html:74
 msgid "Messages"
-msgstr "Mensajes"
+msgstr ""
 
 #: templates/base.html:77 templates/my_amens.html:6
 msgid "My Amens"
-msgstr "Mis Aménes"
+msgstr ""
 
 #: templates/base.html:81
 msgid "Community"
-msgstr "Comunidad"
+msgstr ""
 
 #: templates/base.html:82
 msgid "Settings"
-msgstr "Configuración"
+msgstr ""
 
 #: templates/base.html:83
-#, fuzzy
 msgid "Support Us"
-msgstr "Exportar CSV"
+msgstr ""
 
 #: templates/base.html:85
 msgid "Logout"
-msgstr "Cerrar Sesión"
+msgstr ""
 
 #: templates/base.html:89
 msgid "Admin"
-msgstr "Administrador"
+msgstr ""
 
 #: templates/base.html:98
 msgid "Announcement"
-msgstr "Anuncio"
+msgstr ""
 
 #: templates/base.html:115
 msgid "Feedback & Bug Reports"
-msgstr "Comentarios y Reportes"
+msgstr ""
 
 #: templates/calendar.html:7 templates/prayer_walk.html:50
-#, fuzzy
 msgid "Prev"
-msgstr "Alabanza"
+msgstr ""
 
 #: templates/calendar.html:9 templates/forgot_password.html:15
 #: templates/notifications.html:58 templates/prayer_walk.html:56
 msgid "Next"
-msgstr "Siguiente"
+msgstr ""
 
 #: templates/calendar.html:18
 msgid "Sun"
@@ -1065,19 +1014,16 @@ msgid "Fri"
 msgstr ""
 
 #: templates/calendar.html:24
-#, fuzzy
 msgid "Sat"
-msgstr "Estado/Región"
+msgstr ""
 
 #: templates/community.html:6
 msgid "Community Prayer Wall"
-msgstr "Muro de Oración de la Comunidad"
+msgstr ""
 
 #: templates/community.html:7
 msgid "Join others in prayer. These requests have been shared anonymously."
 msgstr ""
-"Únete a otros en oración. Estas peticiones han sido compartidas "
-"anónimamente."
 
 #: templates/community.html:12
 msgid "Urgent Prayer Chain (Expires in 24h)"
@@ -1088,83 +1034,76 @@ msgid "Expires"
 msgstr ""
 
 #: templates/community.html:34 templates/group_detail.html:128
-#, fuzzy
 msgid "Pray"
-msgstr "Alabanza"
+msgstr ""
 
 #: templates/community.html:37
-#, fuzzy
 msgid "Praying"
-msgstr "Diario de Oración"
+msgstr ""
 
 #: templates/community.html:48
 msgid "Search keywords or tags..."
-msgstr "Buscar palabras clave o etiquetas..."
+msgstr ""
 
 #: templates/community.html:66
 msgid "Flag this post as inappropriate?"
-msgstr "¿Reportar esta publicación como inapropiada?"
+msgstr ""
 
 #: templates/community.html:66
 msgid "Flag"
-msgstr "Reportar"
+msgstr ""
 
 #: templates/community.html:106 templates/my_amens.html:22
 #: templates/prayer_walk.html:35
 msgid "Amen"
-msgstr "Amén"
+msgstr ""
 
 #: templates/community.html:111
 msgid "Save/Note"
-msgstr "Guardar/Nota"
+msgstr ""
 
 #: templates/community.html:123
-#, fuzzy
 msgid "Encouragements"
-msgstr "Alentador"
+msgstr ""
 
 #: templates/community.html:131
-#, fuzzy
 msgid "Delete?"
-msgstr "Eliminar Entrada"
+msgstr ""
 
 #: templates/community.html:136
-#, fuzzy
 msgid "No encouragements yet."
-msgstr "No hay notas todavía."
+msgstr ""
 
 #: templates/community.html:142
-#, fuzzy
 msgid "Write an encouragement..."
-msgstr "Escribe tu oración aquí..."
+msgstr ""
 
 #: templates/community.html:157
 msgid "Save Prayer & Add Note"
-msgstr "Guardar Oración y Añadir Nota"
+msgstr ""
 
 #: templates/community.html:162
 msgid "Add a private note (optional)..."
-msgstr "Añadir una nota privada (opcional)..."
+msgstr ""
 
 #: templates/community.html:165 templates/group_detail.html:76
 #: templates/group_detail.html:291 templates/group_detail.html:324
 #: templates/prayer_lists.html:68 templates/saved_prayers.html:48
 #: templates/user_dashboard.html:434 templates/user_dashboard.html:457
 msgid "Close"
-msgstr "Cerrar"
+msgstr ""
 
 #: templates/community.html:166
 msgid "Save"
-msgstr "Guardar"
+msgstr ""
 
 #: templates/community.html:173
 msgid "No public prayer requests yet. Be the first to share one!"
-msgstr "No hay peticiones públicas todavía. ¡Sé el primero en compartir una!"
+msgstr ""
 
 #: templates/donate.html:6
-#, fuzzy
 msgid "Support Praying Diary"
-msgstr "Diario de Oración"
+msgstr ""
 
 #: templates/donate.html:7
 msgid "Help us keep this platform ad-free and secure."
@@ -1206,252 +1145,233 @@ msgstr ""
 
 #: templates/feedback.html:7
 msgid "Send Feedback"
-msgstr "Enviar Comentarios"
+msgstr ""
 
 #: templates/feedback.html:9
 msgid ""
 "We value your feedback. Please let us know if you have found a bug, have "
 "a feature request, or just want to say hi!"
 msgstr ""
-"Valoramos tus comentarios. Por favor avísanos si has encontrado un error,"
-" tienes una sugerencia, o solo quieres saludar."
 
 #: templates/feedback.html:14
 msgid "Your Email (Optional)"
-msgstr "Tu Correo (Opcional)"
+msgstr ""
 
 #: templates/feedback.html:16
 msgid "Only provided if you want us to get back to you."
-msgstr "Solo si quieres que te respondamos."
+msgstr ""
 
 #: templates/feedback.html:21 templates/user_dashboard.html:143
 msgid "Category"
-msgstr "Categoría"
+msgstr ""
 
 #: templates/feedback.html:23
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: templates/feedback.html:24
 msgid "Feature Request"
-msgstr "Solicitud de Función"
+msgstr ""
 
 #: templates/feedback.html:25
 msgid "Bug Report"
-msgstr "Reporte de Error"
+msgstr ""
 
 #: templates/feedback.html:26
 msgid "Prayer Request for Dev Team"
-msgstr "Petición de Oración por el Equipo"
+msgstr ""
 
 #: templates/feedback.html:35
 msgid "Submit Feedback"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/forgot_password.html:7
 msgid "Forgot Password"
-msgstr "Olvidé mi Contraseña"
+msgstr ""
 
 #: templates/gratitude.html:6
 msgid "Gratitude Journal"
-msgstr "Diario de Gratitud"
+msgstr ""
 
 #: templates/gratitude.html:13
 msgid "What are you grateful for today?"
-msgstr "¿Por qué estás agradecido hoy?"
+msgstr ""
 
 #: templates/gratitude.html:15
 msgid "Add Gratitude"
-msgstr "Añadir Gratitud"
+msgstr ""
 
 #: templates/gratitude.html:33
 msgid "No gratitude entries yet."
-msgstr "No hay entradas de gratitud todavía."
+msgstr ""
 
 #: templates/group_detail.html:6
 msgid "Back to Groups"
-msgstr "Volver a Grupos"
+msgstr ""
 
 #: templates/group_detail.html:18 templates/group_detail.html:71
-#, fuzzy
 msgid "Purpose"
-msgstr "Alabanza"
+msgstr ""
 
 #: templates/group_detail.html:21
 msgid "Created by"
-msgstr "Creado por"
+msgstr ""
 
 #: templates/group_detail.html:24 templates/group_detail.html:58
-#, fuzzy
 msgid "Edit Group"
-msgstr "Unirse a Grupo"
+msgstr ""
 
 #: templates/group_detail.html:32
 msgid "Pending Join Requests"
 msgstr ""
 
 #: templates/group_detail.html:39
-#, fuzzy
 msgid "Approve"
-msgstr "Aprobar/Republicar"
+msgstr ""
 
 #: templates/group_detail.html:42
 msgid "Reject"
 msgstr ""
 
 #: templates/group_detail.html:63
-#, fuzzy
 msgid "Name"
-msgstr "Amén"
+msgstr ""
 
 #: templates/group_detail.html:67 templates/group_detail.html:315
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #: templates/group_detail.html:77 templates/settings.html:79
 msgid "Save Changes"
-msgstr "Guardar Cambios"
+msgstr ""
 
 #: templates/group_detail.html:87
 msgid "Upcoming Events"
-msgstr "Próximos Eventos"
+msgstr ""
 
 #: templates/group_detail.html:89
 msgid "Add Event"
-msgstr "Añadir Evento"
+msgstr ""
 
 #: templates/group_detail.html:103
 msgid "No upcoming events."
-msgstr "No hay eventos próximos."
+msgstr ""
 
 #: templates/group_detail.html:112
-#, fuzzy
 msgid "Prayer Requests"
-msgstr "Grupos de Oración"
+msgstr ""
 
 #: templates/group_detail.html:114
-#, fuzzy
 msgid "Add Request"
-msgstr "Añadir Evento"
+msgstr ""
 
 #: templates/group_detail.html:130
-#, fuzzy
 msgid "prayers"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/group_detail.html:134
-#, fuzzy
 msgid "No active prayer requests."
-msgstr "Aún no se han compartido oraciones públicas."
+msgstr ""
 
 #: templates/group_detail.html:142
 msgid "Group Chat"
-msgstr "Chat de Grupo"
+msgstr ""
 
 #: templates/group_detail.html:161 templates/messages/inbox.html:36
 msgid "No messages yet."
-msgstr "No hay mensajes todavía."
+msgstr ""
 
 #: templates/group_detail.html:172 templates/messages/conversation.html:41
 msgid "Type a message..."
-msgstr "Escribe un mensaje..."
+msgstr ""
 
 #: templates/group_detail.html:173 templates/messages/conversation.html:42
 msgid "Send"
-msgstr "Enviar"
+msgstr ""
 
 #: templates/group_detail.html:183 templates/messages/conversation.html:54
-#, fuzzy
 msgid "Select a Christian GIF"
-msgstr "Selecciona una pregunta..."
+msgstr ""
 
 #: templates/group_detail.html:269
 msgid "Chat will be enabled once more members join."
 msgstr ""
 
 #: templates/group_detail.html:281
-#, fuzzy
 msgid "Share Prayer Request"
-msgstr "Compartir Oración"
+msgstr ""
 
 #: templates/group_detail.html:286
-#, fuzzy
 msgid "Request"
-msgstr "Solicitud de Función"
+msgstr ""
 
 #: templates/group_detail.html:287
 msgid "How can we pray for you?"
 msgstr ""
 
 #: templates/group_detail.html:292
-#, fuzzy
 msgid "Post Request"
-msgstr "Solicitud de Función"
+msgstr ""
 
 #: templates/group_detail.html:306
 msgid "Create Group Event"
-msgstr "Crear Evento de Grupo"
+msgstr ""
 
 #: templates/group_detail.html:311
 msgid "Title"
-msgstr "Título"
+msgstr ""
 
 #: templates/group_detail.html:319
 msgid "Date & Time"
-msgstr "Fecha y Hora"
+msgstr ""
 
 #: templates/group_detail.html:325
 msgid "Create Event"
-msgstr "Crear Evento"
+msgstr ""
 
 #: templates/group_detail.html:335
-#, fuzzy
 msgid "Group Admins"
-msgstr "Grupos"
+msgstr ""
 
 #: templates/group_detail.html:350 templates/groups.html:44
 msgid "Members"
-msgstr "Miembros"
+msgstr ""
 
 #: templates/group_detail.html:364
-#, fuzzy
 msgid "Promote to Admin"
-msgstr "Promover"
+msgstr ""
 
 #: templates/groups.html:6
 msgid "Prayer Groups"
-msgstr "Grupos de Oración"
+msgstr ""
 
 #: templates/groups.html:11
 msgid "Create New Group"
-msgstr "Crear Nuevo Grupo"
+msgstr ""
 
 #: templates/groups.html:15
 msgid "Group Name"
-msgstr "Nombre del Grupo"
+msgstr ""
 
 #: templates/groups.html:18
 msgid "Description (Optional)"
-msgstr "Descripción (Opcional)"
+msgstr ""
 
 #: templates/groups.html:21
-#, fuzzy
 msgid "Group Purpose (Optional)"
-msgstr "Tu Correo (Opcional)"
+msgstr ""
 
 #: templates/groups.html:24 templates/prayer_lists.html:69
 msgid "Create"
-msgstr "Crear"
+msgstr ""
 
 #: templates/groups.html:49
-#, fuzzy
 msgid "Enter"
-msgstr "General"
+msgstr ""
 
 #: templates/groups.html:52
-#, fuzzy
 msgid "Leave"
-msgstr "Nivel"
+msgstr ""
 
 #: templates/groups.html:58
 msgid "Request to Join"
@@ -1459,71 +1379,67 @@ msgstr ""
 
 #: templates/groups.html:67
 msgid "No prayer groups found."
-msgstr "No se encontraron grupos de oración."
+msgstr ""
 
 #: templates/index.html:9 templates/user_dashboard.html:12
 msgid "Verse of the Day"
-msgstr "Versículo del Día"
+msgstr ""
 
 #: templates/index.html:20
 msgid ""
 "A safe space to document your prayers, gratitude, and connect with a "
 "supportive community."
 msgstr ""
-"Un espacio seguro para documentar tus oraciones, gratitud y conectarte "
-"con una comunidad solidaria."
 
 #: templates/index.html:30
 msgid "Share Prayer Anonymously"
-msgstr "Compartir Oración Anónimamente"
+msgstr ""
 
 #: templates/index.html:34 templates/user_dashboard.html:136
 msgid "Write your prayer here..."
-msgstr "Escribe tu oración aquí..."
+msgstr ""
 
 #: templates/index.html:39
 msgid ""
 "Your email is required for Terms & Conditions but will not be publicly "
 "displayed."
 msgstr ""
-"Tu correo es requerido para los Términos y Condiciones pero no será "
-"mostrado públicamente."
 
 #: templates/index.html:43
 msgid "I agree to the Terms & Conditions"
-msgstr "Acepto los Términos y Condiciones"
+msgstr ""
 
 #: templates/index.html:45
 msgid "Share Prayer"
-msgstr "Compartir Oración"
+msgstr ""
 
 #: templates/index.html:52
 msgid "Go to Admin Dashboard"
-msgstr "Ir al Panel de Admin"
+msgstr ""
 
 #: templates/index.html:54
 msgid "Go to Dashboard"
-msgstr "Ir al Panel"
+msgstr ""
 
 #: templates/index.html:63
 msgid "Live Community Feed"
-msgstr "Muro de Comunidad en Vivo"
+msgstr ""
 
 #: templates/index.html:84
 msgid "No public prayers yet."
-msgstr "No hay oraciones públicas todavía."
+msgstr ""
 
 #: templates/index.html:88
 msgid "View Full Community Wall"
-msgstr "Ver Muro Completo"
+msgstr ""
 
 #: templates/login.html:7
 msgid "User Login"
-msgstr "Inicio de Sesión de Usuario"
+msgstr ""
 
 #: templates/login.html:19
 msgid "Forgot Password?"
-msgstr "¿Olvidaste tu contraseña?"
+msgstr ""
 
 #: templates/login.html:27
 msgid "Login with Google"
@@ -1535,65 +1451,59 @@ msgstr ""
 
 #: templates/memory_game.html:6
 msgid "Scripture Memory Game"
-msgstr "Juego de Memoria de Escrituras"
+msgstr ""
 
 #: templates/memory_game.html:7
 msgid "Fill in the missing words."
-msgstr "Rellena las palabras que faltan."
+msgstr ""
 
 #: templates/memory_game.html:16
 msgid "Check Answers"
-msgstr "Comprobar Respuestas"
+msgstr ""
 
 #: templates/memory_game.html:17
 msgid "New Verse"
-msgstr "Nuevo Versículo"
+msgstr ""
 
 #: templates/memory_game.html:83
 msgid "Perfect! Well done!"
-msgstr "¡Perfecto! ¡Bien hecho!"
+msgstr ""
 
 #: templates/memory_game.html:86
 msgid "Keep trying!"
-msgstr "¡Sigue intentándolo!"
+msgstr ""
 
 #: templates/my_amens.html:7
 msgid "Prayers you have supported."
-msgstr "Oraciones que has apoyado."
+msgstr ""
 
 #: templates/my_amens.html:29
 msgid "You haven't Amened any prayers yet."
-msgstr "Aún no has dicho Amén a ninguna oración."
+msgstr ""
 
 #: templates/notifications.html:7
-#, fuzzy
 msgid "Notification Center"
-msgstr "Notificaciones"
+msgstr ""
 
 #: templates/notifications.html:9
-#, fuzzy
 msgid "Mark All Read"
-msgstr "Marcar todo como leído"
+msgstr ""
 
 #: templates/notifications.html:10
-#, fuzzy
 msgid "Delete All"
-msgstr "Eliminar Cuenta"
+msgstr ""
 
 #: templates/notifications.html:24 templates/user_dashboard.html:56
-#, fuzzy
 msgid "Mark as Read"
-msgstr "Marcar todo como leído"
+msgstr ""
 
 #: templates/notifications.html:26 templates/sermons/view.html:27
-#, fuzzy
 msgid "Delete"
-msgstr "Eliminar Entrada"
+msgstr ""
 
 #: templates/notifications.html:31
-#, fuzzy
 msgid "No notifications found."
-msgstr "No hay notificaciones nuevas"
+msgstr ""
 
 #: templates/notifications.html:42
 msgid "Previous"
@@ -1601,43 +1511,43 @@ msgstr ""
 
 #: templates/partners.html:6
 msgid "Prayer Partners (Beta)"
-msgstr "Compañeros de Oración (Beta)"
+msgstr ""
 
 #: templates/partners.html:7
 msgid "Connect with a partner to pray for each other this week."
-msgstr "Conéctate con un compañero para orar el uno por el otro esta semana."
+msgstr ""
 
 #: templates/partners.html:12
 msgid "You are matched!"
-msgstr "¡Tienes un compañero!"
+msgstr ""
 
 #: templates/partners.html:13
 msgid "Your prayer partner is:"
-msgstr "Tu compañero de oración es:"
+msgstr ""
 
 #: templates/partners.html:16
 msgid "View Profile"
-msgstr "Ver Perfil"
+msgstr ""
 
 #: templates/partners.html:17 templates/public_profile.html:52
 msgid "Send Message"
-msgstr "Enviar Mensaje"
+msgstr ""
 
 #: templates/partners.html:24
 msgid "End Match"
-msgstr "Terminar Compañerismo"
+msgstr ""
 
 #: templates/partners.html:27
 msgid "You do not have an active prayer partner."
-msgstr "No tienes un compañero de oración activo."
+msgstr ""
 
 #: templates/partners.html:31
 msgid "Find a Partner"
-msgstr "Buscar Compañero"
+msgstr ""
 
 #: templates/prayer_guide.html:6
 msgid "Guided Prayer: A.C.T.S."
-msgstr "Oración Guiada: A.C.T.S."
+msgstr ""
 
 #: templates/prayer_guide.html:15
 msgid "Welcome"
@@ -1645,89 +1555,85 @@ msgstr ""
 
 #: templates/prayer_guide.html:16
 msgid "Take a moment to silence your heart."
-msgstr "Toma un momento para silenciar tu corazón."
+msgstr ""
 
 #: templates/prayer_guide.html:17
 msgid "Begin"
-msgstr "Comenzar"
+msgstr ""
 
 #: templates/prayer_guide.html:21
 msgid "Adoration"
-msgstr "Adoración"
+msgstr ""
 
 #: templates/prayer_guide.html:22
 msgid "Praise God for who He is."
-msgstr "Alaba a Dios por quien Él es."
+msgstr ""
 
 #: templates/prayer_guide.html:24
 msgid "Lord, I praise you for..."
-msgstr "Señor, te alabo por..."
+msgstr ""
 
 #: templates/messages/conversation.html:8 templates/prayer_guide.html:26
 #: templates/prayer_guide.html:36 templates/prayer_guide.html:46
 #: templates/prayer_guide.html:56 templates/sermons/view.html:24
 msgid "Back"
-msgstr "Atrás"
+msgstr ""
 
 #: templates/prayer_guide.html:27
-#, fuzzy
 msgid "Next: Confession"
-msgstr "Confesión"
+msgstr ""
 
 #: templates/prayer_guide.html:31
 msgid "Confession"
-msgstr "Confesión"
+msgstr ""
 
 #: templates/prayer_guide.html:32
 msgid "Confess your sins and ask for forgiveness."
-msgstr "Confiesa tus pecados y pide perdón."
+msgstr ""
 
 #: templates/prayer_guide.html:34
 msgid "Lord, forgive me for..."
-msgstr "Señor, perdóname por..."
+msgstr ""
 
 #: templates/prayer_guide.html:37
-#, fuzzy
 msgid "Next: Thanksgiving"
-msgstr "Acción de Gracias"
+msgstr ""
 
 #: templates/prayer_guide.html:41
 msgid "Thanksgiving"
-msgstr "Acción de Gracias"
+msgstr ""
 
 #: templates/prayer_guide.html:42
 msgid "Thank God for what He has done."
-msgstr "Agradece a Dios por lo que ha hecho."
+msgstr ""
 
 #: templates/prayer_guide.html:44
 msgid "Thank you, Lord, for..."
-msgstr "Gracias, Señor, por..."
+msgstr ""
 
 #: templates/prayer_guide.html:47
-#, fuzzy
 msgid "Next: Supplication"
-msgstr "Súplica"
+msgstr ""
 
 #: templates/prayer_guide.html:51
 msgid "Supplication"
-msgstr "Súplica"
+msgstr ""
 
 #: templates/prayer_guide.html:52
 msgid "Present your requests to God."
-msgstr "Presenta tus peticiones a Dios."
+msgstr ""
 
 #: templates/prayer_guide.html:54
 msgid "Lord, I ask for..."
-msgstr "Señor, te pido..."
+msgstr ""
 
 #: templates/prayer_guide.html:57
 msgid "Finish & Save"
 msgstr ""
 
 #: templates/prayer_lists.html:7
-#, fuzzy
 msgid "My Prayer Lists"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/prayer_lists.html:8
 msgid "New List"
@@ -1738,37 +1644,32 @@ msgid "Delete this list?"
 msgstr ""
 
 #: templates/prayer_lists.html:40
-#, fuzzy
 msgid "Add new item..."
-msgstr "Añadir una nota..."
+msgstr ""
 
 #: templates/prayer_lists.html:46
 msgid "No prayer lists yet. Create one to organize specific requests."
 msgstr ""
 
 #: templates/prayer_lists.html:58
-#, fuzzy
 msgid "Create New List"
-msgstr "Crear Nuevo Grupo"
+msgstr ""
 
 #: templates/prayer_lists.html:63
 msgid "List Name"
 msgstr ""
 
 #: templates/prayer_walk.html:7
-#, fuzzy
 msgid "Prayer Walk"
-msgstr "Racha de Oración"
+msgstr ""
 
 #: templates/prayer_walk.html:8
-#, fuzzy
 msgid "Exit"
-msgstr "Siguiente"
+msgstr ""
 
 #: templates/prayer_walk.html:30
-#, fuzzy
 msgid "Mark Answered"
-msgstr "Marcar todo como leído"
+msgstr ""
 
 #: templates/prayer_walk.html:73
 msgid "Nothing to pray for right now!"
@@ -1779,144 +1680,132 @@ msgid "Add items to your Prayer Lists or check the Community Wall."
 msgstr ""
 
 #: templates/prayer_walk.html:75
-#, fuzzy
 msgid "Go Back"
-msgstr "Atrás"
+msgstr ""
 
 #: templates/public_profile.html:18
 msgid "Joined"
-msgstr "Se unió"
+msgstr ""
 
 #: templates/public_profile.html:33
-#, fuzzy
 msgid "No badges yet"
-msgstr "No hay mensajes todavía."
+msgstr ""
 
 #: templates/public_profile.html:40
 msgid "Prayers Shared"
-msgstr "Oraciones Compartidas"
+msgstr ""
 
 #: templates/public_profile.html:44
 msgid "Amens Received"
-msgstr "Amens Recibidos"
+msgstr ""
 
 #: templates/public_profile.html:61
-#, fuzzy
 msgid "You blocked this user"
-msgstr "Bloquear Usuario"
+msgstr ""
 
 #: templates/public_profile.html:65
-#, fuzzy
 msgid "Unblock User"
-msgstr "Bloquear Usuario"
+msgstr ""
 
 #: templates/public_profile.html:80
 msgid "Public Prayers"
-msgstr "Oraciones Públicas"
+msgstr ""
 
 #: templates/public_profile.html:101
 msgid "Amens"
-msgstr "Amén"
+msgstr ""
 
 #: templates/public_profile.html:107
 msgid "No public prayers shared yet."
-msgstr "Aún no se han compartido oraciones públicas."
+msgstr ""
 
 #: templates/public_profile.html:116
 msgid "Testimony"
-msgstr "Testimonio"
+msgstr ""
 
 #: templates/public_profile.html:122
 msgid "No testimonies shared yet."
-msgstr "Aún no hay testimonios."
+msgstr ""
 
 #: templates/register.html:7
 msgid "User Registration"
-msgstr "Registro de Usuario"
+msgstr ""
 
 #: templates/register.html:16
 msgid "Email Address (Optional)"
-msgstr "Correo Electrónico (Opcional)"
+msgstr ""
 
 #: templates/register.html:29 templates/register.html:73
 #: templates/reset_password.html:21 templates/reset_password.html:50
 msgid "At least 8 characters"
-msgstr "Al menos 8 caracteres"
+msgstr ""
 
 #: templates/register.html:30 templates/register.html:74
 #: templates/reset_password.html:22 templates/reset_password.html:51
 msgid "One uppercase letter"
-msgstr "Una letra mayúscula"
+msgstr ""
 
 #: templates/register.html:31 templates/register.html:75
 #: templates/reset_password.html:23 templates/reset_password.html:52
 msgid "One lowercase letter"
-msgstr "Una letra minúscula"
+msgstr ""
 
 #: templates/register.html:32 templates/register.html:76
 #: templates/reset_password.html:24 templates/reset_password.html:53
 msgid "One number"
-msgstr "Un número"
+msgstr ""
 
 #: templates/register.html:36
 msgid "Confirm Password"
-msgstr "Confirmar Contraseña"
+msgstr ""
 
 #: templates/reset_password.html:7 templates/reset_password.html:31
 msgid "Reset Password"
-msgstr "Restablecer Contraseña"
+msgstr ""
 
 #: templates/reset_password.html:12 templates/settings.html:95
 msgid "New Password"
-msgstr "Nueva Contraseña"
+msgstr ""
 
 #: templates/reset_password.html:28
 msgid "Confirm New Password"
-msgstr "Confirmar Nueva Contraseña"
+msgstr ""
 
 #: templates/saved_prayers.html:6
-#, fuzzy
 msgid "My Saved Prayers"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/saved_prayers.html:15
-#, fuzzy
 msgid "Saved on"
-msgstr "Guardar"
+msgstr ""
 
 #: templates/saved_prayers.html:22
-#, fuzzy
 msgid "My Note:"
-msgstr "Añadir Nota"
+msgstr ""
 
 #: templates/saved_prayers.html:28 templates/saved_prayers.html:41
-#, fuzzy
 msgid "Edit Note"
-msgstr "Añadir Nota"
+msgstr ""
 
 #: templates/saved_prayers.html:49
-#, fuzzy
 msgid "Update Note"
-msgstr "Actualizar Perfil"
+msgstr ""
 
 #: templates/saved_prayers.html:56
-#, fuzzy
 msgid "You haven't saved any prayers yet."
-msgstr "Aún no has dicho Amén a ninguna oración."
+msgstr ""
 
 #: templates/settings.html:6
 msgid "Profile Settings"
-msgstr "Configuración de Perfil"
+msgstr ""
 
 #: templates/settings.html:9
-#, fuzzy
 msgid "Data Management"
-msgstr "Gestión de Admin"
+msgstr ""
 
 #: templates/settings.html:13
-#, fuzzy
 msgid "Export Data"
-msgstr "Exportar PDF"
+msgstr ""
 
 #: templates/settings.html:14
 msgid "Download a copy of all your prayers, sermons, and journal entries."
@@ -1942,90 +1831,85 @@ msgstr ""
 
 #: templates/settings.html:33
 msgid "Update Profile"
-msgstr "Actualizar Perfil"
+msgstr ""
 
 #: templates/settings.html:41
 msgid "Username cannot be changed."
-msgstr "El nombre de usuario no se puede cambiar."
+msgstr ""
 
 #: templates/settings.html:48
 msgid "Preferred Language"
-msgstr "Idioma Preferido"
+msgstr ""
 
 #: templates/settings.html:55
 msgid "About Me"
-msgstr "Sobre Mí"
+msgstr ""
 
 #: templates/settings.html:56
 msgid "Share a little about yourself..."
-msgstr "Comparte un poco sobre ti..."
+msgstr ""
 
 #: templates/settings.html:59
 msgid "Profile Image URL"
-msgstr "URL de Imagen de Perfil"
+msgstr ""
 
 #: templates/settings.html:61
 msgid "Provide a direct link to an image (e.g. from Imgur)."
-msgstr "Proporciona un enlace directo a una imagen (ej. de Imgur)."
+msgstr ""
 
 #: templates/settings.html:65
 msgid "Current Image Preview"
-msgstr "Vista Previa de Imagen Actual"
+msgstr ""
 
 #: templates/settings.html:72
 msgid "Receive Email Notifications"
-msgstr "Recibir Notificaciones por Correo"
+msgstr ""
 
 #: templates/settings.html:76
-#, fuzzy
 msgid "Enable Push Notifications (Browser)"
-msgstr "Enviar una notificación a TODOS los usuarios..."
+msgstr ""
 
 #: templates/settings.html:85 templates/settings.html:98
 msgid "Change Password"
-msgstr "Cambiar Contraseña"
+msgstr ""
 
 #: templates/settings.html:91
 msgid "Current Password"
-msgstr "Contraseña Actual"
+msgstr ""
 
 #: templates/settings.html:105
-#, fuzzy
 msgid "Blocked Users"
-msgstr "Bloquear Usuario"
+msgstr ""
 
 #: templates/settings.html:120
-#, fuzzy
 msgid "You have not blocked any users."
-msgstr "Aún no has dicho Amén a ninguna oración."
+msgstr ""
 
 #: templates/settings.html:126
 msgid "Danger Zone"
-msgstr "Zona de Peligro"
+msgstr ""
 
 #: templates/settings.html:128
 msgid "Once you delete your account, there is no going back. Please be certain."
-msgstr "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor asegúrate."
+msgstr ""
 
 #: templates/settings.html:130 templates/settings.html:142
 msgid "Delete Account"
-msgstr "Eliminar Cuenta"
+msgstr ""
 
 #: templates/settings.html:146
 msgid "Are you absolutely sure?"
-msgstr "¿Estás absolutamente seguro?"
+msgstr ""
 
 #: templates/settings.html:152
 msgid ""
 "I understand that all my data (prayers, groups, messages) will be "
 "permanently deleted."
 msgstr ""
-"Entiendo que todos mis datos (oraciones, grupos, mensajes) serán "
-"eliminados permanentemente."
 
 #: templates/settings.html:155
 msgid "Yes, Delete My Account"
-msgstr "Sí, Eliminar Mi Cuenta"
+msgstr ""
 
 #: templates/soap_journal.html:11
 msgid "Scripture, Observation, Application, Prayer"
@@ -2055,91 +1939,87 @@ msgstr ""
 
 #: templates/testimonies.html:7
 msgid "Share your answered prayers and testimonies to encourage others."
-msgstr "Comparte tus oraciones contestadas y testimonios para animar a otros."
+msgstr ""
 
 #: templates/testimonies.html:15
 msgid "Share your testimony..."
-msgstr "Comparte tu testimonio..."
+msgstr ""
 
 #: templates/testimonies.html:17
 msgid "Share Testimony"
-msgstr "Compartir Testimonio"
+msgstr ""
 
 #: templates/testimonies.html:42
 msgid "Praise"
-msgstr "Alabanza"
+msgstr ""
 
 #: templates/testimonies.html:51 templates/timeline.html:33
 msgid "No testimonies yet."
-msgstr "No hay testimonios todavía."
+msgstr ""
 
 #: templates/timeline.html:7
 msgid "Answered Prayers Timeline"
-msgstr "Línea de Tiempo de Oraciones Contestadas"
+msgstr ""
 
 #: templates/timeline.html:8
 msgid "A journey of faith and gratitude."
-msgstr "Un viaje de fe y gratitud."
+msgstr ""
 
 #: templates/user_dashboard.html:19
-#, fuzzy
 msgid "Daily Devotional"
-msgstr "Correo Electrónico (Opcional)"
+msgstr ""
 
 #: templates/user_dashboard.html:30
 msgid "On This Day"
 msgstr ""
 
 #: templates/user_dashboard.html:50
-#, fuzzy
 msgid "Read"
-msgstr "Crear"
+msgstr ""
 
 #: templates/user_dashboard.html:56
-#, fuzzy
 msgid "Mark Unread"
-msgstr "Marcar todo como leído"
+msgstr ""
 
 #: templates/user_dashboard.html:59
 msgid "Today's Reading"
-msgstr "Lectura de Hoy"
+msgstr ""
 
 #: templates/user_dashboard.html:65
 msgid "My Prayer Diary"
-msgstr "Mis Oraciones"
+msgstr ""
 
 #: templates/user_dashboard.html:66
 msgid "Prayer Streak"
-msgstr "Racha de Oración"
+msgstr ""
 
 #: templates/user_dashboard.html:66
 msgid "Days"
-msgstr "Días"
+msgstr ""
 
 #: templates/user_dashboard.html:76
-#, fuzzy
 msgid "Prayer Partner"
-msgstr "Compañeros de Oración (Beta)"
+msgstr ""
 
 #: templates/user_dashboard.html:77
 msgid "Analytics"
-msgstr "Análisis"
+msgstr ""
 
 #: templates/user_dashboard.html:84
 msgid "Prayer Consistency (Last 30 Days)"
-msgstr "Consistencia de Oración (Últimos 30 Días)"
+msgstr ""
 
 #: templates/user_dashboard.html:94
 msgid "Spiritual Goals"
-msgstr "Metas Espirituales"
+msgstr ""
 
 #: templates/user_dashboard.html:113
 msgid "Set a goal for this week!"
-msgstr "¡Establece una meta para esta semana!"
+msgstr ""
 
 #: templates/user_dashboard.html:123
 msgid "New Entry"
-msgstr "Nueva Entrada"
+msgstr ""
 
 #: templates/user_dashboard.html:126
 msgid "Daily Prompt"
@@ -2150,37 +2030,36 @@ msgid "Use"
 msgstr ""
 
 #: templates/user_dashboard.html:137
-#, fuzzy
 msgid "Dictate Prayer"
-msgstr "Compartir Oración"
+msgstr ""
 
 #: templates/user_dashboard.html:146
 msgid "Personal"
-msgstr "Personal"
+msgstr ""
 
 #: templates/user_dashboard.html:147
 msgid "Family"
-msgstr "Familia"
+msgstr ""
 
 #: templates/user_dashboard.html:148
 msgid "Work"
-msgstr "Trabajo"
+msgstr ""
 
 #: templates/user_dashboard.html:149
 msgid "Health"
-msgstr "Salud"
+msgstr ""
 
 #: templates/user_dashboard.html:150
 msgid "Church"
-msgstr "Iglesia"
+msgstr ""
 
 #: templates/user_dashboard.html:151
 msgid "World"
-msgstr "Mundo"
+msgstr ""
 
 #: templates/user_dashboard.html:152
 msgid "Other"
-msgstr "Otro"
+msgstr ""
 
 #: templates/user_dashboard.html:156 templates/user_dashboard.html:293
 #: templates/user_dashboard.html:327
@@ -2189,24 +2068,23 @@ msgstr ""
 
 #: templates/user_dashboard.html:180
 msgid "Share to Community Wall"
-msgstr "Compartir en Muro de la Comunidad"
+msgstr ""
 
 #: templates/user_dashboard.html:186
-#, fuzzy
 msgid "Urgent Request (24h)"
-msgstr "Solicitud de Función"
+msgstr ""
 
 #: templates/user_dashboard.html:194
 msgid "Post Anonymously"
-msgstr "Publicar Anónimamente"
+msgstr ""
 
 #: templates/user_dashboard.html:202
 msgid "Private Entry (Only visible to me)"
-msgstr "Entrada Privada (Solo visible para mí)"
+msgstr ""
 
 #: templates/user_dashboard.html:205
 msgid "Add Entry"
-msgstr "Añadir Entrada"
+msgstr ""
 
 #: templates/user_dashboard.html:224
 msgid "Speech recognition is not supported in this browser."
@@ -2214,108 +2092,107 @@ msgstr ""
 
 #: templates/user_dashboard.html:283
 msgid "Search keywords..."
-msgstr "Buscar palabras clave..."
+msgstr ""
 
 #: templates/user_dashboard.html:307
 msgid "Clear Filters"
-msgstr "Borrar Filtros"
+msgstr ""
 
 #: templates/user_dashboard.html:315
 msgid "Export CSV"
-msgstr "Exportar CSV"
+msgstr ""
 
 #: templates/user_dashboard.html:316
 msgid "Export PDF"
-msgstr "Exportar PDF"
+msgstr ""
 
 #: templates/user_dashboard.html:317
-#, fuzzy
 msgid "Export JSON"
-msgstr "Exportar CSV"
+msgstr ""
 
 #: templates/user_dashboard.html:321
 msgid "Past Entries"
-msgstr "Entradas Pasadas"
+msgstr ""
 
 #: templates/user_dashboard.html:331
 msgid "Continuous"
-msgstr "Continuo"
+msgstr ""
 
 #: templates/user_dashboard.html:334
 msgid "Public"
-msgstr "Público"
+msgstr ""
 
 #: templates/user_dashboard.html:359
 msgid "My Reflection"
-msgstr "Mi Reflexión"
+msgstr ""
 
 #: templates/user_dashboard.html:361
 msgid "Add private notes/reflections..."
-msgstr "Añadir notas/reflexiones privadas..."
+msgstr ""
 
 #: templates/user_dashboard.html:362
 msgid "Save Reflection"
-msgstr "Guardar Reflexión"
+msgstr ""
 
 #: templates/user_dashboard.html:371
 msgid "Fulfilled"
-msgstr "Cumplido"
+msgstr ""
 
 #: templates/user_dashboard.html:375
 msgid "Share as Testimony"
-msgstr "Compartir como Testimonio"
+msgstr ""
 
 #: templates/user_dashboard.html:380
 msgid "No longer petition"
-msgstr "Ya no pedir"
+msgstr ""
 
 #: templates/user_dashboard.html:384
 msgid "Unmark Continuous"
-msgstr "Desmarcar Continuo"
+msgstr ""
 
 #: templates/user_dashboard.html:384
 msgid "Mark Continuous"
-msgstr "Marcar Continuo"
+msgstr ""
 
 #: templates/user_dashboard.html:391
 msgid "Remind Me"
-msgstr "Recordarme"
+msgstr ""
 
 #: templates/user_dashboard.html:419
 msgid "Set New Goal"
-msgstr "Establecer Nueva Meta"
+msgstr ""
 
 #: templates/user_dashboard.html:425
 msgid "Goal Type"
-msgstr "Tipo de Meta"
+msgstr ""
 
 #: templates/user_dashboard.html:429
 msgid "Target Count (Weekly)"
-msgstr "Objetivo (Semanal)"
+msgstr ""
 
 #: templates/user_dashboard.html:435
 msgid "Set Goal"
-msgstr "Establecer Meta"
+msgstr ""
 
 #: templates/user_dashboard.html:449 templates/user_dashboard.html:458
 msgid "Set Reminder"
-msgstr "Establecer Recordatorio"
+msgstr ""
 
 #: templates/user_dashboard.html:453
 msgid "When would you like to be reminded?"
-msgstr "¿Cuándo te gustaría recibir el recordatorio?"
+msgstr ""
 
 #: templates/messages/conversation.html:11
 msgid "Conversation with"
-msgstr "Conversación con"
+msgstr ""
 
 #: templates/messages/inbox.html:7
 msgid "Inbox"
-msgstr "Bandeja de Entrada"
+msgstr ""
 
 #: templates/messages/inbox.html:22
 msgid "You"
-msgstr "Tú"
+msgstr ""
 
 #: templates/reading/index.html:7
 msgid "Bible Reading Plan"
@@ -2326,145 +2203,45 @@ msgid "Days Completed"
 msgstr ""
 
 #: templates/reading/index.html:20
-#, fuzzy
 msgid "Day"
-msgstr "Días"
+msgstr ""
 
 #: templates/reading/index.html:30
 msgid "Mark"
 msgstr ""
 
 #: templates/sermons/add.html:7
-#, fuzzy
 msgid "Add Sermon Note"
-msgstr "Añadir Nota"
+msgstr ""
 
 #: templates/sermons/add.html:12
 msgid "Sermon Title"
 msgstr ""
 
 #: templates/sermons/add.html:17
-#, fuzzy
 msgid "Preacher/Speaker"
-msgstr "Compañeros de Oración (Beta)"
+msgstr ""
 
 #: templates/sermons/add.html:21
 msgid "Key Scripture"
 msgstr ""
 
 #: templates/sermons/add.html:31
-#, fuzzy
 msgid "Save Note"
-msgstr "Guardar/Nota"
+msgstr ""
 
 #: templates/sermons/index.html:8
-#, fuzzy
 msgid "New Note"
-msgstr "Añadir Nota"
+msgstr ""
 
 #: templates/sermons/index.html:20
 msgid "Preacher"
 msgstr ""
 
 #: templates/sermons/index.html:23 templates/sermons/view.html:16
-#, fuzzy
 msgid "Scripture"
-msgstr "Juego de Memoria de Escrituras"
+msgstr ""
 
 #: templates/sermons/index.html:32
-#, fuzzy
 msgid "No sermon notes found."
-msgstr "No se encontraron entradas."
-
-#~ msgid "Admin Login"
-#~ msgstr "Inicio de Sesión Admin"
-
-#~ msgid "Language"
-#~ msgstr "Idioma"
-
-#~ msgid "Total Prayer Entries"
-#~ msgstr "Entradas de Oración Totales"
-
-#~ msgid "Total Gratitude Entries"
-#~ msgstr "Entradas de Gratitud Totales"
-
-#~ msgid "Total Testimonies"
-#~ msgstr "Total de Testimonios"
-
-#~ msgid "Active Prayer Groups"
-#~ msgstr "Grupos de Oración Activos"
-
-#~ msgid "Top Active Users"
-#~ msgstr "Usuarios Más Activos"
-
-#~ msgid "No active users yet."
-#~ msgstr "No hay usuarios activos todavía."
-
-#~ msgid "High content report rate detected (>5%)."
-#~ msgstr "Tasa alta de reportes de contenido detectada (>5%)."
-
-#~ msgid "Many unused admin invites (%(count)d)."
-#~ msgstr "Muchas invitaciones de admin sin usar (%(count)d)."
-
-#~ msgid "System Alert"
-#~ msgstr "Alerta del Sistema"
-
-#~ msgid "Review Queue"
-#~ msgstr "Cola de Revisión"
-
-#~ msgid "Leave Group"
-#~ msgstr "Dejar Grupo"
-
-#~ msgid "Finish"
-#~ msgstr ""
-
-#~ msgid "Amen!"
-#~ msgstr "Amén"
-
-#~ msgid "Your prayer session is complete."
-#~ msgstr "Tu sesión de oración está completa."
-
-#~ msgid "Prayer Warrior"
-#~ msgstr "Guerrero de Oración"
-
-#~ msgid "Filter"
-#~ msgstr "Filtrar"
-
-#~ msgid "Add Sticker"
-#~ msgstr "Añadir Sticker"
-
-#~ msgid "Add"
-#~ msgstr "Añadir"
-
-msgid "Support Praying Diary"
-msgstr "Apoya a Diario de Oración"
-msgid "Help us keep this platform ad-free and secure."
-msgstr "Ayúdanos a mantener esta plataforma segura y sin anuncios."
-msgid "One-Time Donation"
-msgstr "Donación Única"
-msgid "Buy us a coffee to say thanks!"
-msgstr "¡Cómpranos un café para dar las gracias!"
-msgid "Donate $5"
-msgstr "Donar $5"
-msgid "Monthly Supporter"
-msgstr "Apoyo Mensual"
-msgid "mo"
-msgstr "mes"
-msgid "Help cover our server costs."
-msgstr "Ayuda a cubrir nuestros costos de servidor."
-msgid "Subscribe"
-msgstr "Suscribirse"
-msgid "Payments are processed securely via Stripe (Mock Mode). No real charges will be made."
-msgstr "Los pagos se procesan de forma segura a través de Stripe (Modo Simulado). No se realizarán cargos reales."
-msgid "Blocked Users"
-msgstr "Usuarios Bloqueados"
-msgid "Unblock"
-msgstr "Desbloquear"
-msgid "You have not blocked any users."
-msgstr "No has bloqueado a ningún usuario."
-msgid "Login with Google"
-msgstr "Iniciar sesión con Google"
-msgid "Login with Facebook"
-msgstr "Iniciar sesión con Facebook"
-msgid "Support Us"
-msgstr "Apóyanos"
+msgstr ""

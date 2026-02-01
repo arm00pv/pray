@@ -71,4 +71,4 @@ def unblock_user(user_id):
         db.session.commit()
         flash(_('User unblocked.'))
 
-    return redirect(url_for('profile.public_profile', username=user_to_unblock.username))
+    return redirect(request.referrer or url_for('profile.public_profile', username=user_to_unblock.username))

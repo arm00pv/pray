@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>{{ _('Support Praying Diary') }}</h2>
+        <p class="lead">{{ _('Help us keep this platform ad-free and secure.') }}</p>
+
+        <div class="row mt-5">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white">{{ _('One-Time Donation') }}</div>
+                    <div class="card-body">
+                        <h3 class="card-title">$5.00</h3>
+                        <p class="card-text">{{ _('Buy us a coffee to say thanks!') }}</p>
+                        <form action="{{ url_for('donation.checkout', amount=500) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-outline-primary">{{ _('Donate $5') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-success">
+                    <div class="card-header bg-success text-white">{{ _('Monthly Supporter') }}</div>
+                    <div class="card-body">
+                        <h3 class="card-title">$10.00 / {{ _('mo') }}</h3>
+                        <p class="card-text">{{ _('Help cover our server costs.') }}</p>
+                        <form action="{{ url_for('donation.checkout', amount=1000, recurring='true') }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="submit" class="btn btn-success">{{ _('Subscribe') }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-light border mt-4">
+            <small class="text-muted">{{ _('Payments are processed securely via Stripe (Mock Mode). No real charges will be made.') }}</small>
+        </div>
+    </div>
+</div>
+{% endblock %}

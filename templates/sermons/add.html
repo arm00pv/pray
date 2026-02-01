@@ -22,12 +22,9 @@
                             <input type="text" class="form-control" id="scripture_reference" name="scripture_reference" placeholder="e.g. John 3:16">
                         </div>
                     </div>
-                    <div class="mb-3 position-relative">
+                    <div class="mb-3">
                         <label for="content" class="form-label">{{ _('Notes') }}</label>
                         <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
-                        <button type="button" id="micBtnSermon" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Notes') }}" onclick="dictation.toggle('micBtnSermon', 'content')">
-                            🎤
-                        </button>
                     </div>
                     <div class="d-flex justify-content-between">
                          <a href="{{ url_for('sermon.index') }}" class="btn btn-secondary">{{ _('Cancel') }}</a>

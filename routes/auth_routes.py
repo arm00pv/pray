@@ -194,3 +194,66 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
+# Social Login Stub
+@auth_bp.route('/login/<provider>')
+def social_login(provider):
+    if provider not in ['google', 'facebook']:
+        flash('Unsupported provider.')
+        return redirect(url_for('auth.login'))
+
+    # In a real app, we would redirect to the provider using Authlib.
+    # For this demo/environment, we will simulate a successful callback
+    # since we cannot interact with external OAuth providers.
+
+    # Mock redirect to callback with a dummy token/state
+    return redirect(url_for('auth.social_auth_callback', provider=provider, code='mock_code'))
+
+@auth_bp.route('/login/<provider>/callback')
+def social_auth_callback(provider):
+    # Simulate fetching user info
+    mock_user_info = {
+        'google': {'email': 'google_user@test.com', 'name': 'Google User', 'sub': '12345'},
+        'facebook': {'email': 'fb_user@test.com', 'name': 'Facebook User', 'sub': '67890'}
+    }
+
+    user_info = mock_user_info.get(provider)
+    if not user_info:
+        flash('Authentication failed.')
+        return redirect(url_for('auth.login'))
+
+    # Check if user exists by oauth_id or email
+    user = User.query.filter((User.oauth_provider == provider) & (User.oauth_id == user_info['sub'])).first()
+
+    if not user:
+        # Check by email to link account
+        user = User.query.filter_by(email=user_info['email']).first()
+        if user:
+            # Link existing
+            user.oauth_provider = provider
+            user.oauth_id = user_info['sub']
+        else:
+            # Create new
+            import uuid
+            # Ensure unique username
+            base_username = user_info['name'].replace(' ', '')
+            username = base_username
+            counter = 1
+            while User.query.filter_by(username=username).first():
+                username = f"{base_username}{counter}"
+                counter += 1
+
+            user = User(
+                username=username,
+                email=user_info['email'],
+                password_hash=bcrypt.generate_password_hash(str(uuid.uuid4())).decode('utf-8'), # Random password
+                oauth_provider=provider,
+                oauth_id=user_info['sub'],
+                is_verified=True # Social login implies verified email usually
+            )
+            db.session.add(user)
+
+    db.session.commit()
+    login_user(user)
+    flash(f'Logged in with {provider.title()}.')
+    return redirect(url_for('entry.user_dashboard'))

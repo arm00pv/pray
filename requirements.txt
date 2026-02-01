@@ -15,3 +15,4 @@ python-dateutil
 psutil
 Flask-WTF
 pywebpush
+Authlib

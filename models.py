@@ -34,6 +34,10 @@ class User(UserMixin, db.Model):
     notifications = db.relationship('Notification', backref='user', lazy=True)
     mood = db.Column(db.String(20), nullable=True) # Added Mood
 
+    # Social Login
+    oauth_provider = db.Column(db.String(20), nullable=True) # google, facebook
+    oauth_id = db.Column(db.String(100), nullable=True)
+
     def get_id(self):
         return f"user_{self.id}"
 

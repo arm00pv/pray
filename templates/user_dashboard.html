@@ -134,7 +134,7 @@
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3 position-relative">
                         <textarea class="form-control" id="entryContent" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
-                        <button type="button" id="micBtnEntry" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Prayer') }}" onclick="dictation.toggle('micBtnEntry', 'entryContent')">
+                        <button type="button" id="micBtn" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Prayer') }}" onclick="toggleDictation()">
                             🎤
                         </button>
                     </div>
@@ -218,6 +218,50 @@
             textarea.focus();
         }
 
+        let recognition;
+        function toggleDictation() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("{{ _('Speech recognition is not supported in this browser.') }}");
+                return;
+            }
+
+            const micBtn = document.getElementById('micBtn');
+            const textarea = document.getElementById('entryContent');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (recognition && recognition.running) {
+                recognition.stop();
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "{{ session.get('language', 'en') }}"; // Use session lang
+
+            recognition.onstart = function() {
+                recognition.running = true;
+                micBtn.classList.remove('btn-light');
+                micBtn.classList.add('btn-danger'); // Recording indicator
+            };
+
+            recognition.onend = function() {
+                recognition.running = false;
+                micBtn.classList.remove('btn-danger');
+                micBtn.classList.add('btn-light');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                if (textarea.value) {
+                    textarea.value += " " + transcript;
+                } else {
+                    textarea.value = transcript;
+                }
+            };
+
+            recognition.start();
+        }
 
         function toggleAnonymous() {
             var isPublic = document.getElementById('is_public');
