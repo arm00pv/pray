@@ -16,3 +16,4 @@ psutil
 Flask-WTF
 pywebpush
 Authlib
+ics

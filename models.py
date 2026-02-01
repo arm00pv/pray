@@ -364,6 +364,31 @@ class GroupJoinRequest(db.Model):
     user = db.relationship('User', backref='join_requests')
     group = db.relationship('PrayerGroup', backref='join_requests')
 
+class GroupPoll(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    created_by = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    question = db.Column(db.String(255), nullable=False)
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
+    group = db.relationship('PrayerGroup', backref='polls')
+    options = db.relationship('GroupPollOption', backref='poll', lazy=True, cascade="all, delete-orphan")
+    votes = db.relationship('GroupPollVote', backref='poll', lazy=True, cascade="all, delete-orphan")
+
+class GroupPollOption(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    poll_id = db.Column(db.Integer, db.ForeignKey('group_poll.id'), nullable=False)
+    text = db.Column(db.String(100), nullable=False)
+    votes = db.relationship('GroupPollVote', backref='option', lazy=True, cascade="all, delete-orphan")
+
+class GroupPollVote(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    poll_id = db.Column(db.Integer, db.ForeignKey('group_poll.id'), nullable=False)
+    option_id = db.Column(db.Integer, db.ForeignKey('group_poll_option.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+
 class UserBlock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     blocker_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

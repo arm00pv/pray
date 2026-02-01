@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response
 from flask_login import login_required, current_user
-from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest, GroupJoinRequest
-from extensions import db, bcrypt # bcrypt not needed unless verifying passwords, but db is.
+from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest, GroupJoinRequest, GroupPoll, GroupPollOption, GroupPollVote
+from extensions import db, bcrypt
 from datetime import datetime
 from flask_babel import _
+from ics import Calendar, Event as IcsEvent
 
 group_bp = Blueprint('group', __name__, url_prefix='/groups')
 
@@ -34,7 +35,62 @@ def detail(group_id):
     if current_user in group.admins:
         join_requests = GroupJoinRequest.query.filter_by(group_id=group.id).all()
 
-    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests, join_requests=join_requests)
+    polls = GroupPoll.query.filter_by(group_id=group.id, is_active=True).all()
+
+    # Check if user voted in polls
+    user_voted_polls = {}
+    for p in polls:
+        vote = GroupPollVote.query.filter_by(poll_id=p.id, user_id=current_user.id).first()
+        if vote:
+            user_voted_polls[p.id] = vote.option_id
+
+    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests, join_requests=join_requests, polls=polls, user_voted_polls=user_voted_polls)
+
+@group_bp.route('/<int:group_id>/polls/create', methods=['POST'])
+@login_required
+def create_poll(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash(_('Only admins can create polls.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    question = request.form.get('question')
+    options_str = request.form.get('options') # Comma separated
+
+    if question and options_str:
+        poll = GroupPoll(group_id=group.id, created_by=current_user.id, question=question)
+        db.session.add(poll)
+        db.session.commit()
+
+        options = [o.strip() for o in options_str.split(',') if o.strip()]
+        for opt_text in options:
+            opt = GroupPollOption(poll_id=poll.id, text=opt_text)
+            db.session.add(opt)
+        db.session.commit()
+        flash(_('Poll created.'))
+
+    return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/polls/<int:poll_id>/vote', methods=['POST'])
+@login_required
+def vote_poll(poll_id):
+    poll = GroupPoll.query.get_or_404(poll_id)
+    if current_user not in poll.group.members:
+        flash(_('Unauthorized'))
+        return redirect(url_for('group.detail', group_id=poll.group_id))
+
+    option_id = request.form.get('option_id')
+    if option_id:
+        existing = GroupPollVote.query.filter_by(poll_id=poll.id, user_id=current_user.id).first()
+        if existing:
+            existing.option_id = option_id # Change vote
+        else:
+            vote = GroupPollVote(poll_id=poll.id, option_id=option_id, user_id=current_user.id)
+            db.session.add(vote)
+        db.session.commit()
+        flash(_('Vote recorded.'))
+
+    return redirect(url_for('group.detail', group_id=poll.group_id))
 
 @group_bp.route('/<int:group_id>/request', methods=['POST'])
 @login_required
@@ -96,6 +152,26 @@ def create_event(group_id):
             flash(_('Invalid date format.'))
 
     return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/events/<int:event_id>/ics')
+@login_required
+def export_event_ics(event_id):
+    event = GroupEvent.query.get_or_404(event_id)
+    if current_user not in event.group.members:
+        flash(_('Unauthorized'))
+        return redirect(url_for('group.index'))
+
+    c = Calendar()
+    e = IcsEvent()
+    e.name = event.title
+    e.begin = event.event_datetime
+    e.description = event.description or ""
+    c.events.add(e)
+
+    response = make_response(str(c))
+    response.headers["Content-Disposition"] = f"attachment; filename={event.title}.ics"
+    response.headers["Content-Type"] = "text/calendar"
+    return response
 
 @group_bp.route('/create', methods=['POST'])
 @login_required

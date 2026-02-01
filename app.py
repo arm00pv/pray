@@ -182,6 +182,10 @@ def create_app():
             .order_by(PrayerEntry.created_at.desc()).limit(5).all()
         return render_template('index.html', entries=recent_entries)
 
+    @app.route('/faq')
+    def faq():
+        return render_template('faq.html')
+
     return app
 
 app = create_app()

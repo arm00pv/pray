@@ -112,7 +112,10 @@
 
     <footer class="mt-5 py-3 text-center text-muted border-top">
         <div class="container">
-            <small>&copy; {{ current_year }} Praying Diary. <a href="{{ url_for('feedback.index') }}" class="text-decoration-none">{{ _('Feedback & Bug Reports') }}</a></small>
+            <small>&copy; {{ current_year }} Praying Diary.
+                <a href="{{ url_for('faq') }}" class="text-decoration-none me-2">{{ _('Help & FAQ') }}</a> |
+                <a href="{{ url_for('feedback.index') }}" class="text-decoration-none">{{ _('Feedback & Bug Reports') }}</a>
+            </small>
         </div>
     </footer>
 
