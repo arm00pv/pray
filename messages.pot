@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-01 16:50+0000\n"
+"POT-Creation-Date: 2026-02-01 20:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1585,19 +1585,19 @@ msgstr ""
 msgid "Fill in the missing words."
 msgstr ""
 
-#: templates/memory_game.html:16
+#: templates/memory_game.html:18
 msgid "Check Answers"
 msgstr ""
 
-#: templates/memory_game.html:17
+#: templates/memory_game.html:19
 msgid "New Verse"
 msgstr ""
 
-#: templates/memory_game.html:83
+#: templates/memory_game.html:67
 msgid "Perfect! Well done!"
 msgstr ""
 
-#: templates/memory_game.html:86
+#: templates/memory_game.html:69
 msgid "Keep trying!"
 msgstr ""
 
@@ -2081,15 +2081,15 @@ msgstr ""
 msgid "Praise"
 msgstr ""
 
-#: templates/testimonies.html:51 templates/timeline.html:33
+#: templates/testimonies.html:51 templates/timeline.html:25
 msgid "No testimonies yet."
 msgstr ""
 
-#: templates/timeline.html:7
+#: templates/timeline.html:6
 msgid "Answered Prayers Timeline"
 msgstr ""
 
-#: templates/timeline.html:8
+#: templates/timeline.html:7
 msgid "A journey of faith and gratitude."
 msgstr ""
 
