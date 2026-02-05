@@ -47,7 +47,18 @@ def user_dashboard():
 
     entries = query.order_by(PrayerEntry.created_at.desc()).all()
 
-    return render_template('user_dashboard.html', entries=entries)
+    # On This Day Logic
+    today = datetime.now()
+    from sqlalchemy import extract
+
+    on_this_day = PrayerEntry.query.filter(
+        PrayerEntry.user_id == current_user.id,
+        extract('month', PrayerEntry.created_at) == today.month,
+        extract('day', PrayerEntry.created_at) == today.day,
+        extract('year', PrayerEntry.created_at) != today.year
+    ).all()
+
+    return render_template('user_dashboard.html', entries=entries, on_this_day=on_this_day)
 
 @entry_bp.route('/add', methods=['POST'])
 @login_required

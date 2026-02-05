@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2>{{ group.name }}</h2>
+                <p class="text-muted">{{ group.description }}</p>
+            </div>
+            <div>
+                <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to leave this group?');">
+                    <button type="submit" class="btn btn-outline-danger">Leave Group</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="alert alert-secondary">
+            <strong>Invite Code:</strong> {{ group.code }}
+        </div>
+
+        <h3>Members</h3>
+        <ul class="list-group mb-4">
+            {% for member in members %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ member.user.username }}
+                <span class="badge bg-secondary rounded-pill">{{ member.role }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('group.list_groups') }}" class="btn btn-link">&larr; Back to Groups</a>
+    </div>
+</div>
+{% endblock %}

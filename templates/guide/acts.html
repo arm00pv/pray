@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">A.C.T.S. Guided Prayer</h2>
+        <p class="text-center text-muted">Adoration &bull; Confession &bull; Thanksgiving &bull; Supplication</p>
+
+        <form action="{{ url_for('guide.submit_acts') }}" method="POST">
+            <div class="card mb-3">
+                <div class="card-header bg-primary text-white">Adoration</div>
+                <div class="card-body">
+                    <p>Praise God for who He is.</p>
+                    <textarea class="form-control" name="adoration" rows="3" placeholder="Lord, I praise You because..."></textarea>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header bg-warning text-dark">Confession</div>
+                <div class="card-body">
+                    <p>Confess your sins and ask for forgiveness.</p>
+                    <textarea class="form-control" name="confession" rows="3" placeholder="Lord, forgive me for..."></textarea>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header bg-success text-white">Thanksgiving</div>
+                <div class="card-body">
+                    <p>Thank God for what He has done.</p>
+                    <textarea class="form-control" name="thanksgiving" rows="3" placeholder="Lord, thank You for..."></textarea>
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header bg-info text-white">Supplication</div>
+                <div class="card-body">
+                    <p>Make your requests known to God.</p>
+                    <textarea class="form-control" name="supplication" rows="3" placeholder="Lord, I ask for..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-primary w-100">Finish & Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

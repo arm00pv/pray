@@ -10,6 +10,12 @@ from routes.admin_routes import admin_bp
 from routes.settings_routes import settings_bp
 from routes.analytics_routes import analytics_bp
 from routes.community_routes import community_bp
+from routes.group_routes import group_bp
+from routes.sermon_routes import sermon_bp
+from routes.guide_routes import guide_bp
+from utils.bible_verses import BIBLE_VERSES
+import random
+from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import os
 
@@ -43,6 +49,17 @@ def create_app():
     app.register_blueprint(settings_bp)
     app.register_blueprint(analytics_bp)
     app.register_blueprint(community_bp)
+    app.register_blueprint(group_bp)
+    app.register_blueprint(sermon_bp)
+    app.register_blueprint(guide_bp)
+
+    @app.context_processor
+    def inject_verse():
+        # Seed by day so it stays consistent for the day
+        seed = datetime.now().strftime('%Y%m%d')
+        rng = random.Random(seed)
+        verse = rng.choice(BIBLE_VERSES)
+        return dict(verse_of_the_day=verse)
 
     # Scheduler
     # Only run scheduler if not in debug/reloader mode to avoid duplicates

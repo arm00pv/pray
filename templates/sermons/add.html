@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add Sermon Note</h2>
+<form action="{{ url_for('sermon.add_sermon') }}" method="POST">
+    <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label for="preacher" class="form-label">Preacher / Speaker</label>
+            <input type="text" class="form-control" id="preacher" name="preacher">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="scripture" class="form-label">Key Scripture</label>
+            <input type="text" class="form-control" id="scripture" name="scripture">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Notes</label>
+        <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Save Note</button>
+    <a href="{{ url_for('sermon.list_sermons') }}" class="btn btn-link">Cancel</a>
+</form>
+{% endblock %}

@@ -1,36 +1,83 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row mb-4">
+    <!-- Verse of the Day -->
+    <div class="col-md-6 mb-3 mb-md-0">
+        <div class="card h-100 border-primary shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <i class="bi bi-lightbulb"></i> Verse of the Day
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{ verse_of_the_day.text }}</p>
+                    <footer class="blockquote-footer text-primary">{{ verse_of_the_day.ref }}</footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+
+    <!-- On This Day -->
+    <div class="col-md-6">
+        <div class="card h-100 border-info shadow-sm">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-calendar-event"></i> On This Day
+            </div>
+            <div class="card-body">
+                {% if on_this_day %}
+                    <ul class="list-unstyled">
+                        {% for entry in on_this_day[:3] %}
+                        <li class="mb-2 border-bottom pb-2">
+                            <small class="text-muted">{{ entry.created_at.year }}</small><br>
+                            {{ entry.content|truncate(100) }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% if on_this_day|length > 3 %}
+                        <small class="text-muted">and {{ on_this_day|length - 3 }} more...</small>
+                    {% endif %}
+                {% else %}
+                    <p class="text-muted">No entries from previous years on this day.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-body d-flex gap-2 flex-wrap">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newEntryModal">
+                    <i class="bi bi-pencil-square"></i> New Prayer
+                </button>
+                <a href="{{ url_for('guide.acts_wizard') }}" class="btn btn-outline-success">
+                    <i class="bi bi-magic"></i> Guided Prayer
+                </a>
+                <a href="{{ url_for('sermon.add_sermon') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-journal-plus"></i> Sermon Note
+                </a>
+                 <a href="{{ url_for('group.list_groups') }}" class="btn btn-outline-info">
+                    <i class="bi bi-people"></i> Groups
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Area: Entries & Filters -->
 <div class="row">
     <div class="col-md-12">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2>My Prayer Diary</h2>
-            <div>
-                 <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">Analytics</a>
-            </div>
-        </div>
-
-        <!-- New Entry Form -->
+        <!-- Search & Filter (Collapsible?) -->
         <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">New Entry</h5>
-                <form action="{{ url_for('entry.add_entry') }}" method="POST">
-                    <div class="mb-3">
-                        <textarea class="form-control" name="content" rows="3" placeholder="Write your prayer here..." required></textarea>
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" name="is_public" id="is_public">
-                        <label class="form-check-label" for="is_public">
-                            Share anonymously to Community Wall
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Add Entry</button>
-                </form>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                 <span><i class="bi bi-filter"></i> Filters</span>
+                 <div>
+                    <a href="{{ url_for('entry.export_csv') }}" class="btn btn-sm btn-outline-dark" title="Export CSV"><i class="bi bi-filetype-csv"></i></a>
+                    <a href="{{ url_for('entry.export_pdf') }}" class="btn btn-sm btn-outline-danger" title="Export PDF"><i class="bi bi-file-pdf"></i></a>
+                 </div>
             </div>
-        </div>
-
-        <!-- Search & Filter -->
-        <div class="card mb-4">
             <div class="card-body">
                 <form action="{{ url_for('entry.user_dashboard') }}" method="GET" class="row g-3">
                     <div class="col-md-4">
@@ -46,77 +93,105 @@
                         <button type="submit" class="btn btn-secondary w-100">Filter</button>
                     </div>
                 </form>
-                {% if request.args %}
-                    <div class="mt-2">
-                         <a href="{{ url_for('entry.user_dashboard') }}" class="text-muted">Clear Filters</a>
+                 {% if request.args %}
+                    <div class="mt-2 text-end">
+                         <a href="{{ url_for('entry.user_dashboard') }}" class="text-muted small">Clear Filters</a>
                     </div>
                 {% endif %}
             </div>
         </div>
 
-        <!-- Export Actions -->
-        <div class="mb-3 text-end">
-            <a href="{{ url_for('entry.export_csv') }}" class="btn btn-sm btn-outline-dark">Export CSV</a>
-            <a href="{{ url_for('entry.export_pdf') }}" class="btn btn-sm btn-outline-danger">Export PDF</a>
-        </div>
-
         <!-- Entries List -->
-        <h3>Past Entries</h3>
-        {% for entry in entries %}
-        <div class="card mb-3">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
-                <div>
-                    {% if entry.is_continuous %}
-                    <span class="badge bg-warning text-dark">Continuous</span>
-                    {% endif %}
-                    {% if entry.is_public %}
-                    <span class="badge bg-info text-dark">Public</span>
-                    {% endif %}
-                    <span class="badge bg-secondary">{{ entry.status }}</span>
+        <h3 class="mb-3">My Prayers</h3>
+        {% if entries %}
+            {% for entry in entries %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center bg-transparent">
+                    <span class="text-muted small">{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                    <div>
+                        {% if entry.is_continuous %}
+                        <span class="badge bg-warning text-dark"><i class="bi bi-infinity"></i> Continuous</span>
+                        {% endif %}
+                        {% if entry.is_public %}
+                        <span class="badge bg-info text-dark"><i class="bi bi-globe"></i> Public</span>
+                        {% endif %}
+                        <span class="badge bg-secondary">{{ entry.status }}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <p class="card-text">{{ entry.content }}</p>
-                <div class="mb-2">
-                    {% for tag in entry.tags %}
-                        <a href="{{ url_for('entry.user_dashboard', tag=tag.name) }}" class="badge bg-info text-dark text-decoration-none">#{{ tag.name }}</a>
-                    {% endfor %}
-                </div>
+                <div class="card-body">
+                    <p class="card-text" style="white-space: pre-wrap;">{{ entry.content }}</p>
+                    <div class="mb-2">
+                        {% for tag in entry.tags %}
+                            <a href="{{ url_for('entry.user_dashboard', tag=tag.name) }}" class="badge bg-light text-dark border text-decoration-none">#{{ tag.name }}</a>
+                        {% endfor %}
+                    </div>
 
-                <div class="mt-3">
                     {% if entry.stickers %}
-                        <small>Stickers: {{ entry.stickers }}</small>
+                        <div class="mb-2">
+                            {% for sticker in entry.stickers.split(',') %}
+                                <span class="fs-5 me-1">{{ sticker }}</span>
+                            {% endfor %}
+                        </div>
                     {% endif %}
-                </div>
 
-                <!-- Status Update Controls -->
-                <div class="mt-2">
-                    <div class="btn-group" role="group">
-                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
-                            <input type="hidden" name="status" value="fulfilled">
-                            <button type="submit" class="btn btn-sm btn-outline-success">Fulfilled</button>
-                        </form>
-                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
-                            <input type="hidden" name="status" value="dropped">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">No longer petition</button>
-                        </form>
-                        <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
-                            <button type="submit" class="btn btn-sm btn-outline-warning">
-                                {% if entry.is_continuous %}Unmark Continuous{% else %}Mark Continuous{% endif %}
-                            </button>
-                        </form>
-                         <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
-                             <input type="text" name="sticker" placeholder="Add Sticker" class="form-control form-control-sm d-inline w-auto">
-                            <button type="submit" class="btn btn-sm btn-outline-info">Add</button>
-                        </form>
+                    <!-- Controls -->
+                    <div class="mt-3 pt-2 border-top">
+                        <div class="btn-group" role="group">
+                            <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
+                                <input type="hidden" name="status" value="fulfilled">
+                                <button type="submit" class="btn btn-sm btn-outline-success" title="Mark Fulfilled"><i class="bi bi-check-circle"></i></button>
+                            </form>
+                            <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline ms-1">
+                                <button type="submit" class="btn btn-sm btn-outline-warning" title="Toggle Continuous"><i class="bi bi-infinity"></i></button>
+                            </form>
+                             <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline ms-1 d-flex align-items-center">
+                                 <select name="sticker" class="form-select form-select-sm w-auto d-inline" onchange="this.form.submit()">
+                                     <option value="" selected disabled>Add Sticker</option>
+                                     <option value="🙏">🙏</option>
+                                     <option value="❤️">❤️</option>
+                                     <option value="🕯️">🕯️</option>
+                                     <option value="✨">✨</option>
+                                 </select>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            {% endfor %}
         {% else %}
-            <p>No entries found.</p>
-        {% endfor %}
+            <div class="alert alert-light text-center">
+                <p>No entries found. Start by writing a prayer!</p>
+            </div>
+        {% endif %}
     </div>
+</div>
+
+<!-- New Entry Modal -->
+<div class="modal fade" id="newEntryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New Prayer Entry</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ url_for('entry.add_entry') }}" method="POST">
+            <div class="mb-3">
+                <textarea class="form-control" name="content" rows="5" placeholder="Dear Lord..." required></textarea>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="is_public" id="is_public">
+                <label class="form-check-label" for="is_public">
+                    Share anonymously to Community Wall
+                </label>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Prayer</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
