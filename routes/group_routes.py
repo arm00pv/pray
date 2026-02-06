@@ -90,6 +90,44 @@ def create_event(group_id):
     flash('Event scheduled.')
     return redirect(url_for('group.view_group', group_id=group.id))
 
+@group_bp.route('/events/<int:event_id>/remind', methods=['POST'])
+@login_required
+def remind_event(event_id):
+    from models import PrayerReminder
+    event = GroupEvent.query.get_or_404(event_id)
+
+    # Check if reminder already exists
+    # We need a way to link reminder to event.
+    # Current PrayerReminder is linked to PrayerEntry.
+    # We can overload entry_id or add event_id to PrayerReminder model.
+    # For MVP simplicity, we'll just flash a message that it's added to their calendar (mock).
+    # Ideally, we would update the model. Let's do a simple flash for now as "Add to Calendar" is usually client-side (.ics).
+
+    # But user asked for "smart/useful". Let's create a system notification for it 1 hour before.
+    # Since we don't have a background worker for arbitrary events easily without model changes,
+    # We will simulate "Added to Calendar" by generating an ICS file download.
+
+    import io
+    from flask import Response
+
+    ics_content = f"""BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Praying Diary//NONSGML Event//EN
+BEGIN:VEVENT
+UID:{event.id}@prayingdiary.com
+DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}
+DTSTART:{event.event_datetime.strftime('%Y%m%dT%H%M%S')}
+SUMMARY:{event.title}
+DESCRIPTION:{event.description}
+END:VEVENT
+END:VCALENDAR"""
+
+    return Response(
+        ics_content,
+        mimetype='text/calendar',
+        headers={'Content-Disposition': f'attachment;filename=event_{event.id}.ics'}
+    )
+
 @group_bp.route('/<int:group_id>')
 @login_required
 def view_group(group_id):
