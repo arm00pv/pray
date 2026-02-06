@@ -2463,3 +2463,9 @@ msgstr "Oraciones guiadas ACTS, notas de sermones, planes de lectura bíblica y 
 
 msgid "Visit Community"
 msgstr "Visitar Comunidad"
+
+msgid "I agree to the Terms"
+msgstr "Acepto los Términos y Condiciones"
+
+msgid "Share Anonymously"
+msgstr "Compartir Anónimamente"
