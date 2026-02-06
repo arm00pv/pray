@@ -10,6 +10,7 @@
             </div>
             <div>
                 <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to leave this group?');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <button type="submit" class="btn btn-outline-danger">Leave Group</button>
                 </form>
             </div>
@@ -30,6 +31,51 @@
         </ul>
 
         <a href="{{ url_for('group.list_groups') }}" class="btn btn-link">&larr; Back to Groups</a>
+
+        <hr>
+
+        <h3>Polls</h3>
+        {% for poll in group.polls if poll.is_active %}
+            <div class="card mb-3">
+                <div class="card-header">{{ poll.question }}</div>
+                <div class="card-body">
+                    <form action="{{ url_for('group.vote_poll', poll_id=poll.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        {% for option in poll.options %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="option_id" id="opt{{ option.id }}" value="{{ option.id }}">
+                                <label class="form-check-label" for="opt{{ option.id }}">
+                                    {{ option.text }} ({{ option.votes|length }} votes)
+                                </label>
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-sm mt-2">Vote</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">No active polls.</p>
+        {% endfor %}
+
+        {% if current_role == 'admin' %}
+            <div class="card mt-4 mb-4">
+                <div class="card-header">Create Poll</div>
+                <div class="card-body">
+                    <form action="{{ url_for('group.create_poll', group_id=group.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="mb-3">
+                            <label class="form-label">Question</label>
+                            <input type="text" name="question" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Options (comma separated)</label>
+                            <input type="text" name="options" class="form-control" placeholder="Option 1, Option 2..." required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Create Poll</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

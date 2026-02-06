@@ -3,13 +3,111 @@
 {% block content %}
 <div class="row">
     <div class="col-md-12">
-        <h2>Admin Dashboard</h2>
+        <h2>{{ _('Admin Dashboard') }}</h2>
+
+        <!-- Notifications/Alerts -->
+        {% if flagged_count > 0 %}
+        <div class="alert alert-warning d-flex justify-content-between align-items-center">
+            <span>{{ _('Admin Notifications') }}: {{ _('There are entries requiring review.') }}</span>
+            <a href="{{ url_for('admin.flagged_entries') }}" class="btn btn-sm btn-danger">
+                {{ _('Flagged Posts') }} <span class="badge bg-light text-body">{{ flagged_count }}</span>
+            </a>
+        </div>
+        {% else %}
+        <div class="alert alert-success">
+            {{ _('No pending notifications.') }}
+        </div>
+        {% endif %}
+
+        <!-- Key Metrics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">{{ _('Total Users') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_users }}</h5>
+                        <small>{{ _('Active Today') }}: {{ active_users_today }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">{{ _('Total Prayers') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_entries }}</h5>
+                        <small>{{ _('Avg per User') }}: {{ "%.1f"|format(total_entries / total_users if total_users else 0) }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">{{ _('Gratitude') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_gratitude }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">{{ _('Reported Rate') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ flagged_count }}</h5>
+                        <small>{{ "%.1f"|format(flagged_count / total_entries * 100 if total_entries else 0) }}%</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">{{ _('Testimonies') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_testimonies }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                    <div class="card-header">{{ _('Groups') }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_groups }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">Admin Management</h5>
-                <form action="{{ url_for('admin.create_invite') }}" method="POST">
-                    <button type="submit" class="btn btn-warning">Generate New Admin Invite Code</button>
+                <h5 class="card-title">{{ _('Admin Management') }}</h5>
+                <form action="{{ url_for('admin.create_invite') }}" method="POST" class="mb-2 d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-warning">{{ _('Generate New Admin Invite Code') }}</button>
+                </form>
+                <a href="{{ url_for('admin.flagged_entries') }}" class="btn btn-danger">{{ _('Review Flagged Entries') }}</a>
+                <a href="{{ url_for('admin.community_emails') }}" class="btn btn-info">{{ _('Community Email List') }}</a>
+                <a href="{{ url_for('admin.feedback') }}" class="btn btn-primary">{{ _('User Feedback') }}</a>
+                <a href="{{ url_for('admin.export_all_entries') }}" class="btn btn-outline-success">{{ _('Export All Entries') }}</a>
+                <a href="{{ url_for('admin.system_health') }}" class="btn btn-outline-dark">{{ _('System Health') }}</a>
+            </div>
+        </div>
+
+        <!-- Announcement Manager -->
+        <div class="card mb-4 border-warning">
+            <div class="card-header">{{ _('Global Announcement') }}</div>
+            <div class="card-body">
+                <form action="{{ url_for('admin.create_announcement') }}" method="POST" class="row g-2 align-items-center">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="col-auto flex-grow-1">
+                        <input type="text" class="form-control" name="message" placeholder="{{ _('Enter announcement message...') }}" required>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">{{ _('Post') }}</button>
+                    </div>
+                </form>
+                <form action="{{ url_for('admin.deactivate_announcement') }}" method="POST" class="mt-2">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('Clear Active Announcement') }}</button>
                 </form>
             </div>
         </div>
@@ -17,7 +115,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">Top Petitions (Tags)</div>
+                    <div class="card-header">{{ _('Top Petitions (Tags)') }}</div>
                     <div class="card-body">
                         <ul class="list-group">
                             {% for tag in top_tags %}
@@ -26,7 +124,7 @@
                                     <span class="badge bg-primary rounded-pill">{{ tag.count }}</span>
                                 </li>
                             {% else %}
-                                <li class="list-group-item">No tags data yet.</li>
+                                <li class="list-group-item">{{ _('No tags data yet.') }}</li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -34,25 +132,29 @@
             </div>
             <div class="col-md-6">
                 <div class="card mb-4">
-                    <div class="card-header">Prayer Locations</div>
+                    <div class="card-header">{{ _('Prayer Locations') }}</div>
                     <div class="card-body" style="max-height: 400px; overflow-y: auto;">
                         <table class="table table-sm">
                             <thead>
                                 <tr>
-                                    <th>Country</th>
-                                    <th>City</th>
-                                    <th>IP</th>
+                                    <th>{{ _('IP') }}</th>
+                                    <th>{{ _('Country') }}</th>
+                                    <th>{{ _('State') }}</th>
+                                    <th>{{ _('City') }}</th>
+                                    <th>{{ _('Count') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for loc in locations %}
                                 <tr>
-                                    <td>{{ loc.country }}</td>
-                                    <td>{{ loc.city }}</td>
                                     <td>{{ loc.ip }}</td>
+                                    <td>{{ loc.country }}</td>
+                                    <td>{{ loc.region }}</td>
+                                    <td>{{ loc.city }}</td>
+                                    <td>{{ loc.count }}</td>
                                 </tr>
                                 {% else %}
-                                <tr><td colspan="3">No location data yet.</td></tr>
+                                <tr><td colspan="4">{{ _('No location data yet.') }}</td></tr>
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -60,6 +162,202 @@
                 </div>
             </div>
         </div>
+
+        <!-- Registered Users List -->
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>{{ _('Registered Users') }}</span>
+                <form class="d-flex" action="{{ url_for('admin.dashboard') }}" method="GET">
+                    <input class="form-control form-control-sm me-2" type="search" name="q" placeholder="{{ _('Search user...') }}" value="{{ request.args.get('q', '') }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="submit">{{ _('Search') }}</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ _('Username') }}</th>
+                            <th>{{ _('Email') }}</th>
+                            <th>{{ _('Joined Date') }}</th>
+                            <th>{{ _('Status') }}</th>
+                            <th>{{ _('Actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users.items %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email or 'N/A' }}</td>
+                            <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                {% if user.is_verified %}<span class="badge bg-success">{{ _('Verified') }}</span>{% endif %}
+                            </td>
+                            <td>
+                                <div class="d-flex gap-1 flex-wrap">
+                                    <button class="btn btn-sm btn-outline-secondary p-0 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" data-bs-toggle="modal" data-bs-target="#userNoteModal{{ user.id }}" title="{{ _('Notes') }}">📝</button>
+
+                                    <form action="{{ url_for('admin.block_user', user_id=user.id) }}" method="POST" class="d-inline confirm-action" data-confirm-message="{{ _('Are you sure you want to block this user?') }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger p-0 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="{{ _('Block') }}">🚫</button>
+                                    </form>
+
+                                    <form action="{{ url_for('admin.unblock_user', user_id=user.id) }}" method="POST" class="d-inline">
+                                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                         <button type="submit" class="btn btn-sm btn-outline-success p-0 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="{{ _('Unblock') }}">✅</button>
+                                    </form>
+
+                                     <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" class="d-inline confirm-action" data-confirm-message="{{ _('Are you sure you want to delete this user? This cannot be undone.') }}">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <button type="submit" class="btn btn-sm btn-danger p-0 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;" title="{{ _('Delete User') }}">🗑️</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Note Modal -->
+                        <div class="modal fade" id="userNoteModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{ _('Notes for') }} {{ user.username }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <ul class="list-group mb-3">
+                                            {% for note in user.admin_notes %}
+                                                <li class="list-group-item">
+                                                    <small class="text-muted">{{ note.created_at.strftime('%Y-%m-%d') }}</small>
+                                                    <p class="mb-0">{{ note.content }}</p>
+                                                </li>
+                                            {% else %}
+                                                <p class="text-muted">{{ _('No notes yet.') }}</p>
+                                            {% endfor %}
+                                        </ul>
+                                        <form action="{{ url_for('admin.add_user_note', user_id=user.id) }}" method="POST">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                            <textarea name="content" class="form-control mb-2" placeholder="{{ _('Add a note...') }}" required></textarea>
+                                            <button type="submit" class="btn btn-primary btn-sm">{{ _('Add Note') }}</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <tr><td colspan="5">{{ _('No users found.') }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                {% if users.pages > 1 %}
+                <nav aria-label="User pagination">
+                  <ul class="pagination pagination-sm justify-content-center">
+                    {% for page_num in users.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                      {% if page_num %}
+                        {% if users.page == page_num %}
+                          <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="{{ url_for('admin.dashboard', page=page_num, q=request.args.get('q', '')) }}">{{ page_num }}</a></li>
+                        {% endif %}
+                      {% else %}
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Broadcast Message -->
+        <div class="card mb-4 border-info">
+            <div class="card-header">{{ _('System Broadcast') }}</div>
+            <div class="card-body">
+                <form action="{{ url_for('admin.broadcast_message') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="input-group">
+                        <span class="input-group-text">📢</span>
+                        <input type="text" name="message" class="form-control" placeholder="{{ _('Send a notification to ALL users...') }}" required>
+                        <button type="submit" class="btn btn-info">{{ _('Broadcast') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- System Logs -->
+        <div class="card mb-4">
+            <div class="card-header">{{ _('System Logs') }}</div>
+            <div class="card-body" style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-sm table-hover font-monospace" style="font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Time') }}</th>
+                            <th>{{ _('Level') }}</th>
+                            <th>{{ _('Message') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr class="{% if log.level == 'ERROR' %}table-danger{% elif log.level == 'WARNING' %}table-warning{% endif %}">
+                            <td>{{ log.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td>{{ log.level }}</td>
+                            <td>{{ log.message }}</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="3" class="text-center text-muted">{{ _('No logs available.') }}</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ _('Praying Diary') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="confirmationMessage">
+        <!-- Message here -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Cancel') }}</button>
+        <button type="button" class="btn btn-primary" id="confirmActionBtn">{{ _('Confirm') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalEl = document.getElementById('confirmationModal');
+        const modal = new bootstrap.Modal(modalEl);
+        const confirmBtn = document.getElementById('confirmActionBtn');
+        const messageEl = document.getElementById('confirmationMessage');
+        let currentForm = null;
+
+        document.querySelectorAll('.confirm-action').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                currentForm = this;
+                const message = this.getAttribute('data-confirm-message') || '{{ _("Are you sure?") }}';
+                messageEl.textContent = message;
+                modal.show();
+            });
+        });
+
+        confirmBtn.addEventListener('click', function() {
+            if (currentForm) {
+                currentForm.submit();
+            }
+        });
+    });
+</script>
 {% endblock %}

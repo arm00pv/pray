@@ -1,7 +1,6 @@
 __pycache__/
 *.pyc
-instance/
-.pytest_cache/
-.env
-venv/
 *.db
+instance/
+migrations/
+.pytest_cache/

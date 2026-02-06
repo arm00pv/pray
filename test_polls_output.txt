@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.12, pytest-9.0.2, pluggy-1.6.0
+rootdir: /app
+collected 2 items
+
+tests/test_polls.py ..                                                   [100%]
+
+=============================== warnings summary ===============================
+tests/test_polls.py::PollsTestCase::test_create_poll
+tests/test_polls.py::PollsTestCase::test_create_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+  /app/routes/auth_routes.py:15: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    return User.query.get(int(user_id.split('_')[1]))
+
+tests/test_polls.py::PollsTestCase::test_create_poll
+tests/test_polls.py::PollsTestCase::test_create_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+tests/test_polls.py::PollsTestCase::test_vote_poll
+  /home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask_sqlalchemy/query.py:30: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    rv = self.get(ident)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 2 passed, 12 warnings in 2.93s ========================

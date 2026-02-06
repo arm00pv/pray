@@ -26,6 +26,7 @@
             <div class="card-header">Join a Group</div>
             <div class="card-body">
                 <form action="{{ url_for('group.join_group') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
                         <label for="code" class="form-label">Group Code</label>
                         <input type="text" class="form-control" id="code" name="code" placeholder="Enter code" required>
@@ -39,6 +40,7 @@
             <div class="card-header">Create a Group</div>
             <div class="card-body">
                 <form action="{{ url_for('group.create_group') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
                         <label for="name" class="form-label">Group Name</label>
                         <input type="text" class="form-control" id="name" name="name" required>

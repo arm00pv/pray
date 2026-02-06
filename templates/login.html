@@ -4,19 +4,32 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">User Login</div>
+            <div class="card-header">{{ _('User Login') }}</div>
             <div class="card-body">
                 <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">{{ _('Username') }}</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">{{ _('Password') }}</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="mt-2 text-end">
+                            <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot Password?') }}</a>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">{{ _('Login') }}</button>
                 </form>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('auth.social_login', provider='google') }}" class="btn btn-outline-danger">
+                        🔵 {{ _('Login with Google') }}
+                    </a>
+                    <a href="{{ url_for('auth.social_login', provider='facebook') }}" class="btn btn-outline-primary">
+                        🔵 {{ _('Login with Facebook') }}
+                    </a>
+                </div>
             </div>
         </div>
     </div>

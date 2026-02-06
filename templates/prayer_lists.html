@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2>{{ _('My Prayer Lists') }}</h2>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newListModal">+ {{ _('New List') }}</button>
+        </div>
+
+        {% for list in lists %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">{{ list.name }}</h5>
+                <form action="{{ url_for('entry.delete_list', list_id=list.id) }}" method="POST" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('{{ _('Delete this list?') }}')">🗑️</button>
+                </form>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush mb-3">
+                    {% for item in list.items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <form action="{{ url_for('entry.toggle_list_item', item_id=item.id) }}" method="POST" class="d-inline me-2">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <input type="checkbox" class="form-check-input" onchange="this.form.submit()" {% if item.is_answered %}checked{% endif %}>
+                            </form>
+                            <span class="{% if item.is_answered %}text-decoration-line-through text-muted{% endif %}">{{ item.content }}</span>
+                        </div>
+                        <form action="{{ url_for('entry.delete_list_item', item_id=item.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <button type="button" class="btn-close btn-sm" onclick="this.form.submit()"></button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <form action="{{ url_for('entry.add_list_item', list_id=list.id) }}" method="POST" class="d-flex">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="text" name="content" class="form-control me-2" placeholder="{{ _('Add new item...') }}" required>
+                    <button type="submit" class="btn btn-outline-success">+</button>
+                </form>
+            </div>
+        </div>
+        {% else %}
+            <p class="text-muted">{{ _('No prayer lists yet. Create one to organize specific requests.') }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- New List Modal -->
+<div class="modal fade" id="newListModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ url_for('entry.create_list') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ _('Create New List') }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">{{ _('List Name') }}</label>
+                        <input type="text" name="name" class="form-control" placeholder="e.g. Family, Work, Healing" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ _('Create') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

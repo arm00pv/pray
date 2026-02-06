@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.12, pytest-9.0.2, pluggy-1.6.0
+rootdir: /app
+collected 15 items
+
+tests/test_features.py ...                                               [ 20%]
+tests/test_gamification.py ...                                           [ 40%]
+tests/test_import_export.py ..                                           [ 53%]
+tests/test_new_features.py ..                                            [ 66%]
+tests/test_notifications.py ..                                           [ 80%]
+tests/test_polls.py FF                                                   [ 93%]
+tests/test_reading_plan.py .                                             [100%]
+
+=================================== FAILURES ===================================
+________________________ PollsTestCase.test_create_poll ________________________
+
+self = <test_polls.PollsTestCase testMethod=test_create_poll>
+
+    def test_create_poll(self):
+        self.login('admin')
+        resp = self.client.post('/groups/1/polls/create', data={
+            'question': 'What to pray for?',
+            'options': 'Health, Peace, Joy'
+        }, follow_redirects=True)
+
+>       self.assertEqual(resp.status_code, 200)
+E       AssertionError: 404 != 200
+
+tests/test_polls.py:48: AssertionError
+_________________________ PollsTestCase.test_vote_poll _________________________
+
+self = <test_polls.PollsTestCase testMethod=test_vote_poll>
+
+    def test_vote_poll(self):
+>       self.test_create_poll() # Create it first
+        ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_polls.py:58:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests/test_polls.py:48: in test_create_poll
+    self.assertEqual(resp.status_code, 200)
+E   AssertionError: 404 != 200
+=============================== warnings summary ===============================
+tests/test_import_export.py: 3 warnings
+tests/test_notifications.py: 3 warnings
+tests/test_reading_plan.py: 5 warnings
+  /app/routes/auth_routes.py:15: LegacyAPIWarning: The Query.get() method is considered legacy as of the 1.x series of SQLAlchemy and becomes a legacy construct in 2.0. The method is now available as Session.get() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    return User.query.get(int(user_id.split('_')[1]))
+
+tests/test_import_export.py::ImportExportTestCase::test_export
+  /app/routes/settings_routes.py:76: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    'exported_at': datetime.utcnow().isoformat(),
+
+tests/test_import_export.py::ImportExportTestCase::test_import
+  /app/routes/settings_routes.py:168: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_at=datetime.fromisoformat(p_data['created_at']) if 'created_at' in p_data else datetime.utcnow()
+
+tests/test_import_export.py::ImportExportTestCase::test_import
+  /app/routes/settings_routes.py:184: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    created_at=datetime.fromisoformat(s_data['created_at']) if 'created_at' in s_data else datetime.utcnow()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_polls.py::PollsTestCase::test_create_poll - AssertionError:...
+FAILED tests/test_polls.py::PollsTestCase::test_vote_poll - AssertionError: 4...
+================== 2 failed, 13 passed, 14 warnings in 7.37s ===================

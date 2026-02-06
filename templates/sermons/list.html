@@ -17,8 +17,8 @@
                     {% if note.preacher %}
                         <p class="card-text mb-1"><strong>Speaker:</strong> {{ note.preacher }}</p>
                     {% endif %}
-                    {% if note.scripture %}
-                        <p class="card-text mb-1"><strong>Scripture:</strong> {{ note.scripture }}</p>
+                    {% if note.scripture_reference %}
+                        <p class="card-text mb-1"><strong>Scripture:</strong> {{ note.scripture_reference }}</p>
                     {% endif %}
                     <p class="card-text text-truncate">{{ note.content }}</p>
                 </div>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>{{ _('Guided Prayer: A.C.T.S.') }}</h2>
+        <div id="prayer-wizard" class="card mt-4 p-4 shadow-sm">
+            <div class="progress mb-4" style="height: 5px;">
+                <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%;"></div>
+            </div>
+
+            <form action="{{ url_for('entry.submit_guide') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <div id="step-0" class="step active">
+                    <h3>{{ _('Welcome') }}</h3>
+                    <p class="lead">{{ _('Take a moment to silence your heart.') }}</p>
+                    <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(1)">{{ _('Begin') }}</button>
+                </div>
+
+                <div id="step-1" class="step d-none">
+                    <h3>{{ _('Adoration') }}</h3>
+                    <p>{{ _('Praise God for who He is.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-adoration" name="adoration" rows="3" placeholder="{{ _('Lord, I praise you for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(0)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">{{ _('Next: Confession') }}</button>
+                </div>
+
+                <div id="step-2" class="step d-none">
+                    <h3>{{ _('Confession') }}</h3>
+                    <p>{{ _('Confess your sins and ask for forgiveness.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-confession" name="confession" rows="3" placeholder="{{ _('Lord, forgive me for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(1)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">{{ _('Next: Thanksgiving') }}</button>
+                </div>
+
+                <div id="step-3" class="step d-none">
+                    <h3>{{ _('Thanksgiving') }}</h3>
+                    <p>{{ _('Thank God for what He has done.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-thanksgiving" name="thanksgiving" rows="3" placeholder="{{ _('Thank you, Lord, for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(2)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">{{ _('Next: Supplication') }}</button>
+                </div>
+
+                <div id="step-4" class="step d-none">
+                    <h3>{{ _('Supplication') }}</h3>
+                    <p>{{ _('Present your requests to God.') }}</p>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-supplication" name="supplication" rows="3" placeholder="{{ _('Lord, I ask for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="nextStep(3)">{{ _('Back') }}</button>
+                    <button type="submit" class="btn btn-success">{{ _('Finish & Save') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.add('d-none'));
+        document.getElementById('step-' + step).classList.remove('d-none');
+
+        let progress = (step / 5) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+    }
+</script>
+{% endblock %}
