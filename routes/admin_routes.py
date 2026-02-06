@@ -16,6 +16,7 @@ def require_admin():
         return redirect(url_for('admin_auth.login'))
 
 @admin_bp.route('/dashboard')
+@login_required
 def dashboard():
     # Metrics
     total_users = User.query.count()
@@ -92,6 +93,7 @@ def dashboard():
                            active_users_today=active_users_today)
 
 @admin_bp.route('/broadcast', methods=['POST'])
+@login_required
 def broadcast_message():
     message = request.form.get('message')
     if not message:
@@ -124,12 +126,14 @@ def broadcast_message():
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/dashboard/flagged')
+@login_required
 def flagged_entries():
     # Show entries that are flagged (and likely hidden)
     entries = PrayerEntry.query.filter(PrayerEntry.flag_count > 0).all()
     return render_template('admin_flagged.html', entries=entries)
 
 @admin_bp.route('/dashboard/emails')
+@login_required
 def community_emails():
     filter_status = request.args.get('filter', 'all')
 
@@ -159,6 +163,7 @@ def community_emails():
     return render_template('admin_emails.html', emails=results, filter=filter_status)
 
 @admin_bp.route('/unhide_entry/<int:entry_id>', methods=['POST'])
+@login_required
 def unhide_entry(entry_id):
     entry = PrayerEntry.query.get_or_404(entry_id)
     entry.is_hidden = False
@@ -168,6 +173,7 @@ def unhide_entry(entry_id):
     return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/block_user/<int:user_id>', methods=['POST'])
+@login_required
 def block_user(user_id):
     # This route might receive user_id=0 or null if it was anonymous, but URL requires int.
     # The template should pass a valid user ID if registered, or we need a way to block by Entry ID to get the email.
@@ -187,6 +193,7 @@ def block_user(user_id):
     return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/block_author/<int:entry_id>', methods=['POST'])
+@login_required
 def block_author(entry_id):
     entry = PrayerEntry.query.get_or_404(entry_id)
 
@@ -210,6 +217,7 @@ def block_author(entry_id):
     return redirect(url_for('admin.flagged_entries'))
 
 @admin_bp.route('/delete_user/<int:user_id>', methods=['POST'])
+@login_required
 def delete_user(user_id):
     user = User.query.get_or_404(user_id)
     # Note: Cascading deletes should be handled by DB or model configuration.
@@ -220,6 +228,7 @@ def delete_user(user_id):
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/unblock_user/<int:user_id>', methods=['POST'])
+@login_required
 def unblock_user(user_id):
     user = User.query.get_or_404(user_id)
     blocked = BlockedUser.query.filter_by(user_id=user.id).first()
@@ -232,6 +241,7 @@ def unblock_user(user_id):
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/unblock_email', methods=['POST'])
+@login_required
 def unblock_email():
     email = request.form.get('email')
     if email:
@@ -245,6 +255,7 @@ def unblock_email():
     return redirect(url_for('admin.community_emails'))
 
 @admin_bp.route('/delete_entry/<int:entry_id>', methods=['POST'])
+@login_required
 def delete_entry(entry_id):
     entry = PrayerEntry.query.get_or_404(entry_id)
     db.session.delete(entry)
@@ -253,6 +264,7 @@ def delete_entry(entry_id):
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/invite', methods=['POST'])
+@login_required
 def create_invite():
     code = str(uuid.uuid4())
     invite = AdminInvite(code=code, created_by_admin_id=current_user.id)
@@ -262,6 +274,7 @@ def create_invite():
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/announcements', methods=['POST'])
+@login_required
 def create_announcement():
     message = request.form.get('message')
     if message:
@@ -275,6 +288,7 @@ def create_announcement():
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/announcements/deactivate', methods=['POST'])
+@login_required
 def deactivate_announcement():
     Announcement.query.update({Announcement.is_active: False})
     db.session.commit()
@@ -282,6 +296,7 @@ def deactivate_announcement():
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/export_all_entries')
+@login_required
 def export_all_entries():
     # Export all public entries to CSV
     import csv
@@ -332,6 +347,7 @@ def system_health():
 from models import AdminUserNote
 
 @admin_bp.route('/user/<int:user_id>/note', methods=['POST'])
+@login_required
 def add_user_note(user_id):
     content = request.form.get('content')
     if content:
@@ -346,11 +362,13 @@ def add_user_note(user_id):
     return redirect(url_for('admin.dashboard'))
 
 @admin_bp.route('/feedback')
+@login_required
 def feedback():
     items = Feedback.query.order_by(Feedback.created_at.desc()).all()
     return render_template('admin_feedback.html', items=items)
 
 @admin_bp.route('/feedback/<int:feedback_id>/status', methods=['POST'])
+@login_required
 def update_feedback_status(feedback_id):
     item = Feedback.query.get_or_404(feedback_id)
     new_status = request.form.get('status')

@@ -84,7 +84,17 @@ def create_app():
     migrate = Migrate(app, db)
 
     def get_locale():
-        return session.get('language', request.accept_languages.best_match(['en', 'es']))
+        # 1. Check session
+        if 'language' in session:
+            return session['language']
+
+        # 2. Check logged-in user preference
+        from flask_login import current_user
+        if current_user.is_authenticated and current_user.preferred_language:
+            return current_user.preferred_language
+
+        # 3. Check browser headers
+        return request.accept_languages.best_match(['en', 'es'])
 
     babel = Babel(app, locale_selector=get_locale)
 
