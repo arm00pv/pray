@@ -2393,3 +2393,33 @@ msgstr "Escritura"
 #: templates/sermons/index.html:32
 msgid "No sermon notes found."
 msgstr "No se encontraron notas de sermones."
+
+msgid "Join Us"
+msgstr "Únete a Nosotros"
+
+msgid "Global Community"
+msgstr "Comunidad Global"
+
+msgid "Private Journal"
+msgstr "Diario Privado"
+
+msgid "Spiritual Growth"
+msgstr "Crecimiento Espiritual"
+
+msgid "Need Prayer Now?"
+msgstr "¿Necesitas Oración Ahora?"
+
+msgid "Type your prayer request here..."
+msgstr "Escribe tu petición de oración aquí..."
+
+msgid "Email (Private, for verification)"
+msgstr "Correo (Privado, para verificación)"
+
+msgid "Latest Prayers"
+msgstr "Últimas Oraciones"
+
+msgid "View All"
+msgstr "Ver Todo"
+
+msgid "No public prayers yet. Be the first to share!"
+msgstr "Aún no hay oraciones públicas. ¡Sé el primero en compartir!"
