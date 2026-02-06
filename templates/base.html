@@ -201,6 +201,29 @@
                     <i class="bi bi-arrow-up"></i>
                 </button>
 
+                <!-- Ad Modal (Mock) -->
+                <div class="modal fade" id="adModal" tabindex="-1" aria-labelledby="adModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light">
+                                <h5 class="modal-title" id="adModalLabel">✨ Support Our Mission</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p class="lead">Enjoying Praying Diary?</p>
+                                <p>Help us keep this platform free and secure for everyone.</p>
+                                <div class="d-grid gap-2 col-8 mx-auto my-3">
+                                    <a href="{{ url_for('donation.index') }}" class="btn btn-success">
+                                        <i class="bi bi-heart-fill me-2"></i> Donate Now
+                                    </a>
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Maybe Later</button>
+                                </div>
+                                <small class="text-muted">This is a mock ad request.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <footer class="mt-5 py-3 text-center text-muted border-top">
                     <div class="container">
                         <small>&copy; {{ current_year }} Praying Diary.
@@ -236,6 +259,30 @@
         };
         backToTopBtn.addEventListener('click', function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+
+        // Ad Trigger for Praying Hands Emoji
+        document.addEventListener('click', function(e) {
+            // Check if the clicked element or its parent contains the emoji
+            if (e.target.innerText.includes('🙏') || (e.target.parentElement && e.target.parentElement.innerText && e.target.parentElement.innerText.includes('🙏'))) {
+                // Random chance (e.g., 30%) to show ad to avoid annoyance, or always for this demo
+                // For this task, we show it always if it's an interactive element like a button or link
+                if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('button') || e.target.closest('a')) {
+                    // Prevent default action for demo purposes? No, let action happen but show ad concurrently or after?
+                    // "Get a ad request" implies showing it. Let's show it.
+                    // To not block functionality (like submitting a form), we might just show it.
+                    // But if it submits a form, the page reloads.
+                    // If it's a link, page navigates.
+                    // So we mostly target things that might use AJAX or before navigation.
+                    // For simplicity, let's just trigger it on the Navbar Icon which is a link to Home.
+
+                    if (e.target.classList.contains('navbar-brand') || e.target.closest('.navbar-brand')) {
+                        e.preventDefault(); // Stop navigation to show modal for demo
+                        var adModal = new bootstrap.Modal(document.getElementById('adModal'));
+                        adModal.show();
+                    }
+                }
+            }
         });
 
         // Dark Mode Toggle

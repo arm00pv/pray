@@ -1,0 +1,17 @@
+templates/index.html:                                <span>🙏 {{ entry.amens|length }}</span>
+templates/prayer_walk.html:                                        <button type="submit" class="btn btn-outline-danger btn-lg">🙏 {{ _('Amen') }}</button>
+templates/group_detail.html:                                <button type="submit" class="btn btn-sm btn-outline-success">🙏 {{ _('Pray') }}</button>
+templates/group_detail.html:                    const emojis = ['🙏', '✝️', '❤️', '🙌', '🕊️', '⛪', '📖', '🕯️', '😊', '😇'];
+templates/group_detail.html:                        { url: 'https://placehold.co/200x150/png?text=🙏+Praying', title: 'Praying' },
+templates/user_dashboard.html:                                <input type="radio" class="btn-check" name="mood" id="mood1" value="🙏" checked>
+templates/user_dashboard.html:                                <label class="btn btn-outline-secondary" for="mood1">🙏</label>
+templates/user_dashboard.html:                            <option value="🙏" {% if request.args.get('mood') == '🙏' %}selected{% endif %}>🙏</option>
+templates/user_dashboard.html:                                <button type="submit" name="sticker" value="🙏" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Praying">🙏</button>
+templates/messages/conversation.html:    const emojis = ['🙏', '✝️', '❤️', '🙌', '🕊️', '⛪', '📖', '🕯️', '😊', '😇'];
+templates/messages/conversation.html:        { url: 'https://placehold.co/200x150/png?text=🙏+Praying', title: 'Praying' },
+templates/my_amens.html:                            🙏 {{ _('Amen') }} ({{ entry.amens|length }})
+templates/base.html:            <a class="navbar-brand" href="{{ url_for('index') }}">🙏 {{ _('Praying Diary') }}</a>
+templates/base.html:                            🙏 {{ prayers_today }}
+templates/community.html:                                    🙏 {{ _('Pray') }}
+templates/community.html:                                🙏 {{ _('Amen') }} ({{ entry.amens|length }})
+templates/prayer_guide.html:                    <h3>🙏 {{ _('Gratitude') }} (Thanksgiving)</h3>
