@@ -26,6 +26,17 @@
                         <label for="content" class="form-label">{{ _('Notes') }}</label>
                         <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="takeaways" class="form-label">{{ _('Key Takeaways / Application') }}</label>
+                        <textarea class="form-control" id="takeaways" name="takeaways" rows="3" placeholder="{{ _('How will you apply this message this week?') }}"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tags" class="form-label">{{ _('Tags (comma separated)') }}</label>
+                        <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g. Faith, Grace, Healing">
+                    </div>
+
                     <div class="d-flex justify-content-between">
                          <a href="{{ url_for('sermon.index') }}" class="btn btn-secondary">{{ _('Cancel') }}</a>
                          <button type="submit" class="btn btn-primary">{{ _('Save Note') }}</button>

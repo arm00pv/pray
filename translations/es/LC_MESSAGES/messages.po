@@ -2469,3 +2469,39 @@ msgstr "Acepto los Términos y Condiciones"
 
 msgid "Share Anonymously"
 msgstr "Compartir Anónimamente"
+
+msgid "Welcome to Your Quiet Time"
+msgstr "Bienvenido a tu Tiempo de Quietud"
+
+msgid "Take a deep breath. Focus your heart on Jesus. He is listening."
+msgstr "Respira profundo. Enfoca tu corazón en Jesús. Él está escuchando."
+
+msgid "Be still, and know that I am God."
+msgstr "Estad quietos, y conoced que yo soy Dios."
+
+msgid "Begin Prayer"
+msgstr "Comenzar Oración"
+
+msgid "Scripture Helper:"
+msgstr "Ayuda de las Escrituras:"
+
+msgid "Start by focusing on who God is. Praise Him for His attributes."
+msgstr "Comienza enfocándote en quién es Dios. Alábalo por sus atributos."
+
+msgid "Humbly admit your shortcomings. God is faithful to forgive."
+msgstr "Admite humildemente tus faltas. Dios es fiel para perdonar."
+
+msgid "Thank Him for what He has done in your life today."
+msgstr "Agradécele por lo que ha hecho en tu vida hoy."
+
+msgid "Present your needs and the needs of others to Him."
+msgstr "Presenta tus necesidades y las de los demás a Él."
+
+msgid "Key Takeaways / Application"
+msgstr "Puntos Clave / Aplicación"
+
+msgid "How will you apply this message this week?"
+msgstr "¿Cómo aplicarás este mensaje esta semana?"
+
+msgid "Tags (comma separated)"
+msgstr "Etiquetas (separadas por coma)"

@@ -9,7 +9,7 @@ guide_bp = Blueprint('guide', __name__, url_prefix='/guide')
 @guide_bp.route('/')
 @login_required
 def acts_wizard():
-    return render_template('guide/acts.html')
+    return render_template('prayer_guide.html') # Use the better template
 
 @guide_bp.route('/submit', methods=['POST'])
 @login_required
@@ -19,11 +19,12 @@ def submit_acts():
     thanksgiving = request.form.get('thanksgiving', '')
     supplication = request.form.get('supplication', '')
 
-    content = "ACTS Prayer:\n\n"
-    if adoration: content += f"Adoration: {adoration}\n"
-    if confession: content += f"Confession: {confession}\n"
-    if thanksgiving: content += f"Thanksgiving: {thanksgiving}\n"
-    if supplication: content += f"Supplication: {supplication}\n"
+    # Protestant-friendly formatting
+    content = "My Prayer Journey:\n\n"
+    if adoration: content += f"🙌 Praise: {adoration}\n"
+    if confession: content += f"🛐 Repentance: {confession}\n"
+    if thanksgiving: content += f"🙏 Gratitude: {thanksgiving}\n"
+    if supplication: content += f"🤲 Requests: {supplication}\n"
 
     entry = PrayerEntry(user_id=current_user.id, content=content)
 

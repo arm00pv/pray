@@ -20,17 +20,25 @@ def add():
         preacher = request.form.get('preacher')
         scripture = request.form.get('scripture_reference')
         content = request.form.get('content')
+        takeaways = request.form.get('takeaways')
+        tags = request.form.get('tags')
 
         if not title or not content:
             flash(_('Title and Content are required.'))
             return redirect(url_for('sermon.add'))
+
+        full_content = content
+        if takeaways:
+            full_content += f"\n\n**Key Takeaways:**\n{takeaways}"
+        if tags:
+            full_content += f"\n\nTags: {tags}"
 
         note = SermonNote(
             user_id=current_user.id,
             title=title,
             preacher=preacher,
             scripture_reference=scripture,
-            content=content
+            content=full_content
         )
         db.session.add(note)
         db.session.commit()
