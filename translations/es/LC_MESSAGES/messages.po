@@ -2450,3 +2450,16 @@ msgstr "Ver Todo"
 
 msgid "No public prayers yet. Be the first to share!"
 msgstr "Aún no hay oraciones públicas. ¡Sé el primero en compartir!"
+
+
+msgid "Keep a secure, private record of your prayers and gratitude. Reflect on your spiritual journey."
+msgstr "Mantén un registro seguro y privado de tus oraciones y gratitud. Reflexiona sobre tu viaje espiritual."
+
+msgid "Share prayers anonymously or publicly. Encourage others and find prayer partners around the world."
+msgstr "Comparte oraciones anónimamente o públicamente. Anima a otros y encuentra compañeros de oración alrededor del mundo."
+
+msgid "Guided ACTS prayers, sermon notes, Bible reading plans, and mood tracking to help you grow."
+msgstr "Oraciones guiadas ACTS, notas de sermones, planes de lectura bíblica y seguimiento del ánimo para ayudarte a crecer."
+
+msgid "Visit Community"
+msgstr "Visitar Comunidad"
