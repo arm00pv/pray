@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.17.0\n"
+"Generated-By: Babel 2.18.0\n"
 
 #: app.py:67
 #, python-format
@@ -431,7 +431,9 @@ msgstr "Ningún archivo seleccionado."
 msgid ""
 "Import successful: %(p)d prayers, %(s)d sermons, %(g)d gratitude entries "
 "added."
-msgstr "Importación exitosa: %(p)d oraciones, %(s)d sermones, %(g)d entradas de gratitud añadidas."
+msgstr ""
+"Importación exitosa: %(p)d oraciones, %(s)d sermones, %(g)d entradas de "
+"gratitud añadidas."
 
 #: routes/settings_routes.py:220
 msgid "Invalid JSON file."
@@ -667,7 +669,9 @@ msgstr "Desbloquear"
 
 #: templates/admin_dashboard.html:211
 msgid "Are you sure you want to delete this user? This cannot be undone."
-msgstr "¿Estás seguro de que quieres eliminar a este usuario? Esto no se puede deshacer."
+msgstr ""
+"¿Estás seguro de que quieres eliminar a este usuario? Esto no se puede "
+"deshacer."
 
 #: templates/admin_dashboard.html:213
 msgid "Delete User"
@@ -1191,7 +1195,9 @@ msgstr "Suscribirse"
 msgid ""
 "Payments are processed securely via Stripe (Mock Mode). No real charges "
 "will be made."
-msgstr "Los pagos se procesan de forma segura a través de Stripe (Modo de Prueba). No se realizarán cargos reales."
+msgstr ""
+"Los pagos se procesan de forma segura a través de Stripe (Modo de "
+"Prueba). No se realizarán cargos reales."
 
 #: templates/faq.html:6
 msgid "Frequently Asked Questions"
@@ -1206,7 +1212,10 @@ msgid ""
 "Yes! By default, all entries are private unless you explicitly check the "
 "\"Share to Community Wall\" option. You can also create \"Private "
 "Entries\" which are never shared."
-msgstr "¡Sí! Por defecto, todas las entradas son privadas a menos que marques explícitamente la opción \"Compartir en el Muro de la Comunidad\". También puedes crear \"Entradas Privadas\" que nunca se comparten."
+msgstr ""
+"¡Sí! Por defecto, todas las entradas son privadas a menos que marques "
+"explícitamente la opción \"Compartir en el Muro de la Comunidad\". "
+"También puedes crear \"Entradas Privadas\" que nunca se comparten."
 
 #: templates/faq.html:25
 msgid "How do I join a Prayer Group?"
@@ -1217,7 +1226,10 @@ msgid ""
 "Go to the \"Groups\" tab, browse the list of available groups, and click "
 "\"Join\". If the group requires approval, the admin will review your "
 "request."
-msgstr "Ve a la pestaña \"Grupos\", explora la lista de grupos disponibles y haz clic en \"Unirse\". Si el grupo requiere aprobación, el administrador revisará tu solicitud."
+msgstr ""
+"Ve a la pestaña \"Grupos\", explora la lista de grupos disponibles y haz "
+"clic en \"Unirse\". Si el grupo requiere aprobación, el administrador "
+"revisará tu solicitud."
 
 #: templates/faq.html:38
 msgid "Can I use this app offline?"
@@ -1228,7 +1240,11 @@ msgid ""
 "Yes, this app is a PWA (Progressive Web App). You can install it on your "
 "device and access cached content offline, though you need an internet "
 "connection to sync new entries."
-msgstr "Sí, esta aplicación es una PWA (Aplicación Web Progresiva). Puedes instalarla en tu dispositivo y acceder al contenido en caché sin conexión, aunque necesitas una conexión a internet para sincronizar nuevas entradas."
+msgstr ""
+"Sí, esta aplicación es una PWA (Aplicación Web Progresiva). Puedes "
+"instalarla en tu dispositivo y acceder al contenido en caché sin "
+"conexión, aunque necesitas una conexión a internet para sincronizar "
+"nuevas entradas."
 
 #: templates/faq.html:51
 msgid "What is the \"Bible in a Year\" plan?"
@@ -1239,7 +1255,10 @@ msgid ""
 "It is a structured reading plan that guides you through the entire Bible "
 "in 365 days. You can track your progress in the \"Bible Reading Plan\" "
 "section."
-msgstr "Es un plan de lectura estructurado que te guía a través de toda la Biblia en 365 días. Puedes seguir tu progreso en la sección \"Plan de Lectura de la Biblia\"."
+msgstr ""
+"Es un plan de lectura estructurado que te guía a través de toda la Biblia"
+" en 365 días. Puedes seguir tu progreso en la sección \"Plan de Lectura "
+"de la Biblia\"."
 
 #: templates/faq.html:63
 msgid "Still have questions?"
@@ -1795,7 +1814,9 @@ msgstr "Añadir nuevo ítem..."
 
 #: templates/prayer_lists.html:46
 msgid "No prayer lists yet. Create one to organize specific requests."
-msgstr "No hay listas de oración todavía. Crea una para organizar peticiones específicas."
+msgstr ""
+"No hay listas de oración todavía. Crea una para organizar peticiones "
+"específicas."
 
 #: templates/prayer_lists.html:58
 msgid "Create New List"
@@ -1969,7 +1990,9 @@ msgstr "Importar Datos"
 msgid ""
 "Restore data from a backup file. Existing duplicate entries will be "
 "skipped."
-msgstr "Restaura datos desde un archivo de respaldo. Se omitirán las entradas duplicadas."
+msgstr ""
+"Restaura datos desde un archivo de respaldo. Se omitirán las entradas "
+"duplicadas."
 
 #: templates/settings.html:25
 msgid "Import Backup"
@@ -2071,7 +2094,9 @@ msgstr "Escribe el versículo bíblico..."
 msgid ""
 "What stands out to you in this passage? Who is the audience? Is there a "
 "repetition of words?"
-msgstr "¿Qué te llama la atención de este pasaje? ¿Quién es la audiencia? ¿Hay repetición de palabras?"
+msgstr ""
+"¿Qué te llama la atención de este pasaje? ¿Quién es la audiencia? ¿Hay "
+"repetición de palabras?"
 
 #: templates/soap_journal.html:27
 msgid "How can you apply this truth to your life today?"
@@ -2079,7 +2104,9 @@ msgstr "¿Cómo puedes aplicar esta verdad a tu vida hoy?"
 
 #: templates/soap_journal.html:32
 msgid "Write a prayer asking God to help you apply this scripture."
-msgstr "Escribe una oración pidiéndole a Dios que te ayude a aplicar esta escritura."
+msgstr ""
+"Escribe una oración pidiéndole a Dios que te ayude a aplicar esta "
+"escritura."
 
 #: templates/soap_journal.html:36
 msgid "Save Journal Entry"
