@@ -34,6 +34,48 @@
 
         <hr>
 
+        <!-- Events Section -->
+        <h3>Upcoming Events</h3>
+        {% for event in group.events|sort(attribute='event_datetime') %}
+             <div class="card mb-3 border-info">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">📅 {{ event.event_datetime.strftime('%Y-%m-%d %H:%M') }}</h6>
+                    <p class="card-text">{{ event.description }}</p>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">No upcoming events.</p>
+        {% endfor %}
+
+        {% if current_role == 'admin' %}
+            <button class="btn btn-outline-info btn-sm mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#eventForm">
+                + Schedule Event
+            </button>
+            <div class="collapse mb-4" id="eventForm">
+                <div class="card card-body">
+                    <form action="{{ url_for('group.create_event', group_id=group.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="mb-3">
+                            <label class="form-label">Event Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Date & Time</label>
+                            <input type="datetime-local" name="event_datetime" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Schedule</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
+        <hr>
+
         <h3>Polls</h3>
         {% for poll in group.polls if poll.is_active %}
             <div class="card mb-3">

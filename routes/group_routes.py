@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from models import PrayerGroup, User, GroupJoinRequest, GroupPoll, GroupPollOption, GroupPollVote
+from models import PrayerGroup, User, GroupJoinRequest, GroupPoll, GroupPollOption, GroupPollVote, GroupEvent
 from extensions import db
 import secrets
+from datetime import datetime
 
 group_bp = Blueprint('group', __name__, url_prefix='/groups')
 
@@ -53,6 +54,40 @@ def create_group():
     db.session.commit()
 
     flash(f'Group "{name}" created! Share code: {code}')
+    return redirect(url_for('group.view_group', group_id=group.id))
+
+@group_bp.route('/<int:group_id>/events/create', methods=['POST'])
+@login_required
+def create_event(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash('Only admins can create events.')
+        return redirect(url_for('group.view_group', group_id=group.id))
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+    date_str = request.form.get('event_datetime')
+
+    if not title or not date_str:
+        flash('Title and Date are required.')
+        return redirect(url_for('group.view_group', group_id=group.id))
+
+    try:
+        event_dt = datetime.strptime(date_str, '%Y-%m-%dT%H:%M')
+    except ValueError:
+        flash('Invalid date format.')
+        return redirect(url_for('group.view_group', group_id=group.id))
+
+    event = GroupEvent(
+        group_id=group.id,
+        created_by=current_user.id,
+        title=title,
+        description=description,
+        event_datetime=event_dt
+    )
+    db.session.add(event)
+    db.session.commit()
+    flash('Event scheduled.')
     return redirect(url_for('group.view_group', group_id=group.id))
 
 @group_bp.route('/<int:group_id>')

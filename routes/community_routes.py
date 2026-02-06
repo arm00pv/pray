@@ -8,9 +8,39 @@ from utils.gamification import check_and_award_badges
 import random
 from datetime import datetime, timedelta
 from sqlalchemy import or_, not_
-
+import json
 
 community_bp = Blueprint('community', __name__, url_prefix='/community')
+
+@community_bp.route('/map')
+def map_view():
+    # Fetch public prayers with geolocation data
+    query = PrayerEntry.query.filter(
+        PrayerEntry.is_public == True,
+        PrayerEntry.is_hidden == False,
+        PrayerEntry.geolocation_data.isnot(None)
+    ).order_by(PrayerEntry.created_at.desc()).limit(100)
+
+    entries = query.all()
+
+    # Process data for map
+    map_data = []
+    for e in entries:
+        try:
+            geo = json.loads(e.geolocation_data)
+            if geo and 'lat' in geo and 'lon' in geo:
+                map_data.append({
+                    'lat': geo['lat'],
+                    'lon': geo['lon'],
+                    'city': geo.get('city', 'Unknown'),
+                    'country': geo.get('country', 'Unknown'),
+                    'content': e.content[:100] + '...' if len(e.content) > 100 else e.content,
+                    'author': 'Anonymous' if e.is_anonymous else (e.author.username if e.author else 'Unknown')
+                })
+        except:
+            continue
+
+    return render_template('map.html', map_data=map_data)
 
 @community_bp.route('/')
 def index():

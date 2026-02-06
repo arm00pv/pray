@@ -141,16 +141,19 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label for="category" class="form-label">{{ _('Category') }}</label>
-                            <select class="form-select" name="category" id="category">
-                                <option value="">{{ _('No Category') }}</option>
-                                <option value="Personal">{{ _('Personal') }}</option>
-                                <option value="Family">{{ _('Family') }}</option>
-                                <option value="Work">{{ _('Work') }}</option>
-                                <option value="Health">{{ _('Health') }}</option>
-                                <option value="Church">{{ _('Church') }}</option>
-                                <option value="World">{{ _('World') }}</option>
-                                <option value="Other">{{ _('Other') }}</option>
-                            </select>
+                            <div class="input-group">
+                                <select class="form-select" name="category" id="category">
+                                    <option value="">{{ _('No Category') }}</option>
+                                    <option value="Personal">{{ _('Personal') }}</option>
+                                    <option value="Family">{{ _('Family') }}</option>
+                                    <option value="Work">{{ _('Work') }}</option>
+                                    <option value="Health">{{ _('Health') }}</option>
+                                    <option value="Church">{{ _('Church') }}</option>
+                                    <option value="World">{{ _('World') }}</option>
+                                    <option value="Other">{{ _('Other') }}</option>
+                                </select>
+                                <button class="btn btn-outline-secondary" type="button" id="suggestVerseBtn" title="{{ _('Suggest Verse based on Category') }}">💡</button>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">{{ _('Mood') }}</label>
@@ -273,6 +276,22 @@
                 document.getElementById('is_anonymous').checked = false;
             }
         }
+
+        document.getElementById('suggestVerseBtn').addEventListener('click', function() {
+            var category = document.getElementById('category').value;
+            if (!category) {
+                alert("{{ _('Please select a category first.') }}");
+                return;
+            }
+
+            fetch('/suggest_verse/' + category)
+                .then(response => response.json())
+                .then(data => {
+                    var textarea = document.getElementById('entryContent');
+                    textarea.value += (textarea.value ? "\n\n" : "") + "Scripture: " + data.reference;
+                })
+                .catch(error => console.error('Error:', error));
+        });
         </script>
 
         <!-- Search & Filter -->

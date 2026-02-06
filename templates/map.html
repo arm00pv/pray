@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2>{{ _('Global Prayer Map') }}</h2>
+            <p class="text-muted">{{ _('See where prayers are being offered around the world.') }}</p>
+        </div>
+        <a href="{{ url_for('community.index') }}" class="btn btn-outline-primary">{{ _('Back to Feed') }}</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div id="prayerMap" style="height: 600px; width: 100%; border-radius: 12px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var map = L.map('prayerMap').setView([20, 0], 2); // Center on world
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var prayers = {{ map_data | tojson }};
+
+        prayers.forEach(function(p) {
+            if (p.lat && p.lon) {
+                var popupContent = `
+                    <strong>${p.author}</strong> in ${p.city}, ${p.country}<br>
+                    <hr class="my-1">
+                    <p class="mb-0 small">${p.content}</p>
+                `;
+                L.marker([p.lat, p.lon]).addTo(map)
+                    .bindPopup(popupContent);
+            }
+        });
+    });
+</script>
+{% endblock %}

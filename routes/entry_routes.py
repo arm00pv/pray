@@ -13,8 +13,32 @@ import io
 from fpdf import FPDF
 from flask import Response
 import calendar
+import random
+from flask import jsonify
 
 entry_bp = Blueprint('entry', __name__)
+
+@entry_bp.route('/suggest_verse/<category>')
+@login_required
+def suggest_verse(category):
+    # Simple Mock Logic for "Smart" Suggestions
+    # In a real app, this could use NLP or a tagged database
+    verses = {
+        'Personal': ['Psalm 23:1', 'Philippians 4:13', 'Jeremiah 29:11'],
+        'Family': ['Joshua 24:15', 'Psalm 133:1', 'Proverbs 22:6'],
+        'Work': ['Colossians 3:23', 'Proverbs 16:3', 'Psalm 90:17'],
+        'Health': ['Jeremiah 30:17', '3 John 1:2', 'Psalm 103:2-3'],
+        'Church': ['Hebrews 10:24-25', 'Matthew 18:20', 'Ephesians 4:3'],
+        'World': ['John 3:16', 'Psalm 67:1', 'Matthew 28:19'],
+        'Other': ['Romans 8:28', 'Psalm 46:1', 'Isaiah 40:31']
+    }
+
+    category_verses = verses.get(category, verses['Other'])
+    selected_ref = random.choice(category_verses)
+
+    # We could fetch text from internal DB or external API.
+    # For now, return the reference and let client/helper link it.
+    return jsonify({'reference': selected_ref})
 
 @entry_bp.route('/calendar')
 @login_required
