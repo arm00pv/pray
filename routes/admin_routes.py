@@ -100,22 +100,37 @@ def broadcast_message():
         flash(_('Message cannot be empty.'))
         return redirect(url_for('admin.dashboard'))
 
-    # Send to all users
-    users = User.query.all()
-    count = 0
-    for user in users:
-        # Create System Notification
-        with force_locale(user.preferred_language or 'en'):
-            msg_content = f"Admin Broadcast: {message}"
+    # Send to all users (Bulk Insert Optimization)
+    users = User.query.with_entities(User.id, User.preferred_language).all()
 
-        notif = Notification(
-            user_id=user.id,
-            message=msg_content
-        )
-        db.session.add(notif)
-        count += 1
+    notifications = []
+    # Pre-calculate messages for languages to avoid loop overhead if possible,
+    # but since message might be dynamic or users have different langs, we loop.
+    # However, we can create objects and bulk save.
 
-    db.session.commit()
+    # We'll group by language for potential future optimization, but for now just bulk add.
+    for user_id, lang in users:
+        # Simple string concatenation doesn't need context if we just prefix
+        # But if we want 'Admin Broadcast' translated:
+        # Ideally we fetch translations once per language.
+
+        # Fallback to English for broadcast prefix if strict
+        # For MVP, we'll just use a standard format.
+
+        msg_content = f"📢 Admin: {message}"
+
+        notifications.append(Notification(
+            user_id=user_id,
+            message=msg_content,
+            created_at=datetime.now(timezone.utc)
+        ))
+
+    if notifications:
+        db.session.bulk_save_objects(notifications)
+        db.session.commit()
+        count = len(notifications)
+    else:
+        count = 0
 
     # Log it
     log = SystemLog(level='INFO', message=f"Broadcast sent to {count} users by {current_user.username}")
