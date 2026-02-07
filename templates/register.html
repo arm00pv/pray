@@ -4,21 +4,21 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ _('User Registration') }}</div>
-            <div class="card-body">
+            <div class="card-header h5 border-0 bg-transparent pt-4 px-4">{{ _('User Registration') }}</div>
+            <div class="card-body p-4">
                 <form method="POST">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">{{ _('Username') }}</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                    <div class="mb-4">
+                        <label for="username" class="form-label text-muted small text-uppercase">{{ _('Username') }}</label>
+                        <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="{{ _('Choose a unique username') }}" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">{{ _('Email Address (Optional)') }}</label>
-                        <input type="email" class="form-control" id="email" name="email">
+                    <div class="mb-4">
+                        <label for="email" class="form-label text-muted small text-uppercase">{{ _('Email Address (Optional)') }}</label>
+                        <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="you@example.com">
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">{{ _('Password') }}</label>
-                        <input type="password" class="form-control" id="password" name="password" required onkeyup="checkPasswordStrength()">
+                    <div class="mb-4">
+                        <label for="password" class="form-label text-muted small text-uppercase">{{ _('Password') }}</label>
+                        <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="••••••••" required>
                         <div class="mt-2">
                             <small class="text-muted">{{ _('Password Strength') }}:</small>
                             <div class="progress" style="height: 5px;">

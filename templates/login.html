@@ -4,22 +4,24 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">{{ _('User Login') }}</div>
-            <div class="card-body">
+            <div class="card-header h5 border-0 bg-transparent pt-4 px-4">{{ _('User Login') }}</div>
+            <div class="card-body p-4">
                 <form method="POST">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">{{ _('Username') }}</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
+                    <div class="mb-4">
+                        <label for="username" class="form-label text-muted small text-uppercase">{{ _('Username') }}</label>
+                        <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="{{ _('Enter your username') }}" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">{{ _('Password') }}</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="mb-4">
+                        <label for="password" class="form-label text-muted small text-uppercase">{{ _('Password') }}</label>
+                        <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="••••••••" required>
                         <div class="mt-2 text-end">
-                            <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot Password?') }}</a>
+                            <a href="{{ url_for('auth.forgot_password') }}" class="text-decoration-none small">{{ _('Forgot Password?') }}</a>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ _('Login') }}</button>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">{{ _('Login') }}</button>
+                    </div>
                 </form>
             </div>
         </div>
