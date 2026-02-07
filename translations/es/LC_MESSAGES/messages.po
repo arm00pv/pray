@@ -2505,3 +2505,12 @@ msgstr "¿Cómo aplicarás este mensaje esta semana?"
 
 msgid "Tags (comma separated)"
 msgstr "Etiquetas (separadas por coma)"
+
+msgid "Suggest Verse based on Category"
+msgstr "Sugerir Versículo basado en Categoría"
+
+msgid "Please select a category first."
+msgstr "Por favor, selecciona una categoría primero."
+
+msgid "Scripture:"
+msgstr "Escritura:"
