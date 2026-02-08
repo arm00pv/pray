@@ -9,7 +9,7 @@
                 <p class="text-muted">{{ group.description }}</p>
             </div>
             <div>
-                <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST" onsubmit="return confirm('Are you sure you want to leave this group?');">
+                <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure you want to leave this group?') }}');">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <button type="submit" class="btn btn-outline-danger">{{ _('Leave Group') }}</button>
                 </form>
@@ -30,12 +30,12 @@
             {% endfor %}
         </ul>
 
-        <a href="{{ url_for('group.list_groups') }}" class="btn btn-link">&larr; Back to Groups</a>
+        <a href="{{ url_for('group.list_groups') }}" class="btn btn-link">&larr; {{ _('Back to Groups') }}</a>
 
         <hr>
 
         <!-- Events Section -->
-        <h3>Upcoming Events</h3>
+        <h3>{{ _('Upcoming Events') }}</h3>
         {% for event in group.events|sort(attribute='event_datetime') %}
              <div class="card mb-3 border-info">
                 <div class="card-body d-flex justify-content-between align-items-center">
@@ -53,30 +53,30 @@
                 </div>
             </div>
         {% else %}
-            <p class="text-muted">No upcoming events.</p>
+            <p class="text-muted">{{ _('No upcoming events.') }}</p>
         {% endfor %}
 
         {% if current_role == 'admin' %}
             <button class="btn btn-outline-info btn-sm mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#eventForm">
-                + Schedule Event
+                + {{ _('Schedule Event') }}
             </button>
             <div class="collapse mb-4" id="eventForm">
                 <div class="card card-body">
                     <form action="{{ url_for('group.create_event', group_id=group.id) }}" method="POST">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="mb-3">
-                            <label class="form-label">Event Title</label>
+                            <label class="form-label">{{ _('Event Title') }}</label>
                             <input type="text" name="title" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Date & Time</label>
+                            <label class="form-label">{{ _('Date & Time') }}</label>
                             <input type="datetime-local" name="event_datetime" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Description</label>
+                            <label class="form-label">{{ _('Description') }}</label>
                             <textarea name="description" class="form-control" rows="2"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Schedule</button>
+                        <button type="submit" class="btn btn-primary">{{ _('Schedule') }}</button>
                     </form>
                 </div>
             </div>
@@ -84,7 +84,7 @@
 
         <hr>
 
-        <h3>Polls</h3>
+        <h3>{{ _('Polls') }}</h3>
         {% for poll in group.polls if poll.is_active %}
             <div class="card mb-3">
                 <div class="card-header">{{ poll.question }}</div>
@@ -102,34 +102,34 @@
                                         <div class="progress mt-1" style="height: 5px;">
                                             <div class="progress-bar" role="progressbar" style="width: {{ pct }}%"></div>
                                         </div>
-                                        <small class="text-muted">{{ option.votes|length }} votes ({{ pct }}%)</small>
+                                        <small class="text-muted">{{ option.votes|length }} {{ _('votes') }} ({{ pct }}%)</small>
                                     </label>
                                 </div>
                             </div>
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary btn-sm mt-2">Vote</button>
+                        <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _('Vote') }}</button>
                     </form>
                 </div>
             </div>
         {% else %}
-            <p class="text-muted">No active polls.</p>
+            <p class="text-muted">{{ _('No active polls.') }}</p>
         {% endfor %}
 
         {% if current_role == 'admin' %}
             <div class="card mt-4 mb-4">
-                <div class="card-header">Create Poll</div>
+                <div class="card-header">{{ _('Create Poll') }}</div>
                 <div class="card-body">
                     <form action="{{ url_for('group.create_poll', group_id=group.id) }}" method="POST">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <div class="mb-3">
-                            <label class="form-label">Question</label>
+                            <label class="form-label">{{ _('Question') }}</label>
                             <input type="text" name="question" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Options (comma separated)</label>
+                            <label class="form-label">{{ _('Options (comma separated)') }}</label>
                             <input type="text" name="options" class="form-control" placeholder="Option 1, Option 2..." required>
                         </div>
-                        <button type="submit" class="btn btn-success">Create Poll</button>
+                        <button type="submit" class="btn btn-success">{{ _('Create Poll') }}</button>
                     </form>
                 </div>
             </div>

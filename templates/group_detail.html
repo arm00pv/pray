@@ -48,35 +48,6 @@
         </div>
         {% endif %}
 
-        <!-- Poll Modal -->
-        <div class="modal fade" id="pollModal" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="{{ url_for('group.create_poll', group_id=group.id) }}" method="POST">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ _('Create Poll') }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label class="form-label">{{ _('Question') }}</label>
-                                <input type="text" name="question" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">{{ _('Options (comma separated)') }}</label>
-                                <input type="text" name="options" class="form-control" placeholder="Yes, No, Maybe" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ _('Create') }}</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!-- Edit Group Modal -->
         <div class="modal fade" id="editGroupModal" tabindex="-1">
             <div class="modal-dialog">
@@ -110,7 +81,7 @@
             </div>
         </div>
 
-        <!-- Group Events -->
+        <!-- Active Polls -->
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <span>{{ _('Active Polls') }}</span>

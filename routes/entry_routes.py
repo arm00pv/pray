@@ -128,7 +128,19 @@ def user_dashboard():
         func.extract('year', PrayerEntry.created_at) < today.year
     ).order_by(PrayerEntry.created_at.desc()).all()
 
-    return render_template('user_dashboard.html', entries=entries, memories=memories)
+    # Heatmap Data (Last 30 Days)
+    thirty_days_ago = datetime.utcnow() - timedelta(days=30)
+    heatmap_entries = PrayerEntry.query.filter(
+        PrayerEntry.user_id == current_user.id,
+        PrayerEntry.created_at >= thirty_days_ago
+    ).all()
+
+    heatmap_data = {}
+    for e in heatmap_entries:
+        date_str = e.created_at.strftime('%Y-%m-%d')
+        heatmap_data[date_str] = heatmap_data.get(date_str, 0) + 1
+
+    return render_template('user_dashboard.html', entries=entries, memories=memories, heatmap_data=heatmap_data)
 
 @entry_bp.route('/add', methods=['POST'])
 @login_required

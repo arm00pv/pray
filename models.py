@@ -100,15 +100,15 @@ class AdminInvite(db.Model):
 
 class PrayerEntry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True) # Changed to nullable
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True, index=True) # Changed to nullable
     community_email_id = db.Column(db.Integer, db.ForeignKey('community_email.id'), nullable=True)
     content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
     ip_address = db.Column(db.String(45))
     geolocation_data = db.Column(db.Text) # Storing as JSON string
     status = db.Column(db.String(20), default='active') # active, fulfilled, dropped
     is_continuous = db.Column(db.Boolean, default=False)
-    is_public = db.Column(db.Boolean, default=False) # Added is_public
+    is_public = db.Column(db.Boolean, default=False, index=True) # Added is_public
     is_anonymous = db.Column(db.Boolean, default=False)
     flag_count = db.Column(db.Integer, default=0)
     category = db.Column(db.String(50), nullable=True)
@@ -146,7 +146,7 @@ class Amen(db.Model):
 
 class Notification(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, index=True)
     message = db.Column(db.String(255), nullable=False)
     is_read = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
@@ -177,10 +177,10 @@ class Testimony(db.Model):
 
 class GroupMessage(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('prayer_group.id'), nullable=False, index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), index=True)
     author = db.relationship('User')
 
 group_members = db.Table('group_members',

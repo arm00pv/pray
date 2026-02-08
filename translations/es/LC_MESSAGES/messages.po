@@ -2514,3 +2514,39 @@ msgstr "Por favor, selecciona una categoría primero."
 
 msgid "Scripture:"
 msgstr "Escritura:"
+
+msgid "A safe space to document your prayers, find peace, and connect with a global community of faith."
+msgstr "Un espacio seguro para documentar tus oraciones, encontrar paz y conectarte con una comunidad global de fe."
+
+msgid "Are you sure you want to leave this group?"
+msgstr "¿Estás seguro de que quieres dejar este grupo?"
+
+msgid "Back to Groups"
+msgstr "Volver a Grupos"
+
+msgid "Upcoming Events"
+msgstr "Próximos Eventos"
+
+msgid "No upcoming events."
+msgstr "No hay eventos próximos."
+
+msgid "Schedule Event"
+msgstr "Programar Evento"
+
+msgid "Event Title"
+msgstr "Título del Evento"
+
+msgid "Date & Time"
+msgstr "Fecha y Hora"
+
+msgid "Schedule"
+msgstr "Programar"
+
+msgid "Polls"
+msgstr "Encuestas"
+
+msgid "votes"
+msgstr "votos"
+
+msgid "No active polls."
+msgstr "No hay encuestas activas."

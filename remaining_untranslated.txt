@@ -1,0 +1,40 @@
+templates/groups/view.html:        <h3>Upcoming Events</h3>
+templates/groups/view.html:            <p class="text-muted">No upcoming events.</p>
+templates/groups/view.html:                            <label class="form-label">Event Title</label>
+templates/groups/view.html:                            <label class="form-label">Date & Time</label>
+templates/groups/view.html:                            <label class="form-label">Description</label>
+templates/groups/view.html:                        <button type="submit" class="btn btn-primary">Schedule</button>
+templates/groups/view.html:        <h3>Polls</h3>
+templates/groups/view.html:                        <button type="submit" class="btn btn-primary btn-sm mt-2">Vote</button>
+templates/groups/view.html:            <p class="text-muted">No active polls.</p>
+templates/groups/view.html:                <div class="card-header">Create Poll</div>
+templates/groups/view.html:                            <label class="form-label">Question</label>
+templates/groups/view.html:                            <label class="form-label">Options (comma separated)</label>
+templates/groups/view.html:                        <button type="submit" class="btn btn-success">Create Poll</button>
+templates/guide/acts.html:        <p class="text-center text-muted">Adoration &bull; Confession &bull; Thanksgiving &bull; Supplication</p>
+templates/guide/acts.html:                <div class="card-header bg-primary text-white">Adoration</div>
+templates/guide/acts.html:                    <p>Praise God for who He is.</p>
+templates/guide/acts.html:                <div class="card-header bg-warning text-dark">Confession</div>
+templates/guide/acts.html:                    <p>Confess your sins and ask for forgiveness.</p>
+templates/guide/acts.html:                <div class="card-header bg-success text-white">Thanksgiving</div>
+templates/guide/acts.html:                    <p>Thank God for what He has done.</p>
+templates/guide/acts.html:                <div class="card-header bg-info text-white">Supplication</div>
+templates/guide/acts.html:                    <p>Make your requests known to God.</p>
+templates/guide/acts.html:            <button type="submit" class="btn btn-lg btn-primary w-100">Finish & Save</button>
+templates/settings.html:                            <option value="en" {% if current_user.preferred_language == 'en' %}selected{% endif %}>English</option>
+templates/settings.html:                            <option value="es" {% if current_user.preferred_language == 'es' %}selected{% endif %}>Español</option>
+templates/map.html:            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+templates/memory_game.html:                <h4 id="verse-ref">John 3:16</h4>
+templates/base.html:    <title>Praying Diary</title>
+templates/sermons/list.html:    <h2>My Sermon Notes</h2>
+templates/sermons/list.html:    <p>No sermon notes yet.</p>
+templates/admin_feedback.html:                    <th>Date</th>
+templates/admin_feedback.html:                    <th>User/Email</th>
+templates/admin_feedback.html:                    <th>Category</th>
+templates/admin_feedback.html:                    <th>Content</th>
+templates/admin_feedback.html:                    <th>Status</th>
+templates/admin_feedback.html:                    <th>Action</th>
+templates/admin_feedback.html:                                <option value="new" {% if item.status == 'new' %}selected{% endif %}>New</option>
+templates/admin_feedback.html:                                <option value="read" {% if item.status == 'read' %}selected{% endif %}>Read</option>
+templates/admin_feedback.html:                                <option value="in_progress" {% if item.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+templates/admin_feedback.html:                                <option value="resolved" {% if item.status == 'resolved' %}selected{% endif %}>Resolved</option>
