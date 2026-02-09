@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>{{ _('User Feedback') }}</h2>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mb-3">{{ _('Back to Dashboard') }}</a>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>User/Email</th>
+                    <th>Category</th>
+                    <th>Content</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        {% if item.user_id %}
+                            <a href="#">{{ item.user.username }}</a> ({{ item.user.email }})
+                        {% else %}
+                            {{ item.email or 'Anonymous' }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="badge {% if item.category == 'bug' %}bg-danger{% elif item.category == 'feature' %}bg-info{% else %}bg-secondary{% endif %}">
+                            {{ item.category }}
+                        </span>
+                    </td>
+                    <td>{{ item.content }}</td>
+                    <td>
+                        <span class="badge {% if item.status == 'new' %}bg-primary{% elif item.status == 'resolved' %}bg-success{% else %}bg-warning{% endif %}">
+                            {{ item.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('admin.update_feedback_status', feedback_id=item.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option value="new" {% if item.status == 'new' %}selected{% endif %}>New</option>
+                                <option value="read" {% if item.status == 'read' %}selected{% endif %}>Read</option>
+                                <option value="in_progress" {% if item.status == 'in_progress' %}selected{% endif %}>In Progress</option>
+                                <option value="resolved" {% if item.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">{{ _('No feedback found.') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">{{ _('Prayer Archive') }}</h2>
+        <p class="lead">{{ _('Explore your prayer journey over time.') }}</p>
+
+        <div class="prayer-tree">
+            {% for year, months in tree.items() %}
+                <details class="mb-2">
+                    <summary class="fs-4 fw-bold p-2 bg-light border rounded">{{ year }}</summary>
+                    <div class="ms-4 mt-2">
+                        {% for month, weeks in months.items() %}
+                            <details class="mb-2">
+                                <summary class="fs-5 fw-semibold p-2 border-start border-3 border-primary bg-body-tertiary">{{ month }}</summary>
+                                <div class="ms-4 mt-2">
+                                    {% for week, days in weeks.items() %}
+                                        <details class="mb-2">
+                                            <summary class="fs-6 fw-medium p-1 text-primary">{{ week }}</summary>
+                                            <div class="ms-4 mt-2">
+                                                {% for day, entries in days.items() %}
+                                                    <details class="mb-2">
+                                                        <summary class="p-1 text-dark fw-bold">{{ day }}</summary>
+                                                        <div class="ms-4 mt-2">
+                                                            {% for entry in entries %}
+                                                                <div class="card mb-2">
+                                                                    <div class="card-body p-3">
+                                                                        <div class="d-flex justify-content-between">
+                                                                            <small class="text-muted">{{ entry.created_at.strftime('%H:%M') }}</small>
+                                                                            <span class="badge bg-secondary">{{ entry.category or _('No Category') }}</span>
+                                                                        </div>
+                                                                        <p class="card-text mt-2">{{ entry.content }}</p>
+                                                                        {% if entry.tags %}
+                                                                            <div class="mt-1">
+                                                                                {% for tag in entry.tags %}
+                                                                                    <span class="badge bg-info text-dark">#{{ tag.name }}</span>
+                                                                                {% endfor %}
+                                                                            </div>
+                                                                        {% endif %}
+                                                                    </div>
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                    </details>
+                                                {% endfor %}
+                                            </div>
+                                        </details>
+                                    {% endfor %}
+                                </div>
+                            </details>
+                        {% endfor %}
+                    </div>
+                </details>
+            {% else %}
+                <div class="alert alert-info">{{ _('No entries found.') }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-4">
+            <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-secondary">{{ _('Back to Dashboard') }}</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Simple tree styling improvements */
+    details > summary {
+        list-style: none; /* Hide default triangle */
+        cursor: pointer;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
+    details > summary::before {
+        content: '▶';
+        display: inline-block;
+        margin-right: 8px;
+        transition: transform 0.2s;
+        font-size: 0.8em;
+    }
+    details[open] > summary::before {
+        transform: rotate(90deg);
+    }
+    details[open] > summary {
+        margin-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}

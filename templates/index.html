@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section text-center">
+    <div class="container">
+        <h1 class="animate-fade-in">{{ _('Praying Diary') }}</h1>
+        <p class="lead mb-4 animate-fade-in" style="animation-delay: 0.2s;">{{ _('A safe space to document your prayers, find peace, and connect with a global community of faith.') }}</p>
+
+        {% if not current_user.is_authenticated %}
+            <div class="d-flex justify-content-center gap-3 animate-fade-in" style="animation-delay: 0.4s;">
+                <a href="{{ url_for('auth.login') }}" class="btn btn-light btn-lg px-4">{{ _('Login') }}</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-outline-light btn-lg px-4">{{ _('Join Us') }}</a>
+            </div>
+        {% else %}
+             <div class="d-flex justify-content-center gap-3 animate-fade-in" style="animation-delay: 0.4s;">
+                {% if 'admin' in current_user.get_id() %}
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-light btn-lg">{{ _('Admin Dashboard') }}</a>
+                {% else %}
+                    <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-light btn-lg">{{ _('Go to Dashboard') }}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <!-- Verse of the Day -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card text-center border-0 bg-white shadow-sm">
+                <div class="card-body py-4">
+                    <h5 class="text-uppercase text-muted small mb-2">{{ _('Verse of the Day') }}</h5>
+                    <figure>
+                        <blockquote class="blockquote">
+                            <p class="fs-4 fst-italic">"{{ daily_verse.text }}"</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer mt-2">
+                            <cite title="Source">{{ daily_verse.ref }}</cite>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <!-- Feature 1: Private Journal -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="feature-icon">📔</div>
+                    <h3 class="h4">{{ _('Private Journal') }}</h3>
+                    <p class="text-muted">{{ _('Keep a secure, private record of your prayers and gratitude. Reflect on your spiritual journey.') }}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Feature 2: Community -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="h4">{{ _('Global Community') }}</h3>
+                    <p class="text-muted">{{ _('Share prayers anonymously or publicly. Encourage others and find prayer partners around the world.') }}</p>
+                    <a href="{{ url_for('community.index') }}" class="btn btn-outline-primary btn-sm mt-2">{{ _('Visit Community') }}</a>
+                </div>
+            </div>
+        </div>
+        <!-- Feature 3: Growth -->
+        <div class="col-md-4">
+            <div class="card h-100 text-center p-4">
+                <div class="card-body">
+                    <div class="feature-icon">🌱</div>
+                    <h3 class="h4">{{ _('Spiritual Growth') }}</h3>
+                    <p class="text-muted">{{ _('Guided ACTS prayers, sermon notes, Bible reading plans, and mood tracking to help you grow.') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anonymous Prayer Section (for non-logged in users) -->
+    {% if not current_user.is_authenticated %}
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card border-0 shadow">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h3 class="h3">{{ _('Need Prayer Now?') }}</h3>
+                        <p class="text-muted">{{ _('Share your request anonymously with our community.') }}</p>
+                    </div>
+                    <form action="{{ url_for('entry.add_anonymous_entry') }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="mb-3">
+                            <textarea class="form-control form-control-lg" name="content" rows="3" placeholder="{{ _('Type your prayer request here...') }}" required></textarea>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label small text-muted">{{ _('Email (Private, for verification)') }}</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="form-check mt-3">
+                                    <input type="checkbox" class="form-check-input" id="agreed_to_terms" name="agreed_to_terms" required>
+                                    <label class="form-check-label small" for="agreed_to_terms">{{ _('I agree to the Terms') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">{{ _('Share Anonymously') }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Live Feed Preview -->
+    <div class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>{{ _('Latest Prayers') }}</h3>
+            <a href="{{ url_for('community.index') }}" class="text-decoration-none">{{ _('View All') }} &rarr;</a>
+        </div>
+        <div class="row g-3">
+            {% for entry in entries %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    {% if entry.is_anonymous %}
+                                        {{ _('Anonymous') }}
+                                    {% else %}
+                                        {{ entry.author.username }}
+                                    {% endif %}
+                                </h6>
+                                <small class="text-muted">{{ entry.created_at.strftime('%H:%M') }}</small>
+                            </div>
+                            <p class="card-text text-truncate-3">{{ entry.content|truncate(120) }}</p>
+                            <div class="mt-auto pt-2 border-top d-flex justify-content-between text-muted small">
+                                <span>{% if entry.category %}{{ entry.category }}{% else %}{{ _('General') }}{% endif %}</span>
+                                <span>🙏 {{ entry.amens|length }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center text-muted py-4">
+                    {{ _('No public prayers yet. Be the first to share!') }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

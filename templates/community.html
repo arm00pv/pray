@@ -3,25 +3,174 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2>Community Prayer Wall</h2>
-        <p>Join others in prayer. These requests have been shared anonymously.</p>
+        <h2>{{ _('Community Prayer Wall') }}</h2>
+        <p>{{ _('Join others in prayer. These requests have been shared anonymously.') }}</p>
+
+        {% if urgent_requests %}
+        <div class="card mb-4 border-danger">
+            <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                 <span>🔥 <strong>{{ _('Urgent Prayer Chain (Expires in 24h)') }}</strong></span>
+                 <span class="badge bg-white text-danger">{{ urgent_requests|length }}</span>
+            </div>
+            <div class="card-body bg-danger-subtle">
+                <div class="list-group">
+                {% for req in urgent_requests %}
+                    <div class="list-group-item list-group-item-action flex-column align-items-start border-danger">
+                        <div class="d-flex w-100 justify-content-between">
+                             <h6 class="mb-1 text-danger fw-bold">
+                                {% if req.is_anonymous %}
+                                    {{ _('Anonymous') }}
+                                {% else %}
+                                    {{ req.author.username }}
+                                {% endif %}
+                             </h6>
+                             <small class="text-muted">{{ _('Expires') }}: {{ req.urgent_expiry.strftime('%H:%M') }} UTC</small>
+                        </div>
+                        <p class="mb-1">{{ req.content }}</p>
+                        <div class="mt-2">
+                             <!-- Simple Amen button for urgent list -->
+                            <form action="{{ url_for('community.toggle_amen', entry_id=req.id) }}" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    🙏 {{ _('Pray') }}
+                                </button>
+                            </form>
+                            <span class="ms-2 badge bg-danger">{{ req.amens|length }} {{ _('Praying') }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <form class="mb-4" method="GET" action="{{ url_for('community.index') }}">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="{{ _('Search keywords or tags...') }}" value="{{ request.args.get('q', '') }}">
+                <button class="btn btn-outline-secondary" type="submit">{{ _('Search') }}</button>
+            </div>
+        </form>
 
         {% for entry in entries %}
         <div class="card mb-3">
-            <div class="card-header text-muted">
-                {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+            <div class="card-header text-muted d-flex justify-content-between align-items-center">
+                <div>
+                    {% if entry.is_anonymous %}
+                        <strong>{{ _('Anonymous') }}</strong>
+                    {% else %}
+                        <strong><a href="{{ url_for('profile.public_profile', username=entry.author.username) }}" class="text-decoration-none text-body">{{ entry.author.username }}</a></strong>
+                    {% endif %}
+                    - {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+                </div>
+                <div>
+                    <form action="{{ url_for('community.flag_entry', entry_id=entry.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('{{ _('Flag this post as inappropriate?') }}')">{{ _('Flag') }}</button>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <p class="card-text">{{ entry.content }}</p>
+
+                {% if entry.category %}
+                    <span class="badge bg-primary mb-2">{{ entry.category }}</span>
+                {% endif %}
+
                 <div class="mb-2">
                     {% for tag in entry.tags %}
                         <span class="badge bg-secondary">#{{ tag.name }}</span>
                     {% endfor %}
                 </div>
+
+                <div class="mt-2 mb-2">
+                    {% if entry.stickers %}
+                        <div class="d-flex gap-2">
+                            {% for s in count_stickers(entry.stickers) %}
+                                <span class="badge bg-light text-dark border rounded-pill">{{ s.icon }} {{ s.count }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                         <!-- Check if current user has amened -->
+                        {% set amened = false %}
+                        {% for amen in entry.amens %}
+                            {% if amen.user_id == current_user.id %}
+                                {% set amened = true %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <form action="{{ url_for('community.toggle_amen', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm {% if amened %}btn-success{% else %}btn-outline-success{% endif %}">
+                                🙏 {{ _('Amen') }} ({{ entry.amens|length }})
+                            </button>
+                        </form>
+
+                        <button type="button" class="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#savePrayerModal{{ entry.id }}">
+                            🔖 {{ _('Save/Note') }}
+                        </button>
+
+                        <button class="btn btn-sm btn-link text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target="#comments{{ entry.id }}">
+                            💬 {{ entry.encouragements|length }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Encouragements Section -->
+                <div class="collapse mt-3" id="comments{{ entry.id }}">
+                    <div class="card card-body bg-light">
+                        <h6>{{ _('Encouragements') }}</h6>
+                        <ul class="list-unstyled">
+                            {% for enc in entry.encouragements %}
+                            <li class="mb-2 border-bottom pb-1">
+                                <strong>{{ enc.user.username }}</strong>: {{ enc.content }}
+                                {% if current_user.id == enc.user_id %}
+                                <form action="{{ url_for('community.delete_encouragement', enc_id=enc.id) }}" method="POST" class="d-inline float-end">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <button type="submit" class="btn btn-sm text-danger p-0" onclick="return confirm('{{ _('Delete?') }}')">x</button>
+                                </form>
+                                {% endif %}
+                            </li>
+                            {% else %}
+                            <li class="text-muted small">{{ _('No encouragements yet.') }}</li>
+                            {% endfor %}
+                        </ul>
+                        <form action="{{ url_for('community.add_encouragement', entry_id=entry.id) }}" method="POST">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <div class="input-group input-group-sm">
+                                <input type="text" name="content" class="form-control" placeholder="{{ _('Write an encouragement...') }}" required>
+                                <button class="btn btn-primary" type="submit">{{ _('Post') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Prayer Modal -->
+        <div class="modal fade" id="savePrayerModal{{ entry.id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="{{ url_for('community.save_prayer', entry_id=entry.id) }}" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ _('Save Prayer & Add Note') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted small">"{{ entry.content }}"</p>
+                            <textarea name="note" class="form-control" placeholder="{{ _('Add a private note (optional)...') }}"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ _('Save') }}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         {% else %}
-            <p>No public prayer requests yet. Be the first to share one!</p>
+            <p>{{ _('No public prayer requests yet. Be the first to share one!') }}</p>
         {% endfor %}
     </div>
 </div>

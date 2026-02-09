@@ -1,0 +1,499 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- Daily Verse (User Dashboard) -->
+        <div class="card bg-body-tertiary mb-4 border-primary">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <blockquote class="blockquote mb-0">
+                    <p class="mb-0 fs-6">"{{ daily_verse.text }}" <footer class="blockquote-footer mt-1"><cite title="Source">{{ daily_verse.ref }}</cite></footer></p>
+                </blockquote>
+                <span class="badge bg-primary">{{ _('Verse of the Day') }}</span>
+            </div>
+        </div>
+
+        <!-- Daily Devotional -->
+        <div class="card mb-4 border-success">
+            <div class="card-header bg-success-subtle text-success-emphasis">
+                <strong>🌱 {{ _('Daily Devotional') }}: {{ daily_devotional.title }}</strong>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ daily_devotional.content }}</p>
+                <footer class="blockquote-footer mt-1">{{ daily_devotional.scripture }}</footer>
+            </div>
+        </div>
+
+        {% if memories %}
+        <div class="card mb-4 border-info">
+            <div class="card-header bg-info-subtle">
+                <strong>🗓️ {{ _('On This Day') }}</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    {% for mem in memories %}
+                    <li class="mb-2">
+                        <small class="text-muted">{{ mem.created_at.year }}:</small>
+                        {{ mem.content }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Bible Reading Plan -->
+        <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+            <div>
+                📖 <strong>{{ reading_plan.plan_title }}:</strong> {{ reading_plan.reading }}
+                {% if reading_completed %}
+                    <span class="badge bg-success ms-2">✅ {{ _('Read') }}</span>
+                {% endif %}
+            </div>
+            <div>
+                <form action="{{ url_for('reading.mark_read') }}" method="POST" class="d-inline">
+                    <button type="submit" id="mark-read-btn" class="btn btn-sm {% if reading_completed %}btn-outline-secondary{% else %}btn-success{% endif %}">
+                        {% if reading_completed %}{{ _('Mark Unread') }}{% else %}{{ _('Mark as Read') }}{% endif %}
+                    </button>
+                </form>
+                <span class="badge bg-light text-dark ms-1">{{ _('Today\'s Reading') }}</span>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2>{{ _('My Prayer Diary') }}</h2>
+                <span class="badge bg-success">{{ _('Prayer Streak') }}: {{ current_user.calculate_streak() }} {{ _('Days') }}</span>
+                {% if current_user.badges %}
+                <div class="mt-1">
+                    {% for ub in current_user.badges %}
+                        <span class="badge bg-warning text-dark" title="{{ ub.badge.description }}" data-bs-toggle="tooltip">{{ ub.badge.icon }} {{ ub.badge.name }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div>
+                 <a href="{{ url_for('community.partners') }}" class="btn btn-outline-primary me-2">{{ _('Prayer Partner') }}</a>
+                 <a href="{{ url_for('analytics.index') }}" class="btn btn-outline-info">{{ _('Analytics') }}</a>
+            </div>
+        </div>
+
+        <!-- Goals Widget -->
+        <!-- Prayer Calendar Heatmap -->
+        <div class="card mb-4">
+            <div class="card-header">{{ _('Prayer Consistency (Last 30 Days)') }}</div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-1 justify-content-center" id="heatmap-container">
+                    <!-- JS will populate this -->
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-info">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>🎯 {{ _('Spiritual Goals') }}</span>
+                <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#goalModal">+</button>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-3">
+                    {% for goal in current_user.goals %}
+                        <div class="border rounded p-2 text-center" style="min-width: 120px;">
+                            <strong>{{ goal.goal_type }}</strong>
+                            <div class="progress my-2" style="height: 10px;">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ (goal.current_count / goal.target_count * 100)|round }}%"></div>
+                            </div>
+                            <small>{{ goal.current_count }} / {{ goal.target_count }}</small>
+                            {% if goal.current_count < goal.target_count %}
+                            <form action="{{ url_for('goal.increment_goal', goal_id=goal.id) }}" method="POST" class="mt-1">
+                                <button type="submit" class="btn btn-sm btn-link p-0 text-decoration-none">✅</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <small class="text-muted">{{ _('Set a goal for this week!') }}</small>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- New Entry Form -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="card-title mb-0">{{ _('New Entry') }}</h5>
+                    {% if daily_prompt %}
+                    <div class="alert alert-info py-1 px-2 mb-0 d-flex align-items-center">
+                        <small class="me-2"><strong>{{ _('Daily Prompt') }}:</strong> {{ daily_prompt }}</small>
+                        <button type="button" class="btn btn-sm btn-outline-info bg-white" onclick="usePrompt('{{ daily_prompt }}')">
+                            {{ _('Use') }}
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+                <form action="{{ url_for('entry.add_entry') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="mb-3 position-relative">
+                        <textarea class="form-control" id="entryContent" name="content" rows="3" placeholder="{{ _('Write your prayer here...') }}" required></textarea>
+                        <button type="button" id="micBtn" class="btn btn-sm btn-light position-absolute bottom-0 end-0 m-2" title="{{ _('Dictate Prayer') }}" onclick="toggleDictation()">
+                            🎤
+                        </button>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="category" class="form-label">{{ _('Category') }}</label>
+                            <select class="form-select" name="category" id="category">
+                                <option value="">{{ _('No Category') }}</option>
+                                <option value="Personal">{{ _('Personal') }}</option>
+                                <option value="Family">{{ _('Family') }}</option>
+                                <option value="Work">{{ _('Work') }}</option>
+                                <option value="Health">{{ _('Health') }}</option>
+                                <option value="Church">{{ _('Church') }}</option>
+                                <option value="World">{{ _('World') }}</option>
+                                <option value="Other">{{ _('Other') }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">{{ _('Mood') }}</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="mood" id="mood1" value="🙏" checked>
+                                <label class="btn btn-outline-secondary" for="mood1">🙏</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood2" value="😀">
+                                <label class="btn btn-outline-secondary" for="mood2">😀</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood3" value="😔">
+                                <label class="btn btn-outline-secondary" for="mood3">😔</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood4" value="😟">
+                                <label class="btn btn-outline-secondary" for="mood4">😟</label>
+
+                                <input type="radio" class="btn-check" name="mood" id="mood5" value="😤">
+                                <label class="btn btn-outline-secondary" for="mood5">😤</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="is_public" id="is_public" onchange="toggleAnonymous()">
+                                <label class="form-check-label" for="is_public">
+                                    {{ _('Share to Community Wall') }}
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" name="is_urgent" id="is_urgent">
+                                <label class="form-check-label text-danger fw-bold" for="is_urgent">
+                                    {{ _('Urgent Request (24h)') }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check" id="anonymous_container" style="display:none;">
+                                <input class="form-check-input" type="checkbox" name="is_anonymous" id="is_anonymous">
+                                <label class="form-check-label" for="is_anonymous">
+                                    {{ _('Post Anonymously') }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" name="is_private" id="is_private">
+                        <label class="form-check-label" for="is_private">
+                            {{ _('Private Entry (Only visible to me)') }}
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ _('Add Entry') }}</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+        function usePrompt(promptText) {
+            var textarea = document.getElementById('entryContent');
+            if (textarea.value) {
+                textarea.value += "\n\n" + promptText + "\n";
+            } else {
+                textarea.value = promptText + "\n";
+            }
+            textarea.focus();
+        }
+
+        let recognition;
+        function toggleDictation() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("{{ _('Speech recognition is not supported in this browser.') }}");
+                return;
+            }
+
+            const micBtn = document.getElementById('micBtn');
+            const textarea = document.getElementById('entryContent');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (recognition && recognition.running) {
+                recognition.stop();
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = "{{ session.get('language', 'en') }}"; // Use session lang
+
+            recognition.onstart = function() {
+                recognition.running = true;
+                micBtn.classList.remove('btn-light');
+                micBtn.classList.add('btn-danger'); // Recording indicator
+            };
+
+            recognition.onend = function() {
+                recognition.running = false;
+                micBtn.classList.remove('btn-danger');
+                micBtn.classList.add('btn-light');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                if (textarea.value) {
+                    textarea.value += " " + transcript;
+                } else {
+                    textarea.value = transcript;
+                }
+            };
+
+            recognition.start();
+        }
+
+        function toggleAnonymous() {
+            var isPublic = document.getElementById('is_public');
+            var anonContainer = document.getElementById('anonymous_container');
+            if (isPublic.checked) {
+                anonContainer.style.display = 'block';
+            } else {
+                anonContainer.style.display = 'none';
+                document.getElementById('is_anonymous').checked = false;
+            }
+        }
+        </script>
+
+        <!-- Search & Filter -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <form action="{{ url_for('entry.user_dashboard') }}" method="GET" class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" name="q" placeholder="{{ _('Search keywords...') }}" value="{{ request.args.get('q', '') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" name="start_date" value="{{ request.args.get('start_date', '') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" name="end_date" value="{{ request.args.get('end_date', '') }}">
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-select" name="mood">
+                            <option value="">{{ _('Mood') }}</option>
+                            <option value="🙏" {% if request.args.get('mood') == '🙏' %}selected{% endif %}>🙏</option>
+                            <option value="😀" {% if request.args.get('mood') == '😀' %}selected{% endif %}>😀</option>
+                            <option value="😔" {% if request.args.get('mood') == '😔' %}selected{% endif %}>😔</option>
+                            <option value="😟" {% if request.args.get('mood') == '😟' %}selected{% endif %}>😟</option>
+                            <option value="😤" {% if request.args.get('mood') == '😤' %}selected{% endif %}>😤</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-secondary w-100">🔍</button>
+                    </div>
+                </form>
+                {% if request.args %}
+                    <div class="mt-2">
+                         <a href="{{ url_for('entry.user_dashboard') }}" class="text-muted">{{ _('Clear Filters') }}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Export Actions -->
+        <div class="mb-3 text-end">
+            <a href="{{ url_for('entry.export_csv') }}" class="btn btn-sm btn-outline-dark">{{ _('Export CSV') }}</a>
+            <a href="{{ url_for('entry.export_pdf') }}" class="btn btn-sm btn-outline-danger">{{ _('Export PDF') }}</a>
+            <a href="{{ url_for('entry.export_json') }}" class="btn btn-sm btn-outline-warning">{{ _('Export JSON') }}</a>
+        </div>
+
+        <!-- Entries List -->
+        <h3>{{ _('Past Entries') }}</h3>
+        {% for entry in entries %}
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>
+                    {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+                    {% if entry.mood %}<span class="fs-5 ms-2" title="{{ _('Mood') }}">{{ entry.mood }}</span>{% endif %}
+                </span>
+                <div>
+                    {% if entry.is_continuous %}
+                    <span class="badge bg-warning text-dark">{{ _('Continuous') }}</span>
+                    {% endif %}
+                    {% if entry.is_public %}
+                    <span class="badge bg-info text-dark">{{ _('Public') }}</span>
+                    {% endif %}
+                    <span class="badge bg-secondary">{{ entry.status }}</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ entry.content | link_verses }}</p>
+                <div class="mb-2">
+                    {% for tag in entry.tags %}
+                        <a href="{{ url_for('entry.user_dashboard', tag=tag.name) }}" class="badge bg-info text-body text-decoration-none">#{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-3">
+                    {% if entry.stickers %}
+                        <div class="d-flex gap-2">
+                            {% for s in count_stickers(entry.stickers) %}
+                                <span class="badge bg-light text-dark border rounded-pill">{{ s.icon }} {{ s.count }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Personal Reflection -->
+                <div class="mt-3 p-2 bg-body-tertiary rounded border">
+                    <strong>{{ _('My Reflection') }}:</strong>
+                    <form action="{{ url_for('entry.update_reflection', entry_id=entry.id) }}" method="POST">
+                        <textarea name="reflection" class="form-control form-control-sm mb-1" placeholder="{{ _('Add private notes/reflections...') }}">{{ entry.reflection or '' }}</textarea>
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('Save Reflection') }}</button>
+                    </form>
+                </div>
+
+                <!-- Status Update Controls -->
+                <div class="mt-2">
+                    <div class="d-flex flex-wrap gap-2">
+                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="status" value="fulfilled">
+                            <button type="submit" class="btn btn-sm btn-outline-success">{{ _('Fulfilled') }}</button>
+                        </form>
+                        {% if entry.status == 'fulfilled' %}
+                            <a href="{{ url_for('testimony.index', content=entry.content) }}" class="btn btn-sm btn-success">
+                                📣 {{ _('Share as Testimony') }}
+                            </a>
+                        {% endif %}
+                        <form action="{{ url_for('entry.update_status', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <input type="hidden" name="status" value="dropped">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">{{ _('No longer petition') }}</button>
+                        </form>
+                        <form action="{{ url_for('entry.toggle_continuous', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-warning">
+                                {% if entry.is_continuous %}{{ _('Unmark Continuous') }}{% else %}{{ _('Mark Continuous') }}{% endif %}
+                            </button>
+                        </form>
+
+                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                data-bs-toggle="modal" data-bs-target="#reminderModal"
+                                onclick="setReminderEntryId({{ entry.id }})">
+                            ⏰ {{ _('Remind Me') }}
+                        </button>
+
+                         <form action="{{ url_for('entry.add_sticker', entry_id=entry.id) }}" method="POST" class="d-inline">
+                            <div class="btn-group" role="group">
+                                <button type="submit" name="sticker" value="🙏" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Praying">🙏</button>
+                                <button type="submit" name="sticker" value="❤️" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Love">❤️</button>
+                                <button type="submit" name="sticker" value="🕯️" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Light">🕯️</button>
+                                <button type="submit" name="sticker" value="💪" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Strength">💪</button>
+                                <button type="submit" name="sticker" value="🕊️" class="btn btn-sm btn-outline-light text-dark border-secondary" title="Peace">🕊️</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <p>{{ _('No entries found.') }}</p>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Goal Modal -->
+<div class="modal fade" id="goalModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ url_for('goal.add_goal') }}" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Set New Goal') }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <div class="mb-3">
+                <label class="form-label">{{ _('Goal Type') }}</label>
+                <input type="text" name="goal_type" class="form-control" placeholder="e.g. Daily Prayer" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">{{ _('Target Count (Weekly)') }}</label>
+                <input type="number" name="target_count" class="form-control" value="7" min="1" required>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+          <button type="submit" class="btn btn-primary">{{ _('Set Goal') }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Reminder Modal -->
+<div class="modal fade" id="reminderModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="reminderForm" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Set Reminder') }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+            <p>{{ _('When would you like to be reminded?') }}</p>
+            <input type="datetime-local" name="reminder_time" class="form-control" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ _('Close') }}</button>
+          <button type="submit" class="btn btn-primary">{{ _('Set Reminder') }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Prayer Heatmap (Mock Data or injected from backend in real app)
+    // We would fetch 'dates_prayed' from backend. For demo, we randomize.
+    const heatmapContainer = document.getElementById('heatmap-container');
+    const today = new Date();
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+
+        const box = document.createElement('div');
+        box.style.width = '20px';
+        box.style.height = '20px';
+        box.style.borderRadius = '3px';
+        box.title = d.toDateString();
+
+        // Random activity level: 0=none, 1=low, 2=high
+        const activity = Math.random() > 0.5 ? (Math.random() > 0.5 ? 2 : 1) : 0;
+
+        if (activity === 2) box.style.backgroundColor = '#198754'; // Success
+        else if (activity === 1) box.style.backgroundColor = '#a3cfbb'; // Light green
+        else box.style.backgroundColor = '#e9ecef'; // Gray
+
+        heatmapContainer.appendChild(box);
+    }
+
+function setReminderEntryId(id) {
+    var form = document.getElementById('reminderForm');
+    // We need to construct the URL dynamically.
+    // Since url_for is server-side, we use a placeholder and replace it.
+    // Base URL: /reminders/set/0
+    var baseUrl = "{{ url_for('reminder.set_reminder', entry_id=0) }}";
+    form.action = baseUrl.replace('0', id);
+}
+</script>
+{% endblock %}

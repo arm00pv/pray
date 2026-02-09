@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2>{{ group.name }}</h2>
+                <p class="text-muted">{{ group.description }}</p>
+            </div>
+            <div>
+                <form action="{{ url_for('group.leave_group', group_id=group.id) }}" method="POST" onsubmit="return confirm('{{ _('Are you sure you want to leave this group?') }}');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button type="submit" class="btn btn-outline-danger">{{ _('Leave Group') }}</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="alert alert-secondary">
+            <strong>{{ _('Invite Code:') }}</strong> {{ group.code }}
+        </div>
+
+        <h3>{{ _('Members') }}</h3>
+        <ul class="list-group mb-4">
+            {% for member in members %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ member.user.username }}
+                <span class="badge bg-secondary rounded-pill">{{ member.role }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('group.list_groups') }}" class="btn btn-link">&larr; {{ _('Back to Groups') }}</a>
+
+        <hr>
+
+        <!-- Events Section -->
+        <h3>{{ _('Upcoming Events') }}</h3>
+        {% for event in group.events|sort(attribute='event_datetime') %}
+             <div class="card mb-3 border-info">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">📅 {{ event.event_datetime.strftime('%Y-%m-%d %H:%M') }}</h6>
+                        <p class="card-text">{{ event.description }}</p>
+                    </div>
+                    <form action="{{ url_for('group.remind_event', event_id=event.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-outline-primary btn-sm" title="{{ _('Add to Calendar') }}">
+                            📅 ICS
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">{{ _('No upcoming events.') }}</p>
+        {% endfor %}
+
+        {% if current_role == 'admin' %}
+            <button class="btn btn-outline-info btn-sm mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#eventForm">
+                + {{ _('Schedule Event') }}
+            </button>
+            <div class="collapse mb-4" id="eventForm">
+                <div class="card card-body">
+                    <form action="{{ url_for('group.create_event', group_id=group.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Event Title') }}</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Date & Time') }}</label>
+                            <input type="datetime-local" name="event_datetime" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Description') }}</label>
+                            <textarea name="description" class="form-control" rows="2"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{ _('Schedule') }}</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
+        <hr>
+
+        <h3>{{ _('Polls') }}</h3>
+        {% for poll in group.polls if poll.is_active %}
+            <div class="card mb-3">
+                <div class="card-header">{{ poll.question }}</div>
+                <div class="card-body">
+                    {% set total_votes = poll.votes|length %}
+                    <form action="{{ url_for('group.vote_poll', poll_id=poll.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        {% for option in poll.options %}
+                            {% set pct = (option.votes|length / total_votes * 100)|round if total_votes > 0 else 0 %}
+                            <div class="mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="option_id" id="opt{{ option.id }}" value="{{ option.id }}">
+                                    <label class="form-check-label w-100" for="opt{{ option.id }}">
+                                        {{ option.text }}
+                                        <div class="progress mt-1" style="height: 5px;">
+                                            <div class="progress-bar" role="progressbar" style="width: {{ pct }}%"></div>
+                                        </div>
+                                        <small class="text-muted">{{ option.votes|length }} {{ _('votes') }} ({{ pct }}%)</small>
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary btn-sm mt-2">{{ _('Vote') }}</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-muted">{{ _('No active polls.') }}</p>
+        {% endfor %}
+
+        {% if current_role == 'admin' %}
+            <div class="card mt-4 mb-4">
+                <div class="card-header">{{ _('Create Poll') }}</div>
+                <div class="card-body">
+                    <form action="{{ url_for('group.create_poll', group_id=group.id) }}" method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Question') }}</label>
+                            <input type="text" name="question" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">{{ _('Options (comma separated)') }}</label>
+                            <input type="text" name="options" class="form-control" placeholder="Option 1, Option 2..." required>
+                        </div>
+                        <button type="submit" class="btn btn-success">{{ _('Create Poll') }}</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h2>{{ _('Prayer Helper') }}</h2>
+        <p class="text-muted">{{ _('A guided journey to connect with God.') }}</p>
+
+        <div id="prayer-wizard" class="card mt-4 p-4 shadow-sm border-0" style="background: linear-gradient(to bottom right, #ffffff, #f8f9fa);">
+            <div class="progress mb-4" style="height: 8px; border-radius: 4px;">
+                <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 0%;"></div>
+            </div>
+
+            <form action="{{ url_for('guide.submit_acts') }}" method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                <!-- Welcome Step -->
+                <div id="step-0" class="step active animate-fade-in">
+                    <div class="mb-4">
+                        <i class="bi bi-heart-pulse text-danger display-1"></i>
+                    </div>
+                    <h3>{{ _('Welcome to Your Quiet Time') }}</h3>
+                    <p class="lead">{{ _('Take a deep breath. Focus your heart on Jesus. He is listening.') }}</p>
+                    <blockquote class="blockquote mt-3">
+                        <p class="mb-0 fs-6 text-muted">"{{ _('Be still, and know that I am God.') }}" - Psalm 46:10</p>
+                    </blockquote>
+                    <button type="button" class="btn btn-primary btn-lg mt-3" onclick="nextStep(1)">{{ _('Begin Prayer') }}</button>
+                </div>
+
+                <!-- Adoration (Praise) -->
+                <div id="step-1" class="step d-none animate-fade-in">
+                    <h3>🙌 {{ _('Praise') }} (Adoration)</h3>
+                    <p>{{ _('Start by focusing on who God is. Praise Him for His attributes.') }}</p>
+
+                    <div class="alert alert-info py-2">
+                        <small><strong>{{ _('Scripture Helper:') }}</strong> "Great is the Lord and most worthy of praise; his greatness no one can fathom." - Psalm 145:3</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-adoration" name="adoration" rows="4" placeholder="{{ _('Lord, You are mighty, loving, and faithful because...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary" onclick="nextStep(0)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">{{ _('Next: Repentance') }}</button>
+                </div>
+
+                <!-- Confession (Repentance) -->
+                <div id="step-2" class="step d-none animate-fade-in">
+                    <h3>🛐 {{ _('Repentance') }} (Confession)</h3>
+                    <p>{{ _('Humbly admit your shortcomings. God is faithful to forgive.') }}</p>
+
+                    <div class="alert alert-warning py-2">
+                        <small><strong>{{ _('Scripture Helper:') }}</strong> "If we confess our sins, he is faithful and just and will forgive us our sins..." - 1 John 1:9</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-confession" name="confession" rows="4" placeholder="{{ _('Father, forgive me for...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary" onclick="nextStep(1)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">{{ _('Next: Gratitude') }}</button>
+                </div>
+
+                <!-- Thanksgiving (Gratitude) -->
+                <div id="step-3" class="step d-none animate-fade-in">
+                    <h3>🙏 {{ _('Gratitude') }} (Thanksgiving)</h3>
+                    <p>{{ _('Thank Him for what He has done in your life today.') }}</p>
+
+                    <div class="alert alert-success py-2">
+                        <small><strong>{{ _('Scripture Helper:') }}</strong> "Give thanks in all circumstances; for this is God's will for you in Christ Jesus." - 1 Thess 5:18</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-thanksgiving" name="thanksgiving" rows="4" placeholder="{{ _('Thank You, Lord, for Your blessings, especially...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary" onclick="nextStep(2)">{{ _('Back') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">{{ _('Next: Requests') }}</button>
+                </div>
+
+                <!-- Supplication (Requests) -->
+                <div id="step-4" class="step d-none animate-fade-in">
+                    <h3>🤲 {{ _('Requests') }} (Supplication)</h3>
+                    <p>{{ _('Present your needs and the needs of others to Him.') }}</p>
+
+                    <div class="alert alert-primary py-2">
+                        <small><strong>{{ _('Scripture Helper:') }}</strong> "Do not be anxious about anything, but in every situation, by prayer and petition... present your requests to God." - Phil 4:6</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <textarea class="form-control" id="text-supplication" name="supplication" rows="4" placeholder="{{ _('Lord, please help with...') }}"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-outline-secondary" onclick="nextStep(3)">{{ _('Back') }}</button>
+                    <button type="submit" class="btn btn-success">{{ _('Finish & Save') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function nextStep(step) {
+        document.querySelectorAll('.step').forEach(el => el.classList.add('d-none'));
+        document.getElementById('step-' + step).classList.remove('d-none');
+
+        let progress = (step / 4) * 100;
+        document.getElementById('progress-bar').style.width = progress + '%';
+    }
+</script>
+{% endblock %}

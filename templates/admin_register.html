@@ -3,26 +3,83 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <div class="card border-danger">
-            <div class="card-header bg-danger text-white">Admin Registration</div>
+        <div class="card">
+            <div class="card-header">{{ _('Admin Registration') }}</div>
             <div class="card-body">
                 <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="mb-3">
-                        <label for="invite_code" class="form-label">Invite Code</label>
+                        <label for="invite_code" class="form-label">{{ _('Invite Code') }}</label>
                         <input type="text" class="form-control" id="invite_code" name="invite_code" required>
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                        <label for="username" class="form-label">{{ _('Username') }}</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <label for="email" class="form-label">{{ _('Email Address') }}</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
-                    <button type="submit" class="btn btn-danger">Register Admin</button>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ _('Password') }}</label>
+                        <input type="password" class="form-control" id="password" name="password" required onkeyup="checkPasswordStrength()">
+                        <div class="mt-2">
+                            <small class="text-muted">{{ _('Password Strength') }}:</small>
+                            <div class="progress" style="height: 5px;">
+                                <div id="strength-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="security_question" class="form-label">{{ _('Security Question') }}</label>
+                        <select class="form-select" id="security_question" name="security_question" required>
+                            <option value="">{{ _('Select a question...') }}</option>
+                            <option value="What was the name of your first pet?">{{ _('What was the name of your first pet?') }}</option>
+                            <option value="What is your mother's maiden name?">{{ _('What is your mother\'s maiden name?') }}</option>
+                            <option value="What city were you born in?">{{ _('What city were you born in?') }}</option>
+                            <option value="What is the name of your favorite book?">{{ _('What is the name of your favorite book?') }}</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="security_answer" class="form-label">{{ _('Security Answer') }}</label>
+                        <input type="text" class="form-control" id="security_answer" name="security_answer" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ _('Register') }}</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function checkPasswordStrength() {
+    var password = document.getElementById("password").value;
+    var strength = 0;
+
+    // Requirements
+    var hasLength = password.length >= 8;
+    var hasUpper = /[A-Z]/.test(password);
+    var hasLower = /[a-z]/.test(password);
+    var hasNumber = /\d/.test(password);
+
+    if (hasLength) strength += 1;
+    if (hasUpper) strength += 1;
+    if (hasLower) strength += 1;
+    if (hasNumber) strength += 1;
+
+    var bar = document.getElementById("strength-bar");
+    var width = (strength / 4) * 100;
+
+    bar.style.width = width + "%";
+
+    if (strength < 2) {
+        bar.className = "progress-bar bg-danger";
+    } else if (strength < 4) {
+        bar.className = "progress-bar bg-warning";
+    } else {
+        bar.className = "progress-bar bg-success";
+    }
+}
+</script>
 {% endblock %}
