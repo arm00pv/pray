@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ _('Community Email List') }}</h2>
+    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mb-3">{{ _('Back to Dashboard') }}</a>
+
+    <div class="mb-3">
+        <a href="{{ url_for('admin.community_emails', filter='all') }}" class="btn btn-sm {% if filter == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">{{ _('All') }}</a>
+        <a href="{{ url_for('admin.community_emails', filter='blocked') }}" class="btn btn-sm {% if filter == 'blocked' %}btn-danger{% else %}btn-outline-danger{% endif %}">{{ _('Blocked') }}</a>
+        <a href="{{ url_for('admin.community_emails', filter='active') }}" class="btn btn-sm {% if filter == 'active' %}btn-success{% else %}btn-outline-success{% endif %}">{{ _('Active') }}</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ _('Email Address') }}</th>
+                        <th>{{ _('Date Joined') }}</th>
+                        <th>{{ _('Agreed to Terms') }}</th>
+                        <th>{{ _('Status') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for email in emails %}
+                    <tr>
+                        <td>{{ email.id }}</td>
+                        <td>{{ email.email }}</td>
+                        <td>{{ email.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{% if email.agreed_to_terms %}✅{% else %}❌{% endif %}</td>
+                        <td>
+                            {% if email.is_blocked %}
+                                <span class="badge bg-danger">{{ _('Blocked') }}</span>
+                                <form action="{{ url_for('admin.unblock_email') }}" method="POST" class="d-inline ms-2">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                    <input type="hidden" name="email" value="{{ email.email }}">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">{{ _('Unblock') }}</button>
+                                </form>
+                            {% else %}
+                                <span class="badge bg-success">{{ _('Active') }}</span>
+                                <!-- Option to block directly from here if needed, but usually done via Flagged entries -->
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">{{ _('No community emails found.') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

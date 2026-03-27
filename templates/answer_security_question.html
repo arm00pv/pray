@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">{{ _('Security Check') }}</div>
+            <div class="card-body">
+                <p>{{ _('Please answer your security question to reset your password.') }}</p>
+                <div class="alert alert-info">{{ question }}</div>
+                <form action="{{ url_for('auth.verify_security_answer', user_id=user_id) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="mb-3">
+                        <label for="security_answer" class="form-label">{{ _('Security Answer') }}</label>
+                        <input type="text" class="form-control" id="security_answer" name="security_answer" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ _('Verify Answer') }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

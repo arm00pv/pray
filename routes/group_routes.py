@@ -1,0 +1,291 @@
+from flask import Blueprint, render_template, redirect, url_for, flash, request, make_response
+from flask_login import login_required, current_user
+from models import PrayerGroup, GroupMessage, User, GroupEvent, GroupRequest, GroupJoinRequest, GroupPoll, GroupPollOption, GroupPollVote
+from extensions import db, bcrypt
+from datetime import datetime
+from flask_babel import _
+from ics import Calendar, Event as IcsEvent
+
+group_bp = Blueprint('group', __name__, url_prefix='/groups')
+
+@group_bp.route('/')
+def index():
+    groups = PrayerGroup.query.order_by(PrayerGroup.created_at.desc()).all()
+    return render_template('groups.html', groups=groups)
+
+@group_bp.route('/<int:group_id>')
+@login_required
+def detail(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        flash('You must join the group to view details.')
+        return redirect(url_for('group.index'))
+
+    messages = GroupMessage.query.filter_by(group_id=group_id).order_by(GroupMessage.created_at.asc()).all()
+
+    # Filter future events
+    events = GroupEvent.query.filter(
+        GroupEvent.group_id == group_id,
+        GroupEvent.event_datetime >= datetime.utcnow()
+    ).order_by(GroupEvent.event_datetime.asc()).all()
+
+    requests = GroupRequest.query.filter_by(group_id=group_id).order_by(GroupRequest.created_at.desc()).all()
+
+    join_requests = []
+    if current_user in group.admins:
+        join_requests = GroupJoinRequest.query.filter_by(group_id=group.id).all()
+
+    polls = GroupPoll.query.filter_by(group_id=group.id, is_active=True).all()
+
+    # Check if user voted in polls
+    user_voted_polls = {}
+    for p in polls:
+        vote = GroupPollVote.query.filter_by(poll_id=p.id, user_id=current_user.id).first()
+        if vote:
+            user_voted_polls[p.id] = vote.option_id
+
+    return render_template('group_detail.html', group=group, messages=messages, events=events, requests=requests, join_requests=join_requests, polls=polls, user_voted_polls=user_voted_polls)
+
+@group_bp.route('/<int:group_id>/polls/create', methods=['POST'])
+@login_required
+def create_poll(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash(_('Only admins can create polls.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    question = request.form.get('question')
+    options_str = request.form.get('options') # Comma separated
+
+    if question and options_str:
+        poll = GroupPoll(group_id=group.id, created_by=current_user.id, question=question)
+        db.session.add(poll)
+        db.session.commit()
+
+        options = [o.strip() for o in options_str.split(',') if o.strip()]
+        for opt_text in options:
+            opt = GroupPollOption(poll_id=poll.id, text=opt_text)
+            db.session.add(opt)
+        db.session.commit()
+        flash(_('Poll created.'))
+
+    return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/polls/<int:poll_id>/vote', methods=['POST'])
+@login_required
+def vote_poll(poll_id):
+    poll = GroupPoll.query.get_or_404(poll_id)
+    if current_user not in poll.group.members:
+        flash(_('Unauthorized'))
+        return redirect(url_for('group.detail', group_id=poll.group_id))
+
+    option_id = request.form.get('option_id')
+    if option_id:
+        existing = GroupPollVote.query.filter_by(poll_id=poll.id, user_id=current_user.id).first()
+        if existing:
+            existing.option_id = option_id # Change vote
+        else:
+            vote = GroupPollVote(poll_id=poll.id, option_id=option_id, user_id=current_user.id)
+            db.session.add(vote)
+        db.session.commit()
+        flash(_('Vote recorded.'))
+
+    return redirect(url_for('group.detail', group_id=poll.group_id))
+
+@group_bp.route('/<int:group_id>/request', methods=['POST'])
+@login_required
+def add_request(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        flash(_('You must be a member to post requests.'))
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    content = request.form.get('content')
+    if content:
+        req = GroupRequest(content=content, user_id=current_user.id, group_id=group.id)
+        db.session.add(req)
+        db.session.commit()
+        flash(_('Prayer request posted.'))
+
+    return redirect(url_for('group.detail', group_id=group_id))
+
+@group_bp.route('/request/<int:request_id>/pray', methods=['POST'])
+@login_required
+def pray_request(request_id):
+    req = GroupRequest.query.get_or_404(request_id)
+    if current_user not in req.group.members:
+         flash(_('You must be a member to pray for this request.'))
+         return redirect(url_for('group.detail', group_id=req.group_id))
+
+    req.prayer_count += 1
+    db.session.commit()
+    flash(_('You prayed for this request.'))
+
+    return redirect(url_for('group.detail', group_id=req.group_id))
+
+@group_bp.route('/<int:group_id>/events/create', methods=['POST'])
+@login_required
+def create_event(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash(_('Only admins can create events.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+    datetime_str = request.form.get('event_datetime')
+
+    if title and datetime_str:
+        try:
+            event_dt = datetime.strptime(datetime_str, '%Y-%m-%dT%H:%M')
+            event = GroupEvent(
+                group_id=group.id,
+                created_by=current_user.id,
+                title=title,
+                description=description,
+                event_datetime=event_dt
+            )
+            db.session.add(event)
+            db.session.commit()
+            flash(_('Event created.'))
+        except ValueError:
+            flash(_('Invalid date format.'))
+
+    return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/events/<int:event_id>/ics')
+@login_required
+def export_event_ics(event_id):
+    event = GroupEvent.query.get_or_404(event_id)
+    if current_user not in event.group.members:
+        flash(_('Unauthorized'))
+        return redirect(url_for('group.index'))
+
+    c = Calendar()
+    e = IcsEvent()
+    e.name = event.title
+    e.begin = event.event_datetime
+    e.description = event.description or ""
+    c.events.add(e)
+
+    response = make_response(str(c))
+    response.headers["Content-Disposition"] = f"attachment; filename={event.title}.ics"
+    response.headers["Content-Type"] = "text/calendar"
+    return response
+
+@group_bp.route('/create', methods=['POST'])
+@login_required
+def create_group():
+    name = request.form.get('name')
+    description = request.form.get('description')
+    purpose = request.form.get('purpose')
+
+    if not name:
+        flash('Group name is required.')
+        return redirect(url_for('group.index'))
+
+    group = PrayerGroup(name=name, description=description, purpose=purpose, created_by=current_user.id)
+    group.members.append(current_user)
+    group.admins.append(current_user) # Creator is admin
+    db.session.add(group)
+    db.session.commit()
+    flash('Prayer group created.')
+    return redirect(url_for('group.index'))
+
+@group_bp.route('/<int:group_id>/edit', methods=['POST'])
+@login_required
+def edit_group(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.admins:
+        flash(_('Only admins can edit the group.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    group.name = request.form.get('name')
+    group.description = request.form.get('description')
+    group.purpose = request.form.get('purpose')
+    db.session.commit()
+    flash(_('Group updated.'))
+    return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/<int:group_id>/message', methods=['POST'])
+@login_required
+def post_message(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user not in group.members:
+        return redirect(url_for('group.index'))
+
+    content = request.form.get('content')
+    if content:
+        msg = GroupMessage(group_id=group.id, user_id=current_user.id, content=content)
+        db.session.add(msg)
+        db.session.commit()
+        # Here we could trigger notifications for group members
+    return redirect(url_for('group.detail', group_id=group_id))
+
+@group_bp.route('/<int:group_id>/promote/<int:user_id>', methods=['POST'])
+@login_required
+def promote_member(group_id, user_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+
+    if current_user not in group.admins:
+        flash('Only group admins can promote members.')
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    member = User.query.get_or_404(user_id)
+    if member in group.members and member not in group.admins:
+        group.admins.append(member)
+        db.session.commit()
+        flash(f'{member.username} promoted to admin.')
+
+    return redirect(url_for('group.detail', group_id=group_id))
+
+@group_bp.route('/join/<int:group_id>', methods=['POST'])
+@login_required
+def join_group(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user in group.members:
+        return redirect(url_for('group.detail', group_id=group_id))
+
+    # Check if already requested
+    existing_req = GroupJoinRequest.query.filter_by(user_id=current_user.id, group_id=group.id).first()
+    if existing_req:
+        flash(_('You have already requested to join this group.'))
+    else:
+        req = GroupJoinRequest(user_id=current_user.id, group_id=group.id)
+        db.session.add(req)
+        db.session.commit()
+        flash(_('Join request sent. Waiting for admin approval.'))
+
+    return redirect(url_for('group.index'))
+
+@group_bp.route('/join_request/<int:request_id>/<string:action>', methods=['POST'])
+@login_required
+def handle_join_request(request_id, action):
+    req = GroupJoinRequest.query.get_or_404(request_id)
+    group = PrayerGroup.query.get(req.group_id)
+
+    if current_user not in group.admins:
+        flash(_('Only admins can approve/reject requests.'))
+        return redirect(url_for('group.detail', group_id=group.id))
+
+    if action == 'approve':
+        group.members.append(req.user)
+        db.session.delete(req)
+        db.session.commit()
+        flash(_('User approved and added to group.'))
+    elif action == 'reject':
+        db.session.delete(req)
+        db.session.commit()
+        flash(_('Join request rejected.'))
+
+    return redirect(url_for('group.detail', group_id=group.id))
+
+@group_bp.route('/leave/<int:group_id>', methods=['POST'])
+@login_required
+def leave_group(group_id):
+    group = PrayerGroup.query.get_or_404(group_id)
+    if current_user in group.members:
+        group.members.remove(current_user)
+        db.session.commit()
+        flash(f'Left group {group.name}.')
+    return redirect(url_for('group.index'))

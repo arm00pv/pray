@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-primary">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">SOAP Journaling</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead text-muted">{{ _('Scripture, Observation, Application, Prayer') }}</p>
+                <form action="{{ url_for('entry.submit_soap') }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">S - Scripture</label>
+                        <textarea name="scripture" class="form-control" rows="2" placeholder="{{ _('Write down the Bible verse...') }}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">O - Observation</label>
+                        <textarea name="observation" class="form-control" rows="3" placeholder="{{ _('What stands out to you in this passage? Who is the audience? Is there a repetition of words?') }}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">A - Application</label>
+                        <textarea name="application" class="form-control" rows="3" placeholder="{{ _('How can you apply this truth to your life today?') }}" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">P - Prayer</label>
+                        <textarea name="prayer" class="form-control" rows="3" placeholder="{{ _('Write a prayer asking God to help you apply this scripture.') }}" required></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">{{ _('Save Journal Entry') }}</button>
+                        <a href="{{ url_for('entry.user_dashboard') }}" class="btn btn-outline-secondary">{{ _('Cancel') }}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

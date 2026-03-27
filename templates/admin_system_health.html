@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>{{ _('System Health Dashboard') }}</h2>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary mb-3">{{ _('Back to Dashboard') }}</a>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-info text-white">{{ _('CPU Usage') }}</div>
+                    <div class="card-body text-center">
+                        <h1 class="display-1">{{ stats.cpu }}%</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-dark">{{ _('Memory Usage') }}</div>
+                    <div class="card-body text-center">
+                        <h1 class="display-1">{{ stats.memory }}%</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-secondary text-white">{{ _('Disk Usage') }}</div>
+                    <div class="card-body text-center">
+                        <h1 class="display-1">{{ stats.disk }}%</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">{{ _('Database Status') }}</div>
+                    <div class="card-body text-center">
+                        <h3>{{ stats.db_status }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

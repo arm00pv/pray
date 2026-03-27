@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="text-center mb-4">{{ _('Answered Prayers Timeline') }}</h2>
+        <p class="text-center text-muted mb-5">{{ _('A journey of faith and gratitude.') }}</p>
+
+        <div class="timeline">
+            {% for testimony in testimonies %}
+            <div class="card mb-4 border-start border-4 border-success">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="card-title text-primary">{{ testimony.author.username }}</h5>
+                        <small class="text-muted bg-light px-2 py-1 rounded">{{ testimony.created_at.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                    <p class="card-text lead" style="font-size: 1.1rem;">"{{ testimony.content }}"</p>
+                    <div class="text-end">
+                        <span class="badge bg-success-subtle text-success">🙌 {{ testimony.praises|length }}</span>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div class="text-center">
+                    <p>{{ _('No testimonies yet.') }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
